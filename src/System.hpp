@@ -4,6 +4,7 @@
 #include "Body.hpp"
 #include <vector>
 #include <glm/glm.hpp>
+#include <memory>
 
 class System {
     private:
@@ -12,9 +13,11 @@ class System {
         float circTime;
         std::vector<System> dependants;
     public:
-        System(const Body& b, const glm::vec3& d, const float t, const std::vector<System>& dep) : central(b), displacement(d), circTime(t), dependants(dep) {}
+        System(const Body& b, const glm::vec3& d, const float t) : central(b), displacement(d), circTime(t) {}
         ~System() {}
         void render(const glm::mat4& parentMatrix);
+        glm::mat4 position(float time);
+        void attachSystem(System& dep) { dependants.push_back(dep); }
 };
 
 #endif

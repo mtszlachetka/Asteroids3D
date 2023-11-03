@@ -142,6 +142,54 @@ App/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/App.dir/build.make CMakeFiles/App.dir/build
 .PHONY : App/fast
 
+src/Camera.o: src/Camera.cpp.o
+.PHONY : src/Camera.o
+
+# target to build an object file
+src/Camera.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SupportLib.dir/build.make CMakeFiles/SupportLib.dir/src/Camera.cpp.o
+.PHONY : src/Camera.cpp.o
+
+src/Camera.i: src/Camera.cpp.i
+.PHONY : src/Camera.i
+
+# target to preprocess a source file
+src/Camera.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SupportLib.dir/build.make CMakeFiles/SupportLib.dir/src/Camera.cpp.i
+.PHONY : src/Camera.cpp.i
+
+src/Camera.s: src/Camera.cpp.s
+.PHONY : src/Camera.s
+
+# target to generate assembly for a file
+src/Camera.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SupportLib.dir/build.make CMakeFiles/SupportLib.dir/src/Camera.cpp.s
+.PHONY : src/Camera.cpp.s
+
+src/IOProcessor.o: src/IOProcessor.cpp.o
+.PHONY : src/IOProcessor.o
+
+# target to build an object file
+src/IOProcessor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SupportLib.dir/build.make CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o
+.PHONY : src/IOProcessor.cpp.o
+
+src/IOProcessor.i: src/IOProcessor.cpp.i
+.PHONY : src/IOProcessor.i
+
+# target to preprocess a source file
+src/IOProcessor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SupportLib.dir/build.make CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.i
+.PHONY : src/IOProcessor.cpp.i
+
+src/IOProcessor.s: src/IOProcessor.cpp.s
+.PHONY : src/IOProcessor.s
+
+# target to generate assembly for a file
+src/IOProcessor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SupportLib.dir/build.make CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.s
+.PHONY : src/IOProcessor.cpp.s
+
 src/ModelLoader.o: src/ModelLoader.cpp.o
 .PHONY : src/ModelLoader.o
 
@@ -248,6 +296,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... App"
 	@echo "... SupportLib"
+	@echo "... src/Camera.o"
+	@echo "... src/Camera.i"
+	@echo "... src/Camera.s"
+	@echo "... src/IOProcessor.o"
+	@echo "... src/IOProcessor.i"
+	@echo "... src/IOProcessor.s"
 	@echo "... src/ModelLoader.o"
 	@echo "... src/ModelLoader.i"
 	@echo "... src/ModelLoader.s"

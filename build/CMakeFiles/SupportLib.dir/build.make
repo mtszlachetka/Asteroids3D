@@ -111,11 +111,41 @@ CMakeFiles/SupportLib.dir/src/System.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SupportLib.dir/src/System.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/Sol/src/System.cpp -o CMakeFiles/SupportLib.dir/src/System.cpp.s
 
+CMakeFiles/SupportLib.dir/src/Camera.cpp.o: CMakeFiles/SupportLib.dir/flags.make
+CMakeFiles/SupportLib.dir/src/Camera.cpp.o: /home/Mateusz/projects/Sol/src/Camera.cpp
+CMakeFiles/SupportLib.dir/src/Camera.cpp.o: CMakeFiles/SupportLib.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/Sol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/SupportLib.dir/src/Camera.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SupportLib.dir/src/Camera.cpp.o -MF CMakeFiles/SupportLib.dir/src/Camera.cpp.o.d -o CMakeFiles/SupportLib.dir/src/Camera.cpp.o -c /home/Mateusz/projects/Sol/src/Camera.cpp
+
+CMakeFiles/SupportLib.dir/src/Camera.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SupportLib.dir/src/Camera.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/Sol/src/Camera.cpp > CMakeFiles/SupportLib.dir/src/Camera.cpp.i
+
+CMakeFiles/SupportLib.dir/src/Camera.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SupportLib.dir/src/Camera.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/Sol/src/Camera.cpp -o CMakeFiles/SupportLib.dir/src/Camera.cpp.s
+
+CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o: CMakeFiles/SupportLib.dir/flags.make
+CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o: /home/Mateusz/projects/Sol/src/IOProcessor.cpp
+CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o: CMakeFiles/SupportLib.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/Sol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o -MF CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o.d -o CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o -c /home/Mateusz/projects/Sol/src/IOProcessor.cpp
+
+CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/Sol/src/IOProcessor.cpp > CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.i
+
+CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/Sol/src/IOProcessor.cpp -o CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.s
+
 # Object files for target SupportLib
 SupportLib_OBJECTS = \
 "CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o" \
 "CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o" \
-"CMakeFiles/SupportLib.dir/src/System.cpp.o"
+"CMakeFiles/SupportLib.dir/src/System.cpp.o" \
+"CMakeFiles/SupportLib.dir/src/Camera.cpp.o" \
+"CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o"
 
 # External object files for target SupportLib
 SupportLib_EXTERNAL_OBJECTS =
@@ -123,9 +153,11 @@ SupportLib_EXTERNAL_OBJECTS =
 libSupportLib.a: CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o
 libSupportLib.a: CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o
 libSupportLib.a: CMakeFiles/SupportLib.dir/src/System.cpp.o
+libSupportLib.a: CMakeFiles/SupportLib.dir/src/Camera.cpp.o
+libSupportLib.a: CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o
 libSupportLib.a: CMakeFiles/SupportLib.dir/build.make
 libSupportLib.a: CMakeFiles/SupportLib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/Mateusz/projects/Sol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libSupportLib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/Mateusz/projects/Sol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library libSupportLib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/SupportLib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SupportLib.dir/link.txt --verbose=$(VERBOSE)
 

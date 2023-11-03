@@ -2,6 +2,8 @@
 #include "ShaderLoader.hpp"
 #include "Body.hpp"
 #include "System.hpp"
+#include "Camera.hpp"
+#include "IOProcessor.hpp"
 #include <iostream>
 #include <GLFW/glfw3.h>
 #include <GL/glew.h>
@@ -9,8 +11,8 @@
 
 float timeElapsed;
 GLuint program;
-
-void processInput(GLFWwindow* window);
+unsigned width = 500, height = 500;
+Camera camera(0.05f, 20.f, {1, 0, 0}, {-4, 0, 0});
 
 int main() {
 
@@ -19,7 +21,9 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(500, 500, "FirstWindow", NULL, NULL);
+    width = height = 500;
+
+    GLFWwindow* window = glfwCreateWindow(width, height, "FirstWindow", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -46,20 +50,30 @@ int main() {
     Body Sun{sphereContext, glm::vec3(0.9, 0.9, 0.2), 1.f};
     Body Earth{sphereContext, glm::vec3(0., 0.1, 0.9), 0.5f};
     Body Moon{sphereContext, glm::vec3(0.7, 0.7, 0.7), 0.2f};
-    Body Venus{sphereContext, glm::vec3(0.5, 0.5, 0.), 0.5};
+    Body Venus{sphereContext, glm::vec3(0.5, 0.5, 0.), 0.5f};
+    Body Mars{sphereContext, glm::vec3(0.9, 0., 0.), 0.3f};
 
     std::vector<System> empty;
 
-    System MoonSystem(Moon, { 0., 3.f, 0. }, 10.f, empty);
-    System EarthSystem(Earth, { 0., 0., 3.5 }, 0.5f, { MoonSystem });
-    System VenusSystem(Venus, { 0., 0., -3.5}, 0.5, empty);
-    System SolSystem(Sun, glm::vec3(0.f), 0.f, { EarthSystem, VenusSystem });
+    System MoonSystem(Moon, { 0., 0., 3. }, 2.f);
+    System EarthSystem(Earth, { 0., 0., 4.5 }, 5.f);
+    System VenusSystem(Venus, { 0., 0., -3.5}, 5.f);
+    System SolSystem(Sun, glm::vec3(0.f), 0.f);
+    System MarsSystem(Mars, {0., 0., -8.}, 7.f);
 
-    glViewport(0, 0, 500, 500);
+    EarthSystem.attachSystem(MoonSystem);
+    SolSystem.attachSystem(EarthSystem);
+    SolSystem.attachSystem(VenusSystem);
+    SolSystem.attachSystem(MarsSystem);
+
+    glViewport(0, 0, width, height);
     glEnable(GL_DEPTH_TEST);
+
+    
 
     while (!glfwWindowShouldClose(window)) {
         timeElapsed = static_cast<float>(glfwGetTime());
+        IOProcessor::processInput(window, camera);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(program);

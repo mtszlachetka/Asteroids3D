@@ -3,6 +3,8 @@
 
 CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
   /home/Mateusz/projects/Sol/src/Body.hpp \
+  /home/Mateusz/projects/Sol/src/Camera.hpp \
+  /home/Mateusz/projects/Sol/src/IOProcessor.hpp \
   /home/Mateusz/projects/Sol/src/ModelLoader.hpp \
   /home/Mateusz/projects/Sol/src/ShaderLoader.hpp \
   /home/Mateusz/projects/Sol/src/System.hpp \
@@ -14,18 +16,24 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/asm/errno.h \
+  /usr/include/asm/unistd.h \
+  /usr/include/asm/unistd_64.h \
   /usr/include/assert.h \
   /usr/include/bits/atomic_wide_counter.h \
   /usr/include/bits/byteswap.h \
+  /usr/include/bits/confname.h \
   /usr/include/bits/cpu-set.h \
   /usr/include/bits/endian.h \
   /usr/include/bits/endianness.h \
+  /usr/include/bits/environments.h \
   /usr/include/bits/errno.h \
   /usr/include/bits/floatn-common.h \
   /usr/include/bits/floatn.h \
   /usr/include/bits/flt-eval-method.h \
   /usr/include/bits/fp-fast.h \
   /usr/include/bits/fp-logb.h \
+  /usr/include/bits/getopt_core.h \
+  /usr/include/bits/getopt_posix.h \
   /usr/include/bits/iscanonical.h \
   /usr/include/bits/libc-header-start.h \
   /usr/include/bits/libm-simd-decl-stubs.h \
@@ -38,6 +46,7 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
   /usr/include/bits/mathcalls.h \
   /usr/include/bits/posix1_lim.h \
   /usr/include/bits/posix2_lim.h \
+  /usr/include/bits/posix_opt.h \
   /usr/include/bits/pthread_stack_min-dynamic.h \
   /usr/include/bits/pthreadtypes-arch.h \
   /usr/include/bits/pthreadtypes.h \
@@ -50,6 +59,7 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
   /usr/include/bits/stdlib-float.h \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
+  /usr/include/bits/syscall.h \
   /usr/include/bits/thread-shared-types.h \
   /usr/include/bits/time.h \
   /usr/include/bits/time64.h \
@@ -83,16 +93,23 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
   /usr/include/bits/typesizes.h \
   /usr/include/bits/uintn-identity.h \
   /usr/include/bits/uio_lim.h \
+  /usr/include/bits/unistd_ext.h \
   /usr/include/bits/waitflags.h \
   /usr/include/bits/waitstatus.h \
   /usr/include/bits/wchar.h \
   /usr/include/bits/wctype-wchar.h \
   /usr/include/bits/wordsize.h \
   /usr/include/bits/xopen_lim.h \
+  /usr/include/c++/13.2.1/backward/auto_ptr.h \
   /usr/include/c++/13.2.1/backward/binders.h \
   /usr/include/c++/13.2.1/bit \
+  /usr/include/c++/13.2.1/bits/align.h \
   /usr/include/c++/13.2.1/bits/alloc_traits.h \
+  /usr/include/c++/13.2.1/bits/allocated_ptr.h \
   /usr/include/c++/13.2.1/bits/allocator.h \
+  /usr/include/c++/13.2.1/bits/atomic_base.h \
+  /usr/include/c++/13.2.1/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/13.2.1/bits/atomic_wait.h \
   /usr/include/c++/13.2.1/bits/basic_ios.h \
   /usr/include/c++/13.2.1/bits/basic_ios.tcc \
   /usr/include/c++/13.2.1/bits/basic_string.h \
@@ -130,13 +147,19 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
   /usr/include/c++/13.2.1/bits/predefined_ops.h \
   /usr/include/c++/13.2.1/bits/ptr_traits.h \
   /usr/include/c++/13.2.1/bits/range_access.h \
+  /usr/include/c++/13.2.1/bits/ranges_algobase.h \
   /usr/include/c++/13.2.1/bits/ranges_base.h \
   /usr/include/c++/13.2.1/bits/ranges_cmp.h \
+  /usr/include/c++/13.2.1/bits/ranges_uninitialized.h \
   /usr/include/c++/13.2.1/bits/ranges_util.h \
   /usr/include/c++/13.2.1/bits/refwrap.h \
   /usr/include/c++/13.2.1/bits/requires_hosted.h \
+  /usr/include/c++/13.2.1/bits/shared_ptr.h \
+  /usr/include/c++/13.2.1/bits/shared_ptr_atomic.h \
+  /usr/include/c++/13.2.1/bits/shared_ptr_base.h \
   /usr/include/c++/13.2.1/bits/specfun.h \
   /usr/include/c++/13.2.1/bits/std_abs.h \
+  /usr/include/c++/13.2.1/bits/std_mutex.h \
   /usr/include/c++/13.2.1/bits/stl_algobase.h \
   /usr/include/c++/13.2.1/bits/stl_bvector.h \
   /usr/include/c++/13.2.1/bits/stl_construct.h \
@@ -145,12 +168,15 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
   /usr/include/c++/13.2.1/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13.2.1/bits/stl_iterator_base_types.h \
   /usr/include/c++/13.2.1/bits/stl_pair.h \
+  /usr/include/c++/13.2.1/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/13.2.1/bits/stl_tempbuf.h \
   /usr/include/c++/13.2.1/bits/stl_uninitialized.h \
   /usr/include/c++/13.2.1/bits/stl_vector.h \
   /usr/include/c++/13.2.1/bits/streambuf.tcc \
   /usr/include/c++/13.2.1/bits/streambuf_iterator.h \
   /usr/include/c++/13.2.1/bits/string_view.tcc \
   /usr/include/c++/13.2.1/bits/stringfwd.h \
+  /usr/include/c++/13.2.1/bits/unique_ptr.h \
   /usr/include/c++/13.2.1/bits/uses_allocator.h \
   /usr/include/c++/13.2.1/bits/uses_allocator_args.h \
   /usr/include/c++/13.2.1/bits/utility.h \
@@ -173,8 +199,10 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
   /usr/include/c++/13.2.1/debug/assertions.h \
   /usr/include/c++/13.2.1/debug/debug.h \
   /usr/include/c++/13.2.1/exception \
+  /usr/include/c++/13.2.1/ext/aligned_buffer.h \
   /usr/include/c++/13.2.1/ext/alloc_traits.h \
   /usr/include/c++/13.2.1/ext/atomicity.h \
+  /usr/include/c++/13.2.1/ext/concurrence.h \
   /usr/include/c++/13.2.1/ext/numeric_traits.h \
   /usr/include/c++/13.2.1/ext/string_conversions.h \
   /usr/include/c++/13.2.1/ext/type_traits.h \
@@ -184,9 +212,12 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
   /usr/include/c++/13.2.1/iostream \
   /usr/include/c++/13.2.1/istream \
   /usr/include/c++/13.2.1/limits \
+  /usr/include/c++/13.2.1/memory \
   /usr/include/c++/13.2.1/new \
   /usr/include/c++/13.2.1/numbers \
   /usr/include/c++/13.2.1/ostream \
+  /usr/include/c++/13.2.1/pstl/execution_defs.h \
+  /usr/include/c++/13.2.1/pstl/glue_memory_defs.h \
   /usr/include/c++/13.2.1/pstl/pstl_config.h \
   /usr/include/c++/13.2.1/stdexcept \
   /usr/include/c++/13.2.1/streambuf \
@@ -361,6 +392,7 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
   /usr/include/gnu/stubs-64.h \
   /usr/include/gnu/stubs.h \
   /usr/include/limits.h \
+  /usr/include/linux/close_range.h \
   /usr/include/linux/errno.h \
   /usr/include/linux/limits.h \
   /usr/include/locale.h \
@@ -374,8 +406,11 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
   /usr/include/sys/cdefs.h \
   /usr/include/sys/select.h \
   /usr/include/sys/single_threaded.h \
+  /usr/include/sys/syscall.h \
   /usr/include/sys/types.h \
+  /usr/include/syscall.h \
   /usr/include/time.h \
+  /usr/include/unistd.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/float.h \
@@ -391,6 +426,10 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdint.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdarg.h:
+
+/usr/include/unistd.h:
+
+/usr/include/syscall.h:
 
 /usr/include/sys/single_threaded.h:
 
@@ -486,8 +525,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/glm/ext/matrix_float3x4.hpp:
 
-/usr/include/glm/ext/matrix_float3x3_precision.hpp:
-
 /usr/include/glm/ext/matrix_float3x3.hpp:
 
 /usr/include/glm/ext/matrix_float3x2_precision.hpp:
@@ -511,8 +548,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 /usr/include/glm/ext/matrix_double4x3_precision.hpp:
 
 /usr/include/glm/ext/matrix_double4x2.hpp:
-
-/usr/include/glm/ext/matrix_double3x4_precision.hpp:
 
 /usr/include/glm/ext/matrix_double3x3_precision.hpp:
 
@@ -550,41 +585,45 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/glm/detail/type_mat4x4.hpp:
 
-/usr/include/c++/13.2.1/bits/predefined_ops.h:
+/usr/include/glm/detail/type_mat4x2.inl:
 
-/usr/include/glm/ext/vector_bool4_precision.hpp:
+/usr/include/glm/detail/type_mat4x2.hpp:
 
-/usr/include/alloca.h:
+/usr/include/glm/detail/type_mat3x2.hpp:
 
-/usr/include/glm/ext/matrix_float4x4.hpp:
+/usr/include/sys/syscall.h:
 
-/usr/include/c++/13.2.1/cstdio:
+/usr/include/glm/detail/type_mat2x2.inl:
 
-/usr/include/c++/13.2.1/tr1/gamma.tcc:
+/usr/include/glm/detail/type_half.inl:
 
-/usr/include/c++/13.2.1/bits/postypes.h:
+/usr/include/glm/detail/type_half.hpp:
 
-/usr/include/gnu/stubs-64.h:
+/usr/include/glm/detail/setup.hpp:
 
-/usr/include/c++/13.2.1/bits/streambuf.tcc:
+/usr/include/glm/detail/type_mat2x3.hpp:
 
-/usr/include/time.h:
+/usr/include/glm/detail/qualifier.hpp:
 
-/usr/include/c++/13.2.1/bits/max_size_type.h:
+/usr/include/glm/detail/func_trigonometric.inl:
 
-/usr/include/bits/timesize.h:
+/usr/include/glm/detail/func_packing.inl:
 
-/usr/include/c++/13.2.1/bits/functional_hash.h:
+/usr/include/stdlib.h:
 
-/usr/include/GL/gl.h:
+/usr/include/glm/detail/func_integer.inl:
+
+/usr/include/glm/detail/func_geometric.inl:
+
+/usr/include/glm/detail/func_common.inl:
+
+/usr/include/glm/detail/_vectorize.hpp:
 
 /usr/include/c++/13.2.1/bits/exception_ptr.h:
 
 /usr/include/c++/13.2.1/bits/exception.h:
 
 /usr/include/bits/setjmp.h:
-
-/usr/include/c++/13.2.1/bits/stl_iterator_base_funcs.h:
 
 /usr/include/glm/ext/vector_int4_sized.hpp:
 
@@ -595,6 +634,10 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 /usr/include/glm/ext/matrix_double2x4_precision.hpp:
 
 /usr/include/c++/13.2.1/bits/uses_allocator_args.h:
+
+/usr/include/glm/detail/type_mat3x3.hpp:
+
+/usr/include/c++/13.2.1/tr1/hypergeometric.tcc:
 
 /usr/include/c++/13.2.1/bits/char_traits.h:
 
@@ -608,7 +651,29 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/bits/types/struct_tm.h:
 
-/usr/include/c++/13.2.1/bit:
+/usr/include/bits/long-double.h:
+
+/usr/include/glm/detail/type_mat2x4.hpp:
+
+/usr/include/c++/13.2.1/bits/ranges_cmp.h:
+
+/usr/include/glm/ext/matrix_float3x3_precision.hpp:
+
+/usr/include/c++/13.2.1/bits/shared_ptr.h:
+
+/usr/include/c++/13.2.1/bits/atomic_lockfree_defines.h:
+
+/usr/include/glm/ext/vector_uint2.hpp:
+
+/usr/include/c++/13.2.1/bits/stl_iterator.h:
+
+/usr/include/c++/13.2.1/cmath:
+
+/usr/include/c++/13.2.1/bits/invoke.h:
+
+/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
+
+/usr/include/features-time64.h:
 
 /usr/include/bits/xopen_lim.h:
 
@@ -618,9 +683,17 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/c++/13.2.1/backward/binders.h:
 
+/usr/include/bits/timesize.h:
+
+/usr/include/c++/13.2.1/bits/stl_iterator_base_funcs.h:
+
+/usr/include/bits/unistd_ext.h:
+
 /usr/include/glm/ext/scalar_int_sized.hpp:
 
 /usr/include/bits/types/wint_t.h:
+
+/usr/include/c++/13.2.1/bits/predefined_ops.h:
 
 /usr/include/bits/types/struct_timespec.h:
 
@@ -648,37 +721,55 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/c++/13.2.1/bits/allocator.h:
 
-/usr/include/bits/libm-simd-decl-stubs.h:
-
-/usr/include/c++/13.2.1/bits/memoryfwd.h:
-
 /usr/include/glm/ext/matrix_double3x4.hpp:
 
 /usr/include/bits/types/clock_t.h:
+
+/usr/include/asm/unistd_64.h:
 
 /usr/include/bits/types/__fpos_t.h:
 
 /usr/include/bits/mathcalls.h:
 
+/usr/include/c++/13.2.1/bits/unique_ptr.h:
+
 /usr/include/c++/13.2.1/bits/localefwd.h:
 
 /usr/include/c++/13.2.1/type_traits:
 
-/usr/include/c++/13.2.1/tr1/hypergeometric.tcc:
+/usr/include/glm/detail/compute_vector_relational.hpp:
 
-/usr/include/glm/detail/type_mat3x3.hpp:
+/usr/include/bits/types/__sigset_t.h:
 
 /usr/include/c++/13.2.1/cerrno:
 
-/usr/include/gnu/stubs.h:
-
-/usr/include/c++/13.2.1/bits/locale_facets.tcc:
+/usr/include/c++/13.2.1/backward/auto_ptr.h:
 
 /usr/include/c++/13.2.1/bits/utility.h:
 
-/usr/include/bits/types/__mbstate_t.h:
+/usr/include/c++/13.2.1/limits:
+
+/usr/include/bits/timex.h:
+
+/usr/include/bits/errno.h:
+
+/home/Mateusz/projects/Sol/src/ShaderLoader.hpp:
+
+/usr/include/bits/time64.h:
+
+/usr/include/bits/stdlib-float.h:
+
+/usr/include/c++/13.2.1/bits/basic_string.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/c++/13.2.1/bits/alloc_traits.h:
+
+/usr/include/c++/13.2.1/bits/cpp_type_traits.h:
 
 /usr/include/bits/time.h:
+
+/usr/include/bits/types/__mbstate_t.h:
 
 /home/Mateusz/projects/Sol/src/Body.hpp:
 
@@ -686,45 +777,27 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/bits/stdio_lim.h:
 
-/usr/include/bits/local_lim.h:
-
-/usr/include/c++/13.2.1/bits/locale_facets.h:
-
-/usr/include/bits/flt-eval-method.h:
-
-/usr/include/bits/types/FILE.h:
-
-/usr/include/c++/13.2.1/bits/stl_uninitialized.h:
-
-/usr/include/c++/13.2.1/string_view:
-
-/usr/include/bits/atomic_wide_counter.h:
-
-/usr/include/c++/13.2.1/concepts:
-
-/usr/include/bits/locale.h:
-
-/usr/include/glm/ext/vector_uint3.hpp:
-
-/usr/include/bits/libc-header-start.h:
-
-/usr/include/bits/iscanonical.h:
-
-/usr/include/bits/fp-logb.h:
-
-/usr/include/asm-generic/errno.h:
-
-/usr/include/c++/13.2.1/bits/ranges_util.h:
+/usr/include/bits/thread-shared-types.h:
 
 /usr/include/bits/floatn.h:
 
 /usr/include/bits/floatn-common.h:
+
+/usr/include/c++/13.2.1/bits/functional_hash.h:
+
+/usr/include/GL/gl.h:
+
+/usr/include/glm/ext/vector_int2.hpp:
+
+/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/ctype_base.h:
 
 /usr/include/glm/ext/vector_double2_precision.hpp:
 
 /usr/include/c++/13.2.1/bits/charconv.h:
 
 /usr/include/bits/uintn-identity.h:
+
+/usr/include/c++/13.2.1/bits/std_mutex.h:
 
 /usr/include/glm/ext/matrix_double4x2_precision.hpp:
 
@@ -736,83 +809,45 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/c++/13.2.1/ext/alloc_traits.h:
 
+/usr/include/bits/confname.h:
+
+/usr/include/c++/13.2.1/bits/functexcept.h:
+
+/usr/include/bits/uio_lim.h:
+
+/usr/include/bits/math-vector.h:
+
+/usr/include/c++/13.2.1/bits/stl_uninitialized.h:
+
+/usr/include/c++/13.2.1/string_view:
+
+/usr/include/bits/atomic_wide_counter.h:
+
+/usr/include/glm/detail/type_mat2x4.inl:
+
+/usr/include/bits/posix_opt.h:
+
+/usr/include/c++/13.2.1/concepts:
+
+/usr/include/bits/local_lim.h:
+
 /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stddef.h:
 
 /usr/include/glm/ext/vector_int3_sized.hpp:
 
 /usr/include/assert.h:
 
-/usr/include/bits/types/struct_FILE.h:
+/usr/include/bits/endian.h:
 
-/usr/include/c++/13.2.1/cstdlib:
+/usr/include/c++/13.2.1/cfloat:
 
-/usr/include/c++/13.2.1/iosfwd:
+/usr/include/c++/13.2.1/clocale:
 
-/usr/include/bits/errno.h:
+/usr/include/c++/13.2.1/pstl/execution_defs.h:
 
-/usr/include/bits/timex.h:
+/usr/include/c++/13.2.1/bit:
 
-/home/Mateusz/projects/Sol/src/ShaderLoader.hpp:
-
-/usr/include/asm-generic/errno-base.h:
-
-/usr/include/bits/wctype-wchar.h:
-
-/usr/include/c++/13.2.1/bits/nested_exception.h:
-
-/home/Mateusz/projects/Sol/src/ModelLoader.hpp:
-
-/usr/include/glm/detail/func_vector_relational.inl:
-
-/usr/include/c++/13.2.1/bits/move.h:
-
-/usr/include/c++/13.2.1/bits/stl_iterator_base_types.h:
-
-/usr/include/bits/endianness.h:
-
-/usr/include/c++/13.2.1/tuple:
-
-/usr/include/GL/glu.h:
-
-/usr/include/bits/long-double.h:
-
-/usr/include/c++/13.2.1/bits/iterator_concepts.h:
-
-/usr/include/c++/13.2.1/bits/refwrap.h:
-
-/usr/include/c++/13.2.1/bits/basic_string.h:
-
-/usr/include/sys/select.h:
-
-/usr/include/c++/13.2.1/bits/alloc_traits.h:
-
-/usr/include/c++/13.2.1/bits/cpp_type_traits.h:
-
-/usr/include/bits/time64.h:
-
-/usr/include/bits/stdlib-float.h:
-
-/usr/include/bits/types/timer_t.h:
-
-/usr/include/bits/mathcalls-narrow.h:
-
-/usr/include/glm/detail/func_common.inl:
-
-/usr/include/c++/13.2.1/bits/functexcept.h:
-
-/usr/include/bits/math-vector.h:
-
-/usr/include/bits/uio_lim.h:
-
-/usr/include/c++/13.2.1/bits/cxxabi_init_exception.h:
-
-/usr/include/glm/detail/type_half.hpp:
-
-/usr/include/wchar.h:
-
-/usr/include/glm/mat3x2.hpp:
-
-/usr/include/bits/posix1_lim.h:
+/home/Mateusz/projects/Sol/src/Camera.hpp:
 
 /usr/include/glm/ext/matrix_float2x3_precision.hpp:
 
@@ -823,6 +858,118 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 /usr/include/c++/13.2.1/bits/new_allocator.h:
 
 /usr/include/c++/13.2.1/tr1/bessel_function.tcc:
+
+/usr/include/bits/environments.h:
+
+/usr/include/bits/types/struct_FILE.h:
+
+/usr/include/glm/detail/type_mat3x4.hpp:
+
+/home/Mateusz/projects/Sol/src/main.cpp:
+
+/usr/include/c++/13.2.1/cstdlib:
+
+/usr/include/c++/13.2.1/iosfwd:
+
+/usr/include/c++/13.2.1/bits/atomic_base.h:
+
+/usr/include/asm/unistd.h:
+
+/usr/include/time.h:
+
+/usr/include/c++/13.2.1/bits/max_size_type.h:
+
+/usr/include/bits/flt-eval-method.h:
+
+/usr/include/bits/types/FILE.h:
+
+/usr/include/c++/13.2.1/bits/locale_facets.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+/usr/include/bits/wctype-wchar.h:
+
+/usr/include/glm/ext/vector_bool4_precision.hpp:
+
+/usr/include/alloca.h:
+
+/usr/include/glm/ext/matrix_float4x4.hpp:
+
+/usr/include/c++/13.2.1/cstdio:
+
+/usr/include/c++/13.2.1/tr1/gamma.tcc:
+
+/usr/include/c++/13.2.1/bits/postypes.h:
+
+/usr/include/gnu/stubs-64.h:
+
+/usr/include/c++/13.2.1/bits/streambuf.tcc:
+
+/usr/include/glm/ext/vector_uint3.hpp:
+
+/usr/include/bits/libc-header-start.h:
+
+/usr/include/c++/13.2.1/bits/allocated_ptr.h:
+
+/usr/include/GL/glu.h:
+
+/usr/include/glm/detail/type_mat2x2.hpp:
+
+/usr/include/bits/types.h:
+
+/usr/include/bits/endianness.h:
+
+/usr/include/c++/13.2.1/tuple:
+
+/usr/include/c++/13.2.1/bits/memoryfwd.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/bits/fp-logb.h:
+
+/usr/include/c++/13.2.1/bits/ranges_util.h:
+
+/usr/include/c++/13.2.1/bits/cxxabi_init_exception.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/c++/13.2.1/bits/locale_facets.tcc:
+
+/usr/include/wchar.h:
+
+/usr/include/glm/mat3x2.hpp:
+
+/usr/include/bits/posix1_lim.h:
+
+/usr/include/wctype.h:
+
+/usr/include/sched.h:
+
+/usr/include/glm/detail/func_exponential.inl:
+
+/usr/include/bits/fp-fast.h:
+
+/usr/include/bits/locale.h:
+
+/usr/include/bits/syscall.h:
+
+/usr/include/bits/iscanonical.h:
+
+/usr/include/glm/ext/matrix_double3x4_precision.hpp:
+
+/usr/include/bits/getopt_core.h:
+
+/usr/include/c++/13.2.1/ext/concurrence.h:
+
+/usr/include/bits/types/timer_t.h:
+
+/usr/include/bits/mathcalls-narrow.h:
+
+/usr/include/glm/detail/func_matrix.inl:
+
+/usr/include/c++/13.2.1/stdexcept:
+
+/usr/include/c++/13.2.1/bits/align.h:
 
 /usr/include/bits/pthread_stack_min-dynamic.h:
 
@@ -840,6 +987,8 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/bits/pthreadtypes.h:
 
+/usr/include/c++/13.2.1/bits/stl_raw_storage_iter.h:
+
 /usr/include/glm/detail/type_vec4.inl:
 
 /usr/include/c++/13.2.1/bits/string_view.tcc:
@@ -856,6 +1005,10 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/c++/13.2.1/tr1/poly_laguerre.tcc:
 
+/usr/include/asm/errno.h:
+
+/usr/include/bits/stdint-uintn.h:
+
 /usr/include/bits/types/sigset_t.h:
 
 /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h:
@@ -864,45 +1017,25 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/bits/select.h:
 
-/usr/include/c++/13.2.1/limits:
+/usr/include/glm/detail/type_mat3x4.inl:
+
+/usr/include/bits/waitstatus.h:
+
+/usr/include/bits/wchar.h:
+
+/usr/include/bits/types/struct___jmp_buf_tag.h:
 
 /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/atomic_word.h:
 
 /usr/include/bits/types/error_t.h:
 
-/usr/include/c++/13.2.1/typeinfo:
-
-/usr/include/c++/13.2.1/bits/ostream_insert.h:
-
-/usr/include/c++/13.2.1/string:
-
-/usr/include/bits/types/struct_timeval.h:
-
-/usr/include/bits/types/time_t.h:
-
-/usr/include/glm/detail/type_mat4x3.inl:
-
-/usr/include/bits/mathcalls-helper-functions.h:
-
-/usr/include/bits/thread-shared-types.h:
-
-/usr/include/bits/stdint-uintn.h:
-
-/usr/include/asm/errno.h:
-
-/usr/include/bits/endian.h:
-
-/usr/include/c++/13.2.1/cfloat:
-
-/usr/include/c++/13.2.1/clocale:
+/usr/include/GLFW/glfw3.h:
 
 /usr/include/c++/13.2.1/istream:
 
-/usr/include/GLFW/glfw3.h:
+/usr/include/c++/13.2.1/typeinfo:
 
-/home/Mateusz/projects/Sol/src/main.cpp:
-
-/usr/include/glm/detail/type_mat3x4.hpp:
+/usr/include/bits/types/struct_timeval.h:
 
 /usr/include/c++/13.2.1/bits/ios_base.h:
 
@@ -912,23 +1045,71 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/bits/types/__FILE.h:
 
+/usr/include/bits/types/time_t.h:
+
+/usr/include/glm/detail/type_mat4x3.inl:
+
+/usr/include/bits/mathcalls-helper-functions.h:
+
+/usr/include/glm/ext/vector_uint4_sized.hpp:
+
+/usr/include/glm/detail/type_mat3x3.inl:
+
+/usr/include/c++/13.2.1/bits/atomic_wait.h:
+
+/usr/include/c++/13.2.1/bits/istream.tcc:
+
+/usr/include/c++/13.2.1/bits/iterator_concepts.h:
+
+/usr/include/c++/13.2.1/bits/refwrap.h:
+
+/usr/include/linux/close_range.h:
+
+/usr/include/glm/detail/func_vector_relational.inl:
+
+/usr/include/c++/13.2.1/bits/move.h:
+
+/usr/include/c++/13.2.1/bits/stl_iterator_base_types.h:
+
+/home/Mateusz/projects/Sol/src/ModelLoader.hpp:
+
+/usr/include/c++/13.2.1/bits/nested_exception.h:
+
+/home/Mateusz/projects/Sol/src/IOProcessor.hpp:
+
+/usr/include/c++/13.2.1/bits/ostream_insert.h:
+
+/usr/include/c++/13.2.1/string:
+
 /usr/include/c++/13.2.1/bits/ptr_traits.h:
 
+/usr/include/bits/libm-simd-decl-stubs.h:
+
+/usr/include/c++/13.2.1/bits/ranges_algobase.h:
+
 /usr/include/c++/13.2.1/bits/ranges_base.h:
+
+/usr/include/c++/13.2.1/bits/ranges_uninitialized.h:
 
 /usr/include/bits/types/__fpos64_t.h:
 
 /usr/include/c++/13.2.1/bits/requires_hosted.h:
 
-/usr/include/c++/13.2.1/bits/ranges_cmp.h:
+/usr/include/c++/13.2.1/bits/shared_ptr_atomic.h:
 
-/usr/include/glm/detail/type_mat2x4.hpp:
+/usr/include/c++/13.2.1/ext/type_traits.h:
+
+/usr/include/c++/13.2.1/bits/shared_ptr_base.h:
+
+/usr/include/glm/detail/type_vec2.hpp:
+
+/usr/include/glm/detail/type_mat2x3.inl:
+
+/usr/include/c++/13.2.1/bits/specfun.h:
 
 /usr/include/c++/13.2.1/bits/memory_resource.h:
 
 /usr/include/c++/13.2.1/bits/stl_algobase.h:
-
-/usr/include/glm/detail/type_mat2x2.inl:
 
 /usr/include/c++/13.2.1/tr1/exp_integral.tcc:
 
@@ -942,35 +1123,15 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/c++/13.2.1/bits/stl_function.h:
 
-/usr/include/glm/ext/vector_uint2.hpp:
-
-/usr/include/c++/13.2.1/bits/stl_iterator.h:
-
-/usr/include/c++/13.2.1/cmath:
-
-/usr/include/c++/13.2.1/bits/invoke.h:
-
-/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
-
-/usr/include/features-time64.h:
-
 /usr/include/c++/13.2.1/bits/locale_classes.h:
 
 /usr/include/c++/13.2.1/bits/stl_pair.h:
 
+/usr/include/c++/13.2.1/bits/stl_tempbuf.h:
+
 /usr/include/c++/13.2.1/bits/stringfwd.h:
 
-/usr/include/glm/detail/type_vec2.hpp:
-
-/usr/include/c++/13.2.1/bits/specfun.h:
-
-/usr/include/glm/detail/type_mat2x3.inl:
-
 /usr/include/c++/13.2.1/bits/uses_allocator.h:
-
-/usr/include/bits/types/__sigset_t.h:
-
-/usr/include/glm/detail/compute_vector_relational.hpp:
 
 /usr/include/c++/13.2.1/bits/locale_classes.tcc:
 
@@ -983,10 +1144,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 /usr/include/glm/packing.hpp:
 
 /usr/include/c++/13.2.1/cstdint:
-
-/usr/include/stdlib.h:
-
-/usr/include/glm/detail/func_integer.inl:
 
 /usr/include/sys/types.h:
 
@@ -1006,8 +1163,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/c++/13.2.1/ext/string_conversions.h:
 
-/usr/include/c++/13.2.1/ext/type_traits.h:
-
 /usr/include/c++/13.2.1/initializer_list:
 
 /usr/include/c++/13.2.1/bits/ostream.tcc:
@@ -1018,21 +1173,27 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/c++/13.2.1/iostream:
 
+/usr/include/c++/13.2.1/memory:
+
 /usr/include/c++/13.2.1/new:
 
-/usr/include/glm/detail/type_mat2x4.inl:
+/usr/include/glm/detail/compute_common.hpp:
+
+/usr/include/c++/13.2.1/numbers:
 
 /usr/include/bits/types/__locale_t.h:
 
 /usr/include/c++/13.2.1/ostream:
 
-/usr/include/c++/13.2.1/pstl/pstl_config.h:
+/usr/include/c++/13.2.1/pstl/glue_memory_defs.h:
 
-/usr/include/glm/detail/func_geometric.inl:
+/usr/include/c++/13.2.1/pstl/pstl_config.h:
 
 /usr/include/GL/glew.h:
 
 /usr/include/c++/13.2.1/streambuf:
+
+/usr/include/c++/13.2.1/ext/aligned_buffer.h:
 
 /usr/include/c++/13.2.1/tr1/beta_function.tcc:
 
@@ -1045,8 +1206,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 /home/Mateusz/projects/Sol/src/System.hpp:
 
 /usr/include/c++/13.2.1/tr1/legendre_function.tcc:
-
-/usr/include/glm/detail/type_half.inl:
 
 /usr/include/c++/13.2.1/tr1/poly_hermite.tcc:
 
@@ -1062,21 +1221,11 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h:
 
-/usr/include/wctype.h:
+/usr/include/glm/detail/type_mat4x3.hpp:
 
-/usr/include/sched.h:
-
-/usr/include/bits/fp-fast.h:
-
-/usr/include/glm/detail/func_exponential.inl:
+/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++config.h:
 
 /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++locale.h:
-
-/usr/include/glm/detail/func_packing.inl:
-
-/usr/include/glm/ext/vector_int2.hpp:
-
-/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/ctype_base.h:
 
 /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/ctype_inline.h:
 
@@ -1102,52 +1251,8 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/Sol/src/main.cpp \
 
 /usr/include/endian.h:
 
+/usr/include/bits/getopt_posix.h:
+
 /usr/include/errno.h:
 
 /usr/include/glm/detail/_fixes.hpp:
-
-/usr/include/glm/detail/_vectorize.hpp:
-
-/usr/include/c++/13.2.1/numbers:
-
-/usr/include/glm/detail/compute_common.hpp:
-
-/usr/include/c++/13.2.1/stdexcept:
-
-/usr/include/glm/detail/func_matrix.inl:
-
-/usr/include/glm/detail/func_trigonometric.inl:
-
-/usr/include/glm/detail/setup.hpp:
-
-/usr/include/bits/types.h:
-
-/usr/include/glm/detail/type_mat2x2.hpp:
-
-/usr/include/glm/detail/qualifier.hpp:
-
-/usr/include/glm/detail/type_mat2x3.hpp:
-
-/usr/include/glm/detail/type_mat3x2.hpp:
-
-/usr/include/glm/ext/vector_uint4_sized.hpp:
-
-/usr/include/c++/13.2.1/bits/istream.tcc:
-
-/usr/include/glm/detail/type_mat3x3.inl:
-
-/usr/include/bits/wchar.h:
-
-/usr/include/bits/waitstatus.h:
-
-/usr/include/bits/types/struct___jmp_buf_tag.h:
-
-/usr/include/glm/detail/type_mat3x4.inl:
-
-/usr/include/glm/detail/type_mat4x2.hpp:
-
-/usr/include/glm/detail/type_mat4x2.inl:
-
-/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++config.h:
-
-/usr/include/glm/detail/type_mat4x3.hpp:

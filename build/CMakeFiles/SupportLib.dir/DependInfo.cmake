@@ -8,6 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/Mateusz/projects/Sol/src/Camera.cpp" "CMakeFiles/SupportLib.dir/src/Camera.cpp.o" "gcc" "CMakeFiles/SupportLib.dir/src/Camera.cpp.o.d"
+  "/home/Mateusz/projects/Sol/src/IOProcessor.cpp" "CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o" "gcc" "CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o.d"
   "/home/Mateusz/projects/Sol/src/ModelLoader.cpp" "CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o" "gcc" "CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o.d"
   "/home/Mateusz/projects/Sol/src/ShaderLoader.cpp" "CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o" "gcc" "CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o.d"
   "/home/Mateusz/projects/Sol/src/System.cpp" "CMakeFiles/SupportLib.dir/src/System.cpp.o" "gcc" "CMakeFiles/SupportLib.dir/src/System.cpp.o.d"

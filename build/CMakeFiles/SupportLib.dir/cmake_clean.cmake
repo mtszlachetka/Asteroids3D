@@ -1,4 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/SupportLib.dir/src/Camera.cpp.o"
+  "CMakeFiles/SupportLib.dir/src/Camera.cpp.o.d"
+  "CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o"
+  "CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o.d"
   "CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o"
   "CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o.d"
   "CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o"
