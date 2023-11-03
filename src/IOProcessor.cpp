@@ -1,6 +1,7 @@
 #include "IOProcessor.hpp"
 #include "Camera.hpp"
 #include <GLFW/glfw3.h>
+#include <glm/gtx/euler_angles.hpp>
 
 void IOProcessor::processInput(GLFWwindow* window, Camera& cam) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
@@ -29,5 +30,13 @@ void IOProcessor::processInput(GLFWwindow* window, Camera& cam) {
 
     if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
         cam.cameraPos -= cam.cameraUp * moveSpeed;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+        cam.cameraDir = glm::vec3(glm::eulerAngleY(angleSpeed) * glm::vec4(cam.cameraDir, 0));
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+        cam.cameraDir = glm::vec3(glm::eulerAngleY(-angleSpeed) * glm::vec4(cam.cameraDir, 0));
     }
 }
