@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/Mateusz/projects/Sol
+CMAKE_SOURCE_DIR = /home/Mateusz/projects/SpaceEngine
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/Mateusz/projects/Sol/build
+CMAKE_BINARY_DIR = /home/Mateusz/projects/SpaceEngine/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/SupportLib.dir/depend.make
@@ -70,74 +70,74 @@ include CMakeFiles/SupportLib.dir/progress.make
 include CMakeFiles/SupportLib.dir/flags.make
 
 CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o: CMakeFiles/SupportLib.dir/flags.make
-CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o: /home/Mateusz/projects/Sol/src/ModelLoader.cpp
+CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o: /home/Mateusz/projects/SpaceEngine/src/ModelLoader.cpp
 CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o: CMakeFiles/SupportLib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/Sol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o -MF CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o.d -o CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o -c /home/Mateusz/projects/Sol/src/ModelLoader.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o -MF CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o.d -o CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/ModelLoader.cpp
 
 CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/Sol/src/ModelLoader.cpp > CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/ModelLoader.cpp > CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.i
 
 CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/Sol/src/ModelLoader.cpp -o CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/ModelLoader.cpp -o CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.s
 
 CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o: CMakeFiles/SupportLib.dir/flags.make
-CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o: /home/Mateusz/projects/Sol/src/ShaderLoader.cpp
+CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o: /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.cpp
 CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o: CMakeFiles/SupportLib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/Sol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o -MF CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o.d -o CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o -c /home/Mateusz/projects/Sol/src/ShaderLoader.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o -MF CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o.d -o CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.cpp
 
 CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/Sol/src/ShaderLoader.cpp > CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.cpp > CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.i
 
 CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/Sol/src/ShaderLoader.cpp -o CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.cpp -o CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.s
 
 CMakeFiles/SupportLib.dir/src/System.cpp.o: CMakeFiles/SupportLib.dir/flags.make
-CMakeFiles/SupportLib.dir/src/System.cpp.o: /home/Mateusz/projects/Sol/src/System.cpp
+CMakeFiles/SupportLib.dir/src/System.cpp.o: /home/Mateusz/projects/SpaceEngine/src/System.cpp
 CMakeFiles/SupportLib.dir/src/System.cpp.o: CMakeFiles/SupportLib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/Sol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/SupportLib.dir/src/System.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SupportLib.dir/src/System.cpp.o -MF CMakeFiles/SupportLib.dir/src/System.cpp.o.d -o CMakeFiles/SupportLib.dir/src/System.cpp.o -c /home/Mateusz/projects/Sol/src/System.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/SupportLib.dir/src/System.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SupportLib.dir/src/System.cpp.o -MF CMakeFiles/SupportLib.dir/src/System.cpp.o.d -o CMakeFiles/SupportLib.dir/src/System.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/System.cpp
 
 CMakeFiles/SupportLib.dir/src/System.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SupportLib.dir/src/System.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/Sol/src/System.cpp > CMakeFiles/SupportLib.dir/src/System.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/System.cpp > CMakeFiles/SupportLib.dir/src/System.cpp.i
 
 CMakeFiles/SupportLib.dir/src/System.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SupportLib.dir/src/System.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/Sol/src/System.cpp -o CMakeFiles/SupportLib.dir/src/System.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/System.cpp -o CMakeFiles/SupportLib.dir/src/System.cpp.s
 
 CMakeFiles/SupportLib.dir/src/Camera.cpp.o: CMakeFiles/SupportLib.dir/flags.make
-CMakeFiles/SupportLib.dir/src/Camera.cpp.o: /home/Mateusz/projects/Sol/src/Camera.cpp
+CMakeFiles/SupportLib.dir/src/Camera.cpp.o: /home/Mateusz/projects/SpaceEngine/src/Camera.cpp
 CMakeFiles/SupportLib.dir/src/Camera.cpp.o: CMakeFiles/SupportLib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/Sol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/SupportLib.dir/src/Camera.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SupportLib.dir/src/Camera.cpp.o -MF CMakeFiles/SupportLib.dir/src/Camera.cpp.o.d -o CMakeFiles/SupportLib.dir/src/Camera.cpp.o -c /home/Mateusz/projects/Sol/src/Camera.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/SupportLib.dir/src/Camera.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SupportLib.dir/src/Camera.cpp.o -MF CMakeFiles/SupportLib.dir/src/Camera.cpp.o.d -o CMakeFiles/SupportLib.dir/src/Camera.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/Camera.cpp
 
 CMakeFiles/SupportLib.dir/src/Camera.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SupportLib.dir/src/Camera.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/Sol/src/Camera.cpp > CMakeFiles/SupportLib.dir/src/Camera.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/Camera.cpp > CMakeFiles/SupportLib.dir/src/Camera.cpp.i
 
 CMakeFiles/SupportLib.dir/src/Camera.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SupportLib.dir/src/Camera.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/Sol/src/Camera.cpp -o CMakeFiles/SupportLib.dir/src/Camera.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/Camera.cpp -o CMakeFiles/SupportLib.dir/src/Camera.cpp.s
 
 CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o: CMakeFiles/SupportLib.dir/flags.make
-CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o: /home/Mateusz/projects/Sol/src/IOProcessor.cpp
+CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o: /home/Mateusz/projects/SpaceEngine/src/IOProcessor.cpp
 CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o: CMakeFiles/SupportLib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/Sol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o -MF CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o.d -o CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o -c /home/Mateusz/projects/Sol/src/IOProcessor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o -MF CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o.d -o CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/IOProcessor.cpp
 
 CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/Sol/src/IOProcessor.cpp > CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/IOProcessor.cpp > CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.i
 
 CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/Sol/src/IOProcessor.cpp -o CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/IOProcessor.cpp -o CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.s
 
 # Object files for target SupportLib
 SupportLib_OBJECTS = \
@@ -157,7 +157,7 @@ libSupportLib.a: CMakeFiles/SupportLib.dir/src/Camera.cpp.o
 libSupportLib.a: CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o
 libSupportLib.a: CMakeFiles/SupportLib.dir/build.make
 libSupportLib.a: CMakeFiles/SupportLib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/Mateusz/projects/Sol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library libSupportLib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library libSupportLib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/SupportLib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SupportLib.dir/link.txt --verbose=$(VERBOSE)
 
@@ -170,6 +170,6 @@ CMakeFiles/SupportLib.dir/clean:
 .PHONY : CMakeFiles/SupportLib.dir/clean
 
 CMakeFiles/SupportLib.dir/depend:
-	cd /home/Mateusz/projects/Sol/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/Mateusz/projects/Sol /home/Mateusz/projects/Sol /home/Mateusz/projects/Sol/build /home/Mateusz/projects/Sol/build /home/Mateusz/projects/Sol/build/CMakeFiles/SupportLib.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/Mateusz/projects/SpaceEngine/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/Mateusz/projects/SpaceEngine /home/Mateusz/projects/SpaceEngine /home/Mateusz/projects/SpaceEngine/build /home/Mateusz/projects/SpaceEngine/build /home/Mateusz/projects/SpaceEngine/build/CMakeFiles/SupportLib.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/SupportLib.dir/depend
 

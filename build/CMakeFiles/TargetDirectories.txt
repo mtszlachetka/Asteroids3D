@@ -1,4 +1,4 @@
-/home/Mateusz/projects/Sol/build/CMakeFiles/SupportLib.dir
-/home/Mateusz/projects/Sol/build/CMakeFiles/App.dir
-/home/Mateusz/projects/Sol/build/CMakeFiles/edit_cache.dir
-/home/Mateusz/projects/Sol/build/CMakeFiles/rebuild_cache.dir
+/home/Mateusz/projects/SpaceEngine/build/CMakeFiles/SupportLib.dir
+/home/Mateusz/projects/SpaceEngine/build/CMakeFiles/App.dir
+/home/Mateusz/projects/SpaceEngine/build/CMakeFiles/edit_cache.dir
+/home/Mateusz/projects/SpaceEngine/build/CMakeFiles/rebuild_cache.dir

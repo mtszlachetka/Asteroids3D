@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/Mateusz/projects/Sol/src
+CXX_INCLUDES = -I/home/Mateusz/projects/SpaceEngine/src
 
 CXX_FLAGS = 
 

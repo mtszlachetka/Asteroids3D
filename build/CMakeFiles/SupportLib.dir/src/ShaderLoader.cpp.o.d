@@ -1,7 +1,7 @@
 CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o: \
- /home/Mateusz/projects/Sol/src/ShaderLoader.cpp \
+ /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.cpp \
  /usr/include/stdc-predef.h \
- /home/Mateusz/projects/Sol/src/ShaderLoader.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.hpp \
  /usr/include/c++/13.2.1/string \
  /usr/include/c++/13.2.1/bits/requires_hosted.h \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++config.h \

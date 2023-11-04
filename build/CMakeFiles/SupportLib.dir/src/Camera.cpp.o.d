@@ -1,7 +1,9 @@
 CMakeFiles/SupportLib.dir/src/Camera.cpp.o: \
- /home/Mateusz/projects/Sol/src/Camera.cpp /usr/include/stdc-predef.h \
- /home/Mateusz/projects/Sol/src/Camera.hpp /usr/include/glm/glm.hpp \
- /usr/include/glm/detail/_fixes.hpp /usr/include/c++/13.2.1/cmath \
+ /home/Mateusz/projects/SpaceEngine/src/Camera.cpp \
+ /usr/include/stdc-predef.h \
+ /home/Mateusz/projects/SpaceEngine/src/Camera.hpp \
+ /usr/include/glm/glm.hpp /usr/include/glm/detail/_fixes.hpp \
+ /usr/include/c++/13.2.1/cmath \
  /usr/include/c++/13.2.1/bits/requires_hosted.h \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \

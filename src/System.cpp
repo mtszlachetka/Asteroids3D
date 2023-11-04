@@ -24,14 +24,14 @@ void System::render(const glm::mat4& parentMatrix) {
     glm::mat4 rotation = glm::rotate(modelMatrix, circTime == 0 ? 0 : timeElapsed / circTime, glm::vec3(1., 0., 0.));
     glm::mat4 scale = glm::scale(modelMatrix, glm::vec3(central.scale));
 
-    glm::mat4 fullTransform =  parentMatrix * rotation * translation * scale;
+    glm::mat4 fullTransform =  parentMatrix * rotation * translation;
     
 
     for (auto& d : dependants) {
         d.render(fullTransform);
     }
 
-    glm::mat4 adjustedTransform = camera.getCamera() * fullTransform;
+    glm::mat4 adjustedTransform = camera.getCamera() * fullTransform * scale;
     
     glUniformMatrix4fv(glGetUniformLocation(program, "transformation"), 1, GL_FALSE, (float*)&adjustedTransform);
     glUniform3fv(glGetUniformLocation(program, "color"), 1, (float*)&central.color);

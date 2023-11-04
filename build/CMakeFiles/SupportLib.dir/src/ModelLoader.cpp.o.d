@@ -1,8 +1,8 @@
 CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o: \
- /home/Mateusz/projects/Sol/src/ModelLoader.cpp \
+ /home/Mateusz/projects/SpaceEngine/src/ModelLoader.cpp \
  /usr/include/stdc-predef.h \
- /home/Mateusz/projects/Sol/src/ModelLoader.hpp /usr/include/GL/glew.h \
- /usr/include/c++/13.2.1/cstddef \
+ /home/Mateusz/projects/SpaceEngine/src/ModelLoader.hpp \
+ /usr/include/GL/glew.h /usr/include/c++/13.2.1/cstddef \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \

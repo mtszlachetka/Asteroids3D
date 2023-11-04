@@ -1,7 +1,8 @@
 CMakeFiles/App.dir/src/main.cpp.o: \
- /home/Mateusz/projects/Sol/src/main.cpp /usr/include/stdc-predef.h \
- /home/Mateusz/projects/Sol/src/ModelLoader.hpp /usr/include/GL/glew.h \
- /usr/include/c++/13.2.1/cstddef \
+ /home/Mateusz/projects/SpaceEngine/src/main.cpp \
+ /usr/include/stdc-predef.h \
+ /home/Mateusz/projects/SpaceEngine/src/ModelLoader.hpp \
+ /usr/include/GL/glew.h /usr/include/c++/13.2.1/cstddef \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -111,8 +112,8 @@ CMakeFiles/App.dir/src/main.cpp.o: \
  /usr/include/c++/13.2.1/bits/uses_allocator.h \
  /usr/include/c++/13.2.1/bits/uses_allocator_args.h \
  /usr/include/c++/13.2.1/tuple /usr/include/c++/13.2.1/bits/ranges_util.h \
- /home/Mateusz/projects/Sol/src/ShaderLoader.hpp \
- /home/Mateusz/projects/Sol/src/Body.hpp /usr/include/glm/glm.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/Body.hpp /usr/include/glm/glm.hpp \
  /usr/include/glm/detail/_fixes.hpp /usr/include/c++/13.2.1/cmath \
  /usr/include/math.h /usr/include/bits/math-vector.h \
  /usr/include/bits/libm-simd-decl-stubs.h \
@@ -255,7 +256,8 @@ CMakeFiles/App.dir/src/main.cpp.o: \
  /usr/include/glm/detail/type_half.hpp \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
  /usr/include/glm/detail/func_integer.inl \
- /home/Mateusz/projects/Sol/src/System.hpp /usr/include/c++/13.2.1/vector \
+ /home/Mateusz/projects/SpaceEngine/src/System.hpp \
+ /usr/include/c++/13.2.1/vector \
  /usr/include/c++/13.2.1/bits/stl_uninitialized.h \
  /usr/include/c++/13.2.1/bits/stl_vector.h \
  /usr/include/c++/13.2.1/bits/stl_bvector.h \
@@ -319,7 +321,7 @@ CMakeFiles/App.dir/src/main.cpp.o: \
  /usr/include/c++/13.2.1/bits/ranges_algobase.h \
  /usr/include/c++/13.2.1/pstl/glue_memory_defs.h \
  /usr/include/c++/13.2.1/pstl/execution_defs.h \
- /home/Mateusz/projects/Sol/src/Camera.hpp \
- /home/Mateusz/projects/Sol/src/IOProcessor.hpp /usr/include/GLFW/glfw3.h \
- /usr/include/c++/13.2.1/iostream /usr/include/c++/13.2.1/istream \
- /usr/include/c++/13.2.1/bits/istream.tcc
+ /home/Mateusz/projects/SpaceEngine/src/Camera.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/IOProcessor.hpp \
+ /usr/include/GLFW/glfw3.h /usr/include/c++/13.2.1/iostream \
+ /usr/include/c++/13.2.1/istream /usr/include/c++/13.2.1/bits/istream.tcc

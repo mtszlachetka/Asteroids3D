@@ -1,4 +1,4 @@
-# Install script for directory: /home/Mateusz/projects/Sol
+# Install script for directory: /home/Mateusz/projects/SpaceEngine
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/Mateusz/projects/Sol/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/Mateusz/projects/SpaceEngine/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

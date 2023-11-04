@@ -1,9 +1,10 @@
 CMakeFiles/SupportLib.dir/src/System.cpp.o: \
- /home/Mateusz/projects/Sol/src/System.cpp /usr/include/stdc-predef.h \
- /home/Mateusz/projects/Sol/src/System.hpp \
- /home/Mateusz/projects/Sol/src/Body.hpp \
- /home/Mateusz/projects/Sol/src/ModelLoader.hpp /usr/include/GL/glew.h \
- /usr/include/c++/13.2.1/cstddef \
+ /home/Mateusz/projects/SpaceEngine/src/System.cpp \
+ /usr/include/stdc-predef.h \
+ /home/Mateusz/projects/SpaceEngine/src/System.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/Body.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/ModelLoader.hpp \
+ /usr/include/GL/glew.h /usr/include/c++/13.2.1/cstddef \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -284,8 +285,8 @@ CMakeFiles/SupportLib.dir/src/System.cpp.o: \
  /usr/include/c++/13.2.1/backward/auto_ptr.h \
  /usr/include/c++/13.2.1/pstl/glue_memory_defs.h \
  /usr/include/c++/13.2.1/pstl/execution_defs.h \
- /home/Mateusz/projects/Sol/src/Camera.hpp /usr/include/glm/ext.hpp \
- /usr/include/glm/ext/matrix_clip_space.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/Camera.hpp \
+ /usr/include/glm/ext.hpp /usr/include/glm/ext/matrix_clip_space.hpp \
  /usr/include/glm/ext/scalar_constants.hpp \
  /usr/include/glm/ext/scalar_constants.inl \
  /usr/include/glm/ext/matrix_clip_space.inl \
