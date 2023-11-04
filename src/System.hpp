@@ -13,7 +13,7 @@ class System {
         float circTime;
         std::vector<System> dependants;
     public:
-        System(const Body& b, const glm::vec3& d, const float t) : central(b), displacement(d), circTime(t) {}
+        System(const Body b, const glm::vec3 d, const float t) : central(b), displacement(d), circTime(t) {}
         ~System() {}
         void attachSystem(System& dep) { dependants.push_back(dep); }
         std::vector<Body> calculatePositions(float time);

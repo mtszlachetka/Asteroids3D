@@ -9,6 +9,7 @@ CMakeFiles/App.dir/src/main.cpp.o
  /home/Mateusz/projects/SpaceEngine/src/ModelLoader.hpp
  /home/Mateusz/projects/SpaceEngine/src/Renderer.hpp
  /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.hpp
+ /home/Mateusz/projects/SpaceEngine/src/Sol.hpp
  /home/Mateusz/projects/SpaceEngine/src/System.hpp
  /usr/include/GL/gl.h
  /usr/include/GL/glew.h

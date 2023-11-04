@@ -1,0 +1,24 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/Mateusz/projects/SpaceEngine/src/Camera.cpp" "CMakeFiles/EngineUtils.dir/src/Camera.cpp.o" "gcc" "CMakeFiles/EngineUtils.dir/src/Camera.cpp.o.d"
+  "/home/Mateusz/projects/SpaceEngine/src/IOProcessor.cpp" "CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.o" "gcc" "CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.o.d"
+  "/home/Mateusz/projects/SpaceEngine/src/ModelLoader.cpp" "CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.o" "gcc" "CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.o.d"
+  "/home/Mateusz/projects/SpaceEngine/src/Renderer.cpp" "CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o" "gcc" "CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o.d"
+  "/home/Mateusz/projects/SpaceEngine/src/ShaderLoader.cpp" "CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o" "gcc" "CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o.d"
+  "/home/Mateusz/projects/SpaceEngine/src/System.cpp" "CMakeFiles/EngineUtils.dir/src/System.cpp.o" "gcc" "CMakeFiles/EngineUtils.dir/src/System.cpp.o.d"
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")

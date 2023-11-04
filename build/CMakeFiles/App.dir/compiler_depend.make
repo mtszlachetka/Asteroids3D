@@ -8,6 +8,7 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
   /home/Mateusz/projects/SpaceEngine/src/ModelLoader.hpp \
   /home/Mateusz/projects/SpaceEngine/src/Renderer.hpp \
   /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.hpp \
+  /home/Mateusz/projects/SpaceEngine/src/Sol.hpp \
   /home/Mateusz/projects/SpaceEngine/src/System.hpp \
   /usr/include/GL/gl.h \
   /usr/include/GL/glew.h \
@@ -622,6 +623,10 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/glm/detail/_fixes.hpp:
 
+/usr/include/math.h:
+
+/usr/include/glm/common.hpp:
+
 /home/Mateusz/projects/SpaceEngine/src/System.hpp:
 
 /usr/include/c++/13.2.1/bits/exception_ptr.h:
@@ -648,8 +653,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/c++/13.2.1/bits/basic_ios.tcc:
 
-/usr/include/c++/13.2.1/bits/basic_ios.h:
-
 /usr/include/glm/detail/type_vec1.hpp:
 
 /usr/include/bits/types/struct_tm.h:
@@ -671,10 +674,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/c++/13.2.1/bits/stl_iterator.h:
 
 /usr/include/c++/13.2.1/cmath:
-
-/usr/include/c++/13.2.1/bits/invoke.h:
-
-/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
 
 /usr/include/features-time64.h:
 
@@ -778,10 +777,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/bits/thread-shared-types.h:
 
-/usr/include/bits/floatn.h:
-
-/usr/include/bits/floatn-common.h:
-
 /usr/include/c++/13.2.1/bits/functional_hash.h:
 
 /usr/include/GL/gl.h:
@@ -856,13 +851,41 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/bits/pthread_stack_min-dynamic.h:
 
+/usr/include/glm/ext/vector_bool4_precision.hpp:
+
+/usr/include/alloca.h:
+
+/usr/include/glm/ext/matrix_float4x4.hpp:
+
+/usr/include/c++/13.2.1/cstdio:
+
+/usr/include/c++/13.2.1/tr1/gamma.tcc:
+
+/usr/include/glm/detail/type_mat3x3.hpp:
+
+/usr/include/c++/13.2.1/tr1/hypergeometric.tcc:
+
+/home/Mateusz/projects/SpaceEngine/src/Body.hpp:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdint.h:
+
+/home/Mateusz/projects/SpaceEngine/src/IOProcessor.hpp:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/c++/13.2.1/bits/locale_facets.tcc:
+
+/usr/include/glm/ext/vector_double2_precision.hpp:
+
+/usr/include/c++/13.2.1/bits/charconv.h:
+
+/usr/include/bits/uintn-identity.h:
+
 /usr/include/c++/13.2.1/bits/std_mutex.h:
 
 /usr/include/glm/ext/matrix_double4x2_precision.hpp:
 
 /usr/include/c++/13.2.1/bits/vector.tcc:
-
-/home/Mateusz/projects/SpaceEngine/src/Body.hpp:
 
 /usr/include/bits/cpu-set.h:
 
@@ -883,6 +906,12 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/bits/flt-eval-method.h:
 
 /usr/include/c++/13.2.1/bits/locale_facets.h:
+
+/usr/include/bits/types/time_t.h:
+
+/usr/include/glm/detail/type_mat4x3.inl:
+
+/usr/include/bits/mathcalls-helper-functions.h:
 
 /home/Mateusz/projects/SpaceEngine/src/ModelLoader.hpp:
 
@@ -907,6 +936,16 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/glm/detail/compute_common.hpp:
 
 /usr/include/c++/13.2.1/numbers:
+
+/usr/include/bits/floatn-common.h:
+
+/usr/include/c++/13.2.1/bits/basic_ios.h:
+
+/home/Mateusz/projects/SpaceEngine/src/Sol.hpp:
+
+/usr/include/c++/13.2.1/compare:
+
+/usr/include/bits/select.h:
 
 /usr/include/c++/13.2.1/bits/postypes.h:
 
@@ -934,33 +973,7 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/c++/13.2.1/bits/memoryfwd.h:
 
-/usr/include/glm/ext/vector_double2_precision.hpp:
-
-/usr/include/bits/uintn-identity.h:
-
-/usr/include/c++/13.2.1/bits/charconv.h:
-
-/usr/include/glm/detail/type_mat3x3.hpp:
-
-/usr/include/c++/13.2.1/tr1/hypergeometric.tcc:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdint.h:
-
-/home/Mateusz/projects/SpaceEngine/src/IOProcessor.hpp:
-
-/usr/include/gnu/stubs.h:
-
-/usr/include/c++/13.2.1/bits/locale_facets.tcc:
-
-/usr/include/glm/ext/vector_bool4_precision.hpp:
-
-/usr/include/alloca.h:
-
-/usr/include/glm/ext/matrix_float4x4.hpp:
-
-/usr/include/c++/13.2.1/cstdio:
-
-/usr/include/c++/13.2.1/tr1/gamma.tcc:
+/usr/include/bits/floatn.h:
 
 /usr/include/c++/13.2.1/bits/atomic_base.h:
 
@@ -1000,10 +1013,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/c++/13.2.1/bits/range_access.h:
 
-/usr/include/math.h:
-
-/usr/include/glm/common.hpp:
-
 /usr/include/bits/types/cookie_io_functions_t.h:
 
 /usr/include/glm/ext/vector_int2_sized.hpp:
@@ -1021,10 +1030,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/bits/types/sigset_t.h:
 
 /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h:
-
-/usr/include/c++/13.2.1/compare:
-
-/usr/include/bits/select.h:
 
 /usr/include/glm/detail/type_mat3x4.inl:
 
@@ -1054,11 +1059,9 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/bits/types/__FILE.h:
 
-/usr/include/bits/types/time_t.h:
+/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
 
-/usr/include/glm/detail/type_mat4x3.inl:
-
-/usr/include/bits/mathcalls-helper-functions.h:
+/usr/include/c++/13.2.1/bits/invoke.h:
 
 /usr/include/glm/ext/vector_uint4_sized.hpp:
 

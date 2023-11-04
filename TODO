@@ -1,5 +1,5 @@
-improve rendering
 improve system creation interface
 add ship
 perspective is not a part of camera
 fix z order
+clean global variables

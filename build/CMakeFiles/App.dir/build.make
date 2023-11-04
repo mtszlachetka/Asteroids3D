@@ -92,7 +92,7 @@ App_EXTERNAL_OBJECTS =
 
 App: CMakeFiles/App.dir/src/main.cpp.o
 App: CMakeFiles/App.dir/build.make
-App: libSupportLib.a
+App: libEngineUtils.a
 App: /usr/lib/libglfw.so.3.3
 App: /usr/lib/libGLEW.so
 App: /usr/lib/libGLX.so
