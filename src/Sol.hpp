@@ -1,7 +1,8 @@
 #include "Body.hpp"
 #include "System.hpp"
 #include "ModelLoader.hpp"
-
+#include <random>
+#include <cmath>
 
 
 System createSol() {
@@ -42,13 +43,21 @@ System createSol() {
     System DummySystem(Dummy, {0., -80., 0.}, 1000.f);
     System Planet1S(Dwarf, {0., 0., 1.}, 20.f);
     System Planet2S(Dwarf, {0., 0., -1.}, 20.f);
-    System Planet3S(Dwarf, {0, -std::sqrt(3) * 40., 40}, 1000.f);
-    System Planet4S(Dwarf, {0, std::sqrt(3) * 40., -40}, 1000.f);
+
+
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_real_distribution<float> dist(-80.f, 80.0f);
+    std::uniform_int_distribution<int> dist2(0, 1);
+    for (int i = 0; i < 100; i++) {
+        float ycord = dist(mt);
+        int minus = dist2(mt);
+        System asteroid(Dwarf, {0., ycord, std::sqrt(6400 - std::pow(ycord, 2)) * ( minus ? -1 : 1 )}, 1000.f);
+        SolSystem.attachSystem(asteroid);
+    }
 
     DummySystem.attachSystem(Planet1S);
     DummySystem.attachSystem(Planet2S);
-    SolSystem.attachSystem(Planet3S);
-    SolSystem.attachSystem(Planet4S);
     SolSystem.attachSystem(DummySystem);
 
     return SolSystem;
