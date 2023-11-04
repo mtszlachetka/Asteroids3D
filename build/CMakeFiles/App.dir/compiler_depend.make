@@ -149,6 +149,8 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
   /usr/include/c++/13.2.1/bits/postypes.h \
   /usr/include/c++/13.2.1/bits/predefined_ops.h \
   /usr/include/c++/13.2.1/bits/ptr_traits.h \
+  /usr/include/c++/13.2.1/bits/random.h \
+  /usr/include/c++/13.2.1/bits/random.tcc \
   /usr/include/c++/13.2.1/bits/range_access.h \
   /usr/include/c++/13.2.1/bits/ranges_algobase.h \
   /usr/include/c++/13.2.1/bits/ranges_base.h \
@@ -170,6 +172,7 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
   /usr/include/c++/13.2.1/bits/stl_iterator.h \
   /usr/include/c++/13.2.1/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13.2.1/bits/stl_iterator_base_types.h \
+  /usr/include/c++/13.2.1/bits/stl_numeric.h \
   /usr/include/c++/13.2.1/bits/stl_pair.h \
   /usr/include/c++/13.2.1/bits/stl_raw_storage_iter.h \
   /usr/include/c++/13.2.1/bits/stl_tempbuf.h \
@@ -179,6 +182,7 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
   /usr/include/c++/13.2.1/bits/streambuf_iterator.h \
   /usr/include/c++/13.2.1/bits/string_view.tcc \
   /usr/include/c++/13.2.1/bits/stringfwd.h \
+  /usr/include/c++/13.2.1/bits/uniform_int_dist.h \
   /usr/include/c++/13.2.1/bits/unique_ptr.h \
   /usr/include/c++/13.2.1/bits/uses_allocator.h \
   /usr/include/c++/13.2.1/bits/uses_allocator_args.h \
@@ -218,10 +222,13 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
   /usr/include/c++/13.2.1/memory \
   /usr/include/c++/13.2.1/new \
   /usr/include/c++/13.2.1/numbers \
+  /usr/include/c++/13.2.1/numeric \
   /usr/include/c++/13.2.1/ostream \
   /usr/include/c++/13.2.1/pstl/execution_defs.h \
   /usr/include/c++/13.2.1/pstl/glue_memory_defs.h \
+  /usr/include/c++/13.2.1/pstl/glue_numeric_defs.h \
   /usr/include/c++/13.2.1/pstl/pstl_config.h \
+  /usr/include/c++/13.2.1/random \
   /usr/include/c++/13.2.1/stdexcept \
   /usr/include/c++/13.2.1/streambuf \
   /usr/include/c++/13.2.1/string \
@@ -253,6 +260,7 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
   /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/error_constants.h \
   /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/gthr-default.h \
   /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/gthr.h \
+  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/opt_random.h \
   /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -454,8 +462,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/glm/mat4x2.hpp:
 
-/usr/include/glm/mat3x4.hpp:
-
 /usr/include/glm/mat3x3.hpp:
 
 /usr/include/glm/mat2x4.hpp:
@@ -475,8 +481,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/glm/ext/vector_uint2_sized.hpp:
 
 /usr/include/glm/ext/vector_int4.hpp:
-
-/usr/include/glm/ext/vector_int3.hpp:
 
 /usr/include/glm/ext/vector_float4_precision.hpp:
 
@@ -628,6 +632,12 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/glm/common.hpp:
 
+/usr/include/features-time64.h:
+
+/usr/include/stdint.h:
+
+/usr/include/endian.h:
+
 /usr/include/c++/13.2.1/bits/exception_ptr.h:
 
 /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.hpp:
@@ -674,8 +684,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/c++/13.2.1/cmath:
 
-/usr/include/features-time64.h:
-
 /usr/include/c++/13.2.1/bit:
 
 /usr/include/bits/xopen_lim.h:
@@ -706,8 +714,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/bits/waitflags.h:
 
-/usr/include/ctype.h:
-
 /usr/include/bits/types/struct_itimerspec.h:
 
 /usr/include/bits/struct_rwlock.h:
@@ -719,6 +725,8 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/asm/unistd_64.h:
 
 /usr/include/bits/types/__fpos_t.h:
+
+/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/opt_random.h:
 
 /usr/include/bits/mathcalls.h:
 
@@ -860,6 +868,8 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/bits/types/time_t.h:
 
+/usr/include/c++/13.2.1/bits/stl_numeric.h:
+
 /usr/include/glm/detail/type_mat4x3.inl:
 
 /usr/include/bits/mathcalls-helper-functions.h:
@@ -895,6 +905,10 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/c++/13.2.1/bits/charconv.h:
 
 /usr/include/bits/uintn-identity.h:
+
+/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/gthr-default.h:
+
+/usr/include/bits/typesizes.h:
 
 /usr/include/c++/13.2.1/bits/std_mutex.h:
 
@@ -976,6 +990,8 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/bits/floatn-common.h:
 
+/usr/include/c++/13.2.1/numeric:
+
 /usr/include/bits/floatn.h:
 
 /usr/include/c++/13.2.1/bits/atomic_base.h:
@@ -984,6 +1000,8 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/time.h:
 
+/usr/include/c++/13.2.1/random:
+
 /usr/include/c++/13.2.1/bits/max_size_type.h:
 
 /usr/include/glm/ext/matrix_double3x4_precision.hpp:
@@ -991,6 +1009,12 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/bits/getopt_core.h:
 
 /usr/include/c++/13.2.1/ext/concurrence.h:
+
+/usr/include/errno.h:
+
+/home/Mateusz/projects/SpaceEngine/src/Camera.hpp:
+
+/usr/include/bits/getopt_posix.h:
 
 /usr/include/c++/13.2.1/bits/cxxabi_init_exception.h:
 
@@ -1046,10 +1070,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/bits/types/error_t.h:
 
-/usr/include/GLFW/glfw3.h:
-
-/usr/include/c++/13.2.1/istream:
-
 /usr/include/c++/13.2.1/typeinfo:
 
 /usr/include/bits/types/struct_timeval.h:
@@ -1088,11 +1108,29 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/c++/13.2.1/bits/nested_exception.h:
 
+/usr/include/glm/ext/vector_int3.hpp:
+
+/usr/include/c++/13.2.1/bits/uniform_int_dist.h:
+
 /usr/include/c++/13.2.1/bits/ostream_insert.h:
 
 /usr/include/c++/13.2.1/string:
 
 /usr/include/c++/13.2.1/bits/ptr_traits.h:
+
+/usr/include/GLFW/glfw3.h:
+
+/usr/include/c++/13.2.1/istream:
+
+/usr/include/c++/13.2.1/bits/random.h:
+
+/usr/include/glm/mat3x4.hpp:
+
+/usr/include/c++/13.2.1/bits/random.tcc:
+
+/usr/include/glm/vec3.hpp:
+
+/usr/include/c++/13.2.1/ext/string_conversions.h:
 
 /usr/include/bits/libm-simd-decl-stubs.h:
 
@@ -1162,6 +1200,12 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/c++/13.2.1/cwchar:
 
+/usr/include/glm/integer.hpp:
+
+/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/os_defines.h:
+
+/usr/include/c++/13.2.1/cwctype:
+
 /usr/include/c++/13.2.1/exception:
 
 /usr/include/c++/13.2.1/ext/atomicity.h:
@@ -1171,10 +1215,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/bits/stdint-intn.h:
 
 /usr/include/c++/13.2.1/ext/numeric_traits.h:
-
-/usr/include/glm/vec3.hpp:
-
-/usr/include/c++/13.2.1/ext/string_conversions.h:
 
 /usr/include/c++/13.2.1/initializer_list:
 
@@ -1195,6 +1235,10 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/c++/13.2.1/ostream:
 
 /usr/include/c++/13.2.1/pstl/glue_memory_defs.h:
+
+/usr/include/ctype.h:
+
+/usr/include/c++/13.2.1/pstl/glue_numeric_defs.h:
 
 /home/Mateusz/projects/SpaceEngine/src/Ship.hpp:
 
@@ -1245,23 +1289,3 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/c++/13.2.1/bits/stl_bvector.h:
 
 /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/error_constants.h:
-
-/usr/include/bits/typesizes.h:
-
-/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/gthr-default.h:
-
-/usr/include/glm/integer.hpp:
-
-/usr/include/c++/13.2.1/cwctype:
-
-/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/os_defines.h:
-
-/usr/include/stdint.h:
-
-/usr/include/endian.h:
-
-/home/Mateusz/projects/SpaceEngine/src/Camera.hpp:
-
-/usr/include/bits/getopt_posix.h:
-
-/usr/include/errno.h:
