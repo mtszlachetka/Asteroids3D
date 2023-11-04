@@ -6,6 +6,7 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
   /home/Mateusz/projects/SpaceEngine/src/Camera.hpp \
   /home/Mateusz/projects/SpaceEngine/src/IOProcessor.hpp \
   /home/Mateusz/projects/SpaceEngine/src/ModelLoader.hpp \
+  /home/Mateusz/projects/SpaceEngine/src/Renderer.hpp \
   /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.hpp \
   /home/Mateusz/projects/SpaceEngine/src/System.hpp \
   /usr/include/GL/gl.h \
@@ -619,6 +620,8 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/glm/detail/_vectorize.hpp:
 
+/usr/include/glm/detail/_fixes.hpp:
+
 /home/Mateusz/projects/SpaceEngine/src/System.hpp:
 
 /usr/include/c++/13.2.1/bits/exception_ptr.h:
@@ -715,16 +718,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/bits/struct_rwlock.h:
 
-/usr/include/glm/ext/vector_float2.hpp:
-
-/usr/include/c++/13.2.1/bits/exception_defines.h:
-
-/usr/include/bits/types/locale_t.h:
-
-/usr/include/glm/detail/type_mat3x2.inl:
-
-/usr/include/c++/13.2.1/bits/allocator.h:
-
 /usr/include/glm/ext/matrix_double3x4.hpp:
 
 /usr/include/bits/types/clock_t.h:
@@ -750,6 +743,12 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/c++/13.2.1/backward/auto_ptr.h:
 
 /usr/include/c++/13.2.1/bits/utility.h:
+
+/usr/include/glm/detail/type_mat3x2.inl:
+
+/usr/include/c++/13.2.1/bits/allocator.h:
+
+/usr/include/bits/types/locale_t.h:
 
 /usr/include/c++/13.2.1/limits:
 
@@ -817,25 +816,17 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/bits/local_lim.h:
 
+/usr/include/bits/syscall.h:
+
+/usr/include/bits/iscanonical.h:
+
+/usr/include/bits/locale.h:
+
 /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stddef.h:
 
 /usr/include/glm/ext/vector_int3_sized.hpp:
 
 /usr/include/assert.h:
-
-/usr/include/bits/flt-eval-method.h:
-
-/usr/include/bits/types/FILE.h:
-
-/usr/include/c++/13.2.1/bits/locale_facets.h:
-
-/usr/include/c++/13.2.1/bits/atomic_base.h:
-
-/usr/include/asm/unistd.h:
-
-/usr/include/time.h:
-
-/usr/include/c++/13.2.1/bits/max_size_type.h:
 
 /usr/include/glm/ext/matrix_float2x3_precision.hpp:
 
@@ -855,7 +846,25 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/c++/13.2.1/pstl/execution_defs.h:
 
+/usr/include/asm-generic/errno.h:
+
+/usr/include/bits/fp-logb.h:
+
+/usr/include/c++/13.2.1/bits/ranges_util.h:
+
+/usr/include/asm-generic/errno-base.h:
+
 /usr/include/bits/pthread_stack_min-dynamic.h:
+
+/usr/include/c++/13.2.1/bits/std_mutex.h:
+
+/usr/include/glm/ext/matrix_double4x2_precision.hpp:
+
+/usr/include/c++/13.2.1/bits/vector.tcc:
+
+/home/Mateusz/projects/SpaceEngine/src/Body.hpp:
+
+/usr/include/bits/cpu-set.h:
 
 /usr/include/bits/struct_mutex.h:
 
@@ -869,23 +878,11 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/c++/13.2.1/stdexcept:
 
-/usr/include/asm-generic/errno.h:
+/usr/include/bits/types/FILE.h:
 
-/usr/include/bits/fp-logb.h:
+/usr/include/bits/flt-eval-method.h:
 
-/usr/include/c++/13.2.1/bits/ranges_util.h:
-
-/usr/include/asm-generic/errno-base.h:
-
-/usr/include/c++/13.2.1/bits/std_mutex.h:
-
-/usr/include/glm/ext/matrix_double4x2_precision.hpp:
-
-/usr/include/c++/13.2.1/bits/vector.tcc:
-
-/usr/include/bits/cpu-set.h:
-
-/home/Mateusz/projects/SpaceEngine/src/Body.hpp:
+/usr/include/c++/13.2.1/bits/locale_facets.h:
 
 /home/Mateusz/projects/SpaceEngine/src/ModelLoader.hpp:
 
@@ -900,6 +897,16 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/c++/13.2.1/bits/string_view.tcc:
 
 /usr/include/c++/13.2.1/debug/assertions.h:
+
+/usr/include/glm/ext/vector_float2.hpp:
+
+/usr/include/c++/13.2.1/bits/exception_defines.h:
+
+/home/Mateusz/projects/SpaceEngine/src/Renderer.hpp:
+
+/usr/include/glm/detail/compute_common.hpp:
+
+/usr/include/c++/13.2.1/numbers:
 
 /usr/include/c++/13.2.1/bits/postypes.h:
 
@@ -955,11 +962,13 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/c++/13.2.1/tr1/gamma.tcc:
 
-/usr/include/bits/locale.h:
+/usr/include/c++/13.2.1/bits/atomic_base.h:
 
-/usr/include/bits/syscall.h:
+/usr/include/asm/unistd.h:
 
-/usr/include/bits/iscanonical.h:
+/usr/include/time.h:
+
+/usr/include/c++/13.2.1/bits/max_size_type.h:
 
 /usr/include/glm/ext/matrix_double3x4_precision.hpp:
 
@@ -1177,10 +1186,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/c++/13.2.1/new:
 
-/usr/include/glm/detail/compute_common.hpp:
-
-/usr/include/c++/13.2.1/numbers:
-
 /usr/include/bits/types/__locale_t.h:
 
 /usr/include/c++/13.2.1/ostream:
@@ -1254,5 +1259,3 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/bits/getopt_posix.h:
 
 /usr/include/errno.h:
-
-/usr/include/glm/detail/_fixes.hpp:

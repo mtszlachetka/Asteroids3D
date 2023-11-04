@@ -5,6 +5,7 @@
 
 class Camera {
     friend class IOProcessor;
+    friend class Renderer;
     private:
         float n, f, aspectRatio;
         glm::vec3 cameraUp, cameraDir, cameraSide, cameraPos;

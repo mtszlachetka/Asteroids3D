@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o.d"
   "CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o"
   "CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o.d"
+  "CMakeFiles/SupportLib.dir/src/Renderer.cpp.o"
+  "CMakeFiles/SupportLib.dir/src/Renderer.cpp.o.d"
   "CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o"
   "CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o.d"
   "CMakeFiles/SupportLib.dir/src/System.cpp.o"

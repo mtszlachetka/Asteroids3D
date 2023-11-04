@@ -139,13 +139,28 @@ CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/IOProcessor.cpp -o CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.s
 
+CMakeFiles/SupportLib.dir/src/Renderer.cpp.o: CMakeFiles/SupportLib.dir/flags.make
+CMakeFiles/SupportLib.dir/src/Renderer.cpp.o: /home/Mateusz/projects/SpaceEngine/src/Renderer.cpp
+CMakeFiles/SupportLib.dir/src/Renderer.cpp.o: CMakeFiles/SupportLib.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/SupportLib.dir/src/Renderer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SupportLib.dir/src/Renderer.cpp.o -MF CMakeFiles/SupportLib.dir/src/Renderer.cpp.o.d -o CMakeFiles/SupportLib.dir/src/Renderer.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/Renderer.cpp
+
+CMakeFiles/SupportLib.dir/src/Renderer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SupportLib.dir/src/Renderer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/Renderer.cpp > CMakeFiles/SupportLib.dir/src/Renderer.cpp.i
+
+CMakeFiles/SupportLib.dir/src/Renderer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SupportLib.dir/src/Renderer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/Renderer.cpp -o CMakeFiles/SupportLib.dir/src/Renderer.cpp.s
+
 # Object files for target SupportLib
 SupportLib_OBJECTS = \
 "CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o" \
 "CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o" \
 "CMakeFiles/SupportLib.dir/src/System.cpp.o" \
 "CMakeFiles/SupportLib.dir/src/Camera.cpp.o" \
-"CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o"
+"CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o" \
+"CMakeFiles/SupportLib.dir/src/Renderer.cpp.o"
 
 # External object files for target SupportLib
 SupportLib_EXTERNAL_OBJECTS =
@@ -155,9 +170,10 @@ libSupportLib.a: CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o
 libSupportLib.a: CMakeFiles/SupportLib.dir/src/System.cpp.o
 libSupportLib.a: CMakeFiles/SupportLib.dir/src/Camera.cpp.o
 libSupportLib.a: CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o
+libSupportLib.a: CMakeFiles/SupportLib.dir/src/Renderer.cpp.o
 libSupportLib.a: CMakeFiles/SupportLib.dir/build.make
 libSupportLib.a: CMakeFiles/SupportLib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library libSupportLib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX static library libSupportLib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/SupportLib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SupportLib.dir/link.txt --verbose=$(VERBOSE)
 

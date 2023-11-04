@@ -4,18 +4,20 @@
 #include "System.hpp"
 #include "Camera.hpp"
 #include "IOProcessor.hpp"
+#include "Renderer.hpp"
 #include <iostream>
 #include <GLFW/glfw3.h>
 #include <GL/glew.h>
 #include <stdexcept>
 
-float timeElapsed;
+
 GLuint program;
 unsigned width = 500, height = 500;
 Camera camera(0.05f, 200.f, {1, 0, 0}, {-4, 0, 0});
 
 int main() {
 
+    float timeElapsed;
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -96,12 +98,9 @@ int main() {
 
     while (!glfwWindowShouldClose(window)) {
         timeElapsed = static_cast<float>(glfwGetTime());
+        std::vector<Body> bodiesToRender = SolSystem.calculatePositions(timeElapsed);
         IOProcessor::processInput(window, camera);
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glUseProgram(program);
-        SolSystem.render(glm::mat4(1.0));
-        glUseProgram(0);
+        Renderer::renderBodies(program, bodiesToRender);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

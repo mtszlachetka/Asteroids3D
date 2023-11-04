@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/Mateusz/projects/SpaceEngine/src/Camera.cpp" "CMakeFiles/SupportLib.dir/src/Camera.cpp.o" "gcc" "CMakeFiles/SupportLib.dir/src/Camera.cpp.o.d"
   "/home/Mateusz/projects/SpaceEngine/src/IOProcessor.cpp" "CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o" "gcc" "CMakeFiles/SupportLib.dir/src/IOProcessor.cpp.o.d"
   "/home/Mateusz/projects/SpaceEngine/src/ModelLoader.cpp" "CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o" "gcc" "CMakeFiles/SupportLib.dir/src/ModelLoader.cpp.o.d"
+  "/home/Mateusz/projects/SpaceEngine/src/Renderer.cpp" "CMakeFiles/SupportLib.dir/src/Renderer.cpp.o" "gcc" "CMakeFiles/SupportLib.dir/src/Renderer.cpp.o.d"
   "/home/Mateusz/projects/SpaceEngine/src/ShaderLoader.cpp" "CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o" "gcc" "CMakeFiles/SupportLib.dir/src/ShaderLoader.cpp.o.d"
   "/home/Mateusz/projects/SpaceEngine/src/System.cpp" "CMakeFiles/SupportLib.dir/src/System.cpp.o" "gcc" "CMakeFiles/SupportLib.dir/src/System.cpp.o.d"
   )

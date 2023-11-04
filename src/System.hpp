@@ -15,9 +15,8 @@ class System {
     public:
         System(const Body& b, const glm::vec3& d, const float t) : central(b), displacement(d), circTime(t) {}
         ~System() {}
-        void render(const glm::mat4& parentMatrix);
-        glm::mat4 position(float time);
         void attachSystem(System& dep) { dependants.push_back(dep); }
+        std::vector<Body> calculatePositions(float time);
 };
 
 #endif

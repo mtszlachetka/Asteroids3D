@@ -4,41 +4,26 @@
 #include <glm/ext.hpp>
 #include <GL/glew.h>
 
-extern float timeElapsed;
 extern GLuint program;
 extern Camera camera;
 
-glm::mat4 System::position(float time) {
-    return glm::mat4(1.0);
-}
-
-
-void System::render(const glm::mat4& parentMatrix) {
-    /*
-        The system calculates its tranformation matrix from distance and circulation time relative to its parent system.
-        Then applies parent matrix for full transformation.
-    */
-
+std::vector<Body> System::calculatePositions(float time) {
     glm::mat4 modelMatrix = glm::mat4(1.);
     glm::mat4 translation = glm::translate(modelMatrix, displacement);
-    glm::mat4 rotation = glm::rotate(modelMatrix, circTime == 0 ? 0 : timeElapsed / circTime, glm::vec3(1., 0., 0.));
+    glm::mat4 rotation = glm::rotate(modelMatrix, circTime == 0 ? 0 : time / circTime, glm::vec3(1., 0., 0.));
     glm::mat4 scale = glm::scale(modelMatrix, glm::vec3(central.scale));
 
-    glm::mat4 fullTransform =  parentMatrix * rotation * translation;
-    
+    central.transformMatrix = rotation * translation;
 
+    std::vector<Body> depBodies;
     for (auto& d : dependants) {
-        d.render(fullTransform);
+        std::vector<Body> newBodies = d.calculatePositions(time);
+        depBodies.insert(depBodies.end(), newBodies.begin(), newBodies.end());
     }
-
-    glm::mat4 adjustedTransform = camera.getCamera() * fullTransform * scale;
-    
-    glUniformMatrix4fv(glGetUniformLocation(program, "transformation"), 1, GL_FALSE, (float*)&adjustedTransform);
-    glUniform3fv(glGetUniformLocation(program, "color"), 1, (float*)&central.color);
-
-    glBindVertexArray(central.context.vertexArray);
-    glDrawElements(GL_TRIANGLES, central.context.size, GL_UNSIGNED_INT, (void*)0);
-    glBindVertexArray(0);
-
-
+    for (Body& b : depBodies) {
+        b.transformMatrix = central.transformMatrix * b.transformMatrix;
+    }
+    central.transformMatrix = central.transformMatrix * scale;
+    depBodies.push_back(central);
+    return depBodies;
 }

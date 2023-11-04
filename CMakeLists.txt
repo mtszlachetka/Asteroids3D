@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.27)
 project(3DApp)
 
-add_library(SupportLib STATIC src/ModelLoader.cpp src/ShaderLoader.cpp src/Body.hpp src/System.cpp src/Camera.cpp src/IOProcessor.cpp)
+add_library(SupportLib STATIC src/ModelLoader.cpp src/ShaderLoader.cpp src/Body.hpp src/System.cpp src/Camera.cpp src/IOProcessor.cpp src/Renderer.cpp)
 target_include_directories(SupportLib PUBLIC "${PROJECT_SOURCE_DIR}/src")
 add_library(compiler_flags INTERFACE)
 target_compile_features(compiler_flags INTERFACE cxx_std_20)
