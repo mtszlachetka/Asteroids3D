@@ -196,9 +196,62 @@ CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.o: \
  /usr/include/glm/packing.hpp /usr/include/glm/detail/func_packing.inl \
  /usr/include/glm/detail/type_half.hpp \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
- /usr/include/glm/detail/func_integer.inl /usr/include/GLFW/glfw3.h \
- /usr/include/GL/gl.h /usr/include/GL/glext.h \
- /usr/include/KHR/khrplatform.h /usr/include/glm/gtx/euler_angles.hpp \
+ /usr/include/glm/detail/func_integer.inl \
+ /home/Mateusz/projects/SpaceEngine/src/Ship.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/Body.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/ModelLoader.hpp \
+ /usr/include/GL/glew.h /usr/include/GL/glu.h /usr/include/GL/gl.h \
+ /usr/include/c++/13.2.1/string /usr/include/c++/13.2.1/bits/stringfwd.h \
+ /usr/include/c++/13.2.1/bits/memoryfwd.h \
+ /usr/include/c++/13.2.1/bits/char_traits.h \
+ /usr/include/c++/13.2.1/bits/postypes.h /usr/include/c++/13.2.1/cwchar \
+ /usr/include/wchar.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdarg.h \
+ /usr/include/bits/types/wint_t.h /usr/include/bits/types/mbstate_t.h \
+ /usr/include/bits/types/__mbstate_t.h /usr/include/bits/types/__FILE.h \
+ /usr/include/bits/types/FILE.h /usr/include/c++/13.2.1/bits/allocator.h \
+ /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
+ /usr/include/c++/13.2.1/bits/new_allocator.h /usr/include/c++/13.2.1/new \
+ /usr/include/c++/13.2.1/bits/exception.h \
+ /usr/include/c++/13.2.1/bits/localefwd.h \
+ /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++locale.h \
+ /usr/include/c++/13.2.1/clocale /usr/include/locale.h \
+ /usr/include/bits/locale.h /usr/include/c++/13.2.1/iosfwd \
+ /usr/include/c++/13.2.1/cctype /usr/include/ctype.h \
+ /usr/include/c++/13.2.1/bits/ostream_insert.h \
+ /usr/include/c++/13.2.1/bits/cxxabi_forced.h \
+ /usr/include/c++/13.2.1/bits/stl_function.h \
+ /usr/include/c++/13.2.1/backward/binders.h \
+ /usr/include/c++/13.2.1/bits/refwrap.h \
+ /usr/include/c++/13.2.1/bits/invoke.h \
+ /usr/include/c++/13.2.1/bits/range_access.h \
+ /usr/include/c++/13.2.1/initializer_list \
+ /usr/include/c++/13.2.1/bits/basic_string.h \
+ /usr/include/c++/13.2.1/ext/alloc_traits.h \
+ /usr/include/c++/13.2.1/bits/alloc_traits.h \
+ /usr/include/c++/13.2.1/bits/stl_construct.h \
+ /usr/include/c++/13.2.1/string_view \
+ /usr/include/c++/13.2.1/bits/functional_hash.h \
+ /usr/include/c++/13.2.1/bits/hash_bytes.h \
+ /usr/include/c++/13.2.1/bits/string_view.tcc \
+ /usr/include/c++/13.2.1/ext/string_conversions.h \
+ /usr/include/c++/13.2.1/cstdlib /usr/include/c++/13.2.1/cstdio \
+ /usr/include/stdio.h /usr/include/bits/types/__fpos_t.h \
+ /usr/include/bits/types/__fpos64_t.h \
+ /usr/include/bits/types/struct_FILE.h \
+ /usr/include/bits/types/cookie_io_functions_t.h \
+ /usr/include/bits/stdio_lim.h /usr/include/c++/13.2.1/cerrno \
+ /usr/include/errno.h /usr/include/bits/errno.h \
+ /usr/include/linux/errno.h /usr/include/asm/errno.h \
+ /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+ /usr/include/bits/types/error_t.h \
+ /usr/include/c++/13.2.1/bits/charconv.h \
+ /usr/include/c++/13.2.1/bits/basic_string.tcc \
+ /usr/include/c++/13.2.1/bits/memory_resource.h \
+ /usr/include/c++/13.2.1/bits/uses_allocator.h \
+ /usr/include/c++/13.2.1/bits/uses_allocator_args.h \
+ /usr/include/c++/13.2.1/tuple /usr/include/GLFW/glfw3.h \
+ /usr/include/glm/gtx/euler_angles.hpp \
  /usr/include/glm/gtx/euler_angles.inl \
  /usr/include/glm/gtx/compatibility.hpp \
  /usr/include/glm/gtc/quaternion.hpp /usr/include/glm/gtc/constants.hpp \

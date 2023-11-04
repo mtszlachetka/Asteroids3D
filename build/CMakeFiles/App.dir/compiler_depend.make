@@ -8,6 +8,7 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
   /home/Mateusz/projects/SpaceEngine/src/ModelLoader.hpp \
   /home/Mateusz/projects/SpaceEngine/src/Renderer.hpp \
   /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.hpp \
+  /home/Mateusz/projects/SpaceEngine/src/Ship.hpp \
   /home/Mateusz/projects/SpaceEngine/src/Sol.hpp \
   /home/Mateusz/projects/SpaceEngine/src/System.hpp \
   /usr/include/GL/gl.h \
@@ -627,8 +628,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/glm/common.hpp:
 
-/home/Mateusz/projects/SpaceEngine/src/System.hpp:
-
 /usr/include/c++/13.2.1/bits/exception_ptr.h:
 
 /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.hpp:
@@ -709,10 +708,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/ctype.h:
 
-/usr/include/c++/13.2.1/bits/hash_bytes.h:
-
-/usr/include/bits/types/struct_sched_param.h:
-
 /usr/include/bits/types/struct_itimerspec.h:
 
 /usr/include/bits/struct_rwlock.h:
@@ -775,7 +770,9 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/bits/stdio_lim.h:
 
-/usr/include/bits/thread-shared-types.h:
+/usr/include/bits/struct_mutex.h:
+
+/usr/include/c++/13.2.1/ext/alloc_traits.h:
 
 /usr/include/c++/13.2.1/bits/functional_hash.h:
 
@@ -849,6 +846,24 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/asm-generic/errno-base.h:
 
+/usr/include/bits/types/FILE.h:
+
+/usr/include/bits/flt-eval-method.h:
+
+/usr/include/c++/13.2.1/bits/locale_facets.h:
+
+/home/Mateusz/projects/SpaceEngine/src/System.hpp:
+
+/usr/include/bits/types/struct_sched_param.h:
+
+/usr/include/c++/13.2.1/bits/hash_bytes.h:
+
+/usr/include/bits/types/time_t.h:
+
+/usr/include/glm/detail/type_mat4x3.inl:
+
+/usr/include/bits/mathcalls-helper-functions.h:
+
 /usr/include/bits/pthread_stack_min-dynamic.h:
 
 /usr/include/glm/ext/vector_bool4_precision.hpp:
@@ -889,10 +904,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/bits/cpu-set.h:
 
-/usr/include/bits/struct_mutex.h:
-
-/usr/include/c++/13.2.1/ext/alloc_traits.h:
-
 /usr/include/bits/types/timer_t.h:
 
 /usr/include/bits/mathcalls-narrow.h:
@@ -900,18 +911,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/glm/detail/func_matrix.inl:
 
 /usr/include/c++/13.2.1/stdexcept:
-
-/usr/include/bits/types/FILE.h:
-
-/usr/include/bits/flt-eval-method.h:
-
-/usr/include/c++/13.2.1/bits/locale_facets.h:
-
-/usr/include/bits/types/time_t.h:
-
-/usr/include/glm/detail/type_mat4x3.inl:
-
-/usr/include/bits/mathcalls-helper-functions.h:
 
 /home/Mateusz/projects/SpaceEngine/src/ModelLoader.hpp:
 
@@ -937,11 +936,9 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/c++/13.2.1/numbers:
 
-/usr/include/bits/floatn-common.h:
+/usr/include/bits/thread-shared-types.h:
 
-/usr/include/c++/13.2.1/bits/basic_ios.h:
-
-/home/Mateusz/projects/SpaceEngine/src/Sol.hpp:
+/usr/include/c++/13.2.1/bits/ranges_base.h:
 
 /usr/include/c++/13.2.1/compare:
 
@@ -972,6 +969,12 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/c++/13.2.1/tuple:
 
 /usr/include/c++/13.2.1/bits/memoryfwd.h:
+
+/usr/include/c++/13.2.1/bits/basic_ios.h:
+
+/home/Mateusz/projects/SpaceEngine/src/Sol.hpp:
+
+/usr/include/bits/floatn-common.h:
 
 /usr/include/bits/floatn.h:
 
@@ -1051,9 +1054,9 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 
 /usr/include/bits/types/struct_timeval.h:
 
-/usr/include/c++/13.2.1/bits/ios_base.h:
-
 /usr/include/features.h:
+
+/usr/include/c++/13.2.1/bits/ios_base.h:
 
 /usr/include/bits/sched.h:
 
@@ -1094,8 +1097,6 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/bits/libm-simd-decl-stubs.h:
 
 /usr/include/c++/13.2.1/bits/ranges_algobase.h:
-
-/usr/include/c++/13.2.1/bits/ranges_base.h:
 
 /usr/include/c++/13.2.1/bits/ranges_uninitialized.h:
 
@@ -1194,6 +1195,8 @@ CMakeFiles/App.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/src/main.c
 /usr/include/c++/13.2.1/ostream:
 
 /usr/include/c++/13.2.1/pstl/glue_memory_defs.h:
+
+/home/Mateusz/projects/SpaceEngine/src/Ship.hpp:
 
 /usr/include/c++/13.2.1/pstl/pstl_config.h:
 

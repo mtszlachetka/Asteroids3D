@@ -262,6 +262,30 @@ src/ShaderLoader.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.s
 .PHONY : src/ShaderLoader.cpp.s
 
+src/Ship.o: src/Ship.cpp.o
+.PHONY : src/Ship.o
+
+# target to build an object file
+src/Ship.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/Ship.cpp.o
+.PHONY : src/Ship.cpp.o
+
+src/Ship.i: src/Ship.cpp.i
+.PHONY : src/Ship.i
+
+# target to preprocess a source file
+src/Ship.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/Ship.cpp.i
+.PHONY : src/Ship.cpp.i
+
+src/Ship.s: src/Ship.cpp.s
+.PHONY : src/Ship.s
+
+# target to generate assembly for a file
+src/Ship.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/Ship.cpp.s
+.PHONY : src/Ship.cpp.s
+
 src/System.o: src/System.cpp.o
 .PHONY : src/System.o
 
@@ -335,6 +359,9 @@ help:
 	@echo "... src/ShaderLoader.o"
 	@echo "... src/ShaderLoader.i"
 	@echo "... src/ShaderLoader.s"
+	@echo "... src/Ship.o"
+	@echo "... src/Ship.i"
+	@echo "... src/Ship.s"
 	@echo "... src/System.o"
 	@echo "... src/System.i"
 	@echo "... src/System.s"

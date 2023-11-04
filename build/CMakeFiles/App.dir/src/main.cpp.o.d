@@ -323,6 +323,7 @@ CMakeFiles/App.dir/src/main.cpp.o: \
  /usr/include/c++/13.2.1/pstl/execution_defs.h \
  /home/Mateusz/projects/SpaceEngine/src/Camera.hpp \
  /home/Mateusz/projects/SpaceEngine/src/IOProcessor.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/Ship.hpp \
  /usr/include/GLFW/glfw3.h \
  /home/Mateusz/projects/SpaceEngine/src/Renderer.hpp \
  /usr/include/c++/13.2.1/iostream /usr/include/c++/13.2.1/istream \

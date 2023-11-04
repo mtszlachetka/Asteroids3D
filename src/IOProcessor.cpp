@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/gtx/euler_angles.hpp>
 
-void IOProcessor::processInput(GLFWwindow* window, Camera& cam) {
+void IOProcessor::processInput(GLFWwindow* window, Camera& cam, Ship& ship) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
@@ -39,4 +39,7 @@ void IOProcessor::processInput(GLFWwindow* window, Camera& cam) {
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
         cam.cameraDir = glm::vec3(glm::eulerAngleY(-angleSpeed) * glm::vec4(cam.cameraDir, 0));
     }
+
+    ship.shipPos = cam.cameraPos + 1.5f * cam.cameraDir + glm::vec3(0.f, -0.5f, 0.f);
+    ship.shipDir = cam.cameraDir;
 }

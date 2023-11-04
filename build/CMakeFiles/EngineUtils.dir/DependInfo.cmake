@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/Mateusz/projects/SpaceEngine/src/ModelLoader.cpp" "CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.o" "gcc" "CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.o.d"
   "/home/Mateusz/projects/SpaceEngine/src/Renderer.cpp" "CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o" "gcc" "CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o.d"
   "/home/Mateusz/projects/SpaceEngine/src/ShaderLoader.cpp" "CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o" "gcc" "CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o.d"
+  "/home/Mateusz/projects/SpaceEngine/src/Ship.cpp" "CMakeFiles/EngineUtils.dir/src/Ship.cpp.o" "gcc" "CMakeFiles/EngineUtils.dir/src/Ship.cpp.o.d"
   "/home/Mateusz/projects/SpaceEngine/src/System.cpp" "CMakeFiles/EngineUtils.dir/src/System.cpp.o" "gcc" "CMakeFiles/EngineUtils.dir/src/System.cpp.o.d"
   )
 

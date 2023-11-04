@@ -5,6 +5,7 @@
 #include "Camera.hpp"
 #include "IOProcessor.hpp"
 #include "Renderer.hpp"
+#include "Ship.hpp"
 #include <iostream>
 #include <GLFW/glfw3.h>
 #include <GL/glew.h>
@@ -50,7 +51,8 @@ int main() {
         return 1;
     }
 
-
+    renderContext shipContext = ModelLoader::load("../models/spaceship.obj");
+    Ship ship(shipContext, {1., 1., 1.}, 0.2);
 
     System SolSystem = createSol();
 
@@ -59,10 +61,10 @@ int main() {
 
 
     while (!glfwWindowShouldClose(window)) {
-        timeElapsed = static_cast<float>(glfwGetTime());
+        timeElapsed = static_cast<float>(glfwGetTime() * 100);
         std::vector<Body> bodiesToRender = SolSystem.calculatePositions(timeElapsed);
-        IOProcessor::processInput(window, camera);
-        Renderer::renderBodies(program, bodiesToRender);
+        IOProcessor::processInput(window, camera, ship);
+        Renderer::render(program, bodiesToRender, ship);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

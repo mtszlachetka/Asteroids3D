@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o.d"
   "CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o"
   "CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o.d"
+  "CMakeFiles/EngineUtils.dir/src/Ship.cpp.o"
+  "CMakeFiles/EngineUtils.dir/src/Ship.cpp.o.d"
   "CMakeFiles/EngineUtils.dir/src/System.cpp.o"
   "CMakeFiles/EngineUtils.dir/src/System.cpp.o.d"
   "libEngineUtils.a"

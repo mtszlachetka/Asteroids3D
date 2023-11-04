@@ -1,9 +1,10 @@
-CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o: \
- /home/Mateusz/projects/SpaceEngine/src/Renderer.cpp \
+CMakeFiles/EngineUtils.dir/src/Ship.cpp.o: \
+ /home/Mateusz/projects/SpaceEngine/src/Ship.cpp \
  /usr/include/stdc-predef.h \
- /home/Mateusz/projects/SpaceEngine/src/Renderer.hpp \
- /usr/include/c++/13.2.1/vector \
- /usr/include/c++/13.2.1/bits/requires_hosted.h \
+ /home/Mateusz/projects/SpaceEngine/src/Ship.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/Body.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/ModelLoader.hpp \
+ /usr/include/GL/glew.h /usr/include/c++/13.2.1/cstddef \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -12,49 +13,7 @@ CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o: \
  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h \
  /usr/include/c++/13.2.1/pstl/pstl_config.h \
- /usr/include/c++/13.2.1/bits/stl_algobase.h \
- /usr/include/c++/13.2.1/bits/functexcept.h \
- /usr/include/c++/13.2.1/bits/exception_defines.h \
- /usr/include/c++/13.2.1/bits/cpp_type_traits.h \
- /usr/include/c++/13.2.1/ext/type_traits.h \
- /usr/include/c++/13.2.1/ext/numeric_traits.h \
- /usr/include/c++/13.2.1/bits/stl_pair.h \
- /usr/include/c++/13.2.1/type_traits /usr/include/c++/13.2.1/bits/move.h \
- /usr/include/c++/13.2.1/bits/utility.h \
- /usr/include/c++/13.2.1/bits/stl_iterator_base_types.h \
- /usr/include/c++/13.2.1/bits/stl_iterator_base_funcs.h \
- /usr/include/c++/13.2.1/bits/concept_check.h \
- /usr/include/c++/13.2.1/debug/assertions.h \
- /usr/include/c++/13.2.1/bits/stl_iterator.h \
- /usr/include/c++/13.2.1/bits/ptr_traits.h \
- /usr/include/c++/13.2.1/debug/debug.h \
- /usr/include/c++/13.2.1/bits/predefined_ops.h \
- /usr/include/c++/13.2.1/bit /usr/include/c++/13.2.1/bits/allocator.h \
- /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
- /usr/include/c++/13.2.1/bits/new_allocator.h /usr/include/c++/13.2.1/new \
- /usr/include/c++/13.2.1/bits/exception.h \
- /usr/include/c++/13.2.1/bits/memoryfwd.h \
- /usr/include/c++/13.2.1/bits/stl_construct.h \
- /usr/include/c++/13.2.1/bits/stl_uninitialized.h \
- /usr/include/c++/13.2.1/ext/alloc_traits.h \
- /usr/include/c++/13.2.1/bits/alloc_traits.h \
- /usr/include/c++/13.2.1/bits/stl_vector.h \
- /usr/include/c++/13.2.1/initializer_list \
- /usr/include/c++/13.2.1/bits/stl_bvector.h \
- /usr/include/c++/13.2.1/bits/functional_hash.h \
- /usr/include/c++/13.2.1/bits/hash_bytes.h \
- /usr/include/c++/13.2.1/bits/refwrap.h \
- /usr/include/c++/13.2.1/bits/invoke.h \
- /usr/include/c++/13.2.1/bits/stl_function.h \
- /usr/include/c++/13.2.1/backward/binders.h \
- /usr/include/c++/13.2.1/bits/range_access.h \
- /usr/include/c++/13.2.1/bits/vector.tcc \
- /usr/include/c++/13.2.1/bits/memory_resource.h \
- /usr/include/c++/13.2.1/cstddef \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stddef.h \
- /usr/include/c++/13.2.1/bits/uses_allocator.h \
- /usr/include/c++/13.2.1/bits/uses_allocator_args.h \
- /usr/include/c++/13.2.1/tuple /usr/include/GL/glew.h \
  /usr/include/c++/13.2.1/cstdint \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/libc-header-start.h \
@@ -62,9 +21,10 @@ CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o: \
  /usr/include/bits/time64.h /usr/include/bits/wchar.h \
  /usr/include/bits/stdint-intn.h /usr/include/bits/stdint-uintn.h \
  /usr/include/GL/glu.h /usr/include/GL/gl.h \
- /home/Mateusz/projects/SpaceEngine/src/Body.hpp \
- /home/Mateusz/projects/SpaceEngine/src/ModelLoader.hpp \
- /usr/include/c++/13.2.1/string /usr/include/c++/13.2.1/bits/stringfwd.h \
+ /usr/include/c++/13.2.1/string \
+ /usr/include/c++/13.2.1/bits/requires_hosted.h \
+ /usr/include/c++/13.2.1/bits/stringfwd.h \
+ /usr/include/c++/13.2.1/bits/memoryfwd.h \
  /usr/include/c++/13.2.1/bits/char_traits.h \
  /usr/include/c++/13.2.1/bits/postypes.h /usr/include/c++/13.2.1/cwchar \
  /usr/include/wchar.h /usr/include/bits/floatn.h \
@@ -73,7 +33,15 @@ CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o: \
  /usr/include/bits/types/wint_t.h /usr/include/bits/types/mbstate_t.h \
  /usr/include/bits/types/__mbstate_t.h /usr/include/bits/types/__FILE.h \
  /usr/include/bits/types/FILE.h /usr/include/bits/types/locale_t.h \
- /usr/include/bits/types/__locale_t.h \
+ /usr/include/bits/types/__locale_t.h /usr/include/c++/13.2.1/type_traits \
+ /usr/include/c++/13.2.1/bits/allocator.h \
+ /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
+ /usr/include/c++/13.2.1/bits/new_allocator.h /usr/include/c++/13.2.1/new \
+ /usr/include/c++/13.2.1/bits/exception.h \
+ /usr/include/c++/13.2.1/bits/functexcept.h \
+ /usr/include/c++/13.2.1/bits/exception_defines.h \
+ /usr/include/c++/13.2.1/bits/move.h \
+ /usr/include/c++/13.2.1/bits/cpp_type_traits.h \
  /usr/include/c++/13.2.1/bits/localefwd.h \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++locale.h \
  /usr/include/c++/13.2.1/clocale /usr/include/locale.h \
@@ -82,8 +50,32 @@ CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o: \
  /usr/include/bits/endian.h /usr/include/bits/endianness.h \
  /usr/include/c++/13.2.1/bits/ostream_insert.h \
  /usr/include/c++/13.2.1/bits/cxxabi_forced.h \
+ /usr/include/c++/13.2.1/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/13.2.1/bits/concept_check.h \
+ /usr/include/c++/13.2.1/debug/assertions.h \
+ /usr/include/c++/13.2.1/bits/stl_iterator_base_types.h \
+ /usr/include/c++/13.2.1/bits/stl_iterator.h \
+ /usr/include/c++/13.2.1/ext/type_traits.h \
+ /usr/include/c++/13.2.1/bits/ptr_traits.h \
+ /usr/include/c++/13.2.1/bits/stl_function.h \
+ /usr/include/c++/13.2.1/backward/binders.h \
+ /usr/include/c++/13.2.1/ext/numeric_traits.h \
+ /usr/include/c++/13.2.1/bits/stl_algobase.h \
+ /usr/include/c++/13.2.1/bits/stl_pair.h \
+ /usr/include/c++/13.2.1/bits/utility.h \
+ /usr/include/c++/13.2.1/debug/debug.h \
+ /usr/include/c++/13.2.1/bits/predefined_ops.h \
+ /usr/include/c++/13.2.1/bit /usr/include/c++/13.2.1/bits/refwrap.h \
+ /usr/include/c++/13.2.1/bits/invoke.h \
+ /usr/include/c++/13.2.1/bits/range_access.h \
+ /usr/include/c++/13.2.1/initializer_list \
  /usr/include/c++/13.2.1/bits/basic_string.h \
+ /usr/include/c++/13.2.1/ext/alloc_traits.h \
+ /usr/include/c++/13.2.1/bits/alloc_traits.h \
+ /usr/include/c++/13.2.1/bits/stl_construct.h \
  /usr/include/c++/13.2.1/string_view \
+ /usr/include/c++/13.2.1/bits/functional_hash.h \
+ /usr/include/c++/13.2.1/bits/hash_bytes.h \
  /usr/include/c++/13.2.1/bits/string_view.tcc \
  /usr/include/c++/13.2.1/ext/string_conversions.h \
  /usr/include/c++/13.2.1/cstdlib /usr/include/stdlib.h \
@@ -111,7 +103,11 @@ CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o: \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/bits/types/error_t.h \
  /usr/include/c++/13.2.1/bits/charconv.h \
- /usr/include/c++/13.2.1/bits/basic_string.tcc /usr/include/glm/glm.hpp \
+ /usr/include/c++/13.2.1/bits/basic_string.tcc \
+ /usr/include/c++/13.2.1/bits/memory_resource.h \
+ /usr/include/c++/13.2.1/bits/uses_allocator.h \
+ /usr/include/c++/13.2.1/bits/uses_allocator_args.h \
+ /usr/include/c++/13.2.1/tuple /usr/include/glm/glm.hpp \
  /usr/include/glm/detail/_fixes.hpp /usr/include/c++/13.2.1/cmath \
  /usr/include/math.h /usr/include/bits/math-vector.h \
  /usr/include/bits/libm-simd-decl-stubs.h \
@@ -254,129 +250,4 @@ CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o: \
  /usr/include/glm/detail/type_half.hpp \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
  /usr/include/glm/detail/func_integer.inl \
- /home/Mateusz/projects/SpaceEngine/src/Ship.hpp \
- /home/Mateusz/projects/SpaceEngine/src/Camera.hpp \
- /usr/include/glm/ext.hpp /usr/include/glm/ext/matrix_clip_space.hpp \
- /usr/include/glm/ext/scalar_constants.hpp \
- /usr/include/glm/ext/scalar_constants.inl \
- /usr/include/glm/ext/matrix_clip_space.inl \
- /usr/include/glm/ext/matrix_common.hpp \
- /usr/include/glm/detail/_fixes.hpp \
- /usr/include/glm/ext/matrix_common.inl \
- /usr/include/glm/ext/matrix_int2x2.hpp \
- /usr/include/glm/ext/matrix_int2x2_sized.hpp \
- /usr/include/glm/ext/matrix_int2x3.hpp \
- /usr/include/glm/ext/matrix_int2x3_sized.hpp \
- /usr/include/glm/ext/matrix_int2x4.hpp \
- /usr/include/glm/ext/matrix_int2x4_sized.hpp \
- /usr/include/glm/ext/matrix_int3x2.hpp \
- /usr/include/glm/ext/matrix_int3x2_sized.hpp \
- /usr/include/glm/ext/matrix_int3x3.hpp \
- /usr/include/glm/ext/matrix_int3x3_sized.hpp \
- /usr/include/glm/ext/matrix_int3x4.hpp \
- /usr/include/glm/ext/matrix_int3x4_sized.hpp \
- /usr/include/glm/ext/matrix_int4x2.hpp \
- /usr/include/glm/ext/matrix_int4x2_sized.hpp \
- /usr/include/glm/ext/matrix_int4x3.hpp \
- /usr/include/glm/ext/matrix_int4x3_sized.hpp \
- /usr/include/glm/ext/matrix_int4x4.hpp \
- /usr/include/glm/ext/matrix_int4x4_sized.hpp \
- /usr/include/glm/ext/matrix_uint2x2.hpp \
- /usr/include/glm/ext/matrix_uint2x2_sized.hpp \
- /usr/include/glm/ext/matrix_uint2x3.hpp \
- /usr/include/glm/ext/matrix_uint2x3_sized.hpp \
- /usr/include/glm/ext/matrix_uint2x4.hpp \
- /usr/include/glm/ext/matrix_uint2x4_sized.hpp \
- /usr/include/glm/ext/matrix_uint3x2.hpp \
- /usr/include/glm/ext/matrix_uint3x2_sized.hpp \
- /usr/include/glm/ext/matrix_uint3x3.hpp \
- /usr/include/glm/ext/matrix_uint3x3_sized.hpp \
- /usr/include/glm/ext/matrix_uint3x4.hpp \
- /usr/include/glm/ext/matrix_uint3x4_sized.hpp \
- /usr/include/glm/ext/matrix_uint4x2.hpp \
- /usr/include/glm/ext/matrix_uint4x2_sized.hpp \
- /usr/include/glm/ext/matrix_uint4x3.hpp \
- /usr/include/glm/ext/matrix_uint4x3_sized.hpp \
- /usr/include/glm/ext/matrix_uint4x4.hpp \
- /usr/include/glm/ext/matrix_uint4x4_sized.hpp \
- /usr/include/glm/ext/matrix_projection.hpp \
- /usr/include/glm/gtc/constants.hpp /usr/include/glm/gtc/constants.inl \
- /usr/include/glm/ext/matrix_projection.inl \
- /usr/include/glm/ext/matrix_relational.hpp \
- /usr/include/glm/ext/matrix_relational.inl \
- /usr/include/glm/ext/vector_relational.hpp \
- /usr/include/glm/ext/vector_relational.inl \
- /usr/include/glm/detail/type_float.hpp \
- /usr/include/glm/ext/matrix_transform.hpp \
- /usr/include/glm/ext/matrix_transform.inl \
- /usr/include/glm/ext/quaternion_common.hpp \
- /usr/include/glm/ext/quaternion_geometric.hpp \
- /usr/include/glm/ext/quaternion_geometric.inl \
- /usr/include/glm/ext/quaternion_common.inl \
- /usr/include/glm/ext/quaternion_double.hpp \
- /usr/include/glm/detail/type_quat.hpp \
- /usr/include/glm/ext/quaternion_relational.hpp \
- /usr/include/glm/ext/quaternion_relational.inl \
- /usr/include/glm/gtc/matrix_transform.hpp \
- /usr/include/glm/gtc/matrix_transform.inl \
- /usr/include/glm/detail/type_quat.inl \
- /usr/include/glm/ext/quaternion_double_precision.hpp \
- /usr/include/glm/ext/quaternion_float.hpp \
- /usr/include/glm/ext/quaternion_float_precision.hpp \
- /usr/include/glm/ext/quaternion_exponential.hpp \
- /usr/include/glm/ext/quaternion_exponential.inl \
- /usr/include/glm/ext/quaternion_transform.hpp \
- /usr/include/glm/ext/quaternion_transform.inl \
- /usr/include/glm/ext/quaternion_trigonometric.hpp \
- /usr/include/glm/ext/quaternion_trigonometric.inl \
- /usr/include/glm/ext/scalar_common.hpp \
- /usr/include/glm/ext/scalar_common.inl \
- /usr/include/glm/ext/scalar_integer.hpp \
- /usr/include/glm/ext/scalar_integer.inl \
- /usr/include/glm/ext/scalar_packing.hpp \
- /usr/include/glm/ext/scalar_packing.inl \
- /usr/include/glm/ext/scalar_relational.hpp \
- /usr/include/glm/ext/scalar_relational.inl \
- /usr/include/glm/ext/scalar_ulp.hpp /usr/include/glm/ext/scalar_ulp.inl \
- /usr/include/glm/ext/vector_common.hpp \
- /usr/include/glm/ext/vector_common.inl \
- /usr/include/glm/ext/vector_integer.hpp \
- /usr/include/glm/ext/vector_integer.inl \
- /usr/include/glm/ext/vector_packing.hpp \
- /usr/include/glm/ext/vector_packing.inl \
- /usr/include/glm/ext/vector_ulp.hpp /usr/include/glm/ext/vector_ulp.inl \
- /usr/include/glm/ext/vector_bool1.hpp \
- /usr/include/glm/ext/vector_bool1_precision.hpp \
- /usr/include/glm/ext/vector_double1.hpp \
- /usr/include/glm/ext/vector_double1_precision.hpp \
- /usr/include/glm/ext/vector_float1.hpp \
- /usr/include/glm/ext/vector_float1_precision.hpp \
- /usr/include/glm/ext/vector_int1.hpp \
- /usr/include/glm/ext/vector_int1_sized.hpp \
- /usr/include/glm/ext/vector_uint1.hpp \
- /usr/include/glm/ext/vector_uint1_sized.hpp \
- /usr/include/glm/gtc/bitfield.hpp /usr/include/glm/detail/setup.hpp \
- /usr/include/glm/gtc/type_precision.hpp \
- /usr/include/glm/gtc/quaternion.hpp /usr/include/glm/gtc/quaternion.inl \
- /usr/include/glm/gtc/epsilon.hpp /usr/include/glm/gtc/epsilon.inl \
- /usr/include/glm/gtc/vec1.hpp /usr/include/glm/gtc/type_precision.inl \
- /usr/include/glm/gtc/bitfield.inl /usr/include/glm/simd/integer.h \
- /usr/include/glm/gtc/color_space.hpp \
- /usr/include/glm/gtc/color_space.inl /usr/include/glm/gtc/integer.hpp \
- /usr/include/glm/gtc/integer.inl /usr/include/glm/gtc/matrix_access.hpp \
- /usr/include/glm/gtc/matrix_access.inl \
- /usr/include/glm/gtc/matrix_integer.hpp \
- /usr/include/glm/gtc/matrix_inverse.hpp \
- /usr/include/glm/gtc/matrix_inverse.inl /usr/include/glm/gtc/noise.hpp \
- /usr/include/glm/detail/_noise.hpp /usr/include/glm/gtc/noise.inl \
- /usr/include/glm/gtc/packing.hpp /usr/include/glm/gtc/packing.inl \
- /usr/include/c++/13.2.1/cstring /usr/include/string.h \
- /usr/include/strings.h /usr/include/glm/gtc/random.hpp \
- /usr/include/glm/gtc/random.inl /usr/include/c++/13.2.1/ctime \
- /usr/include/time.h /usr/include/bits/time.h /usr/include/bits/timex.h \
- /usr/include/bits/types/struct_tm.h \
- /usr/include/bits/types/struct_itimerspec.h \
- /usr/include/glm/gtc/reciprocal.hpp /usr/include/glm/gtc/reciprocal.inl \
- /usr/include/glm/gtc/round.hpp /usr/include/glm/gtc/round.inl \
- /usr/include/glm/gtc/type_ptr.hpp /usr/include/glm/gtc/type_ptr.inl \
- /usr/include/glm/gtc/ulp.hpp /usr/include/glm/gtc/ulp.inl
+ /home/Mateusz/projects/SpaceEngine/src/Camera.hpp
