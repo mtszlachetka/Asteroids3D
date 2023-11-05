@@ -61,7 +61,7 @@ int main() {
 
 
     while (!glfwWindowShouldClose(window)) {
-        timeElapsed = static_cast<float>(glfwGetTime() * 100);
+        timeElapsed = static_cast<float>(glfwGetTime());
         std::vector<Body> bodiesToRender = SolSystem.calculatePositions(timeElapsed);
         IOProcessor::processInput(window, camera, ship);
         Renderer::render(program, bodiesToRender, ship);
