@@ -26,7 +26,7 @@ glm::mat4 Camera::createPerspectiveMatrix() {
     return {
         1, 0, 0, 0,
         0, 1, 0, 0,
-        0, 0, (f + n) / (f - n), -1,
-        0, 0, 2 * f * n / (f - n), 0
+        0, 0, (f + n) / (n - f), -1,
+        0, 0, 2 * f * n / (n - f), 0
     };
 }
