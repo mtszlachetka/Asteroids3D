@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include <string>
 
-struct renderContext {
+struct RenderContext {
     GLuint vertexArray;
     GLuint vertexBuffer;
     GLuint vertexIndexBuffer;
@@ -13,7 +13,9 @@ struct renderContext {
 
 class ModelLoader {
     public:
-        static renderContext load(std::string path);
+        RenderContext load(std::string path);
 };
+
+static ModelLoader gModelLoader;
 
 #endif

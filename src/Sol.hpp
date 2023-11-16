@@ -6,7 +6,7 @@
 
 
 System createSol() {
-    renderContext sphereContext = ModelLoader::load("../models/sphere.obj");
+    RenderContext sphereContext = gModelLoader.load("../models/sphere.obj");
     Body Sun{sphereContext, glm::vec3(0.9, 0.9, 0.2), 5.f};
     Body Mercury { sphereContext, glm::vec3(0.8, 0.8, 0.8), 0.4};
     Body Earth{sphereContext, glm::vec3(0., 0.1, 0.9), 1.f};

@@ -11,9 +11,9 @@ class Body {
         glm::mat4 transformMatrix;
     public:
         float scale;
-        renderContext context;
+        RenderContext context;
         glm::vec3 color;
-        Body(const renderContext ctx, const glm::vec3 clr, float s) : context(ctx), color(clr), scale(s) {}
+        Body(const RenderContext ctx, const glm::vec3 clr, float s) : context(ctx), color(clr), scale(s) {}
         ~Body() {}
 };
 

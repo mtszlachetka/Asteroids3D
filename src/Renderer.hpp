@@ -7,7 +7,9 @@
 
 class Renderer {
     public:
-        static void render(GLuint program, std::vector<Body>& bodies, Ship& ship);
+        void render(GLuint program, std::vector<Body>& bodies, Ship& ship);
 };
+
+static Renderer gRenderer;
 
 #endif

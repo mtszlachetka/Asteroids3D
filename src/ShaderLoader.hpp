@@ -6,11 +6,13 @@
 
 class ShaderLoader {
     private:
-        static std::string readShader(std::string path);
-        static GLuint createShader(GLenum type, std::string source, std::string name);
+        std::string readShader(std::string path);
+        GLuint createShader(GLenum type, std::string source, std::string name);
     public:
-        static GLuint createProgram(std::string vShaderPath, std::string fShaderPath);
-        static void deleteProgram(GLuint program);
+        GLuint createProgram(std::string vShaderPath, std::string fShaderPath);
+        void deleteProgram(GLuint program);
 };
+
+static ShaderLoader gShaderLoader;
 
 #endif

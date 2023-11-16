@@ -9,9 +9,8 @@ class Ship : public Body {
     private:
         glm::vec3 shipPos, shipDir;
     public:
-        Ship(const renderContext ctx, const glm::vec3 clr, float s, glm::vec3 initPos = {0., 0., 0.}, glm::vec3 initDir = {0., 0., 0}) : 
+        Ship(const RenderContext ctx, const glm::vec3 clr, float s, glm::vec3 initPos = {0., 0., 0.}, glm::vec3 initDir = {0., 0., 0}) : 
             Body(ctx, clr, s), shipPos(initPos), shipDir(initDir) {}
-        // glm::mat4 getShipMatrix();
 };
 
 #endif

@@ -32,7 +32,7 @@ int main() {
     GLFWwindow* window = glfwCreateWindow(width, height, "FirstWindow", NULL, NULL);
 	if (window == NULL)
 	{
-		std::cout << "Failed to create GLFW window" << std::endl;
+		std::cerr << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 		return -1;
 	}
@@ -44,14 +44,14 @@ int main() {
     }
     
     try {
-        program = ShaderLoader::createProgram("../shaders/shader.vert", "../shaders/shader.frag");
+        program = gShaderLoader.createProgram("../shaders/shader.vert", "../shaders/shader.frag");
     }
     catch(std::runtime_error& e) {
         std::cout << e.what() << std::endl;
         return 1;
     }
 
-    renderContext shipContext = ModelLoader::load("../models/spaceship.obj");
+    RenderContext shipContext = gModelLoader.load("../models/spaceship.obj");
     Ship ship(shipContext, {1., 1., 1.}, 0.2);
 
     System SolSystem = createSol();
@@ -63,12 +63,12 @@ int main() {
     while (!glfwWindowShouldClose(window)) {
         timeElapsed = static_cast<float>(glfwGetTime());
         std::vector<Body> bodiesToRender = SolSystem.calculatePositions(timeElapsed);
-        IOProcessor::processInput(window, camera, ship);
-        Renderer::render(program, bodiesToRender, ship);
+        gIOProcessor.processInput(window, camera, ship);
+        gRenderer.render(program, bodiesToRender, ship);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
-    ShaderLoader::deleteProgram(program);
+    gShaderLoader.deleteProgram(program);
     glfwTerminate();
 }

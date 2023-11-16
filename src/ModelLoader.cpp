@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <vector>
 
-renderContext ModelLoader::load(std::string path) {
+RenderContext ModelLoader::load(std::string path) {
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_CalcTangentSpace);
 
@@ -15,7 +15,7 @@ renderContext ModelLoader::load(std::string path) {
 
     aiMesh* mesh = scene->mMeshes[0];
 
-    renderContext context;
+    RenderContext context;
 
     std::vector<float> textureCoord;
     std::vector<unsigned> indices;
