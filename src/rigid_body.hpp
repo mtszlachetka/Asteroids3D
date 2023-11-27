@@ -10,18 +10,23 @@ class rigid_body {
     using v3 = glm::vec3;
     friend class renderer;
     protected:
+        glm::mat4 (*m_position_callback)(float); // awful - temporary solution 
         render_context m_context;
         GLuint m_program;
-        v3 m_color, m_pos, m_dir, m_side, m_up;
+        v3 m_pos, m_dir, m_side, m_up; // moving frame - usused for now, set to 0
         std::vector<texture_info> m_textures;
     public:
-        rigid_body(const render_context& rc, GLuint program, const v3& pos, const v3& dir, const v3& col, const std::vector<texture_info>& tex) : 
-            m_context(rc), m_program(program), m_pos(pos), m_dir(dir), m_color(col), m_textures(tex) { rebase(); }
+        rigid_body(const render_context& rc, GLuint program, const v3& pos, const v3& dir, const std::vector<texture_info>& tex) : 
+            m_context(rc), m_program(program), m_pos(pos), m_dir(dir), m_textures(tex) { 
+                rebase(); 
+                m_position_callback = [](float time) -> glm::mat4 { return glm::mat4(1.); };
+            }
         void rebase() {
             m_side = glm::normalize(glm::cross(m_dir, {0, 1, 0}));
             m_up = glm::normalize(glm::cross(m_side, m_dir));
         }
-        virtual glm::mat4 get_position(float time) const;
+        void set_position_callback(glm::mat4 (*callback)(float)) { m_position_callback = callback; } 
+        virtual glm::mat4 get_position(float time) const { return m_position_callback(time); };
         virtual ~rigid_body() {}
 };
 

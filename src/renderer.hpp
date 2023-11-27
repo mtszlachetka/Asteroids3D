@@ -9,11 +9,10 @@ class renderer {
     private:
         const camera* m_cam;
     public:
-        void render_body(const rigid_body& body);
         void set_active_camera(const camera& c) {
             m_cam = &c;
         }
-        void render(const std::vector<rigid_body*>& bodies);
+        void render(const std::vector<rigid_body*>& bodies, float time); // time is needed for object positions - needs better solution
 };
 
 static renderer s_renderer;
