@@ -62,8 +62,8 @@ CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o: \
  /usr/include/bits/time64.h /usr/include/bits/wchar.h \
  /usr/include/bits/stdint-intn.h /usr/include/bits/stdint-uintn.h \
  /usr/include/GL/glu.h /usr/include/GL/gl.h \
- /home/Mateusz/projects/SpaceEngine/src/Body.hpp \
- /home/Mateusz/projects/SpaceEngine/src/ModelLoader.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/RigidBody.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/mesh_manager.hpp \
  /usr/include/c++/13.2.1/string /usr/include/c++/13.2.1/bits/stringfwd.h \
  /usr/include/c++/13.2.1/bits/char_traits.h \
  /usr/include/c++/13.2.1/bits/postypes.h /usr/include/c++/13.2.1/cwchar \
@@ -111,10 +111,11 @@ CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o: \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/bits/types/error_t.h \
  /usr/include/c++/13.2.1/bits/charconv.h \
- /usr/include/c++/13.2.1/bits/basic_string.tcc /usr/include/glm/glm.hpp \
- /usr/include/glm/detail/_fixes.hpp /usr/include/c++/13.2.1/cmath \
- /usr/include/math.h /usr/include/bits/math-vector.h \
- /usr/include/bits/libm-simd-decl-stubs.h \
+ /usr/include/c++/13.2.1/bits/basic_string.tcc \
+ /home/Mateusz/projects/SpaceEngine/src/TextureLoader.hpp \
+ /usr/include/glm/glm.hpp /usr/include/glm/detail/_fixes.hpp \
+ /usr/include/c++/13.2.1/cmath /usr/include/math.h \
+ /usr/include/bits/math-vector.h /usr/include/bits/libm-simd-decl-stubs.h \
  /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
  /usr/include/bits/fp-fast.h \
  /usr/include/bits/mathcalls-helper-functions.h \
@@ -254,7 +255,6 @@ CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o: \
  /usr/include/glm/detail/type_half.hpp \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
  /usr/include/glm/detail/func_integer.inl \
- /home/Mateusz/projects/SpaceEngine/src/Ship.hpp \
  /home/Mateusz/projects/SpaceEngine/src/Camera.hpp \
  /usr/include/glm/ext.hpp /usr/include/glm/ext/matrix_clip_space.hpp \
  /usr/include/glm/ext/scalar_constants.hpp \

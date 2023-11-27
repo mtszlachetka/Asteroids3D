@@ -1,0 +1,44 @@
+[
+{
+  "directory": "/home/Mateusz/projects/SpaceEngine/build",
+  "command": "/usr/bin/g++  -I/home/Mateusz/projects/SpaceEngine/src -g -o CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/mesh_manager.cpp",
+  "file": "/home/Mateusz/projects/SpaceEngine/src/mesh_manager.cpp",
+  "output": "CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.o"
+},
+{
+  "directory": "/home/Mateusz/projects/SpaceEngine/build",
+  "command": "/usr/bin/g++  -I/home/Mateusz/projects/SpaceEngine/src -g -o CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/shader_manager.cpp",
+  "file": "/home/Mateusz/projects/SpaceEngine/src/shader_manager.cpp",
+  "output": "CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.o"
+},
+{
+  "directory": "/home/Mateusz/projects/SpaceEngine/build",
+  "command": "/usr/bin/g++  -I/home/Mateusz/projects/SpaceEngine/src -g -o CMakeFiles/EngineUtils.dir/src/renderer.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/renderer.cpp",
+  "file": "/home/Mateusz/projects/SpaceEngine/src/renderer.cpp",
+  "output": "CMakeFiles/EngineUtils.dir/src/renderer.cpp.o"
+},
+{
+  "directory": "/home/Mateusz/projects/SpaceEngine/build",
+  "command": "/usr/bin/g++  -I/home/Mateusz/projects/SpaceEngine/src -g -o CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/rigid_body.cpp",
+  "file": "/home/Mateusz/projects/SpaceEngine/src/rigid_body.cpp",
+  "output": "CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.o"
+},
+{
+  "directory": "/home/Mateusz/projects/SpaceEngine/build",
+  "command": "/usr/bin/g++  -I/home/Mateusz/projects/SpaceEngine/src -g -o CMakeFiles/EngineUtils.dir/src/camera.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/camera.cpp",
+  "file": "/home/Mateusz/projects/SpaceEngine/src/camera.cpp",
+  "output": "CMakeFiles/EngineUtils.dir/src/camera.cpp.o"
+},
+{
+  "directory": "/home/Mateusz/projects/SpaceEngine/build",
+  "command": "/usr/bin/g++  -I/home/Mateusz/projects/SpaceEngine/src -g -o CMakeFiles/EngineUtils.dir/src/io_processor.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/io_processor.cpp",
+  "file": "/home/Mateusz/projects/SpaceEngine/src/io_processor.cpp",
+  "output": "CMakeFiles/EngineUtils.dir/src/io_processor.cpp.o"
+},
+{
+  "directory": "/home/Mateusz/projects/SpaceEngine/build",
+  "command": "/usr/bin/g++  -I/home/Mateusz/projects/SpaceEngine/src -g -std=gnu++20 -o CMakeFiles/SpaceEngine.dir/src/main.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/main.cpp",
+  "file": "/home/Mateusz/projects/SpaceEngine/src/main.cpp",
+  "output": "CMakeFiles/SpaceEngine.dir/src/main.cpp.o"
+}
+]

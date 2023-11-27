@@ -1,2 +1,2 @@
-/usr/bin/ar qc libEngineUtils.a CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.o CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o CMakeFiles/EngineUtils.dir/src/System.cpp.o CMakeFiles/EngineUtils.dir/src/Camera.cpp.o CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.o CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o CMakeFiles/EngineUtils.dir/src/Ship.cpp.o
+/usr/bin/ar qc libEngineUtils.a CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.o CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.o CMakeFiles/EngineUtils.dir/src/renderer.cpp.o CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.o CMakeFiles/EngineUtils.dir/src/camera.cpp.o CMakeFiles/EngineUtils.dir/src/io_processor.cpp.o
 /usr/bin/ranlib libEngineUtils.a

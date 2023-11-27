@@ -1,22 +1,13 @@
-#include "ModelLoader.hpp"
-#include "ShaderLoader.hpp"
-#include "Body.hpp"
-#include "System.hpp"
-#include "Camera.hpp"
-#include "IOProcessor.hpp"
-#include "Renderer.hpp"
-#include "Ship.hpp"
 #include <iostream>
-#include <GLFW/glfw3.h>
 #include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 #include <stdexcept>
-
-#include "Sol.hpp"
-
-
-GLuint program;
-unsigned width = 500, height = 500;
-Camera camera(0.05f, 200.f, {1, 0, 0}, {-4, 0, 0});
+#include "mesh_manager.hpp"
+#include "shader_manager.hpp"
+#include "renderer.hpp"
+#include "camera.hpp"
+#include "io_processor.hpp"
 
 
 int main() {
@@ -27,7 +18,7 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    width = height = 500;
+    unsigned width = 500, height = 500;
 
     GLFWwindow* window = glfwCreateWindow(width, height, "FirstWindow", NULL, NULL);
 	if (window == NULL)
@@ -42,33 +33,46 @@ int main() {
         std::cerr << "GLEW error" << std::endl;
         return 1;
     }
-    
+    GLuint program;
+    std::vector<shader_info> default_shaders = {
+        {
+            GL_VERTEX_SHADER,
+            "../shaders/shader.vert",
+            "vertex shader"
+        },
+        {
+            GL_FRAGMENT_SHADER,
+            "../shaders/shader.frag",
+            "fragment shader"
+        }
+    };
     try {
-        program = gShaderLoader.createProgram("../shaders/shader.vert", "../shaders/shader.frag");
+        program = s_shader_manager.create_program(default_shaders);
     }
     catch(std::runtime_error& e) {
         std::cout << e.what() << std::endl;
         return 1;
     }
 
-    RenderContext shipContext = gModelLoader.load("../models/spaceship.obj");
-    Ship ship(shipContext, {1., 1., 1.}, 0.2);
-
-    System SolSystem = createSol();
+    render_context ship_context = s_mesh_manager.load("../models/spaceship.obj");
+    render_context sphere_context = s_mesh_manager.load("../models/sphere.obj");
 
     glViewport(0, 0, width, height);
     glEnable(GL_DEPTH_TEST);
 
+    rigid_body sun(sphere_context, program, glm::vec3(0., 0., 0.), glm::vec3(0., 0., 0.), glm::vec3(0., 0., 0.), glm::vec3(0., 0., 0.), glm::vec3(0.9, 0.9, 0.2), std::vector<texture_info>());
+
+    camera camera1(0.01, 200, {0, 0, 1}, {0, 0, 1});
+    s_renderer.set_active_camera(camera1);
 
     while (!glfwWindowShouldClose(window)) {
         timeElapsed = static_cast<float>(glfwGetTime());
-        std::vector<Body> bodiesToRender = SolSystem.calculatePositions(timeElapsed);
-        gIOProcessor.processInput(window, camera, ship);
-        gRenderer.render(program, bodiesToRender, ship);
+        s_io_processor.process_input(window, camera1);
+        s_renderer.render_body(sun);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
-    gShaderLoader.deleteProgram(program);
+    s_shader_manager.delete_program(program);
     glfwTerminate();
 }

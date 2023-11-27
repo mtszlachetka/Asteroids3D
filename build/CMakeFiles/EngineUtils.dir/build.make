@@ -69,127 +69,111 @@ include CMakeFiles/EngineUtils.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/EngineUtils.dir/flags.make
 
-CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.o: CMakeFiles/EngineUtils.dir/flags.make
-CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.o: /home/Mateusz/projects/SpaceEngine/src/ModelLoader.cpp
-CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.o: CMakeFiles/EngineUtils.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.o -MF CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.o.d -o CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/ModelLoader.cpp
+CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.o: CMakeFiles/EngineUtils.dir/flags.make
+CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.o: /home/Mateusz/projects/SpaceEngine/src/mesh_manager.cpp
+CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.o: CMakeFiles/EngineUtils.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.o -MF CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.o.d -o CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/mesh_manager.cpp
 
-CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/ModelLoader.cpp > CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.i
+CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/mesh_manager.cpp > CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.i
 
-CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/ModelLoader.cpp -o CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.s
+CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/mesh_manager.cpp -o CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.s
 
-CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o: CMakeFiles/EngineUtils.dir/flags.make
-CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o: /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.cpp
-CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o: CMakeFiles/EngineUtils.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o -MF CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o.d -o CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.cpp
+CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.o: CMakeFiles/EngineUtils.dir/flags.make
+CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.o: /home/Mateusz/projects/SpaceEngine/src/shader_manager.cpp
+CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.o: CMakeFiles/EngineUtils.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.o -MF CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.o.d -o CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/shader_manager.cpp
 
-CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.cpp > CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.i
+CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/shader_manager.cpp > CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.i
 
-CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/ShaderLoader.cpp -o CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.s
+CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/shader_manager.cpp -o CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.s
 
-CMakeFiles/EngineUtils.dir/src/System.cpp.o: CMakeFiles/EngineUtils.dir/flags.make
-CMakeFiles/EngineUtils.dir/src/System.cpp.o: /home/Mateusz/projects/SpaceEngine/src/System.cpp
-CMakeFiles/EngineUtils.dir/src/System.cpp.o: CMakeFiles/EngineUtils.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/EngineUtils.dir/src/System.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EngineUtils.dir/src/System.cpp.o -MF CMakeFiles/EngineUtils.dir/src/System.cpp.o.d -o CMakeFiles/EngineUtils.dir/src/System.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/System.cpp
+CMakeFiles/EngineUtils.dir/src/renderer.cpp.o: CMakeFiles/EngineUtils.dir/flags.make
+CMakeFiles/EngineUtils.dir/src/renderer.cpp.o: /home/Mateusz/projects/SpaceEngine/src/renderer.cpp
+CMakeFiles/EngineUtils.dir/src/renderer.cpp.o: CMakeFiles/EngineUtils.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/EngineUtils.dir/src/renderer.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EngineUtils.dir/src/renderer.cpp.o -MF CMakeFiles/EngineUtils.dir/src/renderer.cpp.o.d -o CMakeFiles/EngineUtils.dir/src/renderer.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/renderer.cpp
 
-CMakeFiles/EngineUtils.dir/src/System.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/EngineUtils.dir/src/System.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/System.cpp > CMakeFiles/EngineUtils.dir/src/System.cpp.i
+CMakeFiles/EngineUtils.dir/src/renderer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/EngineUtils.dir/src/renderer.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/renderer.cpp > CMakeFiles/EngineUtils.dir/src/renderer.cpp.i
 
-CMakeFiles/EngineUtils.dir/src/System.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/EngineUtils.dir/src/System.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/System.cpp -o CMakeFiles/EngineUtils.dir/src/System.cpp.s
+CMakeFiles/EngineUtils.dir/src/renderer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/EngineUtils.dir/src/renderer.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/renderer.cpp -o CMakeFiles/EngineUtils.dir/src/renderer.cpp.s
 
-CMakeFiles/EngineUtils.dir/src/Camera.cpp.o: CMakeFiles/EngineUtils.dir/flags.make
-CMakeFiles/EngineUtils.dir/src/Camera.cpp.o: /home/Mateusz/projects/SpaceEngine/src/Camera.cpp
-CMakeFiles/EngineUtils.dir/src/Camera.cpp.o: CMakeFiles/EngineUtils.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/EngineUtils.dir/src/Camera.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EngineUtils.dir/src/Camera.cpp.o -MF CMakeFiles/EngineUtils.dir/src/Camera.cpp.o.d -o CMakeFiles/EngineUtils.dir/src/Camera.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/Camera.cpp
+CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.o: CMakeFiles/EngineUtils.dir/flags.make
+CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.o: /home/Mateusz/projects/SpaceEngine/src/rigid_body.cpp
+CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.o: CMakeFiles/EngineUtils.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.o -MF CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.o.d -o CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/rigid_body.cpp
 
-CMakeFiles/EngineUtils.dir/src/Camera.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/EngineUtils.dir/src/Camera.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/Camera.cpp > CMakeFiles/EngineUtils.dir/src/Camera.cpp.i
+CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/rigid_body.cpp > CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.i
 
-CMakeFiles/EngineUtils.dir/src/Camera.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/EngineUtils.dir/src/Camera.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/Camera.cpp -o CMakeFiles/EngineUtils.dir/src/Camera.cpp.s
+CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/rigid_body.cpp -o CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.s
 
-CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.o: CMakeFiles/EngineUtils.dir/flags.make
-CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.o: /home/Mateusz/projects/SpaceEngine/src/IOProcessor.cpp
-CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.o: CMakeFiles/EngineUtils.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.o -MF CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.o.d -o CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/IOProcessor.cpp
+CMakeFiles/EngineUtils.dir/src/camera.cpp.o: CMakeFiles/EngineUtils.dir/flags.make
+CMakeFiles/EngineUtils.dir/src/camera.cpp.o: /home/Mateusz/projects/SpaceEngine/src/camera.cpp
+CMakeFiles/EngineUtils.dir/src/camera.cpp.o: CMakeFiles/EngineUtils.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/EngineUtils.dir/src/camera.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EngineUtils.dir/src/camera.cpp.o -MF CMakeFiles/EngineUtils.dir/src/camera.cpp.o.d -o CMakeFiles/EngineUtils.dir/src/camera.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/camera.cpp
 
-CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/IOProcessor.cpp > CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.i
+CMakeFiles/EngineUtils.dir/src/camera.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/EngineUtils.dir/src/camera.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/camera.cpp > CMakeFiles/EngineUtils.dir/src/camera.cpp.i
 
-CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/IOProcessor.cpp -o CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.s
+CMakeFiles/EngineUtils.dir/src/camera.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/EngineUtils.dir/src/camera.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/camera.cpp -o CMakeFiles/EngineUtils.dir/src/camera.cpp.s
 
-CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o: CMakeFiles/EngineUtils.dir/flags.make
-CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o: /home/Mateusz/projects/SpaceEngine/src/Renderer.cpp
-CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o: CMakeFiles/EngineUtils.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o -MF CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o.d -o CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/Renderer.cpp
+CMakeFiles/EngineUtils.dir/src/io_processor.cpp.o: CMakeFiles/EngineUtils.dir/flags.make
+CMakeFiles/EngineUtils.dir/src/io_processor.cpp.o: /home/Mateusz/projects/SpaceEngine/src/io_processor.cpp
+CMakeFiles/EngineUtils.dir/src/io_processor.cpp.o: CMakeFiles/EngineUtils.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/EngineUtils.dir/src/io_processor.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EngineUtils.dir/src/io_processor.cpp.o -MF CMakeFiles/EngineUtils.dir/src/io_processor.cpp.o.d -o CMakeFiles/EngineUtils.dir/src/io_processor.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/io_processor.cpp
 
-CMakeFiles/EngineUtils.dir/src/Renderer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/EngineUtils.dir/src/Renderer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/Renderer.cpp > CMakeFiles/EngineUtils.dir/src/Renderer.cpp.i
+CMakeFiles/EngineUtils.dir/src/io_processor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/EngineUtils.dir/src/io_processor.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/io_processor.cpp > CMakeFiles/EngineUtils.dir/src/io_processor.cpp.i
 
-CMakeFiles/EngineUtils.dir/src/Renderer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/EngineUtils.dir/src/Renderer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/Renderer.cpp -o CMakeFiles/EngineUtils.dir/src/Renderer.cpp.s
-
-CMakeFiles/EngineUtils.dir/src/Ship.cpp.o: CMakeFiles/EngineUtils.dir/flags.make
-CMakeFiles/EngineUtils.dir/src/Ship.cpp.o: /home/Mateusz/projects/SpaceEngine/src/Ship.cpp
-CMakeFiles/EngineUtils.dir/src/Ship.cpp.o: CMakeFiles/EngineUtils.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/EngineUtils.dir/src/Ship.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EngineUtils.dir/src/Ship.cpp.o -MF CMakeFiles/EngineUtils.dir/src/Ship.cpp.o.d -o CMakeFiles/EngineUtils.dir/src/Ship.cpp.o -c /home/Mateusz/projects/SpaceEngine/src/Ship.cpp
-
-CMakeFiles/EngineUtils.dir/src/Ship.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/EngineUtils.dir/src/Ship.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Mateusz/projects/SpaceEngine/src/Ship.cpp > CMakeFiles/EngineUtils.dir/src/Ship.cpp.i
-
-CMakeFiles/EngineUtils.dir/src/Ship.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/EngineUtils.dir/src/Ship.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/Ship.cpp -o CMakeFiles/EngineUtils.dir/src/Ship.cpp.s
+CMakeFiles/EngineUtils.dir/src/io_processor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/EngineUtils.dir/src/io_processor.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Mateusz/projects/SpaceEngine/src/io_processor.cpp -o CMakeFiles/EngineUtils.dir/src/io_processor.cpp.s
 
 # Object files for target EngineUtils
 EngineUtils_OBJECTS = \
-"CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.o" \
-"CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o" \
-"CMakeFiles/EngineUtils.dir/src/System.cpp.o" \
-"CMakeFiles/EngineUtils.dir/src/Camera.cpp.o" \
-"CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.o" \
-"CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o" \
-"CMakeFiles/EngineUtils.dir/src/Ship.cpp.o"
+"CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.o" \
+"CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.o" \
+"CMakeFiles/EngineUtils.dir/src/renderer.cpp.o" \
+"CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.o" \
+"CMakeFiles/EngineUtils.dir/src/camera.cpp.o" \
+"CMakeFiles/EngineUtils.dir/src/io_processor.cpp.o"
 
 # External object files for target EngineUtils
 EngineUtils_EXTERNAL_OBJECTS =
 
-libEngineUtils.a: CMakeFiles/EngineUtils.dir/src/ModelLoader.cpp.o
-libEngineUtils.a: CMakeFiles/EngineUtils.dir/src/ShaderLoader.cpp.o
-libEngineUtils.a: CMakeFiles/EngineUtils.dir/src/System.cpp.o
-libEngineUtils.a: CMakeFiles/EngineUtils.dir/src/Camera.cpp.o
-libEngineUtils.a: CMakeFiles/EngineUtils.dir/src/IOProcessor.cpp.o
-libEngineUtils.a: CMakeFiles/EngineUtils.dir/src/Renderer.cpp.o
-libEngineUtils.a: CMakeFiles/EngineUtils.dir/src/Ship.cpp.o
+libEngineUtils.a: CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.o
+libEngineUtils.a: CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.o
+libEngineUtils.a: CMakeFiles/EngineUtils.dir/src/renderer.cpp.o
+libEngineUtils.a: CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.o
+libEngineUtils.a: CMakeFiles/EngineUtils.dir/src/camera.cpp.o
+libEngineUtils.a: CMakeFiles/EngineUtils.dir/src/io_processor.cpp.o
 libEngineUtils.a: CMakeFiles/EngineUtils.dir/build.make
 libEngineUtils.a: CMakeFiles/EngineUtils.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libEngineUtils.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX static library libEngineUtils.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/EngineUtils.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/EngineUtils.dir/link.txt --verbose=$(VERBOSE)
 
