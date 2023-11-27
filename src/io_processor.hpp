@@ -6,6 +6,8 @@
 #include <GLFW/glfw3.h>
 
 class io_processor {
+    private:
+        double m_lastx, m_lasty, m_pitch, m_yaw;     
     public:
         void process_input(GLFWwindow* win, camera& cam, ship& sh);
 };

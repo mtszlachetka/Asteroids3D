@@ -18,7 +18,7 @@ glm::mat4 camera::create_camera_matrix() const {
 glm::mat4 camera::create_perspective_matrix() const {
     return {
         1, 0, 0, 0,
-        0, 1, 0, 0,
+        0, m_aspect_ratio, 0, 0,
         0, 0, (m_far + m_near) / (m_near - m_far), -1,
         0, 0, 2 * m_far * m_near / (m_near - m_far), 0
     };

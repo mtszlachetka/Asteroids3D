@@ -19,7 +19,7 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    unsigned width = 500, height = 500;
+    int width = 500, height = 500;
 
     GLFWwindow* window = glfwCreateWindow(width, height, "FirstWindow", NULL, NULL);
 	if (window == NULL)
@@ -67,10 +67,17 @@ int main() {
     camera camera1(0.01, 200, {0, 0, 1}, {0, 0, 1});
     s_renderer.set_active_camera(camera1);
 
+    glfwSetFramebufferSizeCallback(
+        window,
+        [](GLFWwindow* window, int width, int height) -> void { glViewport(0, 0, width, height); }
+    );
+
     std::vector<rigid_body*> bodies = { &sun, &player };
 
     while (!glfwWindowShouldClose(window)) {
         timeElapsed = static_cast<float>(glfwGetTime());
+        glfwGetWindowSize(window, &width, &height);
+        camera1.set_aspect_ratio(static_cast<double>(width) / height);
         s_io_processor.process_input(window, camera1, player);
         s_renderer.render(bodies);
         glfwSwapBuffers(window);
