@@ -13,6 +13,7 @@ class renderer {
         void set_active_camera(const camera& c) {
             m_cam = &c;
         }
+        void render(const std::vector<rigid_body*>& bodies);
 };
 
 static renderer s_renderer;

@@ -3,6 +3,7 @@
 
 #include "rigid_body.hpp"
 #include <glm/glm.hpp>
+#include <iostream>
 
 class camera {
     friend class io_processor;

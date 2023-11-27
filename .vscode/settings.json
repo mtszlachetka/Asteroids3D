@@ -70,6 +70,7 @@
         "variant": "cpp",
         "codecvt": "cpp",
         "source_location": "cpp",
-        "stdfloat": "cpp"
+        "stdfloat": "cpp",
+        "set": "cpp"
     }
 }

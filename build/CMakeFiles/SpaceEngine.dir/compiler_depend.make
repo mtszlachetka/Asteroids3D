@@ -8,13 +8,12 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
   /home/Mateusz/projects/SpaceEngine/src/renderer.hpp \
   /home/Mateusz/projects/SpaceEngine/src/rigid_body.hpp \
   /home/Mateusz/projects/SpaceEngine/src/shader_manager.hpp \
+  /home/Mateusz/projects/SpaceEngine/src/ship.hpp \
   /home/Mateusz/projects/SpaceEngine/src/texture_manager.hpp \
   /usr/include/GL/gl.h \
   /usr/include/GL/glew.h \
-  /usr/include/GL/glext.h \
   /usr/include/GL/glu.h \
   /usr/include/GLFW/glfw3.h \
-  /usr/include/KHR/khrplatform.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -173,6 +172,8 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
   /usr/include/c++/13.2.1/cstdint \
   /usr/include/c++/13.2.1/cstdio \
   /usr/include/c++/13.2.1/cstdlib \
+  /usr/include/c++/13.2.1/cstring \
+  /usr/include/c++/13.2.1/ctime \
   /usr/include/c++/13.2.1/cwchar \
   /usr/include/c++/13.2.1/cwctype \
   /usr/include/c++/13.2.1/debug/assertions.h \
@@ -232,6 +233,7 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
   /usr/include/features.h \
   /usr/include/glm/common.hpp \
   /usr/include/glm/detail/_fixes.hpp \
+  /usr/include/glm/detail/_noise.hpp \
   /usr/include/glm/detail/_vectorize.hpp \
   /usr/include/glm/detail/compute_common.hpp \
   /usr/include/glm/detail/compute_vector_relational.hpp \
@@ -245,6 +247,7 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
   /usr/include/glm/detail/func_vector_relational.inl \
   /usr/include/glm/detail/qualifier.hpp \
   /usr/include/glm/detail/setup.hpp \
+  /usr/include/glm/detail/type_float.hpp \
   /usr/include/glm/detail/type_half.hpp \
   /usr/include/glm/detail/type_half.inl \
   /usr/include/glm/detail/type_mat2x2.hpp \
@@ -265,6 +268,8 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
   /usr/include/glm/detail/type_mat4x3.inl \
   /usr/include/glm/detail/type_mat4x4.hpp \
   /usr/include/glm/detail/type_mat4x4.inl \
+  /usr/include/glm/detail/type_quat.hpp \
+  /usr/include/glm/detail/type_quat.inl \
   /usr/include/glm/detail/type_vec1.hpp \
   /usr/include/glm/detail/type_vec1.inl \
   /usr/include/glm/detail/type_vec2.hpp \
@@ -274,6 +279,11 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
   /usr/include/glm/detail/type_vec4.hpp \
   /usr/include/glm/detail/type_vec4.inl \
   /usr/include/glm/exponential.hpp \
+  /usr/include/glm/ext.hpp \
+  /usr/include/glm/ext/matrix_clip_space.hpp \
+  /usr/include/glm/ext/matrix_clip_space.inl \
+  /usr/include/glm/ext/matrix_common.hpp \
+  /usr/include/glm/ext/matrix_common.inl \
   /usr/include/glm/ext/matrix_double2x2.hpp \
   /usr/include/glm/ext/matrix_double2x2_precision.hpp \
   /usr/include/glm/ext/matrix_double2x3.hpp \
@@ -310,41 +320,167 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
   /usr/include/glm/ext/matrix_float4x3_precision.hpp \
   /usr/include/glm/ext/matrix_float4x4.hpp \
   /usr/include/glm/ext/matrix_float4x4_precision.hpp \
+  /usr/include/glm/ext/matrix_int2x2.hpp \
+  /usr/include/glm/ext/matrix_int2x2_sized.hpp \
+  /usr/include/glm/ext/matrix_int2x3.hpp \
+  /usr/include/glm/ext/matrix_int2x3_sized.hpp \
+  /usr/include/glm/ext/matrix_int2x4.hpp \
+  /usr/include/glm/ext/matrix_int2x4_sized.hpp \
+  /usr/include/glm/ext/matrix_int3x2.hpp \
+  /usr/include/glm/ext/matrix_int3x2_sized.hpp \
+  /usr/include/glm/ext/matrix_int3x3.hpp \
+  /usr/include/glm/ext/matrix_int3x3_sized.hpp \
+  /usr/include/glm/ext/matrix_int3x4.hpp \
+  /usr/include/glm/ext/matrix_int3x4_sized.hpp \
+  /usr/include/glm/ext/matrix_int4x2.hpp \
+  /usr/include/glm/ext/matrix_int4x2_sized.hpp \
+  /usr/include/glm/ext/matrix_int4x3.hpp \
+  /usr/include/glm/ext/matrix_int4x3_sized.hpp \
+  /usr/include/glm/ext/matrix_int4x4.hpp \
+  /usr/include/glm/ext/matrix_int4x4_sized.hpp \
+  /usr/include/glm/ext/matrix_projection.hpp \
+  /usr/include/glm/ext/matrix_projection.inl \
+  /usr/include/glm/ext/matrix_relational.hpp \
+  /usr/include/glm/ext/matrix_relational.inl \
+  /usr/include/glm/ext/matrix_transform.hpp \
+  /usr/include/glm/ext/matrix_transform.inl \
+  /usr/include/glm/ext/matrix_uint2x2.hpp \
+  /usr/include/glm/ext/matrix_uint2x2_sized.hpp \
+  /usr/include/glm/ext/matrix_uint2x3.hpp \
+  /usr/include/glm/ext/matrix_uint2x3_sized.hpp \
+  /usr/include/glm/ext/matrix_uint2x4.hpp \
+  /usr/include/glm/ext/matrix_uint2x4_sized.hpp \
+  /usr/include/glm/ext/matrix_uint3x2.hpp \
+  /usr/include/glm/ext/matrix_uint3x2_sized.hpp \
+  /usr/include/glm/ext/matrix_uint3x3.hpp \
+  /usr/include/glm/ext/matrix_uint3x3_sized.hpp \
+  /usr/include/glm/ext/matrix_uint3x4.hpp \
+  /usr/include/glm/ext/matrix_uint3x4_sized.hpp \
+  /usr/include/glm/ext/matrix_uint4x2.hpp \
+  /usr/include/glm/ext/matrix_uint4x2_sized.hpp \
+  /usr/include/glm/ext/matrix_uint4x3.hpp \
+  /usr/include/glm/ext/matrix_uint4x3_sized.hpp \
+  /usr/include/glm/ext/matrix_uint4x4.hpp \
+  /usr/include/glm/ext/matrix_uint4x4_sized.hpp \
+  /usr/include/glm/ext/quaternion_common.hpp \
+  /usr/include/glm/ext/quaternion_common.inl \
+  /usr/include/glm/ext/quaternion_double.hpp \
+  /usr/include/glm/ext/quaternion_double_precision.hpp \
+  /usr/include/glm/ext/quaternion_exponential.hpp \
+  /usr/include/glm/ext/quaternion_exponential.inl \
+  /usr/include/glm/ext/quaternion_float.hpp \
+  /usr/include/glm/ext/quaternion_float_precision.hpp \
+  /usr/include/glm/ext/quaternion_geometric.hpp \
+  /usr/include/glm/ext/quaternion_geometric.inl \
+  /usr/include/glm/ext/quaternion_relational.hpp \
+  /usr/include/glm/ext/quaternion_relational.inl \
+  /usr/include/glm/ext/quaternion_transform.hpp \
+  /usr/include/glm/ext/quaternion_transform.inl \
+  /usr/include/glm/ext/quaternion_trigonometric.hpp \
+  /usr/include/glm/ext/quaternion_trigonometric.inl \
+  /usr/include/glm/ext/scalar_common.hpp \
+  /usr/include/glm/ext/scalar_common.inl \
+  /usr/include/glm/ext/scalar_constants.hpp \
+  /usr/include/glm/ext/scalar_constants.inl \
   /usr/include/glm/ext/scalar_int_sized.hpp \
+  /usr/include/glm/ext/scalar_integer.hpp \
+  /usr/include/glm/ext/scalar_integer.inl \
+  /usr/include/glm/ext/scalar_packing.hpp \
+  /usr/include/glm/ext/scalar_packing.inl \
+  /usr/include/glm/ext/scalar_relational.hpp \
+  /usr/include/glm/ext/scalar_relational.inl \
   /usr/include/glm/ext/scalar_uint_sized.hpp \
+  /usr/include/glm/ext/scalar_ulp.hpp \
+  /usr/include/glm/ext/scalar_ulp.inl \
+  /usr/include/glm/ext/vector_bool1.hpp \
+  /usr/include/glm/ext/vector_bool1_precision.hpp \
   /usr/include/glm/ext/vector_bool2.hpp \
   /usr/include/glm/ext/vector_bool2_precision.hpp \
   /usr/include/glm/ext/vector_bool3.hpp \
   /usr/include/glm/ext/vector_bool3_precision.hpp \
   /usr/include/glm/ext/vector_bool4.hpp \
   /usr/include/glm/ext/vector_bool4_precision.hpp \
+  /usr/include/glm/ext/vector_common.hpp \
+  /usr/include/glm/ext/vector_common.inl \
+  /usr/include/glm/ext/vector_double1.hpp \
+  /usr/include/glm/ext/vector_double1_precision.hpp \
   /usr/include/glm/ext/vector_double2.hpp \
   /usr/include/glm/ext/vector_double2_precision.hpp \
   /usr/include/glm/ext/vector_double3.hpp \
   /usr/include/glm/ext/vector_double3_precision.hpp \
   /usr/include/glm/ext/vector_double4.hpp \
   /usr/include/glm/ext/vector_double4_precision.hpp \
+  /usr/include/glm/ext/vector_float1.hpp \
+  /usr/include/glm/ext/vector_float1_precision.hpp \
   /usr/include/glm/ext/vector_float2.hpp \
   /usr/include/glm/ext/vector_float2_precision.hpp \
   /usr/include/glm/ext/vector_float3.hpp \
   /usr/include/glm/ext/vector_float3_precision.hpp \
   /usr/include/glm/ext/vector_float4.hpp \
   /usr/include/glm/ext/vector_float4_precision.hpp \
+  /usr/include/glm/ext/vector_int1.hpp \
+  /usr/include/glm/ext/vector_int1_sized.hpp \
   /usr/include/glm/ext/vector_int2.hpp \
   /usr/include/glm/ext/vector_int2_sized.hpp \
   /usr/include/glm/ext/vector_int3.hpp \
   /usr/include/glm/ext/vector_int3_sized.hpp \
   /usr/include/glm/ext/vector_int4.hpp \
   /usr/include/glm/ext/vector_int4_sized.hpp \
+  /usr/include/glm/ext/vector_integer.hpp \
+  /usr/include/glm/ext/vector_integer.inl \
+  /usr/include/glm/ext/vector_packing.hpp \
+  /usr/include/glm/ext/vector_packing.inl \
+  /usr/include/glm/ext/vector_relational.hpp \
+  /usr/include/glm/ext/vector_relational.inl \
+  /usr/include/glm/ext/vector_uint1.hpp \
+  /usr/include/glm/ext/vector_uint1_sized.hpp \
   /usr/include/glm/ext/vector_uint2.hpp \
   /usr/include/glm/ext/vector_uint2_sized.hpp \
   /usr/include/glm/ext/vector_uint3.hpp \
   /usr/include/glm/ext/vector_uint3_sized.hpp \
   /usr/include/glm/ext/vector_uint4.hpp \
   /usr/include/glm/ext/vector_uint4_sized.hpp \
+  /usr/include/glm/ext/vector_ulp.hpp \
+  /usr/include/glm/ext/vector_ulp.inl \
   /usr/include/glm/fwd.hpp \
   /usr/include/glm/geometric.hpp \
   /usr/include/glm/glm.hpp \
+  /usr/include/glm/gtc/bitfield.hpp \
+  /usr/include/glm/gtc/bitfield.inl \
+  /usr/include/glm/gtc/color_space.hpp \
+  /usr/include/glm/gtc/color_space.inl \
+  /usr/include/glm/gtc/constants.hpp \
+  /usr/include/glm/gtc/constants.inl \
+  /usr/include/glm/gtc/epsilon.hpp \
+  /usr/include/glm/gtc/epsilon.inl \
+  /usr/include/glm/gtc/integer.hpp \
+  /usr/include/glm/gtc/integer.inl \
+  /usr/include/glm/gtc/matrix_access.hpp \
+  /usr/include/glm/gtc/matrix_access.inl \
+  /usr/include/glm/gtc/matrix_integer.hpp \
+  /usr/include/glm/gtc/matrix_inverse.hpp \
+  /usr/include/glm/gtc/matrix_inverse.inl \
+  /usr/include/glm/gtc/matrix_transform.hpp \
+  /usr/include/glm/gtc/matrix_transform.inl \
+  /usr/include/glm/gtc/noise.hpp \
+  /usr/include/glm/gtc/noise.inl \
+  /usr/include/glm/gtc/packing.hpp \
+  /usr/include/glm/gtc/packing.inl \
+  /usr/include/glm/gtc/quaternion.hpp \
+  /usr/include/glm/gtc/quaternion.inl \
+  /usr/include/glm/gtc/random.hpp \
+  /usr/include/glm/gtc/random.inl \
+  /usr/include/glm/gtc/reciprocal.hpp \
+  /usr/include/glm/gtc/reciprocal.inl \
+  /usr/include/glm/gtc/round.hpp \
+  /usr/include/glm/gtc/round.inl \
+  /usr/include/glm/gtc/type_precision.hpp \
+  /usr/include/glm/gtc/type_precision.inl \
+  /usr/include/glm/gtc/type_ptr.hpp \
+  /usr/include/glm/gtc/type_ptr.inl \
+  /usr/include/glm/gtc/ulp.hpp \
+  /usr/include/glm/gtc/ulp.inl \
+  /usr/include/glm/gtc/vec1.hpp \
   /usr/include/glm/integer.hpp \
   /usr/include/glm/mat2x2.hpp \
   /usr/include/glm/mat2x3.hpp \
@@ -357,6 +493,7 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
   /usr/include/glm/mat4x4.hpp \
   /usr/include/glm/matrix.hpp \
   /usr/include/glm/packing.hpp \
+  /usr/include/glm/simd/integer.h \
   /usr/include/glm/simd/platform.h \
   /usr/include/glm/trigonometric.hpp \
   /usr/include/glm/vec2.hpp \
@@ -376,6 +513,8 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
   /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
   /usr/include/sys/cdefs.h \
   /usr/include/sys/select.h \
   /usr/include/sys/single_threaded.h \
@@ -391,29 +530,19 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
   /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/syslimits.h
 
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/syslimits.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdint.h:
-
 /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdarg.h:
 
 /usr/include/sys/single_threaded.h:
-
-/usr/include/pthread.h:
 
 /usr/include/linux/limits.h:
 
 /usr/include/limits.h:
 
-/usr/include/glm/vector_relational.hpp:
-
 /usr/include/glm/vec2.hpp:
 
 /usr/include/glm/trigonometric.hpp:
 
-/usr/include/glm/simd/platform.h:
-
-/usr/include/glm/mat4x4.hpp:
+/usr/include/glm/simd/integer.h:
 
 /usr/include/glm/mat4x3.hpp:
 
@@ -421,13 +550,53 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/glm/mat3x4.hpp:
 
-/usr/include/glm/mat3x3.hpp:
-
 /usr/include/glm/mat2x4.hpp:
 
 /usr/include/glm/mat2x3.hpp:
 
 /usr/include/glm/mat2x2.hpp:
+
+/usr/include/glm/gtc/vec1.hpp:
+
+/usr/include/glm/gtc/ulp.inl:
+
+/usr/include/glm/gtc/ulp.hpp:
+
+/usr/include/glm/gtc/type_ptr.hpp:
+
+/usr/include/string.h:
+
+/usr/include/glm/gtc/type_precision.inl:
+
+/usr/include/glm/gtc/round.hpp:
+
+/usr/include/glm/gtc/quaternion.hpp:
+
+/usr/include/glm/gtc/packing.inl:
+
+/usr/include/glm/gtc/packing.hpp:
+
+/usr/include/glm/gtc/noise.hpp:
+
+/usr/include/glm/simd/platform.h:
+
+/usr/include/glm/gtc/matrix_transform.hpp:
+
+/usr/include/glm/gtc/matrix_inverse.hpp:
+
+/usr/include/glm/gtc/matrix_integer.hpp:
+
+/usr/include/glm/gtc/integer.inl:
+
+/usr/include/glm/gtc/integer.hpp:
+
+/usr/include/glm/gtc/epsilon.inl:
+
+/usr/include/glm/gtc/constants.inl:
+
+/usr/include/glm/gtc/constants.hpp:
+
+/usr/include/glm/gtc/bitfield.inl:
 
 /usr/include/glm/glm.hpp:
 
@@ -435,15 +604,23 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/glm/fwd.hpp:
 
+/usr/include/glm/gtc/reciprocal.inl:
+
 /usr/include/glm/ext/vector_uint4.hpp:
 
 /usr/include/glm/ext/vector_uint2_sized.hpp:
 
+/usr/include/glm/ext/vector_uint1.hpp:
+
+/usr/include/pthread.h:
+
+/usr/include/glm/gtc/quaternion.inl:
+
+/usr/include/glm/ext/vector_packing.inl:
+
 /usr/include/glm/ext/vector_int4.hpp:
 
-/usr/include/glm/ext/vector_int3.hpp:
-
-/usr/include/glm/ext/vector_float4_precision.hpp:
+/usr/include/glm/ext/vector_int1.hpp:
 
 /usr/include/glm/ext/vector_float4.hpp:
 
@@ -451,13 +628,23 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/glm/ext/vector_float3.hpp:
 
+/usr/include/glm/gtc/matrix_access.inl:
+
+/usr/include/glm/ext/vector_relational.hpp:
+
 /usr/include/glm/ext/vector_float2_precision.hpp:
+
+/usr/include/glm/ext/vector_float1_precision.hpp:
 
 /usr/include/glm/ext/vector_double4_precision.hpp:
 
-/usr/include/glm/ext/vector_double3_precision.hpp:
+/usr/include/glm/ext/vector_int3.hpp:
 
-/usr/include/glm/ext/vector_double3.hpp:
+/usr/include/glm/ext/vector_double1_precision.hpp:
+
+/usr/include/glm/ext/vector_common.inl:
+
+/usr/include/glm/ext/vector_common.hpp:
 
 /usr/include/glm/ext/vector_bool3_precision.hpp:
 
@@ -467,13 +654,103 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/glm/ext/vector_bool3.hpp:
 
-/usr/include/glm/ext/vector_bool2_precision.hpp:
-
 /usr/include/glm/ext/vector_bool2.hpp:
+
+/usr/include/glm/ext/vector_bool1.hpp:
 
 /usr/include/glm/ext/scalar_uint_sized.hpp:
 
+/usr/include/glm/gtc/reciprocal.hpp:
+
+/usr/include/glm/ext/scalar_relational.hpp:
+
+/usr/include/glm/ext/vector_float4_precision.hpp:
+
+/usr/include/glm/ext/scalar_packing.inl:
+
+/usr/include/glm/ext/scalar_integer.inl:
+
+/usr/include/glm/ext/scalar_constants.inl:
+
+/usr/include/glm/gtc/round.inl:
+
+/usr/include/glm/ext/scalar_constants.hpp:
+
+/usr/include/glm/ext/scalar_common.hpp:
+
+/usr/include/glm/ext/quaternion_trigonometric.inl:
+
+/usr/include/glm/ext/quaternion_trigonometric.hpp:
+
+/usr/include/glm/ext/quaternion_transform.hpp:
+
+/usr/include/glm/ext/quaternion_relational.inl:
+
+/usr/include/glm/ext/quaternion_geometric.inl:
+
+/usr/include/glm/ext/vector_double3.hpp:
+
+/usr/include/glm/ext/quaternion_float_precision.hpp:
+
+/usr/include/glm/mat4x4.hpp:
+
+/usr/include/glm/ext/quaternion_float.hpp:
+
+/usr/include/glm/ext/quaternion_exponential.inl:
+
+/usr/include/glm/ext/quaternion_exponential.hpp:
+
+/usr/include/glm/ext/quaternion_double_precision.hpp:
+
+/usr/include/glm/ext/vector_double3_precision.hpp:
+
+/usr/include/glm/ext/quaternion_common.hpp:
+
+/usr/include/glm/ext/matrix_uint4x4_sized.hpp:
+
+/usr/include/glm/ext/matrix_uint4x4.hpp:
+
+/usr/include/glm/ext/matrix_uint4x3_sized.hpp:
+
+/usr/include/glm/ext/matrix_uint4x3.hpp:
+
+/usr/include/glm/gtc/color_space.inl:
+
+/usr/include/glm/ext/matrix_uint4x2_sized.hpp:
+
+/usr/include/glm/ext/matrix_uint3x4_sized.hpp:
+
+/usr/include/glm/ext/matrix_uint3x4.hpp:
+
+/usr/include/glm/mat3x3.hpp:
+
+/usr/include/glm/ext/matrix_uint3x3_sized.hpp:
+
+/usr/include/glm/ext/matrix_uint2x4_sized.hpp:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/syslimits.h:
+
+/usr/include/glm/ext/matrix_uint2x3.hpp:
+
+/usr/include/glm/ext/matrix_uint2x2.hpp:
+
+/usr/include/glm/ext/matrix_relational.inl:
+
+/usr/include/glm/ext/matrix_projection.inl:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdint.h:
+
+/usr/include/glm/ext/matrix_int4x3_sized.hpp:
+
+/usr/include/glm/ext/matrix_int3x4.hpp:
+
+/usr/include/glm/ext/matrix_int2x4_sized.hpp:
+
+/usr/include/glm/ext/matrix_int2x2_sized.hpp:
+
 /usr/include/glm/ext/matrix_float4x4_precision.hpp:
+
+/usr/include/glm/ext/matrix_int2x3_sized.hpp:
 
 /usr/include/glm/ext/matrix_float4x3_precision.hpp:
 
@@ -487,13 +764,27 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/glm/ext/matrix_float3x4_precision.hpp:
 
+/usr/include/glm/ext/quaternion_geometric.hpp:
+
 /usr/include/glm/ext/matrix_float3x4.hpp:
+
+/usr/include/glm/ext/vector_ulp.inl:
 
 /usr/include/glm/ext/matrix_float3x3_precision.hpp:
 
+/usr/include/glm/ext/scalar_common.inl:
+
+/usr/include/glm/ext/matrix_transform.inl:
+
 /usr/include/glm/ext/matrix_float3x3.hpp:
 
+/usr/include/glm/gtc/color_space.hpp:
+
+/usr/include/glm/ext/matrix_uint4x2.hpp:
+
 /usr/include/glm/ext/matrix_float3x2_precision.hpp:
+
+/usr/include/glm/ext/matrix_int3x2_sized.hpp:
 
 /usr/include/glm/ext/matrix_float3x2.hpp:
 
@@ -503,13 +794,21 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/stdc-predef.h:
 
+/usr/include/glm/gtc/epsilon.hpp:
+
 /usr/include/glm/ext/matrix_float2x2_precision.hpp:
 
 /usr/include/glm/ext/matrix_float2x2.hpp:
 
+/usr/include/glm/ext/quaternion_common.inl:
+
 /usr/include/glm/ext/matrix_double4x4_precision.hpp:
 
 /usr/include/glm/ext/matrix_double4x4.hpp:
+
+/usr/include/glm/ext/matrix_double4x3_precision.hpp:
+
+/usr/include/glm/gtc/type_ptr.inl:
 
 /usr/include/glm/ext/matrix_double4x2.hpp:
 
@@ -518,6 +817,8 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 /usr/include/glm/ext/matrix_double3x3_precision.hpp:
 
 /usr/include/glm/ext/matrix_double3x3.hpp:
+
+/usr/include/glm/ext/scalar_packing.hpp:
 
 /usr/include/glm/ext/matrix_double3x2_precision.hpp:
 
@@ -531,6 +832,12 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/glm/ext/matrix_double2x2.hpp:
 
+/usr/include/glm/ext/matrix_common.inl:
+
+/usr/include/glm/ext/matrix_common.hpp:
+
+/usr/include/glm/ext/matrix_clip_space.hpp:
+
 /usr/include/glm/exponential.hpp:
 
 /usr/include/locale.h:
@@ -540,6 +847,8 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 /usr/include/glm/detail/type_vec3.inl:
 
 /usr/include/sys/cdefs.h:
+
+/usr/include/glm/ext/matrix_int3x4_sized.hpp:
 
 /usr/include/glm/detail/type_vec3.hpp:
 
@@ -555,9 +864,13 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/glm/detail/type_mat4x2.hpp:
 
+/usr/include/glm/detail/type_mat3x4.hpp:
+
 /usr/include/c++/13.2.1/bits/nested_exception.h:
 
 /usr/include/glm/ext/vector_bool4_precision.hpp:
+
+/usr/include/glm/ext/matrix_int4x3.hpp:
 
 /usr/include/alloca.h:
 
@@ -577,6 +890,8 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/GL/gl.h:
 
+/usr/include/glm/ext/vector_double1.hpp:
+
 /usr/include/c++/13.2.1/bits/exception_ptr.h:
 
 /usr/include/c++/13.2.1/bits/exception.h:
@@ -591,11 +906,21 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/glm/vec4.hpp:
 
+/usr/include/glm/ext/quaternion_relational.hpp:
+
 /usr/include/glm/ext/matrix_double2x4_precision.hpp:
 
 /usr/include/c++/13.2.1/bits/uses_allocator_args.h:
 
+/usr/include/glm/detail/type_mat3x3.hpp:
+
+/usr/include/c++/13.2.1/tr1/hypergeometric.tcc:
+
+/usr/include/glm/ext/matrix_uint3x3.hpp:
+
 /usr/include/c++/13.2.1/bits/char_traits.h:
+
+/usr/include/glm/ext/matrix_transform.hpp:
 
 /usr/include/c++/13.2.1/system_error:
 
@@ -609,6 +934,8 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/bits/xopen_lim.h:
 
+/usr/include/glm/ext/vector_float1.hpp:
+
 /usr/include/bits/wctype-wchar.h:
 
 /usr/include/c++/13.2.1/bits/concept_check.h:
@@ -617,23 +944,17 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/c++/13.2.1/backward/binders.h:
 
+/home/Mateusz/projects/SpaceEngine/src/ship.hpp:
+
 /usr/include/glm/ext/scalar_int_sized.hpp:
 
 /usr/include/bits/types/wint_t.h:
 
 /usr/include/c++/13.2.1/bits/predefined_ops.h:
 
+/usr/include/glm/gtc/bitfield.hpp:
+
 /usr/include/bits/types/struct_timespec.h:
-
-/usr/include/c++/13.2.1/bits/streambuf_iterator.h:
-
-/usr/include/bits/waitflags.h:
-
-/usr/include/ctype.h:
-
-/usr/include/c++/13.2.1/bits/hash_bytes.h:
-
-/usr/include/bits/types/struct_sched_param.h:
 
 /usr/include/bits/types/struct_itimerspec.h:
 
@@ -641,15 +962,15 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/bits/types/struct_FILE.h:
 
+/usr/include/glm/gtc/random.inl:
+
+/usr/include/glm/ext/vector_uint1_sized.hpp:
+
 /usr/include/glm/ext/vector_float2.hpp:
 
 /usr/include/c++/13.2.1/bits/exception_defines.h:
 
 /usr/include/bits/types/locale_t.h:
-
-/usr/include/glm/detail/type_mat3x2.inl:
-
-/usr/include/c++/13.2.1/bits/allocator.h:
 
 /usr/include/c++/13.2.1/bits/memoryfwd.h:
 
@@ -667,10 +988,6 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/c++/13.2.1/type_traits:
 
-/usr/include/c++/13.2.1/tr1/hypergeometric.tcc:
-
-/usr/include/glm/detail/type_mat3x3.hpp:
-
 /usr/include/c++/13.2.1/cerrno:
 
 /usr/include/gnu/stubs.h:
@@ -683,13 +1000,27 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/c++/13.2.1/limits:
 
-/usr/include/GL/glu.h:
+/usr/include/glm/gtc/matrix_inverse.inl:
+
+/usr/include/glm/ext/matrix_uint2x3_sized.hpp:
+
+/usr/include/bits/fp-logb.h:
+
+/usr/include/glm/ext/matrix_relational.hpp:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/c++/13.2.1/bits/ranges_util.h:
 
 /usr/include/bits/flt-eval-method.h:
+
+/usr/include/glm/ext/matrix_int3x3_sized.hpp:
 
 /usr/include/c++/13.2.1/bits/locale_facets.h:
 
 /usr/include/bits/types/FILE.h:
+
+/usr/include/glm/ext/vector_int1_sized.hpp:
 
 /usr/include/c++/13.2.1/bit:
 
@@ -715,6 +1046,8 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/bits/time.h:
 
+/usr/include/glm/ext/matrix_int2x3.hpp:
+
 /usr/include/glm/ext/matrix_double2x2_precision.hpp:
 
 /usr/include/bits/stdio_lim.h:
@@ -733,12 +1066,6 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/assert.h:
 
-/usr/include/asm-generic/errno.h:
-
-/usr/include/bits/fp-logb.h:
-
-/usr/include/c++/13.2.1/bits/ranges_util.h:
-
 /usr/include/asm-generic/errno-base.h:
 
 /home/Mateusz/projects/SpaceEngine/src/mesh_manager.hpp:
@@ -755,17 +1082,55 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/c++/13.2.1/bits/vector.tcc:
 
+/usr/include/glm/ext/matrix_projection.hpp:
+
+/usr/include/c++/13.2.1/cstring:
+
+/usr/include/glm/ext/scalar_integer.hpp:
+
 /usr/include/bits/cpu-set.h:
 
-/usr/include/glm/ext/matrix_double4x3_precision.hpp:
+/usr/include/c++/13.2.1/bits/streambuf_iterator.h:
 
-/usr/include/KHR/khrplatform.h:
+/usr/include/bits/waitflags.h:
+
+/usr/include/ctype.h:
+
+/usr/include/glm/gtc/noise.inl:
+
+/usr/include/c++/13.2.1/bits/allocator.h:
+
+/usr/include/glm/detail/type_mat3x2.inl:
+
+/usr/include/c++/13.2.1/bits/hash_bytes.h:
+
+/usr/include/bits/types/struct_sched_param.h:
+
+/usr/include/glm/detail/type_mat3x4.inl:
+
+/usr/include/bits/waitstatus.h:
+
+/usr/include/bits/wchar.h:
+
+/usr/include/bits/types/struct___jmp_buf_tag.h:
+
+/usr/include/glm/ext/matrix_int4x4.hpp:
+
+/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/atomic_word.h:
 
 /usr/include/c++/13.2.1/bits/iterator_concepts.h:
+
+/usr/include/glm/ext/scalar_relational.inl:
+
+/usr/include/glm/ext/quaternion_double.hpp:
 
 /usr/include/c++/13.2.1/bits/refwrap.h:
 
 /usr/include/c++/13.2.1/bits/basic_string.h:
+
+/usr/include/glm/vector_relational.hpp:
+
+/usr/include/glm/detail/type_float.hpp:
 
 /usr/include/sys/select.h:
 
@@ -797,13 +1162,15 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/c++/13.2.1/tr1/bessel_function.tcc:
 
-/usr/include/glm/detail/type_mat3x4.hpp:
+/usr/include/glm/ext/matrix_uint3x2_sized.hpp:
 
 /home/Mateusz/projects/SpaceEngine/src/texture_manager.hpp:
 
 /usr/include/glm/ext/vector_uint3.hpp:
 
 /usr/include/bits/libc-header-start.h:
+
+/usr/include/bits/long-double.h:
 
 /usr/include/glm/ext/vector_double2.hpp:
 
@@ -815,19 +1182,19 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/c++/13.2.1/tuple:
 
+/usr/include/GL/glu.h:
+
 /usr/include/glm/detail/func_vector_relational.inl:
 
 /usr/include/c++/13.2.1/bits/move.h:
 
 /usr/include/c++/13.2.1/bits/stl_iterator_base_types.h:
 
-/usr/include/GL/glext.h:
+/usr/include/glm/ext/vector_uint4_sized.hpp:
 
-/usr/include/glm/ext/vector_uint3_sized.hpp:
+/usr/include/glm/detail/type_mat3x3.inl:
 
-/usr/include/c++/13.2.1/bits/std_abs.h:
-
-/usr/include/c++/13.2.1/tr1/ell_integral.tcc:
+/usr/include/c++/13.2.1/bits/istream.tcc:
 
 /usr/include/c++/13.2.1/bits/postypes.h:
 
@@ -835,15 +1202,17 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/c++/13.2.1/bits/streambuf.tcc:
 
-/usr/include/bits/long-double.h:
-
 /usr/include/bits/iscanonical.h:
 
 /usr/include/bits/types/timer_t.h:
 
 /usr/include/bits/mathcalls-narrow.h:
 
+/usr/include/glm/gtc/matrix_access.hpp:
+
 /usr/include/glm/detail/func_common.inl:
+
+/usr/include/glm/ext/scalar_ulp.inl:
 
 /usr/include/c++/13.2.1/bits/functexcept.h:
 
@@ -865,6 +1234,8 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/bits/pthreadtypes-arch.h:
 
+/usr/include/glm/gtc/type_precision.hpp:
+
 /usr/include/glm/ext/matrix_float2x4_precision.hpp:
 
 /usr/include/c++/13.2.1/bits/range_access.h:
@@ -875,6 +1246,8 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/float.h:
 
+/usr/include/glm/ext/vector_bool1_precision.hpp:
+
 /usr/include/bits/pthreadtypes.h:
 
 /usr/include/glm/detail/type_vec4.inl:
@@ -884,6 +1257,8 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 /usr/include/c++/13.2.1/debug/assertions.h:
 
 /usr/include/bits/types/cookie_io_functions_t.h:
+
+/usr/include/glm/ext/vector_ulp.hpp:
 
 /usr/include/glm/ext/vector_int2_sized.hpp:
 
@@ -901,16 +1276,6 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/bits/select.h:
 
-/usr/include/glm/detail/type_mat3x4.inl:
-
-/usr/include/bits/waitstatus.h:
-
-/usr/include/bits/wchar.h:
-
-/usr/include/bits/types/struct___jmp_buf_tag.h:
-
-/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/atomic_word.h:
-
 /usr/include/bits/types/error_t.h:
 
 /usr/include/GLFW/glfw3.h:
@@ -918,6 +1283,8 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 /usr/include/c++/13.2.1/istream:
 
 /usr/include/c++/13.2.1/typeinfo:
+
+/usr/include/glm/ext/matrix_int4x2.hpp:
 
 /usr/include/c++/13.2.1/bits/ios_base.h:
 
@@ -927,11 +1294,15 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/bits/types/__FILE.h:
 
+/usr/include/glm/ext/vector_integer.inl:
+
 /usr/include/glm/detail/type_mat4x3.inl:
 
 /usr/include/bits/mathcalls-helper-functions.h:
 
 /usr/include/bits/thread-shared-types.h:
+
+/usr/include/glm/ext/vector_packing.hpp:
 
 /usr/include/bits/stdint-uintn.h:
 
@@ -940,6 +1311,8 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 /usr/include/c++/13.2.1/bits/ostream_insert.h:
 
 /usr/include/c++/13.2.1/string:
+
+/usr/include/glm/ext/matrix_uint2x4.hpp:
 
 /usr/include/c++/13.2.1/bits/ptr_traits.h:
 
@@ -956,6 +1329,10 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 /usr/include/c++/13.2.1/bits/memory_resource.h:
 
 /usr/include/c++/13.2.1/bits/stl_algobase.h:
+
+/usr/include/glm/ext/vector_integer.hpp:
+
+/usr/include/glm/ext/matrix_int3x3.hpp:
 
 /usr/include/glm/detail/type_mat2x2.inl:
 
@@ -977,17 +1354,23 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/c++/13.2.1/bits/stl_iterator.h:
 
+/usr/include/glm/ext/quaternion_transform.inl:
+
 /usr/include/c++/13.2.1/cmath:
 
 /usr/include/c++/13.2.1/bits/invoke.h:
 
 /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
 
+/usr/include/glm/detail/type_quat.inl:
+
 /usr/include/features-time64.h:
 
 /usr/include/c++/13.2.1/bits/locale_classes.h:
 
 /usr/include/c++/13.2.1/bits/stl_pair.h:
+
+/usr/include/glm/detail/type_quat.hpp:
 
 /usr/include/c++/13.2.1/bits/stringfwd.h:
 
@@ -1017,11 +1400,19 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/stdlib.h:
 
+/usr/include/glm/ext/matrix_int2x4.hpp:
+
 /usr/include/glm/detail/func_integer.inl:
 
 /usr/include/c++/13.2.1/cstdlib:
 
+/usr/include/glm/ext/vector_relational.inl:
+
 /usr/include/c++/13.2.1/iosfwd:
+
+/usr/include/glm/ext/vector_bool2_precision.hpp:
+
+/usr/include/c++/13.2.1/ctime:
 
 /usr/include/sys/types.h:
 
@@ -1031,6 +1422,8 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/c++/13.2.1/ext/atomicity.h:
 
+/usr/include/glm/ext.hpp:
+
 /usr/include/bits/types/clockid_t.h:
 
 /usr/include/bits/stdint-intn.h:
@@ -1039,11 +1432,15 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/glm/vec3.hpp:
 
+/usr/include/glm/ext/matrix_int4x2_sized.hpp:
+
 /usr/include/c++/13.2.1/ext/string_conversions.h:
 
-/usr/include/c++/13.2.1/ext/type_traits.h:
+/usr/include/glm/ext/matrix_int2x2.hpp:
 
 /usr/include/c++/13.2.1/initializer_list:
+
+/usr/include/glm/ext/scalar_ulp.hpp:
 
 /usr/include/c++/13.2.1/bits/ostream.tcc:
 
@@ -1071,19 +1468,31 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/c++/13.2.1/tr1/beta_function.tcc:
 
+/usr/include/glm/ext/vector_uint3_sized.hpp:
+
+/usr/include/c++/13.2.1/bits/std_abs.h:
+
+/usr/include/c++/13.2.1/tr1/ell_integral.tcc:
+
 /usr/include/c++/13.2.1/tr1/legendre_function.tcc:
 
 /usr/include/glm/detail/type_half.inl:
 
 /usr/include/c++/13.2.1/tr1/poly_hermite.tcc:
 
+/usr/include/glm/gtc/random.hpp:
+
 /usr/include/c++/13.2.1/tr1/riemann_zeta.tcc:
 
 /usr/include/glm/ext/vector_bool4.hpp:
 
+/usr/include/glm/ext/matrix_uint3x2.hpp:
+
 /usr/include/c++/13.2.1/tr1/special_function_util.h:
 
 /usr/include/linux/errno.h:
+
+/usr/include/glm/ext/matrix_int3x2.hpp:
 
 /usr/include/c++/13.2.1/vector:
 
@@ -1137,11 +1546,19 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/glm/detail/_fixes.hpp:
 
+/usr/include/c++/13.2.1/ext/type_traits.h:
+
+/usr/include/glm/detail/_noise.hpp:
+
 /usr/include/glm/detail/_vectorize.hpp:
+
+/usr/include/strings.h:
 
 /usr/include/c++/13.2.1/numbers:
 
 /usr/include/glm/detail/compute_common.hpp:
+
+/usr/include/glm/ext/matrix_uint2x2_sized.hpp:
 
 /usr/include/c++/13.2.1/stdexcept:
 
@@ -1149,20 +1566,20 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: /home/Mateusz/projects/SpaceEngine/sr
 
 /usr/include/glm/detail/func_trigonometric.inl:
 
+/usr/include/glm/ext/matrix_clip_space.inl:
+
 /usr/include/glm/detail/setup.hpp:
+
+/usr/include/glm/ext/matrix_int4x4_sized.hpp:
 
 /usr/include/bits/types.h:
 
 /usr/include/glm/detail/type_mat2x2.hpp:
+
+/usr/include/glm/gtc/matrix_transform.inl:
 
 /usr/include/glm/detail/qualifier.hpp:
 
 /usr/include/glm/detail/type_mat2x3.hpp:
 
 /usr/include/glm/detail/type_mat3x2.hpp:
-
-/usr/include/glm/ext/vector_uint4_sized.hpp:
-
-/usr/include/c++/13.2.1/bits/istream.tcc:
-
-/usr/include/glm/detail/type_mat3x3.inl:

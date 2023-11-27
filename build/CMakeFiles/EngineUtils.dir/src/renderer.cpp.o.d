@@ -256,7 +256,42 @@ CMakeFiles/EngineUtils.dir/src/renderer.cpp.o: \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
  /usr/include/glm/detail/func_integer.inl \
  /home/Mateusz/projects/SpaceEngine/src/camera.hpp \
- /usr/include/glm/ext.hpp /usr/include/glm/ext/matrix_clip_space.hpp \
+ /usr/include/c++/13.2.1/iostream /usr/include/c++/13.2.1/ostream \
+ /usr/include/c++/13.2.1/ios /usr/include/c++/13.2.1/exception \
+ /usr/include/c++/13.2.1/bits/exception_ptr.h \
+ /usr/include/c++/13.2.1/bits/cxxabi_init_exception.h \
+ /usr/include/c++/13.2.1/typeinfo \
+ /usr/include/c++/13.2.1/bits/nested_exception.h \
+ /usr/include/c++/13.2.1/bits/ios_base.h \
+ /usr/include/c++/13.2.1/ext/atomicity.h \
+ /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/gthr.h \
+ /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/gthr-default.h \
+ /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
+ /usr/include/bits/types/struct_sched_param.h /usr/include/bits/cpu-set.h \
+ /usr/include/time.h /usr/include/bits/time.h /usr/include/bits/timex.h \
+ /usr/include/bits/types/struct_tm.h \
+ /usr/include/bits/types/struct_itimerspec.h /usr/include/bits/setjmp.h \
+ /usr/include/bits/types/struct___jmp_buf_tag.h \
+ /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/atomic_word.h \
+ /usr/include/sys/single_threaded.h \
+ /usr/include/c++/13.2.1/bits/locale_classes.h \
+ /usr/include/c++/13.2.1/bits/locale_classes.tcc \
+ /usr/include/c++/13.2.1/system_error \
+ /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/error_constants.h \
+ /usr/include/c++/13.2.1/stdexcept /usr/include/c++/13.2.1/streambuf \
+ /usr/include/c++/13.2.1/bits/streambuf.tcc \
+ /usr/include/c++/13.2.1/bits/basic_ios.h \
+ /usr/include/c++/13.2.1/bits/locale_facets.h \
+ /usr/include/c++/13.2.1/cwctype /usr/include/wctype.h \
+ /usr/include/bits/wctype-wchar.h \
+ /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/ctype_base.h \
+ /usr/include/c++/13.2.1/bits/streambuf_iterator.h \
+ /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/ctype_inline.h \
+ /usr/include/c++/13.2.1/bits/locale_facets.tcc \
+ /usr/include/c++/13.2.1/bits/basic_ios.tcc \
+ /usr/include/c++/13.2.1/bits/ostream.tcc /usr/include/c++/13.2.1/istream \
+ /usr/include/c++/13.2.1/bits/istream.tcc /usr/include/glm/ext.hpp \
+ /usr/include/glm/ext/matrix_clip_space.hpp \
  /usr/include/glm/ext/scalar_constants.hpp \
  /usr/include/glm/ext/scalar_constants.inl \
  /usr/include/glm/ext/matrix_clip_space.inl \
@@ -373,9 +408,6 @@ CMakeFiles/EngineUtils.dir/src/renderer.cpp.o: \
  /usr/include/c++/13.2.1/cstring /usr/include/string.h \
  /usr/include/strings.h /usr/include/glm/gtc/random.hpp \
  /usr/include/glm/gtc/random.inl /usr/include/c++/13.2.1/ctime \
- /usr/include/time.h /usr/include/bits/time.h /usr/include/bits/timex.h \
- /usr/include/bits/types/struct_tm.h \
- /usr/include/bits/types/struct_itimerspec.h \
  /usr/include/glm/gtc/reciprocal.hpp /usr/include/glm/gtc/reciprocal.inl \
  /usr/include/glm/gtc/round.hpp /usr/include/glm/gtc/round.inl \
  /usr/include/glm/gtc/type_ptr.hpp /usr/include/glm/gtc/type_ptr.inl \

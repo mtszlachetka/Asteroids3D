@@ -298,4 +298,126 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
  /usr/include/glm/detail/func_integer.inl \
  /home/Mateusz/projects/SpaceEngine/src/camera.hpp \
- /home/Mateusz/projects/SpaceEngine/src/io_processor.hpp
+ /home/Mateusz/projects/SpaceEngine/src/io_processor.hpp \
+ /home/Mateusz/projects/SpaceEngine/src/ship.hpp /usr/include/glm/ext.hpp \
+ /usr/include/glm/ext/matrix_clip_space.hpp \
+ /usr/include/glm/ext/scalar_constants.hpp \
+ /usr/include/glm/ext/scalar_constants.inl \
+ /usr/include/glm/ext/matrix_clip_space.inl \
+ /usr/include/glm/ext/matrix_common.hpp \
+ /usr/include/glm/detail/_fixes.hpp \
+ /usr/include/glm/ext/matrix_common.inl \
+ /usr/include/glm/ext/matrix_int2x2.hpp \
+ /usr/include/glm/ext/matrix_int2x2_sized.hpp \
+ /usr/include/glm/ext/matrix_int2x3.hpp \
+ /usr/include/glm/ext/matrix_int2x3_sized.hpp \
+ /usr/include/glm/ext/matrix_int2x4.hpp \
+ /usr/include/glm/ext/matrix_int2x4_sized.hpp \
+ /usr/include/glm/ext/matrix_int3x2.hpp \
+ /usr/include/glm/ext/matrix_int3x2_sized.hpp \
+ /usr/include/glm/ext/matrix_int3x3.hpp \
+ /usr/include/glm/ext/matrix_int3x3_sized.hpp \
+ /usr/include/glm/ext/matrix_int3x4.hpp \
+ /usr/include/glm/ext/matrix_int3x4_sized.hpp \
+ /usr/include/glm/ext/matrix_int4x2.hpp \
+ /usr/include/glm/ext/matrix_int4x2_sized.hpp \
+ /usr/include/glm/ext/matrix_int4x3.hpp \
+ /usr/include/glm/ext/matrix_int4x3_sized.hpp \
+ /usr/include/glm/ext/matrix_int4x4.hpp \
+ /usr/include/glm/ext/matrix_int4x4_sized.hpp \
+ /usr/include/glm/ext/matrix_uint2x2.hpp \
+ /usr/include/glm/ext/matrix_uint2x2_sized.hpp \
+ /usr/include/glm/ext/matrix_uint2x3.hpp \
+ /usr/include/glm/ext/matrix_uint2x3_sized.hpp \
+ /usr/include/glm/ext/matrix_uint2x4.hpp \
+ /usr/include/glm/ext/matrix_uint2x4_sized.hpp \
+ /usr/include/glm/ext/matrix_uint3x2.hpp \
+ /usr/include/glm/ext/matrix_uint3x2_sized.hpp \
+ /usr/include/glm/ext/matrix_uint3x3.hpp \
+ /usr/include/glm/ext/matrix_uint3x3_sized.hpp \
+ /usr/include/glm/ext/matrix_uint3x4.hpp \
+ /usr/include/glm/ext/matrix_uint3x4_sized.hpp \
+ /usr/include/glm/ext/matrix_uint4x2.hpp \
+ /usr/include/glm/ext/matrix_uint4x2_sized.hpp \
+ /usr/include/glm/ext/matrix_uint4x3.hpp \
+ /usr/include/glm/ext/matrix_uint4x3_sized.hpp \
+ /usr/include/glm/ext/matrix_uint4x4.hpp \
+ /usr/include/glm/ext/matrix_uint4x4_sized.hpp \
+ /usr/include/glm/ext/matrix_projection.hpp \
+ /usr/include/glm/gtc/constants.hpp /usr/include/glm/gtc/constants.inl \
+ /usr/include/glm/ext/matrix_projection.inl \
+ /usr/include/glm/ext/matrix_relational.hpp \
+ /usr/include/glm/ext/matrix_relational.inl \
+ /usr/include/glm/ext/vector_relational.hpp \
+ /usr/include/glm/ext/vector_relational.inl \
+ /usr/include/glm/detail/type_float.hpp \
+ /usr/include/glm/ext/matrix_transform.hpp \
+ /usr/include/glm/ext/matrix_transform.inl \
+ /usr/include/glm/ext/quaternion_common.hpp \
+ /usr/include/glm/ext/quaternion_geometric.hpp \
+ /usr/include/glm/ext/quaternion_geometric.inl \
+ /usr/include/glm/ext/quaternion_common.inl \
+ /usr/include/glm/ext/quaternion_double.hpp \
+ /usr/include/glm/detail/type_quat.hpp \
+ /usr/include/glm/ext/quaternion_relational.hpp \
+ /usr/include/glm/ext/quaternion_relational.inl \
+ /usr/include/glm/gtc/matrix_transform.hpp \
+ /usr/include/glm/gtc/matrix_transform.inl \
+ /usr/include/glm/detail/type_quat.inl \
+ /usr/include/glm/ext/quaternion_double_precision.hpp \
+ /usr/include/glm/ext/quaternion_float.hpp \
+ /usr/include/glm/ext/quaternion_float_precision.hpp \
+ /usr/include/glm/ext/quaternion_exponential.hpp \
+ /usr/include/glm/ext/quaternion_exponential.inl \
+ /usr/include/glm/ext/quaternion_transform.hpp \
+ /usr/include/glm/ext/quaternion_transform.inl \
+ /usr/include/glm/ext/quaternion_trigonometric.hpp \
+ /usr/include/glm/ext/quaternion_trigonometric.inl \
+ /usr/include/glm/ext/scalar_common.hpp \
+ /usr/include/glm/ext/scalar_common.inl \
+ /usr/include/glm/ext/scalar_integer.hpp \
+ /usr/include/glm/ext/scalar_integer.inl \
+ /usr/include/glm/ext/scalar_packing.hpp \
+ /usr/include/glm/ext/scalar_packing.inl \
+ /usr/include/glm/ext/scalar_relational.hpp \
+ /usr/include/glm/ext/scalar_relational.inl \
+ /usr/include/glm/ext/scalar_ulp.hpp /usr/include/glm/ext/scalar_ulp.inl \
+ /usr/include/glm/ext/vector_common.hpp \
+ /usr/include/glm/ext/vector_common.inl \
+ /usr/include/glm/ext/vector_integer.hpp \
+ /usr/include/glm/ext/vector_integer.inl \
+ /usr/include/glm/ext/vector_packing.hpp \
+ /usr/include/glm/ext/vector_packing.inl \
+ /usr/include/glm/ext/vector_ulp.hpp /usr/include/glm/ext/vector_ulp.inl \
+ /usr/include/glm/ext/vector_bool1.hpp \
+ /usr/include/glm/ext/vector_bool1_precision.hpp \
+ /usr/include/glm/ext/vector_double1.hpp \
+ /usr/include/glm/ext/vector_double1_precision.hpp \
+ /usr/include/glm/ext/vector_float1.hpp \
+ /usr/include/glm/ext/vector_float1_precision.hpp \
+ /usr/include/glm/ext/vector_int1.hpp \
+ /usr/include/glm/ext/vector_int1_sized.hpp \
+ /usr/include/glm/ext/vector_uint1.hpp \
+ /usr/include/glm/ext/vector_uint1_sized.hpp \
+ /usr/include/glm/gtc/bitfield.hpp /usr/include/glm/detail/setup.hpp \
+ /usr/include/glm/gtc/type_precision.hpp \
+ /usr/include/glm/gtc/quaternion.hpp /usr/include/glm/gtc/quaternion.inl \
+ /usr/include/glm/gtc/epsilon.hpp /usr/include/glm/gtc/epsilon.inl \
+ /usr/include/glm/gtc/vec1.hpp /usr/include/glm/gtc/type_precision.inl \
+ /usr/include/glm/gtc/bitfield.inl /usr/include/glm/simd/integer.h \
+ /usr/include/glm/gtc/color_space.hpp \
+ /usr/include/glm/gtc/color_space.inl /usr/include/glm/gtc/integer.hpp \
+ /usr/include/glm/gtc/integer.inl /usr/include/glm/gtc/matrix_access.hpp \
+ /usr/include/glm/gtc/matrix_access.inl \
+ /usr/include/glm/gtc/matrix_integer.hpp \
+ /usr/include/glm/gtc/matrix_inverse.hpp \
+ /usr/include/glm/gtc/matrix_inverse.inl /usr/include/glm/gtc/noise.hpp \
+ /usr/include/glm/detail/_noise.hpp /usr/include/glm/gtc/noise.inl \
+ /usr/include/glm/gtc/packing.hpp /usr/include/glm/gtc/packing.inl \
+ /usr/include/c++/13.2.1/cstring /usr/include/string.h \
+ /usr/include/strings.h /usr/include/glm/gtc/random.hpp \
+ /usr/include/glm/gtc/random.inl /usr/include/c++/13.2.1/ctime \
+ /usr/include/glm/gtc/reciprocal.hpp /usr/include/glm/gtc/reciprocal.inl \
+ /usr/include/glm/gtc/round.hpp /usr/include/glm/gtc/round.inl \
+ /usr/include/glm/gtc/type_ptr.hpp /usr/include/glm/gtc/type_ptr.inl \
+ /usr/include/glm/gtc/ulp.hpp /usr/include/glm/gtc/ulp.inl

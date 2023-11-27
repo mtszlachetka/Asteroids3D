@@ -15,8 +15,12 @@ class rigid_body {
         v3 m_color, m_pos, m_dir, m_side, m_up;
         std::vector<texture_info> m_textures;
     public:
-        rigid_body(const render_context& rc, GLuint program, const v3& pos, const v3& dir, const v3& side, const v3& up, const v3& col, const std::vector<texture_info>& tex) :
-            m_context(rc), m_program(program), m_pos(pos), m_dir(dir), m_up(up), m_side(side), m_color(col), m_textures(tex) {}
+        rigid_body(const render_context& rc, GLuint program, const v3& pos, const v3& dir, const v3& col, const std::vector<texture_info>& tex) : 
+            m_context(rc), m_program(program), m_pos(pos), m_dir(dir), m_color(col), m_textures(tex) { rebase(); }
+        void rebase() {
+            m_side = glm::normalize(glm::cross(m_dir, {0, 1, 0}));
+            m_up = glm::normalize(glm::cross(m_side, m_dir));
+        }
         virtual glm::mat4 get_position(float time) const;
         virtual ~rigid_body() {}
 };
