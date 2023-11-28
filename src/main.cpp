@@ -9,6 +9,7 @@
 #include "camera.hpp"
 #include "io_processor.hpp"
 #include "ship.hpp"
+#include "texture_manager.hpp"
 
 
 int main() {
@@ -35,7 +36,7 @@ int main() {
         return 1;
     }
     GLuint program;
-    std::vector<shader_info> default_shaders = {
+    std::vector<SE::shader_info> default_shaders = {
         {
             GL_VERTEX_SHADER,
             "../shaders/shader.vert",
@@ -48,22 +49,25 @@ int main() {
         }
     };
     try {
-        program = s_shader_manager.create_program(default_shaders);
+        program = SE::s_shader_manager.create_program(default_shaders);
     }
     catch(std::runtime_error& e) {
         std::cout << e.what() << std::endl;
         return 1;
     }
 
-    render_context ship_context = s_mesh_manager.load("../models/spaceship.obj");
-    render_context sphere_context = s_mesh_manager.load("../models/sphere.obj");
+    SE::render_context ship_context = SE::s_mesh_manager.load("../models/spaceship.obj");
+    SE::render_context sphere_context = SE::s_mesh_manager.load("../models/sphere.obj");
 
     glViewport(0, 0, width, height);
     glEnable(GL_DEPTH_TEST);
 
-    rigid_body sun(sphere_context, program, glm::vec3(0), glm::vec3(0), std::vector<texture_info>());
-    rigid_body earth(sphere_context, program, glm::vec3(0), glm::vec3(0), std::vector<texture_info>());
-    rigid_body moon(sphere_context, program, glm::vec3(0), glm::vec3(0), std::vector<texture_info>());
+    SE::texture_info earth_texture = SE::s_texture_manager.load_texture("../textures/earth.png", "earth_tex");
+    std::vector<SE::texture_info> earth_textures = { earth_texture };
+
+    SE::rigid_body sun(sphere_context, program, glm::vec3(0), glm::vec3(0), std::vector<SE::texture_info>());
+    SE::rigid_body earth(sphere_context, program, glm::vec3(0), glm::vec3(0), std::vector<SE::texture_info>());
+    SE::rigid_body moon(sphere_context, program, glm::vec3(0), glm::vec3(0), std::vector<SE::texture_info>());
 
     earth.set_position_callback(
         [](float time) -> glm::mat4 { return glm::rotate(glm::mat4(1.), time / 10, {0, 1, 0}) * 
@@ -79,28 +83,28 @@ int main() {
                                                 glm::scale(glm::mat4(1.),glm::vec3(0.1f));}
     );
 
-    ship player(ship_context, program, glm::vec3(0, 0, 1), glm::vec3(0, 0, 1), std::vector<texture_info>(), 0.05, 0.05);
+    SE::ship player(ship_context, program, glm::vec3(0, 0, 1), glm::vec3(0, 0, 1), std::vector<SE::texture_info>(), 0.05, 0.05);
 
-    camera camera1(0.01, 200, {0, 0, 1}, {0, 0, 1});
-    s_renderer.set_active_camera(camera1);
+    SE::camera camera1(0.01, 200, {0, 0, 1}, {0, 0, 1});
+    SE::s_renderer.set_active_camera(camera1);
 
     glfwSetFramebufferSizeCallback(
         window,
         [](GLFWwindow* window, int width, int height) -> void { glViewport(0, 0, width, height); }
     );
 
-    std::vector<rigid_body*> bodies = { &sun, &player, &earth, &moon };
+    std::vector<SE::rigid_body*> bodies = { &sun, &player, &earth, &moon };
 
     while (!glfwWindowShouldClose(window)) {
         timeElapsed = static_cast<float>(glfwGetTime());
         glfwGetWindowSize(window, &width, &height);
         camera1.set_aspect_ratio(static_cast<double>(width) / height);
-        s_io_processor.process_input(window, camera1, player);
-        s_renderer.render(bodies, timeElapsed);
+        SE::s_io_processor.process_input(window, camera1, player);
+        SE::s_renderer.render(bodies, timeElapsed);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
-    s_shader_manager.delete_program(program);
+    SE::s_shader_manager.delete_program(program);
     glfwTerminate();
 }

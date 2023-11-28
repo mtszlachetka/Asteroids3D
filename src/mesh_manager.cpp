@@ -4,7 +4,7 @@
 #include <assimp/scene.h>
 #include <stdexcept>
 #include <vector>
-
+namespace SE {
 render_context mesh_manager::load(const std::string& path) {
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_CalcTangentSpace);
@@ -84,4 +84,5 @@ render_context mesh_manager::load(const std::string& path) {
     glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, (void*)(vertex_data_buffer_size + vertex_normal_buffer_size + vertex_tex_buffer_size + vertex_tangent_buffer_size));
 
     return context;
+}
 }

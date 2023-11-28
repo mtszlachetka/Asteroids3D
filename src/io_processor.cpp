@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <iostream>
 
+namespace SE {
 void io_processor::process_input(GLFWwindow* window, camera& cam, ship& sh) {
 
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
@@ -71,3 +72,5 @@ void io_processor::process_input(GLFWwindow* window, camera& cam, ship& sh) {
 	cam.m_dir = sh.m_dir;
 	cam.rebase();
 }
+}
+

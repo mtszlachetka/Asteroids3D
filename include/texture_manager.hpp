@@ -2,16 +2,19 @@
 #define _TEXTURE_MANAGER_HPP_
 #include <GL/glew.h>
 
-struct texture_info {
-    const char* uniform_name;
-    GLuint id;
-};
+namespace SE {
+    struct texture_info {
+        const char* uniform_name;
+        GLuint id;
+    };
 
-class texture_manager {
-    public:
+    class texture_manager {
+        public:
+            texture_info load_texture(const char* path, const char* uniform_name);
+    };
 
-};
+    static texture_manager s_texture_manager;
+}
 
-static texture_manager s_texture_manager;
 
 #endif

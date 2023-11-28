@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 
+namespace SE {
 std::string shader_manager::read_shader(const std::string& path) {
     std::string shader_code;
 	std::ifstream file(path, std::ios::in);
@@ -75,4 +76,5 @@ GLuint shader_manager::create_program(const std::vector<shader_info>& list) {
 
 void shader_manager::delete_program(GLuint program) {
     glDeleteProgram(program);
+}
 }

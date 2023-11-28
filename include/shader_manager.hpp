@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 #include <vector>
 
+namespace SE {
 struct shader_info {
     GLenum type;
     const char* path;
@@ -21,5 +22,8 @@ class shader_manager {
 };
 
 static shader_manager s_shader_manager;
+}
+
+
 
 #endif

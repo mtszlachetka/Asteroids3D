@@ -5,6 +5,7 @@
 #include "rigid_body.hpp"
 #include "camera.hpp"
 
+namespace SE {
 class renderer {
     private:
         const camera* m_cam;
@@ -16,5 +17,7 @@ class renderer {
 };
 
 static renderer s_renderer;
+}
+
 
 #endif

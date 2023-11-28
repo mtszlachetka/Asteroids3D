@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <string>
 
+namespace SE {
 struct render_context {
     GLuint vertex_array;
     GLuint vertex_buffer;
@@ -17,5 +18,8 @@ class mesh_manager {
 };
 
 static mesh_manager s_mesh_manager;
+}
+
+
 
 #endif
