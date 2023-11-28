@@ -92,7 +92,7 @@ SpaceEngine_EXTERNAL_OBJECTS =
 
 SpaceEngine: CMakeFiles/SpaceEngine.dir/src/main.cpp.o
 SpaceEngine: CMakeFiles/SpaceEngine.dir/build.make
-SpaceEngine: libEngineUtils.a
+SpaceEngine: src/libEngineUtils.a
 SpaceEngine: /usr/lib/libglfw.so.3.3
 SpaceEngine: /usr/lib/libGLEW.so
 SpaceEngine: /usr/lib/libGLX.so

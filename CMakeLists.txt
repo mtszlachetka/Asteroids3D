@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.27)
 project(SpaceEngine)
 
-add_library(EngineUtils STATIC src/mesh_manager.cpp src/shader_manager.cpp src/renderer.cpp src/rigid_body.cpp src/camera.cpp src/io_processor.cpp)
-target_include_directories(EngineUtils PUBLIC "${PROJECT_SOURCE_DIR}/src")
+add_subdirectory(src)
+target_include_directories(EngineUtils PUBLIC "${PROJECT_SOURCE_DIR}/include")
 add_library(compiler_flags INTERFACE)
 target_compile_features(compiler_flags INTERFACE cxx_std_20)
 

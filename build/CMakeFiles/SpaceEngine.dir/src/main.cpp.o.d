@@ -146,16 +146,17 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/stdint-uintn.h \
  /usr/include/GL/glu.h /usr/include/GL/gl.h /usr/include/GLFW/glfw3.h \
- /home/Mateusz/projects/SpaceEngine/src/mesh_manager.hpp \
- /home/Mateusz/projects/SpaceEngine/src/shader_manager.hpp \
+ /home/Mateusz/projects/SpaceEngine/include/mesh_manager.hpp \
+ /home/Mateusz/projects/SpaceEngine/include/shader_manager.hpp \
  /usr/include/c++/13.2.1/vector \
  /usr/include/c++/13.2.1/bits/stl_uninitialized.h \
  /usr/include/c++/13.2.1/bits/stl_vector.h \
  /usr/include/c++/13.2.1/bits/stl_bvector.h \
  /usr/include/c++/13.2.1/bits/vector.tcc \
- /home/Mateusz/projects/SpaceEngine/src/renderer.hpp \
- /home/Mateusz/projects/SpaceEngine/src/rigid_body.hpp \
- /home/Mateusz/projects/SpaceEngine/src/texture_manager.hpp \
+ /home/Mateusz/projects/SpaceEngine/include/renderer.hpp \
+ /home/Mateusz/projects/SpaceEngine/include/rigid_body.hpp \
+ /home/Mateusz/projects/SpaceEngine/include/mesh_manager.hpp \
+ /home/Mateusz/projects/SpaceEngine/include/texture_manager.hpp \
  /usr/include/glm/glm.hpp /usr/include/glm/detail/_fixes.hpp \
  /usr/include/c++/13.2.1/cmath /usr/include/math.h \
  /usr/include/bits/math-vector.h /usr/include/bits/libm-simd-decl-stubs.h \
@@ -297,10 +298,11 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: \
  /usr/include/glm/detail/type_half.hpp \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
  /usr/include/glm/detail/func_integer.inl \
- /home/Mateusz/projects/SpaceEngine/src/camera.hpp \
- /home/Mateusz/projects/SpaceEngine/src/io_processor.hpp \
- /home/Mateusz/projects/SpaceEngine/src/ship.hpp /usr/include/glm/ext.hpp \
- /usr/include/glm/ext/matrix_clip_space.hpp \
+ /home/Mateusz/projects/SpaceEngine/include/camera.hpp \
+ /home/Mateusz/projects/SpaceEngine/include/camera.hpp \
+ /home/Mateusz/projects/SpaceEngine/include/io_processor.hpp \
+ /home/Mateusz/projects/SpaceEngine/include/ship.hpp \
+ /usr/include/glm/ext.hpp /usr/include/glm/ext/matrix_clip_space.hpp \
  /usr/include/glm/ext/scalar_constants.hpp \
  /usr/include/glm/ext/scalar_constants.inl \
  /usr/include/glm/ext/matrix_clip_space.inl \
@@ -420,4 +422,5 @@ CMakeFiles/SpaceEngine.dir/src/main.cpp.o: \
  /usr/include/glm/gtc/reciprocal.hpp /usr/include/glm/gtc/reciprocal.inl \
  /usr/include/glm/gtc/round.hpp /usr/include/glm/gtc/round.inl \
  /usr/include/glm/gtc/type_ptr.hpp /usr/include/glm/gtc/type_ptr.inl \
- /usr/include/glm/gtc/ulp.hpp /usr/include/glm/gtc/ulp.inl
+ /usr/include/glm/gtc/ulp.hpp /usr/include/glm/gtc/ulp.inl \
+ /home/Mateusz/projects/SpaceEngine/include/ship.hpp

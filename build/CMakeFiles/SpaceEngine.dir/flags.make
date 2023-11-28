@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/g++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/Mateusz/projects/SpaceEngine/src
+CXX_INCLUDES = -I/home/Mateusz/projects/SpaceEngine/include
 
 CXX_FLAGS = -g -std=gnu++20
 

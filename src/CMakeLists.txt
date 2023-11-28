@@ -1,0 +1,1 @@
+add_library(EngineUtils STATIC mesh_manager.cpp shader_manager.cpp renderer.cpp rigid_body.cpp camera.cpp io_processor.cpp)

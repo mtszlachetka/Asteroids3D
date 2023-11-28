@@ -63,50 +63,39 @@ CMAKE_BINARY_DIR = /home/Mateusz/projects/SpaceEngine/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/EngineUtils.dir/all
 all: CMakeFiles/SpaceEngine.dir/all
+all: src/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
-preinstall:
+preinstall: src/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/EngineUtils.dir/clean
 clean: CMakeFiles/SpaceEngine.dir/clean
+clean: src/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/EngineUtils.dir
+# Directory level rules for directory src
 
-# All Build rule for target.
-CMakeFiles/EngineUtils.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target EngineUtils"
-.PHONY : CMakeFiles/EngineUtils.dir/all
+# Recursive "all" directory target.
+src/all: src/CMakeFiles/EngineUtils.dir/all
+.PHONY : src/all
 
-# Build rule for subdir invocation for target.
-CMakeFiles/EngineUtils.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/Mateusz/projects/SpaceEngine/build/CMakeFiles 7
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/EngineUtils.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/Mateusz/projects/SpaceEngine/build/CMakeFiles 0
-.PHONY : CMakeFiles/EngineUtils.dir/rule
+# Recursive "preinstall" directory target.
+src/preinstall:
+.PHONY : src/preinstall
 
-# Convenience name for target.
-EngineUtils: CMakeFiles/EngineUtils.dir/rule
-.PHONY : EngineUtils
-
-# clean rule for target.
-CMakeFiles/EngineUtils.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/clean
-.PHONY : CMakeFiles/EngineUtils.dir/clean
+# Recursive "clean" directory target.
+src/clean: src/CMakeFiles/EngineUtils.dir/clean
+.PHONY : src/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/SpaceEngine.dir
 
 # All Build rule for target.
-CMakeFiles/SpaceEngine.dir/all: CMakeFiles/EngineUtils.dir/all
+CMakeFiles/SpaceEngine.dir/all: src/CMakeFiles/EngineUtils.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpaceEngine.dir/build.make CMakeFiles/SpaceEngine.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpaceEngine.dir/build.make CMakeFiles/SpaceEngine.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=8,9 "Built target SpaceEngine"
@@ -127,6 +116,32 @@ SpaceEngine: CMakeFiles/SpaceEngine.dir/rule
 CMakeFiles/SpaceEngine.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpaceEngine.dir/build.make CMakeFiles/SpaceEngine.dir/clean
 .PHONY : CMakeFiles/SpaceEngine.dir/clean
+
+#=============================================================================
+# Target rules for target src/CMakeFiles/EngineUtils.dir
+
+# All Build rule for target.
+src/CMakeFiles/EngineUtils.dir/all:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/EngineUtils.dir/build.make src/CMakeFiles/EngineUtils.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/EngineUtils.dir/build.make src/CMakeFiles/EngineUtils.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/Mateusz/projects/SpaceEngine/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target EngineUtils"
+.PHONY : src/CMakeFiles/EngineUtils.dir/all
+
+# Build rule for subdir invocation for target.
+src/CMakeFiles/EngineUtils.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/Mateusz/projects/SpaceEngine/build/CMakeFiles 7
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/EngineUtils.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/Mateusz/projects/SpaceEngine/build/CMakeFiles 0
+.PHONY : src/CMakeFiles/EngineUtils.dir/rule
+
+# Convenience name for target.
+EngineUtils: src/CMakeFiles/EngineUtils.dir/rule
+.PHONY : EngineUtils
+
+# clean rule for target.
+src/CMakeFiles/EngineUtils.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/EngineUtils.dir/build.make src/CMakeFiles/EngineUtils.dir/clean
+.PHONY : src/CMakeFiles/EngineUtils.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

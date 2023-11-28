@@ -117,19 +117,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named EngineUtils
-
-# Build rule for target.
-EngineUtils: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 EngineUtils
-.PHONY : EngineUtils
-
-# fast build rule for target.
-EngineUtils/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/build
-.PHONY : EngineUtils/fast
-
-#=============================================================================
 # Target rules for targets named SpaceEngine
 
 # Build rule for target.
@@ -142,53 +129,18 @@ SpaceEngine/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpaceEngine.dir/build.make CMakeFiles/SpaceEngine.dir/build
 .PHONY : SpaceEngine/fast
 
-src/camera.o: src/camera.cpp.o
-.PHONY : src/camera.o
+#=============================================================================
+# Target rules for targets named EngineUtils
 
-# target to build an object file
-src/camera.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/camera.cpp.o
-.PHONY : src/camera.cpp.o
+# Build rule for target.
+EngineUtils: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 EngineUtils
+.PHONY : EngineUtils
 
-src/camera.i: src/camera.cpp.i
-.PHONY : src/camera.i
-
-# target to preprocess a source file
-src/camera.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/camera.cpp.i
-.PHONY : src/camera.cpp.i
-
-src/camera.s: src/camera.cpp.s
-.PHONY : src/camera.s
-
-# target to generate assembly for a file
-src/camera.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/camera.cpp.s
-.PHONY : src/camera.cpp.s
-
-src/io_processor.o: src/io_processor.cpp.o
-.PHONY : src/io_processor.o
-
-# target to build an object file
-src/io_processor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/io_processor.cpp.o
-.PHONY : src/io_processor.cpp.o
-
-src/io_processor.i: src/io_processor.cpp.i
-.PHONY : src/io_processor.i
-
-# target to preprocess a source file
-src/io_processor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/io_processor.cpp.i
-.PHONY : src/io_processor.cpp.i
-
-src/io_processor.s: src/io_processor.cpp.s
-.PHONY : src/io_processor.s
-
-# target to generate assembly for a file
-src/io_processor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/io_processor.cpp.s
-.PHONY : src/io_processor.cpp.s
+# fast build rule for target.
+EngineUtils/fast:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/EngineUtils.dir/build.make src/CMakeFiles/EngineUtils.dir/build
+.PHONY : EngineUtils/fast
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -214,102 +166,6 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpaceEngine.dir/build.make CMakeFiles/SpaceEngine.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/mesh_manager.o: src/mesh_manager.cpp.o
-.PHONY : src/mesh_manager.o
-
-# target to build an object file
-src/mesh_manager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.o
-.PHONY : src/mesh_manager.cpp.o
-
-src/mesh_manager.i: src/mesh_manager.cpp.i
-.PHONY : src/mesh_manager.i
-
-# target to preprocess a source file
-src/mesh_manager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.i
-.PHONY : src/mesh_manager.cpp.i
-
-src/mesh_manager.s: src/mesh_manager.cpp.s
-.PHONY : src/mesh_manager.s
-
-# target to generate assembly for a file
-src/mesh_manager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/mesh_manager.cpp.s
-.PHONY : src/mesh_manager.cpp.s
-
-src/renderer.o: src/renderer.cpp.o
-.PHONY : src/renderer.o
-
-# target to build an object file
-src/renderer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/renderer.cpp.o
-.PHONY : src/renderer.cpp.o
-
-src/renderer.i: src/renderer.cpp.i
-.PHONY : src/renderer.i
-
-# target to preprocess a source file
-src/renderer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/renderer.cpp.i
-.PHONY : src/renderer.cpp.i
-
-src/renderer.s: src/renderer.cpp.s
-.PHONY : src/renderer.s
-
-# target to generate assembly for a file
-src/renderer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/renderer.cpp.s
-.PHONY : src/renderer.cpp.s
-
-src/rigid_body.o: src/rigid_body.cpp.o
-.PHONY : src/rigid_body.o
-
-# target to build an object file
-src/rigid_body.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.o
-.PHONY : src/rigid_body.cpp.o
-
-src/rigid_body.i: src/rigid_body.cpp.i
-.PHONY : src/rigid_body.i
-
-# target to preprocess a source file
-src/rigid_body.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.i
-.PHONY : src/rigid_body.cpp.i
-
-src/rigid_body.s: src/rigid_body.cpp.s
-.PHONY : src/rigid_body.s
-
-# target to generate assembly for a file
-src/rigid_body.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/rigid_body.cpp.s
-.PHONY : src/rigid_body.cpp.s
-
-src/shader_manager.o: src/shader_manager.cpp.o
-.PHONY : src/shader_manager.o
-
-# target to build an object file
-src/shader_manager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.o
-.PHONY : src/shader_manager.cpp.o
-
-src/shader_manager.i: src/shader_manager.cpp.i
-.PHONY : src/shader_manager.i
-
-# target to preprocess a source file
-src/shader_manager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.i
-.PHONY : src/shader_manager.cpp.i
-
-src/shader_manager.s: src/shader_manager.cpp.s
-.PHONY : src/shader_manager.s
-
-# target to generate assembly for a file
-src/shader_manager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EngineUtils.dir/build.make CMakeFiles/EngineUtils.dir/src/shader_manager.cpp.s
-.PHONY : src/shader_manager.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -320,27 +176,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... EngineUtils"
 	@echo "... SpaceEngine"
-	@echo "... src/camera.o"
-	@echo "... src/camera.i"
-	@echo "... src/camera.s"
-	@echo "... src/io_processor.o"
-	@echo "... src/io_processor.i"
-	@echo "... src/io_processor.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/mesh_manager.o"
-	@echo "... src/mesh_manager.i"
-	@echo "... src/mesh_manager.s"
-	@echo "... src/renderer.o"
-	@echo "... src/renderer.i"
-	@echo "... src/renderer.s"
-	@echo "... src/rigid_body.o"
-	@echo "... src/rigid_body.i"
-	@echo "... src/rigid_body.s"
-	@echo "... src/shader_manager.o"
-	@echo "... src/shader_manager.i"
-	@echo "... src/shader_manager.s"
 .PHONY : help
 
 
