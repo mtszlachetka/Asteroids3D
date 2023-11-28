@@ -1,6 +1,0 @@
-/home/Mateusz/projects/SpaceEngine/build/CMakeFiles/SpaceEngine.dir
-/home/Mateusz/projects/SpaceEngine/build/CMakeFiles/edit_cache.dir
-/home/Mateusz/projects/SpaceEngine/build/CMakeFiles/rebuild_cache.dir
-/home/Mateusz/projects/SpaceEngine/build/src/CMakeFiles/EngineUtils.dir
-/home/Mateusz/projects/SpaceEngine/build/src/CMakeFiles/edit_cache.dir
-/home/Mateusz/projects/SpaceEngine/build/src/CMakeFiles/rebuild_cache.dir

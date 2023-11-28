@@ -1,1 +1,0 @@
-/usr/bin/g++ -g CMakeFiles/SpaceEngine.dir/src/main.cpp.o -o SpaceEngine  src/libEngineUtils.a /usr/lib/libglfw.so.3.3 /usr/lib/libGLEW.so -lassimp /usr/lib/libGLX.so /usr/lib/libOpenGL.so 
