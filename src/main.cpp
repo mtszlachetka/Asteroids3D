@@ -56,6 +56,12 @@ int main() {
     SE::texture_info rust_texture = SE::s_texture_manager.load_texture("../textures/rust.jpg", "rust_tex");
     SE::texture_info scratches_texture = SE::s_texture_manager.load_texture("../textures/scratches.jpg", "scratches_tex");
 
+    // normal maps
+    SE::texture_info earth_normals = SE::s_texture_manager.load_texture("../textures/earth_normalmap.png", "earth_normals");
+    SE::texture_info moon_normals = SE::s_texture_manager.load_texture("../textures/moon_normal.jpg", "moon_normals");
+    SE::texture_info ship_normals = SE::s_texture_manager.load_texture("../texttures/spaceship_normal.jpg", "ship_normals");
+    SE::texture_info rust_normals = SE::s_texture_manager.load_texture("../textures/rust_normal.jpg", "rust_normals");
+
     // shader creation
     GLuint default_program, earth_program, moon_program, ship_program, sun_program;
 
@@ -81,8 +87,8 @@ int main() {
 
     // populating scene
     SE::rigid_body sun(sphere_context, sun_program, glm::vec3(0), glm::vec3(0), {});
-    SE::rigid_body earth(sphere_context, earth_program, glm::vec3(0), glm::vec3(0), { earth_texture, clouds_texture });
-    SE::rigid_body moon(sphere_context, moon_program, glm::vec3(0), glm::vec3(0), { moon_texture });
+    SE::rigid_body earth(sphere_context, earth_program, glm::vec3(0), glm::vec3(0), { earth_texture, clouds_texture, earth_normals });
+    SE::rigid_body moon(sphere_context, moon_program, glm::vec3(0), glm::vec3(0), { moon_texture, moon_normals });
 
     earth.set_position_callback(
         [](float time) -> glm::mat4 { return glm::rotate(glm::mat4(1.), time / 10, {0, 1, 0}) * 
@@ -99,7 +105,7 @@ int main() {
     );
 
 
-    SE::ship player(ship_context, ship_program, glm::vec3(0, 0, 1), glm::vec3(0, 0, 1), { ship_texture, rust_texture, scratches_texture }, 0.05, 0.05);
+    SE::ship player(ship_context, ship_program, glm::vec3(0, 0, 1), glm::vec3(0, 0, 1), { ship_texture, rust_texture, scratches_texture, ship_normals, rust_normals }, 0.05, 0.05);
 
     // camera setup
     SE::camera camera1(0.01, 200, {0, 0, 1}, {0, 0, 1});
