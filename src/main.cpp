@@ -104,6 +104,7 @@ int main() {
 
  
     std::vector<SE::rigid_body*> bodies = { &sun, &player, &earth, &moon };
+    SE::light_source sun_light = { {1, 0, 0}, "light_dir", {1, 1, 1}, "light_color"};
 
     float timeElapsed;
     while (!glfwWindowShouldClose(window)) {
@@ -111,7 +112,7 @@ int main() {
         glfwGetWindowSize(window, &width, &height);
         camera1.set_aspect_ratio(static_cast<double>(width) / height);
         SE::s_io_processor.process_input(window, camera1, player);
-        SE::s_renderer.render(bodies, timeElapsed);
+        SE::s_renderer.render(bodies, { sun_light }, timeElapsed);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

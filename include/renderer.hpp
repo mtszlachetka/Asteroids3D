@@ -6,6 +6,14 @@
 #include "camera.hpp"
 
 namespace SE {
+
+struct light_source {
+    glm::vec3 dir;
+    const char* uniform_dir_name;
+    glm::vec3 color;
+    const char* uniform_color_name;
+};
+
 class renderer {
     private:
         const camera* m_cam;
@@ -13,7 +21,7 @@ class renderer {
         void set_active_camera(const camera& c) {
             m_cam = &c;
         }
-        void render(const std::vector<rigid_body*>& bodies, float time); // time is needed for object positions
+        void render(const std::vector<rigid_body*>& bodies, const std::vector<light_source>& light_sources, float time); // time is needed for object positions
 };
 
 static renderer s_renderer;

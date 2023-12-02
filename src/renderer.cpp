@@ -2,7 +2,7 @@
 
 #include <glm/ext.hpp>
 namespace SE {
-void renderer::render(const std::vector<rigid_body*>& bodies, float time) {
+void renderer::render(const std::vector<rigid_body*>& bodies, const std::vector<light_source>& light_sources, float time) {
     glClearColor(0,0,0,1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -18,6 +18,12 @@ void renderer::render(const std::vector<rigid_body*>& bodies, float time) {
             glUniform1i(glGetUniformLocation(body->m_program, tex_info.uniform_name), tex_num);
             glActiveTexture(GL_TEXTURE0 + tex_num++);
             glBindTexture(GL_TEXTURE_2D, tex_info.id);
+        }
+
+        // light sources
+        for (auto& ls : light_sources) {
+            glUniform3fv(glGetUniformLocation(body->m_program, ls.uniform_dir_name), 1, (float*)&ls.dir);
+            glUniform3fv(glGetUniformLocation(body->m_program, ls.uniform_color_name), 1, (float*)&ls.color);
         }
 
         glm::mat4 transform = perspective_matrix * camera_matrix * body->get_position(time);
