@@ -47,6 +47,7 @@ int main() {
     // model loading
     SE::render_context ship_context = SE::s_mesh_manager.load("../models/spaceship.obj");
     SE::render_context sphere_context = SE::s_mesh_manager.load("../models/sphere.obj");
+    SE::render_context cube_context = SE::s_mesh_manager.load("../models/cube.obj");
 
     // texture loading
     SE::texture_info earth_texture = SE::s_texture_manager.load_texture("../textures/earth.png", "earth_tex");
@@ -62,8 +63,19 @@ int main() {
     SE::texture_info ship_normals = SE::s_texture_manager.load_texture("../texttures/spaceship_normal.jpg", "ship_normals");
     SE::texture_info rust_normals = SE::s_texture_manager.load_texture("../textures/rust_normal.jpg", "rust_normals");
 
+    // cubemaps
+    const char* walls[6] = {
+        "../textures/skybox/space_rt.png", 
+        "../textures/skybox/space_lf.png", 
+        "../textures/skybox/space_up.png", 
+        "../textures/skybox/space_dn.png", 
+        "../textures/skybox/space_bk.png", 
+        "../textures/skybox/space_ft.png"
+    };
+    SE::texture_info skybox = SE::s_texture_manager.load_cubemap(walls, "skybox");
+
     // shader creation
-    GLuint default_program, earth_program, moon_program, ship_program, sun_program;
+    GLuint default_program, earth_program, moon_program, ship_program, sun_program, skybox_program;
 
     GLuint default_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/default.vert");
     GLuint default_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/default.frag");
@@ -72,6 +84,8 @@ int main() {
     GLuint ship_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/ship.frag");
     GLuint sun_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/sun.vert");
     GLuint sun_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/sun.frag");
+    GLuint skybox_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/skybox.vert");
+    GLuint skybox_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/skybox.frag");
     
     try {
         default_program = SE::s_shader_manager.create_program({default_vert, default_frag});
@@ -79,6 +93,7 @@ int main() {
         moon_program = SE::s_shader_manager.create_program({default_vert, moon_frag});
         ship_program = SE::s_shader_manager.create_program({default_vert, ship_frag});
         sun_program = SE::s_shader_manager.create_program({sun_vert, sun_frag});
+        skybox_program = SE::s_shader_manager.create_program({skybox_vert, skybox_frag});
     }
     catch(std::runtime_error& e) {
         std::cout << e.what() << std::endl;
@@ -108,20 +123,23 @@ int main() {
     SE::ship player(ship_context, ship_program, glm::vec3(0, 0, 1), glm::vec3(0, 0, 1), { ship_texture, rust_texture, scratches_texture, ship_normals, rust_normals }, 0.05, 0.05);
 
     // camera setup
-    SE::camera camera1(0.01, 200, {0, 0, 1}, {0, 0, 1});
+    SE::camera camera1(0.01, 2000, {0, 0, 1}, {0, 0, 1});
+
+    // renderer config
     SE::s_renderer.set_active_camera(camera1);
+    SE::s_renderer.set_skybox(skybox, skybox_program, cube_context);
 
  
     std::vector<SE::rigid_body*> bodies = { &sun, &player, &earth, &moon };
     SE::light_source sun_light = { {0, 0, 0}, "light_pos", {1, 1, 1}, "light_color"};
 
-    float timeElapsed;
+    float time_elapsed;
     while (!glfwWindowShouldClose(window)) {
-        timeElapsed = static_cast<float>(glfwGetTime());
+        time_elapsed = static_cast<float>(glfwGetTime());
         glfwGetWindowSize(window, &width, &height);
         camera1.set_aspect_ratio(static_cast<double>(width) / height);
         SE::s_io_processor.process_input(window, camera1, player);
-        SE::s_renderer.render(bodies, { sun_light }, timeElapsed);
+        SE::s_renderer.render(bodies, { sun_light }, time_elapsed);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

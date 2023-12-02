@@ -3,11 +3,29 @@
 #include <glm/ext.hpp>
 namespace SE {
 void renderer::render(const std::vector<rigid_body*>& bodies, const std::vector<light_source>& light_sources, float time) {
+
+
     glClearColor(0,0,0,1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
     glm::mat4 camera_matrix = m_cam->create_camera_matrix();
     glm::mat4 perspective_matrix = m_cam->create_perspective_matrix();
+
+    // skybox
+    glm::mat4 skybox_transform = glm::translate(perspective_matrix * camera_matrix, m_cam->m_pos);
+    glUseProgram(m_skybox_program);
+    glUniform1i(glGetUniformLocation(m_skybox_program, m_skybox.uniform_name), 0);
+    glActiveTexture(1);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, m_skybox.id);
+    glUniformMatrix4fv(glGetUniformLocation(m_skybox_program, "transform"), 1, GL_FALSE, (float*)&skybox_transform);
+    glBindVertexArray(m_skybox_model.vertex_array);
+    glDisable(GL_DEPTH_TEST);
+    glDrawElements(GL_TRIANGLES, m_skybox_model.size, GL_UNSIGNED_INT, nullptr);
+    glEnable(GL_DEPTH_TEST);
+    glBindVertexArray(0);
+
+
 
     for (auto& body : bodies) {
         glUseProgram(body->m_program);
