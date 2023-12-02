@@ -35,7 +35,7 @@ int main() {
         std::cerr << "GLEW error" << std::endl;
         return 1;
     }
-    GLuint program;
+    GLuint default_program, earth_program, moon_program, ship_program;
     std::vector<SE::shader_info> default_shaders = {
         {
             GL_VERTEX_SHADER,
@@ -48,8 +48,47 @@ int main() {
             "fragment shader"
         }
     };
+    std::vector<SE::shader_info> earth_shaders = {
+        {
+            GL_VERTEX_SHADER,
+            "../shaders/earth_shader.vert",
+            "earth vertex shader"
+        },
+        {
+            GL_FRAGMENT_SHADER,
+            "../shaders/earth_shader.frag",
+            "earth fragment shader"
+        }
+    };
+    std::vector<SE::shader_info> moon_shaders = {
+        {
+            GL_VERTEX_SHADER,
+            "../shaders/moon_shader.vert",
+            "moon vertex shader"
+        },
+        {
+            GL_FRAGMENT_SHADER,
+            "../shaders/moon_shader.frag",
+            "moon fragment shader"
+        }
+    };
+    std::vector<SE::shader_info> ship_shaders = {
+        {
+            GL_VERTEX_SHADER,
+            "../shaders/ship_shader.vert",
+            "ship vertex shader"
+        },
+        {
+            GL_FRAGMENT_SHADER,
+            "../shaders/ship_shader.frag",
+            "ship fragment shader"
+        }
+    };
     try {
-        program = SE::s_shader_manager.create_program(default_shaders);
+        default_program = SE::s_shader_manager.create_program(default_shaders);
+        earth_program = SE::s_shader_manager.create_program(earth_shaders);
+        moon_program = SE::s_shader_manager.create_program(moon_shaders);
+        ship_program = SE::s_shader_manager.create_program(ship_shaders);
     }
     catch(std::runtime_error& e) {
         std::cout << e.what() << std::endl;
@@ -63,11 +102,15 @@ int main() {
     glEnable(GL_DEPTH_TEST);
 
     SE::texture_info earth_texture = SE::s_texture_manager.load_texture("../textures/earth.png", "earth_tex");
-    std::vector<SE::texture_info> earth_textures = { earth_texture };
+    SE::texture_info clouds_texture = SE::s_texture_manager.load_texture("../textures/clouds.jpg", "clouds_tex");
+    std::vector<SE::texture_info> earth_textures = { earth_texture, clouds_texture };
 
-    SE::rigid_body sun(sphere_context, program, glm::vec3(0), glm::vec3(0), std::vector<SE::texture_info>());
-    SE::rigid_body earth(sphere_context, program, glm::vec3(0), glm::vec3(0), std::vector<SE::texture_info>());
-    SE::rigid_body moon(sphere_context, program, glm::vec3(0), glm::vec3(0), std::vector<SE::texture_info>());
+    SE::texture_info moon_texture = SE::s_texture_manager.load_texture("../textures/moon.jpg", "moon_tex");
+    std::vector<SE::texture_info> moon_textures = { moon_texture };
+
+    SE::rigid_body sun(sphere_context, default_program, glm::vec3(0), glm::vec3(0), std::vector<SE::texture_info>());
+    SE::rigid_body earth(sphere_context, earth_program, glm::vec3(0), glm::vec3(0), earth_textures);
+    SE::rigid_body moon(sphere_context, moon_program, glm::vec3(0), glm::vec3(0), moon_textures);
 
     earth.set_position_callback(
         [](float time) -> glm::mat4 { return glm::rotate(glm::mat4(1.), time / 10, {0, 1, 0}) * 
@@ -83,7 +126,12 @@ int main() {
                                                 glm::scale(glm::mat4(1.),glm::vec3(0.1f));}
     );
 
-    SE::ship player(ship_context, program, glm::vec3(0, 0, 1), glm::vec3(0, 0, 1), std::vector<SE::texture_info>(), 0.05, 0.05);
+    SE::texture_info ship_texture = SE::s_texture_manager.load_texture("../textures/spaceship.jpg", "ship_tex");
+    SE::texture_info rust_texture = SE::s_texture_manager.load_texture("../textures/rust.jpg", "rust_tex");
+    SE::texture_info scratches_texture = SE::s_texture_manager.load_texture("../textures/scratches.jpg", "scratches_tex");
+    std::vector<SE::texture_info> ship_textures = { ship_texture, rust_texture, scratches_texture };
+
+    SE::ship player(ship_context, ship_program, glm::vec3(0, 0, 1), glm::vec3(0, 0, 1), ship_textures, 0.05, 0.05);
 
     SE::camera camera1(0.01, 200, {0, 0, 1}, {0, 0, 1});
     SE::s_renderer.set_active_camera(camera1);
@@ -105,6 +153,7 @@ int main() {
         glfwPollEvents();
     }
 
-    SE::s_shader_manager.delete_program(program);
+    SE::s_shader_manager.delete_program(default_program);
+    SE::s_shader_manager.delete_program(earth_program);
     glfwTerminate();
 }

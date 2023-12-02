@@ -13,7 +13,7 @@ class renderer {
         void set_active_camera(const camera& c) {
             m_cam = &c;
         }
-        void render(const std::vector<rigid_body*>& bodies, float time); // time is needed for object positions - needs better solution
+        void render(const std::vector<rigid_body*>& bodies, float time); // time is needed for object positions
 };
 
 static renderer s_renderer;

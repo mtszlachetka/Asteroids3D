@@ -1,4 +1,4 @@
-#ifndef _TEXTURE_MANAGER_HPP
+#ifndef _TEXTURE_MANAGER_HPP_
 #define _TEXTURE_MANAGER_HPP_
 #include <GL/glew.h>
 

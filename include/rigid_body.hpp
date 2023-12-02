@@ -11,7 +11,7 @@ class rigid_body {
     using v3 = glm::vec3;
     friend class renderer;
     protected:
-        glm::mat4 (*m_position_callback)(float); // awful - temporary solution 
+        glm::mat4 (*m_position_callback)(float); // temporary solution 
         render_context m_context;
         GLuint m_program;
         v3 m_pos, m_dir, m_side, m_up; // moving frame - usused for now, set to 0
