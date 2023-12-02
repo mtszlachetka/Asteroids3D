@@ -8,8 +8,8 @@
 namespace SE {
 
 struct light_source {
-    glm::vec3 dir;
-    const char* uniform_dir_name;
+    glm::vec3 pos;
+    const char* uniform_pos_name;
     glm::vec3 color;
     const char* uniform_color_name;
 };

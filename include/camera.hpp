@@ -9,6 +9,7 @@ namespace SE {
 
     class camera {
         friend class io_processor;
+        friend class renderer;
         private:
             float m_near, m_far, m_aspect_ratio;
             glm::vec3 m_up, m_dir, m_side, m_pos;

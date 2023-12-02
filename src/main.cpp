@@ -57,19 +57,22 @@ int main() {
     SE::texture_info scratches_texture = SE::s_texture_manager.load_texture("../textures/scratches.jpg", "scratches_tex");
 
     // shader creation
-    GLuint default_program, earth_program, moon_program, ship_program;
+    GLuint default_program, earth_program, moon_program, ship_program, sun_program;
 
     GLuint default_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/default.vert");
     GLuint default_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/default.frag");
     GLuint earth_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/earth.frag");
     GLuint moon_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/moon.frag");
     GLuint ship_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/ship.frag");
+    GLuint sun_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/sun.vert");
+    GLuint sun_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/sun.frag");
     
     try {
         default_program = SE::s_shader_manager.create_program({default_vert, default_frag});
         earth_program = SE::s_shader_manager.create_program({default_vert, earth_frag});
         moon_program = SE::s_shader_manager.create_program({default_vert, moon_frag});
         ship_program = SE::s_shader_manager.create_program({default_vert, ship_frag});
+        sun_program = SE::s_shader_manager.create_program({sun_vert, sun_frag});
     }
     catch(std::runtime_error& e) {
         std::cout << e.what() << std::endl;
@@ -77,7 +80,7 @@ int main() {
     }
 
     // populating scene
-    SE::rigid_body sun(sphere_context, default_program, glm::vec3(0), glm::vec3(0), {});
+    SE::rigid_body sun(sphere_context, sun_program, glm::vec3(0), glm::vec3(0), {});
     SE::rigid_body earth(sphere_context, earth_program, glm::vec3(0), glm::vec3(0), { earth_texture, clouds_texture });
     SE::rigid_body moon(sphere_context, moon_program, glm::vec3(0), glm::vec3(0), { moon_texture });
 
@@ -104,7 +107,7 @@ int main() {
 
  
     std::vector<SE::rigid_body*> bodies = { &sun, &player, &earth, &moon };
-    SE::light_source sun_light = { {1, 0, 0}, "light_dir", {1, 1, 1}, "light_color"};
+    SE::light_source sun_light = { {0, 0, 0}, "light_pos", {1, 1, 1}, "light_color"};
 
     float timeElapsed;
     while (!glfwWindowShouldClose(window)) {

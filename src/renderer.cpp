@@ -22,13 +22,17 @@ void renderer::render(const std::vector<rigid_body*>& bodies, const std::vector<
 
         // light sources
         for (auto& ls : light_sources) {
-            glUniform3fv(glGetUniformLocation(body->m_program, ls.uniform_dir_name), 1, (float*)&ls.dir);
+            glUniform3fv(glGetUniformLocation(body->m_program, ls.uniform_pos_name), 1, (float*)&ls.pos);
             glUniform3fv(glGetUniformLocation(body->m_program, ls.uniform_color_name), 1, (float*)&ls.color);
         }
 
-        glm::mat4 transform = perspective_matrix * camera_matrix * body->get_position(time);
+        glm::mat4 model = body->get_position(time);
+
+        glm::mat4 transform = perspective_matrix * camera_matrix * model;
 
         glUniformMatrix4fv(glGetUniformLocation(body->m_program, "transform"), 1, GL_FALSE, (float*)&transform);
+        glUniformMatrix4fv(glGetUniformLocation(body->m_program, "model"), 1, GL_FALSE, (float*)&model);
+        glUniform3fv(glGetUniformLocation(body->m_program, "camera_pos"), 1, (float*)&m_cam->m_pos);
 
         glBindVertexArray(body->m_context.vertex_array);
         glDrawElements(GL_TRIANGLES, body->m_context.size, GL_UNSIGNED_INT, nullptr);
