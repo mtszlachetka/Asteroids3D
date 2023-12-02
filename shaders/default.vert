@@ -5,7 +5,6 @@ layout(location = 1) in vec3 vertexNormal;
 layout(location = 2) in vec2 vertexTexCoord;
 
 uniform mat4 transform;
-
 out vec2 tex_coord;
 
 void main()

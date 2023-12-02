@@ -19,9 +19,12 @@ std::string shader_manager::read_shader(const std::string& path) {
 	return shader_code;
 }
 
-GLuint shader_manager::create_shader(GLenum type, const std::string& source, const std::string& name) {
+GLuint shader_manager::create_shader(GLenum type, const std::string& path) {
     GLint result = 0;
     GLuint shader = glCreateShader(type);
+
+    std::string source = read_shader(path);
+
     const GLchar* p_shader_code = source.c_str();
     const GLint code_size = source.size();
 
@@ -35,13 +38,13 @@ GLuint shader_manager::create_shader(GLenum type, const std::string& source, con
         std::string shader_log;
         shader_log.resize(info_length);
         glGetShaderInfoLog(shader, info_length, nullptr, shader_log.data());
-        throw std::runtime_error("Error compiling shader: " + name + shader_log);
+        throw std::runtime_error("Error compiling shader: " + source + shader_log);
     }
 
     return shader;
 }
 
-GLuint shader_manager::create_program(const std::vector<shader_info>& list) {
+GLuint shader_manager::create_program(const std::vector<GLuint>& list) {
 
     GLuint program = glCreateProgram();
     GLint result = 0;
@@ -49,9 +52,8 @@ GLuint shader_manager::create_program(const std::vector<shader_info>& list) {
     std::vector<GLuint> shaders;
 
     for (auto& shader: list) {
-        GLuint sh = create_shader(shader.type, read_shader(shader.path), shader.name);
-        shaders.push_back(sh);
-        glAttachShader(program, sh);
+        shaders.push_back(shader);
+        glAttachShader(program, shader);
     }
 
     glLinkProgram(program);
@@ -59,7 +61,6 @@ GLuint shader_manager::create_program(const std::vector<shader_info>& list) {
 
     for (auto& shader : shaders) {
         glDetachShader(program, shader);
-        glDeleteShader(shader);
     }
 
     if (result == GL_FALSE) {

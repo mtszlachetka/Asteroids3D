@@ -15,9 +15,9 @@ struct shader_info {
 class shader_manager {
     private:
         std::string read_shader(const std::string& path);
-        GLuint create_shader(GLenum type, const std::string& source, const std::string& name);
     public:
-        GLuint create_program(const std::vector<shader_info>& sh);
+        GLuint create_shader(GLenum type, const std::string& source);
+        GLuint create_program(const std::vector<GLuint>& sh);
         void delete_program(GLuint program);
 };
 
