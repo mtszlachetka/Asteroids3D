@@ -28,5 +28,5 @@ void main()
 	vec3 normal = normalize(mix(ship_normal, rust_normal, rust_color.r));
 
 	float diffuse = max(0, dot(normal, light_dir));
-	out_color = mix(tex_color, scratches_color, rust_color.r) * diffuse;
+	out_color = mix(tex_color, scratches_color, rust_color.r) * diffuse * 3;
 }
