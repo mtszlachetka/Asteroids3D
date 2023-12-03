@@ -14,13 +14,14 @@ uniform vec3 camera_pos;
 out vec2 tex_coord;
 out vec3 view_dir_TS;
 out vec3 light_dir_TS;
+out float distance;
 
 void main()
 {
 	vec3 world_pos = (model * vec4(vertex_position, 1)).xyz;
-	vec3 normal = (model * vec4(vertex_normal, 0)).xyz;
-	vec3 tangent = (model * vec4(vertex_tangent, 0)).xyz;
-	vec3 bitagent = (model * vec4(vertex_bitangent, 0)).xyz;
+	vec3 normal = normalize(model * vec4(vertex_normal, 0)).xyz;
+	vec3 tangent = normalize(model * vec4(vertex_tangent, 0)).xyz;
+	vec3 bitagent = normalize(model * vec4(vertex_bitangent, 0)).xyz;
 
 	mat3 TBN = transpose(mat3(tangent, bitagent, normal));
 
@@ -29,6 +30,8 @@ void main()
 
 	view_dir_TS = TBN * view_dir;
 	light_dir_TS = TBN * light_dir;
+
+	distance = length(light_pos - world_pos);
 
 	gl_Position = transform * vec4(vertex_position, 1.0);
 	tex_coord = vertex_tex_coord;

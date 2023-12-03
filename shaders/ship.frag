@@ -11,6 +11,7 @@ uniform sampler2D rust_normals;
 
 in vec3 light_dir_TS;
 in vec3 view_dir_TS;
+in float distance;
 
 
 void main()
@@ -27,6 +28,14 @@ void main()
 	vec3 view_dir = normalize(view_dir_TS);
 	vec3 normal = normalize(mix(ship_normal, rust_normal, rust_color.r));
 
+	normal = normal * 2 - 1;
+
 	float diffuse = max(0, dot(normal, light_dir));
-	out_color = mix(tex_color, scratches_color, rust_color.r) * diffuse * 3;
+	vec3 reflection = reflect(light_dir, normal);
+	float specular = pow(max(dot(view_dir, reflection), 0), 240);
+	
+	vec4 color = (mix(tex_color, scratches_color, rust_color.r) * diffuse + specular) / pow(distance * 10, 2);
+	float exposition = 3000;
+	
+	out_color = 1 - exp(-color * exposition);
 }

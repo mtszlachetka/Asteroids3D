@@ -9,6 +9,7 @@ uniform sampler2D earth_normals;
 
 in vec3 light_dir_TS;
 in vec3 view_dir_TS;
+in float distance;
 
 void main()
 {
@@ -18,11 +19,19 @@ void main()
 	vec4 clouds_color = texture(clouds_tex, tex_coord_flipped);
 	vec3 normal = normalize(texture(earth_normals, tex_coord_flipped).xyz);
 
-	normal = normalize(normal * 2 - 1);
+	normal = normal * 2 - 1;
 
 	vec3 light_dir = normalize(light_dir_TS);
 	vec3 view_dir = normalize(view_dir_TS);
 
 	float diffuse = max(0, dot(normal, light_dir));
-	out_color = mix(tex_color, vec4(1), clouds_color) * diffuse;
+	vec3 reflection = reflect(light_dir, normal);
+	float specular = pow(max(dot(view_dir, reflection), 0), 240);
+
+
+	vec4 color = (mix(tex_color, vec4(1), clouds_color.r) * diffuse + vec4(specular)) / pow(distance * 10, 2);
+	float exposition = 3000;
+
+
+	out_color = 1 - exp(-color * exposition);
 }
