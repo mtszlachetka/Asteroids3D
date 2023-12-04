@@ -18,10 +18,11 @@ void renderer::render(const std::vector<rigid_body*>& bodies, const std::vector<
 
     glm::mat4 camera_matrix = m_cam->create_camera_matrix();
     glm::mat4 perspective_matrix = m_cam->create_perspective_matrix();
+	glm::mat4 skybox_translation = glm::translate(glm::mat4(1.), m_cam->m_pos);
 
     // skybox
-	pass_matrices(m_skybox_program, glm::mat4(1), camera_matrix, perspective_matrix);
     glUseProgram(m_skybox_program);
+	pass_matrices(m_skybox_program, skybox_translation, camera_matrix, perspective_matrix);
     glUniform1i(glGetUniformLocation(m_skybox_program, m_skybox.uniform_name), 0);
     glActiveTexture(1);
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_skybox.id);

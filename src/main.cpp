@@ -70,7 +70,7 @@ int main() {
         "../textures/skybox/space_up.png", 
         "../textures/skybox/space_dn.png", 
         "../textures/skybox/space_bk.png", 
-        "../textures/skybox/space_ft.png"
+        "../textures/skybox/space_ft_galaxy.png"
     };
     SE::texture_info skybox = SE::s_texture_manager.load_cubemap(walls, "skybox");
 
