@@ -1,6 +1,13 @@
 #include "renderer.hpp"
 
 #include <glm/ext.hpp>
+
+static inline void pass_matrices(GLuint program, glm::mat4 model, glm::mat4 cam, glm::mat4 per) {
+	glUniformMatrix4fv(glGetUniformLocation(program, "model_matrix"), 1, GL_FALSE, (float*)&model);
+	glUniformMatrix4fv(glGetUniformLocation(program, "camera_matrix"), 1, GL_FALSE, (float*)&cam);
+	glUniformMatrix4fv(glGetUniformLocation(program, "perspective_matrix"), 1, GL_FALSE, (float*)&per);
+}
+
 namespace SE {
 void renderer::render(const std::vector<rigid_body*>& bodies, const std::vector<light_source>& light_sources, float time) {
 
@@ -13,12 +20,11 @@ void renderer::render(const std::vector<rigid_body*>& bodies, const std::vector<
     glm::mat4 perspective_matrix = m_cam->create_perspective_matrix();
 
     // skybox
-    glm::mat4 skybox_transform = glm::translate(perspective_matrix * camera_matrix, m_cam->m_pos);
+	pass_matrices(m_skybox_program, glm::mat4(1), camera_matrix, perspective_matrix);
     glUseProgram(m_skybox_program);
     glUniform1i(glGetUniformLocation(m_skybox_program, m_skybox.uniform_name), 0);
     glActiveTexture(1);
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_skybox.id);
-    glUniformMatrix4fv(glGetUniformLocation(m_skybox_program, "transform"), 1, GL_FALSE, (float*)&skybox_transform);
     glBindVertexArray(m_skybox_model.vertex_array);
     glDisable(GL_DEPTH_TEST);
     glDrawElements(GL_TRIANGLES, m_skybox_model.size, GL_UNSIGNED_INT, nullptr);
@@ -46,10 +52,7 @@ void renderer::render(const std::vector<rigid_body*>& bodies, const std::vector<
 
         glm::mat4 model = body->get_position(time);
 
-        glm::mat4 transform = perspective_matrix * camera_matrix * model;
-
-        glUniformMatrix4fv(glGetUniformLocation(body->m_program, "transform"), 1, GL_FALSE, (float*)&transform);
-        glUniformMatrix4fv(glGetUniformLocation(body->m_program, "model"), 1, GL_FALSE, (float*)&model);
+		pass_matrices(body->m_program, model, camera_matrix, perspective_matrix);
         glUniform3fv(glGetUniformLocation(body->m_program, "camera_pos"), 1, (float*)&m_cam->m_pos);
 
         glBindVertexArray(body->m_context.vertex_array);

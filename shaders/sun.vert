@@ -5,8 +5,9 @@ layout(location = 1) in vec3 vertex_normal;
 layout(location = 3) in vec3 vertex_tangent;
 layout(location = 4) in vec3 vertex_bitangent;
 
-uniform mat4 transform;
-uniform mat4 model;
+uniform mat4 model_matrix;
+uniform mat4 camera_matrix;
+uniform mat4 perspective_matrix;
 uniform vec3 camera_pos;
 
 out vec3 view_dir_TS;
@@ -19,5 +20,5 @@ void main() {
 	
 	view_dir_TS = TBN * view_dir;
 
-	gl_Position = transform * vec4(vertex_position, 1);
+	gl_Position = perspective_matrix * camera_matrix * model_matrix * vec4(vertex_position, 1);
 }
