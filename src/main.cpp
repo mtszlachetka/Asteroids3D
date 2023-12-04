@@ -22,7 +22,7 @@ int main() {
 
     int width = 500, height = 500;
 
-    GLFWwindow* window = glfwCreateWindow(width, height, "FirstWindow", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(width, height, "SpaceEngine", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cerr << "Failed to create GLFW window" << std::endl;
@@ -50,7 +50,7 @@ int main() {
     SE::render_context cube_context = SE::s_mesh_manager.load("../models/cube.obj");
 
     // texture loading
-    SE::texture_info earth_texture = SE::s_texture_manager.load_texture("../textures/earth.png", "earth_tex");
+    SE::texture_info earth_texture = SE::s_texture_manager.load_texture("../textures/earth.2png", "earth_tex");
     SE::texture_info clouds_texture = SE::s_texture_manager.load_texture("../textures/clouds.jpg", "clouds_tex");
     SE::texture_info moon_texture = SE::s_texture_manager.load_texture("../textures/moon.jpg", "moon_tex");
     SE::texture_info ship_texture = SE::s_texture_manager.load_texture("../textures/spaceship.jpg", "ship_tex");
@@ -58,7 +58,7 @@ int main() {
     SE::texture_info scratches_texture = SE::s_texture_manager.load_texture("../textures/scratches.jpg", "scratches_tex");
 
     // normal maps
-    SE::texture_info earth_normals = SE::s_texture_manager.load_texture("../textures/earth_normalmap.png", "earth_normals");
+    SE::texture_info earth_normals = SE::s_texture_manager.load_texture("../textures/earth2_normals.png", "earth_normals");
     SE::texture_info moon_normals = SE::s_texture_manager.load_texture("../textures/moon_normal.jpg", "moon_normals");
     SE::texture_info ship_normals = SE::s_texture_manager.load_texture("../texttures/spaceship_normal.jpg", "ship_normals");
     SE::texture_info rust_normals = SE::s_texture_manager.load_texture("../textures/rust_normal.jpg", "rust_normals");
