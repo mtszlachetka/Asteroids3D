@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <vector>
 namespace SE {
-render_context mesh_manager::load(const std::string& path) {
+mesh_info mesh_manager::load(const std::string& path) {
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_CalcTangentSpace);
 
@@ -15,7 +15,7 @@ render_context mesh_manager::load(const std::string& path) {
 
     aiMesh* mesh = scene->mMeshes[0];
 
-    render_context context;
+    mesh_info context;
 
     std::vector<float> textureCoord;
     std::vector<unsigned> indices;

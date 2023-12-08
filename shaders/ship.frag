@@ -67,7 +67,7 @@ void main()
 	normal = normal * 2 - 1;
 	
 	vec3 color = pbr_light(light_dir, normal, view_dir, mix(tex_color, scratches_color, rust_color.r)) / pow(distance * 10, 2);
-	float exposition = 4000;
+	float exposition = 6000;
 	
 	out_color = 1 - vec4(exp(-color * exposition), 1);
 }
