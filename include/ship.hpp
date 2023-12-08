@@ -25,7 +25,7 @@ class ship : public rigid_body {
         ship(const SE::render_context& rc, GLuint program, const v3& pos, const v3& dir, 
                 const std::vector<SE::texture_info>& tex, float mspeed, float aspeed) : rigid_body(rc, program, pos, dir, tex), 
                     m_movespeed(mspeed), m_anglespeed(aspeed) {}
-        glm::mat4 get_position(float time) const { return glm::translate(glm::mat4(1.0), m_pos) * get_rotation_matrix() * glm::scale(glm::mat4(1.), glm::vec3(0.05)); }
+        glm::mat4 get_position(float time) const { return glm::translate(glm::mat4(1.0), m_pos) * get_rotation_matrix() * glm::scale(glm::mat4(1.), glm::vec3(0.005)); }
         ~ship() {}
 };
 }

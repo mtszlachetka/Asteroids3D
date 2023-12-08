@@ -13,13 +13,49 @@ in vec3 light_dir_TS;
 in vec3 view_dir_TS;
 in float distance;
 
+float kd = 0.8;
+float ks = 0.2;
+float alpha = 0.1;
+vec3 F0 = vec3(0.04, 0.4, 0.4);
+
+float PI = 3.14159265;
+
+float normal_distribution(vec3 normal, vec3 halfvec) {
+	return pow(alpha, 2) / (PI * pow(pow(dot(normal, halfvec), 2) * (pow(alpha, 2) - 1) + 1, 2));
+}
+
+float schlickGGX(vec3 normal, vec3 dir, float k) {
+	return max(dot(normal, dir), 0) / (max(dot(normal, dir), 0) * (1 - k) + k);
+}
+
+float geometryGGX(vec3 normal, vec3 view_dir, vec3 light_dir, float k) {
+	return schlickGGX(normal, view_dir, k) * schlickGGX(normal, light_dir, k);
+}
+
+vec3 fresnel_schlick(vec3 halfvec, vec3 view_dir) {
+	return F0 + (1 - F0) * pow(1 - max(dot(halfvec, view_dir), 0), 5);
+}
+
+vec3 pbr_light(vec3 light_dir, vec3 normal, vec3 view_dir, vec3 object_color) {
+	vec3 lambertian = kd * object_color / PI;
+
+	vec3 halfvec = normalize(view_dir + light_dir);
+
+	float D = normal_distribution(normal, halfvec);
+	float G = geometryGGX(normal, view_dir, light_dir, pow(alpha + 1, 2) / 8);
+	vec3 F = fresnel_schlick(halfvec, view_dir);
+
+	vec3 cook_torrance = ks * D * G * F / (4 * dot(view_dir, normal) * dot(light_dir, normal));
+
+	return (lambertian + cook_torrance)  * max(dot(light_dir, normal), 0);
+}
 
 void main()
 {
 	vec2 tex_coord_flipped = vec2(tex_coord.x, -tex_coord.y);
 
-	vec4 tex_color = texture(ship_tex, tex_coord_flipped);
-	vec4 scratches_color = texture(scratches_tex, tex_coord_flipped);
+	vec3 tex_color = texture(ship_tex, tex_coord_flipped).xyz;
+	vec3 scratches_color = texture(scratches_tex, tex_coord_flipped).xyz;
 	vec4 rust_color = texture(rust_tex, tex_coord_flipped);
 	vec3 ship_normal = texture(ship_normals, tex_coord_flipped).xyz;
 	vec3 rust_normal = texture(rust_normals, tex_coord_flipped).xyz;
@@ -29,13 +65,9 @@ void main()
 	vec3 normal = normalize(mix(ship_normal, rust_normal, rust_color.r));
 
 	normal = normal * 2 - 1;
-
-	float diffuse = max(0, dot(normal, light_dir));
-	vec3 reflection = reflect(light_dir, normal);
-	float specular = pow(max(dot(view_dir, reflection), 0), 240);
 	
-	vec4 color = (mix(tex_color, scratches_color, rust_color.r) * diffuse + specular) / pow(distance * 10, 2);
-	float exposition = 3000;
+	vec3 color = pbr_light(light_dir, normal, view_dir, mix(tex_color, scratches_color, rust_color.r)) / pow(distance * 10, 2);
+	float exposition = 4000;
 	
-	out_color = 1 - exp(-color * exposition);
+	out_color = 1 - vec4(exp(-color * exposition), 1);
 }
