@@ -60,6 +60,6 @@ void main()
 	vec3 view_dir = normalize(view_dir_TS);
 
 	vec3 color = pbr_light(light_dir, normal, view_dir, tex_color) / pow(distance * 10, 2);
-	float exposition = 4000;
+	float exposition = 6000;
 	out_color = 1 - vec4(exp(-color * exposition), 1);
 }

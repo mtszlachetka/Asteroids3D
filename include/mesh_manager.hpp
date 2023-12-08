@@ -5,19 +5,20 @@
 #include <string>
 
 namespace SE {
-struct render_context {
-    GLuint vertex_array;
-    GLuint vertex_buffer;
-    GLuint vertex_index_buffer;
-    unsigned size;
-};
+	
+	struct mesh_info {
+		GLuint vertex_array;
+		GLuint vertex_buffer;
+		GLuint vertex_index_buffer;
+		unsigned size;
+	};
 
-class mesh_manager {
-    public:
-        render_context load(const std::string& path);
-};
+	class mesh_manager {
+		public:
+			mesh_info load(const std::string& path);
+	};
 
-static mesh_manager s_mesh_manager;
+	static mesh_manager s_mesh_manager;
 }
 
 

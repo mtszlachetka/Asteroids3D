@@ -7,10 +7,8 @@
 
 namespace SE {
     class io_processor {
-        private:
-            double m_lastx, m_lasty, m_pitch, m_yaw;     
         public:
-            void process_input(GLFWwindow* win, camera& cam, ship& sh);
+            void process_input(GLFWwindow* win, ship& sh);
     };
 
     static io_processor s_io_processor;
