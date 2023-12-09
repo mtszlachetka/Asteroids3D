@@ -40,6 +40,8 @@ namespace SE {
 			GLuint program = object->m_program;
 			glUseProgram(program);
 
+			glUniform1f(glGetUniformLocation(program, "exposition"), sc.m_exposition);
+
 			int tex_num = 0;
 			for (auto& tex_info : object->m_textures) {
 				glUniform1i(glGetUniformLocation(object->m_program, tex_info.uniform_name), tex_num);

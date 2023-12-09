@@ -25,7 +25,7 @@ namespace SE {
 			ship(const SE::mesh_info& t_mesh, GLuint t_program, const std::vector<SE::texture_info>& tex, const v3& t_pos, const v3& t_dir, 
 					float mspeed, float aspeed) : object(t_mesh, t_program, tex), m_pos(t_pos), m_dir(t_dir), 
 						m_movespeed(mspeed), m_anglespeed(aspeed) { rebase(); }
-			virtual glm::mat4 get_position(float time) const { return glm::translate(glm::mat4(1.0), m_pos) * get_rotation_matrix() * glm::scale(glm::mat4(1), glm::vec3(0.005)); }
+			virtual glm::mat4 get_position(float time) const { return glm::translate(glm::mat4(1.0), m_pos) * get_rotation_matrix() * glm::scale(glm::mat4(1), glm::vec3(0.002)); }
 			void rebase() {
 				m_side = glm::normalize(glm::cross(m_dir, {0, 1, 0}));
 				m_up = glm::normalize(glm::cross(m_side, m_dir));

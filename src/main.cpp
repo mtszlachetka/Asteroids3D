@@ -62,15 +62,19 @@ int main() {
     SE::texture_info earth_texture = SE::s_texture_manager.load_texture("../textures/earth.2png", "earth_tex");
     SE::texture_info clouds_texture = SE::s_texture_manager.load_texture("../textures/clouds.jpg", "clouds_tex");
     SE::texture_info moon_texture = SE::s_texture_manager.load_texture("../textures/moon.jpg", "moon_tex");
-    SE::texture_info ship_texture = SE::s_texture_manager.load_texture("../textures/spaceship.jpg", "ship_tex");
-    SE::texture_info rust_texture = SE::s_texture_manager.load_texture("../textures/rust.jpg", "rust_tex");
-    SE::texture_info scratches_texture = SE::s_texture_manager.load_texture("../textures/scratches.jpg", "scratches_tex");
 
     // normal maps
     SE::texture_info earth_normals = SE::s_texture_manager.load_texture("../textures/earth2_normals.png", "earth_normals");
     SE::texture_info moon_normals = SE::s_texture_manager.load_texture("../textures/moon_normal.jpg", "moon_normals");
-    SE::texture_info ship_normals = SE::s_texture_manager.load_texture("../texttures/spaceship_normal.jpg", "ship_normals");
-    SE::texture_info rust_normals = SE::s_texture_manager.load_texture("../textures/rust_normal.jpg", "rust_normals");
+
+	// textures for ship PBR
+	SE::texture_info ship_albedo = SE::s_texture_manager.load_texture("../textures/spaceshipPBR/StarSparrow_albedo.png", "albedo_map");
+	SE::texture_info ship_normals = SE::s_texture_manager.load_texture("../textures/spaceshipPBR/StarSparrow_Normal.png", "normal_map");
+	SE::texture_info ship_amr = SE::s_texture_manager.load_texture("../textures/spaceshipPBR/StarSparrow_AMR.png", "amr_map");
+
+	SE::texture_info merc_albedo = SE::s_texture_manager.load_texture("../textures/rock/rock_05_diff_1k.jpg", "albedo_map");
+	SE::texture_info merc_normals = SE::s_texture_manager.load_texture("../textures/rock/rock_05_nor_gl_1k.jpg", "normal_map");
+	SE::texture_info merc_amr = SE::s_texture_manager.load_texture("../textures/rock/rock_05_arm_1k.jpg", "amr_map");
 
     // cubemaps
     const char* walls[6] = {
@@ -84,25 +88,27 @@ int main() {
     SE::texture_info skybox_cubemap = SE::s_texture_manager.load_cubemap(walls, "skybox");
 
     // shader creation
-    GLuint default_program, earth_program, moon_program, ship_program, sun_program, skybox_program;
+    GLuint default_program, earth_program, moon_program, ship_program, star_program, skybox_program, mercury_program;
 
     GLuint default_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/default.vert");
     GLuint default_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/default.frag");
     GLuint earth_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/earth.frag");
     GLuint moon_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/moon.frag");
     GLuint ship_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/ship.frag");
-    GLuint sun_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/sun.vert");
-    GLuint sun_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/sun.frag");
+    GLuint star_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/sun.vert");
+    GLuint star_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/sun.frag");
     GLuint skybox_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/skybox.vert");
     GLuint skybox_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/skybox.frag");
+	GLuint mercury_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/mercury.frag");
     
     try {
         default_program = SE::s_shader_manager.create_program({default_vert, default_frag});
         earth_program = SE::s_shader_manager.create_program({default_vert, earth_frag});
         moon_program = SE::s_shader_manager.create_program({default_vert, moon_frag});
         ship_program = SE::s_shader_manager.create_program({default_vert, ship_frag});
-        sun_program = SE::s_shader_manager.create_program({sun_vert, sun_frag});
+        star_program = SE::s_shader_manager.create_program({star_vert, star_frag});
         skybox_program = SE::s_shader_manager.create_program({skybox_vert, skybox_frag});
+		mercury_program = SE::s_shader_manager.create_program({default_vert, mercury_frag});
     }
     catch(std::runtime_error& e) {
         std::cout << e.what() << std::endl;
@@ -116,9 +122,17 @@ int main() {
 
 	solar_system.set_skybox(skybox);
 
-	SE::object sun(sphere_mesh, sun_program, {});
+	SE::object star(sphere_mesh, star_program, {});
 	SE::object earth(sphere_mesh, earth_program, { earth_texture, clouds_texture, earth_normals });
 	SE::object moon(sphere_mesh, moon_program, { moon_texture, moon_normals });
+	SE::object mercury(sphere_mesh, mercury_program, {merc_albedo, merc_normals, merc_amr});
+
+	mercury.set_position_callback(
+		[](float time) -> glm::mat4 { return glm::rotate(glm::mat4(1.), time / 30, {0, 1, 0}) * 
+												glm::translate(glm::mat4(1), glm::vec3(6.5, 0, 0)) *
+												glm::scale(glm::mat4(1), glm::vec3(0.1)); }
+	);
+	
 
     earth.set_position_callback(
         [](float time) -> glm::mat4 { return glm::rotate(glm::mat4(1.), time / 10, {0, 1, 0}) * 
@@ -134,17 +148,18 @@ int main() {
                                                 glm::scale(glm::mat4(1.),glm::vec3(0.1f));}
     );
 
-	std::vector<SE::texture_info> ship_textures = { ship_texture, rust_texture, scratches_texture, ship_normals, rust_normals };
+	std::vector<SE::texture_info> ship_textures = { ship_albedo, ship_normals, ship_amr };
 	
 
 	SE::ship player(ship_mesh, ship_program, ship_textures, glm::vec3(-5, 0, 0), glm::vec3(0, 0, 1), 0.05, 0.05);
 
 
-	solar_system.set_objects({ &sun, &earth, &moon, &player});
+	solar_system.set_objects({ &star, &player, &mercury});
 
 	SE::light_source sunlight( {0, 0, 0}, "light_pos");
 
 	solar_system.set_light_sources({sunlight});
+	solar_system.set_exposition(3000);
 
     // camera setup
     SE::camera ship_camera(0.01, 2000, {1, 0, 0}, {-6, 0, 0});
