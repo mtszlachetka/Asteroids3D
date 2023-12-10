@@ -26,7 +26,7 @@ void main()
 
 	mat3 TBN = transpose(mat3(tangent, bitagent, normal));
 
-	vec3 view_dir = normalize(world_pos - camera_pos);
+	vec3 view_dir = normalize(camera_pos - world_pos);
 	vec3 light_dir = normalize(light_pos - world_pos);
 
 	view_dir_TS = TBN * view_dir;
