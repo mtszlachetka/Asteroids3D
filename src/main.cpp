@@ -5,18 +5,18 @@
 
 #include "mesh_manager.hpp"
 #include "shader_manager.hpp"
-#include "renderer.hpp"
 #include "camera.hpp"
 #include "io_processor.hpp"
-#include "object.hpp"
-#include "ship.hpp"
 #include "texture_manager.hpp"
 #include "scene.hpp"
-#include "light_source.hpp"
+#include "debug.hpp"
 
-int WINDOW_WIDTH = 1000;
-int WINDOW_HEIGHT = 1000;
+int WINDOW_WIDTH = 1920;
+int WINDOW_HEIGHT = 1080;
 float ASPECT_RATIO = (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT;
+float time_elapsed = 0.f;
+float delta_time = 0.f;
+float last_time = 0.f;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height); 
@@ -24,6 +24,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	WINDOW_HEIGHT = height; 
 	ASPECT_RATIO = (float)width / (float)height;
 }
+
 
 int main() {
 
@@ -52,31 +53,24 @@ int main() {
     }
     glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     glEnable(GL_DEPTH_TEST);
+	glClearColor(0.3,0.3,0.3,1);
 
     // model loading
     SE::mesh_info ship_mesh = SE::s_mesh_manager.load("../models/spaceship.obj");
     SE::mesh_info sphere_mesh = SE::s_mesh_manager.load("../models/sphere.obj");
     SE::mesh_info cube_mesh = SE::s_mesh_manager.load("../models/cube.obj");
 
-    // texture loading
-    SE::texture_info earth_texture = SE::s_texture_manager.load_texture("../textures/earth.2png", "earth_tex");
-    SE::texture_info clouds_texture = SE::s_texture_manager.load_texture("../textures/clouds.jpg", "clouds_tex");
-    SE::texture_info moon_texture = SE::s_texture_manager.load_texture("../textures/moon.jpg", "moon_tex");
 
-    // normal maps
-    SE::texture_info earth_normals = SE::s_texture_manager.load_texture("../textures/earth2_normals.png", "earth_normals");
-    SE::texture_info moon_normals = SE::s_texture_manager.load_texture("../textures/moon_normal.jpg", "moon_normals");
+	// // textures for PBR
+	SE::texture_info ship_diff = SE::s_texture_manager.load_texture("../textures/spaceshipPBR/diff.png", "diffuse_map");
+	SE::texture_info ship_normals = SE::s_texture_manager.load_texture("../textures/spaceshipPBR/norm.png", "normal_map");
+	SE::texture_info ship_amr = SE::s_texture_manager.load_texture("../textures/spaceshipPBR/amr.png", "amr_map");
 
-	// textures for ship PBR
-	SE::texture_info ship_albedo = SE::s_texture_manager.load_texture("../textures/spaceshipPBR/StarSparrow_albedo.png", "albedo_map");
-	SE::texture_info ship_normals = SE::s_texture_manager.load_texture("../textures/spaceshipPBR/StarSparrow_Normal.png", "normal_map");
-	SE::texture_info ship_amr = SE::s_texture_manager.load_texture("../textures/spaceshipPBR/StarSparrow_AMR.png", "amr_map");
+	SE::texture_info merc_diff = SE::s_texture_manager.load_texture("../textures/rock/diff.jpg", "diffuse_map");
+	SE::texture_info merc_normals = SE::s_texture_manager.load_texture("../textures/rock/norm.jpg", "normal_map");
+	SE::texture_info merc_amr = SE::s_texture_manager.load_texture("../textures/rock/arm.jpg", "amr_map");
 
-	SE::texture_info merc_albedo = SE::s_texture_manager.load_texture("../textures/rock/rock_05_diff_1k.jpg", "albedo_map");
-	SE::texture_info merc_normals = SE::s_texture_manager.load_texture("../textures/rock/rock_05_nor_gl_1k.jpg", "normal_map");
-	SE::texture_info merc_amr = SE::s_texture_manager.load_texture("../textures/rock/rock_05_arm_1k.jpg", "amr_map");
-
-    // cubemaps
+    // // cubemaps
     const char* walls[6] = {
         "../textures/skybox/space_rt.png", 
         "../textures/skybox/space_lf.png", 
@@ -87,89 +81,57 @@ int main() {
     };
     SE::texture_info skybox_cubemap = SE::s_texture_manager.load_cubemap(walls, "skybox");
 
-    // shader creation
-    GLuint default_program, earth_program, moon_program, ship_program, star_program, skybox_program, mercury_program;
-
-    GLuint default_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/default.vert");
-    GLuint default_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/default.frag");
-    GLuint earth_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/earth.frag");
-    GLuint moon_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/moon.frag");
-    GLuint ship_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/ship.frag");
+    // // shader creation
     GLuint star_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/sun.vert");
     GLuint star_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/sun.frag");
+
+	GLuint punct_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/punctual.vert");
+	GLuint punct_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/punctual.frag");
+	
     GLuint skybox_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/skybox.vert");
     GLuint skybox_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/skybox.frag");
-	GLuint mercury_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/mercury.frag");
+	
+	GLuint star_program, skybox_program, punct_program;
+	try {
+		star_program = SE::s_shader_manager.create_program({star_vert, star_frag});
+		skybox_program = SE::s_shader_manager.create_program({skybox_vert, skybox_frag});
+		punct_program = SE::s_shader_manager.create_program({punct_vert, punct_frag});
+	} catch(std::runtime_error& e) {
+		std::cerr << e.what() << std::endl;
+		return 1;
+	}
     
-    try {
-        default_program = SE::s_shader_manager.create_program({default_vert, default_frag});
-        earth_program = SE::s_shader_manager.create_program({default_vert, earth_frag});
-        moon_program = SE::s_shader_manager.create_program({default_vert, moon_frag});
-        ship_program = SE::s_shader_manager.create_program({default_vert, ship_frag});
-        star_program = SE::s_shader_manager.create_program({star_vert, star_frag});
-        skybox_program = SE::s_shader_manager.create_program({skybox_vert, skybox_frag});
-		mercury_program = SE::s_shader_manager.create_program({default_vert, mercury_frag});
-    }
-    catch(std::runtime_error& e) {
-        std::cout << e.what() << std::endl;
-        return 1;
-    }
+	SE::object sun(sphere_mesh, star_program, {}, true);
 
-    // populating scene
-	SE::scene solar_system;
-
-	SE::skybox_info skybox = { skybox_cubemap, skybox_program, cube_mesh };
-
-	solar_system.set_skybox(skybox);
-
-	SE::object star(sphere_mesh, star_program, {});
-	SE::object earth(sphere_mesh, earth_program, { earth_texture, clouds_texture, earth_normals });
-	SE::object moon(sphere_mesh, moon_program, { moon_texture, moon_normals });
-	SE::object mercury(sphere_mesh, mercury_program, {merc_albedo, merc_normals, merc_amr});
-
-	mercury.set_position_callback(
-		[](float time) -> glm::mat4 { return glm::rotate(glm::mat4(1.), time / 30, {0, 1, 0}) * 
-												glm::translate(glm::mat4(1), glm::vec3(6.5, 0, 0)) *
-												glm::scale(glm::mat4(1), glm::vec3(0.1)); }
+	SE::object planet(sphere_mesh, punct_program, {merc_diff, merc_normals, merc_amr});
+	planet.set_position_callback(
+		[]() -> glm::mat4 {return glm::rotate(glm::mat4(1.), time_elapsed / 300, {0, 1, 0}) * glm::translate(glm::mat4(1), glm::vec3(6.5, 0, 0));}
 	);
-	
+	planet.set_scale(glm::scale(glm::mat4(1), glm::vec3(0.5)));
 
-    earth.set_position_callback(
-        [](float time) -> glm::mat4 { return glm::rotate(glm::mat4(1.), time / 10, {0, 1, 0}) * 
-                                                glm::translate(glm::mat4(1.), glm::vec3(4.f, 0, 0)) * 
-                                                glm::scale(glm::mat4(1.),glm::vec3(0.3f));}
-    );
+	SE::controllable_object player(ship_mesh, punct_program, {ship_diff, ship_normals, ship_amr}, {0,0,0}, {0,0,1}, 0.05, 0.05);
+	player.set_scale(glm::scale(glm::mat4(1), glm::vec3(0.02)));
 
-    moon.set_position_callback(
-        [](float time) -> glm::mat4 { return glm::rotate(glm::mat4(1.), time / 10, {0, 1, 0}) * 
-                                                glm::translate(glm::mat4(1.), glm::vec3(4.f, 0, 0)) * 
-                                                glm::rotate(glm::mat4(1.), time, {0, 1, 0}) * 
-                                                glm::translate(glm::mat4(1.), glm::vec3(1.f, 0, 0)) * 
-                                                glm::scale(glm::mat4(1.),glm::vec3(0.1f));}
-    );
-
-	std::vector<SE::texture_info> ship_textures = { ship_albedo, ship_normals, ship_amr };
-	
-
-	SE::ship player(ship_mesh, ship_program, ship_textures, glm::vec3(-5, 0, 0), glm::vec3(0, 0, 1), 0.05, 0.05);
-
-
-	solar_system.set_objects({ &star, &player, &mercury});
-
-	SE::light_source sunlight( {0, 0, 0}, "light_pos");
-
-	solar_system.set_light_sources({sunlight});
-	solar_system.set_exposition(3000);
-
-    // camera setup
-    SE::camera ship_camera(0.01, 2000, {1, 0, 0}, {-6, 0, 0});
+	SE::camera ship_camera(0.01, 2000, {1, 0, 0}, {0, 0, 0});
 
 	player.attach_camera(ship_camera);
-    solar_system.set_camera(ship_camera);
+
+	SE::punctual_light plight({0,0,0}, 0, 50);
+	
+	SE::scene simple;
+	simple.set_camera(ship_camera);
+	simple.set_light(&plight);
+	simple.set_objects({&sun, &planet, &player});
+	simple.set_skybox({skybox_cubemap, skybox_program, cube_mesh});
+	simple.set_exposition(3000);
+
 
     while (!glfwWindowShouldClose(window)) {
+		time_elapsed = static_cast<float>(glfwGetTime());
+		delta_time = time_elapsed - last_time;
+		last_time = time_elapsed;
 		SE::s_io_processor.process_input(window, player);
-		SE::s_renderer.render(window, solar_system);
+		simple.render();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

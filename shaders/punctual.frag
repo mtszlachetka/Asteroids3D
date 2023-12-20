@@ -1,17 +1,24 @@
 #version 430 core
 
-out vec4 out_color;
-in vec2 tex_coord;
-
 uniform sampler2D normal_map;
-uniform sampler2D albedo_map;
+uniform sampler2D diffuse_map;
 uniform sampler2D amr_map;
+uniform samplerCube shadow_map;
 
 uniform float exposition;
+uniform float far;
 
-in vec3 light_dir_TS;
-in vec3 view_dir_TS;
-in float distance;
+uniform vec3 light_vec;
+
+in VS_OUT {
+	vec2 tex_coord;
+	vec3 view_dir_TS;
+	vec3 light_dir_TS;
+	vec3 world_pos;
+	float distance;
+} fs_in;
+
+out vec4 out_color;
 
 const float PI = 3.14159265;
 
@@ -50,27 +57,39 @@ vec3 pbr_light(vec3 light_dir, vec3 normal, vec3 view_dir, vec3 albedo, float me
 
 void main()
 {
-	vec2 tex_coord_flipped = vec2(tex_coord.x, -tex_coord.y);
 
-	vec3 albedo = texture(albedo_map, tex_coord_flipped).xyz;
-	vec3 normal = texture(normal_map, tex_coord_flipped).xyz;
-	vec3 amr = texture(amr_map, tex_coord_flipped).xyz;
+	// textures for PBR
+	vec3 diffuse = texture(diffuse_map, fs_in.tex_coord).xyz;
+	vec3 normal = texture(normal_map, fs_in.tex_coord).xyz;
+	vec3 amr = texture(amr_map, fs_in.tex_coord).xyz;
 	normal = normal * 2 - 1;
 
 	float AO = amr.r;
 	float metallic = amr.g;
 	float roughness = amr.b;
 
-	float attentuation = 1 / pow(distance, 2);
-	vec3 radiance = albedo * attentuation;
+	float attentuation = 1 / pow(fs_in.distance, 2);
+	vec3 radiance = diffuse * attentuation;
 
-	vec3 F0 = mix(vec3(0.04), albedo, metallic);
+	vec3 F0 = mix(vec3(0.04), diffuse, metallic);
 
-	vec3 light_dir = normalize(light_dir_TS);
-	vec3 view_dir = normalize(view_dir_TS);
+	vec3 light_dir = normalize(fs_in.light_dir_TS);
+	vec3 view_dir = normalize(fs_in.view_dir_TS);
 
 	
-	vec3 color = pbr_light(light_dir, normal, view_dir, albedo, metallic, roughness, F0) * AO * attentuation;
+	vec3 color = pbr_light(light_dir, normal, view_dir, diffuse, metallic, roughness, F0) * AO * attentuation;
+
+	// shadow map
+	
+	vec3 from_light = fs_in.world_pos - light_vec;
+	float closest = texture(shadow_map, from_light).r;
+	closest *= far;
+	float current = length(from_light);
+
+	float bias = max(0.05 * (1 - dot(normal, light_dir)), 0.005) ;
+	float shadow = current - bias > closest ? 1.0 : 0.0;
+	
+	color *= (1 - shadow);
 
 	
 	out_color = 1 - vec4(exp(-color * exposition), 1);

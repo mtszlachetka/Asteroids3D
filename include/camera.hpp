@@ -11,7 +11,7 @@ namespace SE {
 
     class camera {
         friend class io_processor;
-        friend class renderer;
+        friend class scene;
 		friend class object;
         private:
             float m_near, m_far;

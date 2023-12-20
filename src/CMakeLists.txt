@@ -1,3 +1,2 @@
-add_library(EngineUtils STATIC mesh_manager.cpp shader_manager.cpp renderer.cpp io_processor.cpp texture_manager.cpp)
-target_include_directories(EngineUtils PUBLIC "${PROJECT_SOURCE_DIR}/include")
-target_include_directories(EngineUtils PUBLIC "${PROJECT_SOURCE_DIR}/lib/SOIL")
+add_library(EngineUtils STATIC mesh_manager.cpp shader_manager.cpp io_processor.cpp texture_manager.cpp scene.cpp light_source.cpp)
+target_include_directories(EngineUtils PUBLIC "${PROJECT_SOURCE_DIR}/include" "${PROJECT_SOURCE_DIR}/lib/SOIL" )

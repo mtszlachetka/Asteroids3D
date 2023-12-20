@@ -5,7 +5,7 @@
 #include <iostream>
 
 namespace SE {
-void io_processor::process_input(GLFWwindow* window, ship& sh) {
+void io_processor::process_input(GLFWwindow* window, controllable_object& sh) {
 
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
@@ -46,7 +46,7 @@ void io_processor::process_input(GLFWwindow* window, ship& sh) {
 	sh.rebase();
 
 	if (sh.m_camera != nullptr) {
-		sh.m_camera->m_pos = sh.m_pos - 0.1f * sh.m_dir + glm::vec3(0, 1, 0) * 0.03f;
+		sh.m_camera->m_pos = sh.m_pos - 0.8f * sh.m_dir + glm::vec3(0, 1, 0) * 0.3f;
 		sh.m_camera->m_dir = sh.m_dir;
 		sh.m_camera->rebase();
 	}
