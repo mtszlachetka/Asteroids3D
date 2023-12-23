@@ -15,6 +15,7 @@ namespace SE {
 
 		unsigned char* img = SOIL_load_image(filepath, &w, &h, 0, SOIL_LOAD_RGBA);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
+		SOIL_free_image_data(img);
 		glGenerateMipmap(GL_TEXTURE_2D);
 
 		return texture_info{uniform_name, id};
@@ -34,6 +35,7 @@ namespace SE {
 		for (int i = 0; i < 6; i++) {
 			img = SOIL_load_image(paths[i], &w, &h, 0, SOIL_LOAD_RGBA);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
+			SOIL_free_image_data(img);
 		}
 
 		return texture_info{uniform_name, id};
