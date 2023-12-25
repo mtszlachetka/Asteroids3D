@@ -26,9 +26,9 @@ namespace se {
 		
 		glUseProgram(m_skybox.m_program);
 		pass_matrices(m_skybox.m_program, skybox_pos, camera_matrix, perspective_matrix);
-		set_uniform_int(m_skybox.m_program, m_skybox.m_cubemap.uniform_name, 0);
+		set_uniform_int(m_skybox.m_program, m_skybox.m_cubemap.m_name, 0);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, m_skybox.m_cubemap.id);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_skybox.m_cubemap.m_id);
 		glDisable(GL_DEPTH_TEST);
 		m_skybox.m_mesh.render();
 		glEnable(GL_DEPTH_TEST);
@@ -38,20 +38,20 @@ namespace se {
 
 			glm::vec4 lv = m_light->m_light_vec;
 
-			texture_info depth_map = m_light->gen_shadow_map(m_objects);
+			texture depth_map = m_light->gen_shadow_map(m_objects);
 			GLuint program = o->m_program;
 			glUseProgram(program);
 
 			set_uniform_vec3(program, "light_vec", glm::vec3(lv));
-			set_uniform_float(program, depth_map.uniform_name, 0);
+			set_uniform_float(program, depth_map.m_name, 0);
 			glActiveTexture(GL_TEXTURE0);
 
 			if (lv.w == 0.f) { // directional light
 				set_uniform_mat4(program, "light_space_matrix", dynamic_cast<directional_light*>(m_light)->light_space_matrix());
-				glBindTexture(GL_TEXTURE_2D, depth_map.id);
+				glBindTexture(GL_TEXTURE_2D, depth_map.m_id);
 
 			} else if (lv.w == 1.f) { // punctual light
-				glBindTexture(GL_TEXTURE_CUBE_MAP, depth_map.id);
+				glBindTexture(GL_TEXTURE_CUBE_MAP, depth_map.m_id);
 				set_uniform_float(program, "far", m_light->m_far);
 			}
 			
@@ -60,9 +60,9 @@ namespace se {
 			
 			int tex_num = 1;
 			for (auto& tex_info : o->m_textures) {
-				set_uniform_int(o->m_program, tex_info.uniform_name, tex_num);
+				set_uniform_int(o->m_program, tex_info.m_name, tex_num);
 				glActiveTexture(GL_TEXTURE0 + tex_num++);
-				glBindTexture(GL_TEXTURE_2D, tex_info.id);
+				glBindTexture(GL_TEXTURE_2D, tex_info.m_id);
 			}
 			
 

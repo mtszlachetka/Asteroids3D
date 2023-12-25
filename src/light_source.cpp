@@ -38,7 +38,7 @@ namespace se {
 	}
 
 	
-	texture_info directional_light::gen_shadow_map(const std::vector<object*>& objects) {
+	texture directional_light::gen_shadow_map(const std::vector<object*>& objects) {
 		glBindFramebuffer(GL_FRAMEBUFFER, m_shadow_map_fbo);
 		glViewport(0, 0, SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT);
 		glClear(GL_DEPTH_BUFFER_BIT);
@@ -56,7 +56,7 @@ namespace se {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-		return { "shadow_map", m_shadow_map };
+		return { m_shadow_map, "shadow_map" };
 	}
 
 	punctual_light::punctual_light(const v3& t_vec, float t_near, float t_far) : 
@@ -87,7 +87,7 @@ namespace se {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	texture_info punctual_light::gen_shadow_map(const std::vector<object*>& objects) {
+	texture punctual_light::gen_shadow_map(const std::vector<object*>& objects) {
 		glBindFramebuffer(GL_FRAMEBUFFER, m_shadow_map_fbo);
 		glViewport(0, 0, SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT);
 		glClear(GL_DEPTH_BUFFER_BIT);
@@ -111,7 +111,7 @@ namespace se {
 		glCullFace(GL_NONE);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-		return { "shadow_map", m_shadow_map };
+		return { m_shadow_map, "shadow_map" };
 	}
 
 	std::array<glm::mat4, 6> punctual_light::light_space_matrices() {

@@ -1,10 +1,10 @@
-#ifndef _LIGHT_SOURCE_HPP_
-#define _LIGHT_SOURCE_HPP_
+#ifndef LIGHT_SOURCE_HPP
+#define LIGHT_SOURCE_HPP
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <array>
-#include "texture_manager.hpp"
+#include "texture.hpp"
 #include "object.hpp"
 #include <vector>
 
@@ -26,7 +26,7 @@ namespace se {
 			light_source(const v4& t_vec, float t_near, float t_far);
 			void set_near(float n) { m_near = n; }
 			void set_far(float f) { m_near = f; }
-			virtual texture_info gen_shadow_map(const std::vector<object*>& objects) = 0;
+			virtual texture gen_shadow_map(const std::vector<object*>& objects) = 0;
 			virtual ~light_source() = 0;
 	};
 	inline light_source::~light_source() {
@@ -40,7 +40,7 @@ namespace se {
 		using m4 = glm::mat4;
 		public:
 			punctual_light(const v3& t_vec, float t_near, float t_far);
-			virtual texture_info gen_shadow_map(const std::vector<object*>& objects);
+			virtual texture gen_shadow_map(const std::vector<object*>& objects);
 			std::array<m4, 6> light_space_matrices();
 			virtual ~punctual_light() {}
 	};
@@ -54,7 +54,7 @@ namespace se {
 		public:
 			directional_light(const v3& t_vec, float t_near, float t_far, float t_left, float t_right, float t_top, float t_bottom);
 			m4 light_space_matrix() { return glm::ortho(m_left, m_right, m_bottom, m_top, m_near, m_far) * glm::lookAt(v3(m_light_vec), -v3(m_light_vec), v3(0, 1, 0)); }
-			virtual texture_info gen_shadow_map(const std::vector<object*>& objects);
+			virtual texture gen_shadow_map(const std::vector<object*>& objects);
 			virtual ~directional_light() {}
 	};
 

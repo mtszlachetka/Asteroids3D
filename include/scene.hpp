@@ -1,17 +1,17 @@
-#ifndef _SCENE_HPP_
-#define _SCENE_HPP_
+#ifndef SCENE_HPP
+#define SCENE_HPP
 
 #include <vector>
 #include <GL/glew.h>
 #include "light_source.hpp"
 #include "object.hpp"
-#include "texture_manager.hpp"
+#include "texture.hpp"
 #include "camera.hpp"
 
 namespace se {
 
 	struct skybox_info {
-		texture_info m_cubemap;
+		texture m_cubemap;
 		GLuint m_program;
 		mesh m_mesh;
 	};

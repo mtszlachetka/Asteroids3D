@@ -7,7 +7,7 @@
 #include "shader.hpp"
 #include "camera.hpp"
 #include "io_processor.hpp"
-#include "texture_manager.hpp"
+#include "texture.hpp"
 #include "scene.hpp"
 #include "read_file.hpp"
 
@@ -62,16 +62,16 @@ int main() {
 
 
 	// // textures for PBR
-	se::texture_info ship_diff = se::s_texture_manager.load_texture("../textures/spaceshipPBR/diff.png", "diffuse_map");
-	se::texture_info ship_normals = se::s_texture_manager.load_texture("../textures/spaceshipPBR/norm.png", "normal_map");
-	se::texture_info ship_amr = se::s_texture_manager.load_texture("../textures/spaceshipPBR/amr.png", "amr_map");
+	se::texture ship_diff = se::load_texture_2d_named("../textures/spaceshipPBR/diff.png", "diffuse_map");
+	se::texture ship_normals = se::load_texture_2d_named("../textures/spaceshipPBR/norm.png", "normal_map");
+	se::texture ship_amr = se::load_texture_2d_named("../textures/spaceshipPBR/amr.png", "amr_map");
 
-	se::texture_info merc_diff = se::s_texture_manager.load_texture("../textures/rock/diff.jpg", "diffuse_map");
-	se::texture_info merc_normals = se::s_texture_manager.load_texture("../textures/rock/norm.jpg", "normal_map");
-	se::texture_info merc_amr = se::s_texture_manager.load_texture("../textures/rock/arm.jpg", "amr_map");
+	se::texture merc_diff = se::load_texture_2d_named("../textures/rock/diff.jpg", "diffuse_map");
+	se::texture merc_normals = se::load_texture_2d_named("../textures/rock/norm.jpg", "normal_map");
+	se::texture merc_amr = se::load_texture_2d_named("../textures/rock/arm.jpg", "amr_map");
 
     // // cubemaps
-    const char* walls[6] = {
+    std::array<const std::string_view, 6> walls = {
         "../textures/skybox/space_rt.png", 
         "../textures/skybox/space_lf.png", 
         "../textures/skybox/space_up.png", 
@@ -79,7 +79,7 @@ int main() {
         "../textures/skybox/space_bk.png", 
         "../textures/skybox/space_ft_galaxy.png"
     };
-    se::texture_info skybox_cubemap = se::s_texture_manager.load_cubemap(walls, "skybox");
+    se::texture skybox_cubemap = se::load_cubemap_named(walls, "skybox");
 
     // // shader creation
     GLuint star_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/sun.vert"));
