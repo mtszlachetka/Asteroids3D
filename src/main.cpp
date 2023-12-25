@@ -3,13 +3,13 @@
 #include <GLFW/glfw3.h>
 #include <stdexcept>
 
-#include "mesh_manager.hpp"
-#include "shader_manager.hpp"
+#include "mesh.hpp"
+#include "shader.hpp"
 #include "camera.hpp"
-#include "io_processor.hpp"
-#include "texture_manager.hpp"
+#include "input_module.hpp"
+#include "texture.hpp"
 #include "scene.hpp"
-#include "debug.hpp"
+#include "read_file.hpp"
 
 int WINDOW_WIDTH = 1920;
 int WINDOW_HEIGHT = 1080;
@@ -56,22 +56,22 @@ int main() {
 	glClearColor(0.3,0.3,0.3,1);
 
     // model loading
-    SE::mesh_info ship_mesh = SE::s_mesh_manager.load("../models/spaceship.obj");
-    SE::mesh_info sphere_mesh = SE::s_mesh_manager.load("../models/sphere.obj");
-    SE::mesh_info cube_mesh = SE::s_mesh_manager.load("../models/cube.obj");
+    se::mesh ship_mesh = se::load_model("../models/spaceship.obj");
+    se::mesh sphere_mesh = se::load_model("../models/sphere.obj");
+    se::mesh cube_mesh = se::load_model("../models/cube.obj");
 
 
 	// // textures for PBR
-	SE::texture_info ship_diff = SE::s_texture_manager.load_texture("../textures/spaceshipPBR/diff.png", "diffuse_map");
-	SE::texture_info ship_normals = SE::s_texture_manager.load_texture("../textures/spaceshipPBR/norm.png", "normal_map");
-	SE::texture_info ship_amr = SE::s_texture_manager.load_texture("../textures/spaceshipPBR/amr.png", "amr_map");
+	se::texture ship_diff = se::load_texture_2d_named("../textures/spaceshipPBR/diff.png", "diffuse_map");
+	se::texture ship_normals = se::load_texture_2d_named("../textures/spaceshipPBR/norm.png", "normal_map");
+	se::texture ship_amr = se::load_texture_2d_named("../textures/spaceshipPBR/amr.png", "amr_map");
 
-	SE::texture_info merc_diff = SE::s_texture_manager.load_texture("../textures/rock/diff.jpg", "diffuse_map");
-	SE::texture_info merc_normals = SE::s_texture_manager.load_texture("../textures/rock/norm.jpg", "normal_map");
-	SE::texture_info merc_amr = SE::s_texture_manager.load_texture("../textures/rock/arm.jpg", "amr_map");
+	se::texture merc_diff = se::load_texture_2d_named("../textures/rock/diff.jpg", "diffuse_map");
+	se::texture merc_normals = se::load_texture_2d_named("../textures/rock/norm.jpg", "normal_map");
+	se::texture merc_amr = se::load_texture_2d_named("../textures/rock/arm.jpg", "amr_map");
 
     // // cubemaps
-    const char* walls[6] = {
+    std::array<const std::string_view, 6> walls = {
         "../textures/skybox/space_rt.png", 
         "../textures/skybox/space_lf.png", 
         "../textures/skybox/space_up.png", 
@@ -79,58 +79,62 @@ int main() {
         "../textures/skybox/space_bk.png", 
         "../textures/skybox/space_ft_galaxy.png"
     };
-    SE::texture_info skybox_cubemap = SE::s_texture_manager.load_cubemap(walls, "skybox");
+    se::texture skybox_cubemap = se::load_cubemap_named(walls, "skybox");
 
     // // shader creation
-    GLuint star_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/sun.vert");
-    GLuint star_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/sun.frag");
+    GLuint star_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/sun.vert"));
+    GLuint star_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/sun.frag"));
 
-	GLuint punct_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/punctual.vert");
-	GLuint punct_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/punctual.frag");
+	GLuint punct_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/punctual.vert"));
+	GLuint punct_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/punctual.frag"));
 	
-    GLuint skybox_vert = SE::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/skybox.vert");
-    GLuint skybox_frag = SE::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/skybox.frag");
+    GLuint skybox_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/skybox.vert"));
+    GLuint skybox_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/skybox.frag"));
 	
 	GLuint star_program, skybox_program, punct_program;
 	try {
-		star_program = SE::s_shader_manager.create_program({star_vert, star_frag});
-		skybox_program = SE::s_shader_manager.create_program({skybox_vert, skybox_frag});
-		punct_program = SE::s_shader_manager.create_program({punct_vert, punct_frag});
+		star_program = se::make_program({star_vert, star_frag});
+		skybox_program = se::make_program({skybox_vert, skybox_frag});
+		punct_program = se::make_program({punct_vert, punct_frag});
 	} catch(std::runtime_error& e) {
 		std::cerr << e.what() << std::endl;
 		return 1;
 	}
     
-	SE::object sun(sphere_mesh, star_program, {}, true);
+	se::object sun(sphere_mesh, star_program, {}, true);
 
-	SE::object planet(sphere_mesh, punct_program, {merc_diff, merc_normals, merc_amr});
+	se::object planet(sphere_mesh, punct_program, {merc_diff, merc_normals, merc_amr});
 	planet.set_position_callback(
 		[]() -> glm::mat4 {return glm::rotate(glm::mat4(1.), time_elapsed / 300, {0, 1, 0}) * glm::translate(glm::mat4(1), glm::vec3(6.5, 0, 0));}
 	);
 	planet.set_scale(glm::scale(glm::mat4(1), glm::vec3(0.5)));
 
-	SE::controllable_object player(ship_mesh, punct_program, {ship_diff, ship_normals, ship_amr}, {0,0,0}, {0,0,1}, 0.05, 0.05);
+	se::player player(ship_mesh, punct_program, {ship_diff, ship_normals, ship_amr}, {0,0,0}, {0,0,1}, 0.05, 0.05);
 	player.set_scale(glm::scale(glm::mat4(1), glm::vec3(0.02)));
 
-	SE::camera ship_camera(0.01, 2000, {1, 0, 0}, {0, 0, 0});
+	se::camera ship_camera(0.01, 2000, {1, 0, 0}, {0, 0, 0});
 
 	player.attach_camera(ship_camera);
 
-	SE::punctual_light plight({0,0,0}, 0, 50);
+	se::punctual_light plight({0,0,0}, 0, 50);
 	
-	SE::scene simple;
+	se::scene simple;
 	simple.set_camera(ship_camera);
 	simple.set_light(&plight);
 	simple.set_objects({&sun, &planet, &player});
 	simple.set_skybox({skybox_cubemap, skybox_program, cube_mesh});
 	simple.set_exposition(3000);
 
+	se::input_module input;
+	input.set_active_window(window);
+	input.attach(&player);
+
 
     while (!glfwWindowShouldClose(window)) {
 		time_elapsed = static_cast<float>(glfwGetTime());
 		delta_time = time_elapsed - last_time;
 		last_time = time_elapsed;
-		SE::s_io_processor.process_input(window, player);
+		input.tick();
 		simple.render();
         glfwSwapBuffers(window);
         glfwPollEvents();

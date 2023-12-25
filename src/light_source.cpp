@@ -1,11 +1,12 @@
 #include "light_source.hpp"
 #include <glm/ext.hpp>
 #include <string>
-#include "shader_manager.hpp"
+#include "shader.hpp"
+#include "read_file.hpp"
 
 extern int WINDOW_WIDTH, WINDOW_HEIGHT;
 
-namespace SE {
+namespace se {
 
 	light_source::light_source(const v4& t_vec, float t_near, float t_far) : m_near(t_near), m_far(t_far), m_light_vec(t_vec) {
 		glGenFramebuffers(1, &m_shadow_map_fbo);
@@ -15,9 +16,9 @@ namespace SE {
 	directional_light::directional_light(const v3& t_vec, float t_near, float t_far, float t_left, float t_right, float t_top, float t_bottom) : 
 		light_source(glm::vec4(t_vec, 0.f), t_near, t_far), m_left(t_left), m_right(t_right), m_top(t_top), m_bottom(t_bottom) {
 
-		m_shadow_map_program = s_shader_manager.create_program({
-			s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/shadow.vert"),
-			s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/shadow.frag")
+		m_shadow_map_program = make_program({
+			shader_from_string(GL_VERTEX_SHADER, read_file("../shaders/shadow.vert")),
+			shader_from_string(GL_FRAGMENT_SHADER, read_file("../shaders/shadow.frag"))
 		});
 
 		glBindTexture(GL_TEXTURE_2D, m_shadow_map);	
@@ -37,38 +38,34 @@ namespace SE {
 	}
 
 	
-	texture_info directional_light::gen_shadow_map(const std::vector<object*>& objects) {
+	texture directional_light::gen_shadow_map(const std::vector<object*>& objects) {
 		glBindFramebuffer(GL_FRAMEBUFFER, m_shadow_map_fbo);
 		glViewport(0, 0, SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT);
 		glClear(GL_DEPTH_BUFFER_BIT);
 		glUseProgram(m_shadow_map_program);
-		m4 lsm = light_space_matrix();
-		glUniformMatrix4fv(glGetUniformLocation(m_shadow_map_program, "light_space_matrix"), 1, GL_FALSE, (float*)&lsm);
+		set_uniform_mat4(m_shadow_map_program, "light_space_matrix", light_space_matrix());
 		GLint current_cull;
 		glCullFace(GL_FRONT);
 		for (auto& o : objects) {
 			if (o->m_transparent) continue;
-			m4 model_matrix = o->get_model_matrix();
-			glUniformMatrix4fv(glGetUniformLocation(m_shadow_map_program, "model_matrix"), 1, GL_FALSE, (float*)&model_matrix);
-			glBindVertexArray(o->m_mesh.vertex_array);
-			glDrawElements(GL_TRIANGLES, o->m_mesh.size, GL_UNSIGNED_INT, nullptr);
-			glBindVertexArray(0);
+			set_uniform_mat4(m_shadow_map_program, "model_matrix", o->get_model_matrix());
+			o->m_mesh.render();
 		}
 		glCullFace(GL_NONE);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-		return { "shadow_map", m_shadow_map };
+		return { m_shadow_map, "shadow_map" };
 	}
 
 	punctual_light::punctual_light(const v3& t_vec, float t_near, float t_far) : 
 		light_source(glm::vec4(t_vec, 1.f), t_near, t_far) {
 
-		m_shadow_map_program = s_shader_manager.create_program({
-			s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/cube_depth.vert"),
-			s_shader_manager.create_shader(GL_GEOMETRY_SHADER, "../shaders/cube_depth.geo"),
-			s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/cube_depth.frag")
+		m_shadow_map_program = make_program({
+			shader_from_string(GL_VERTEX_SHADER, read_file("../shaders/cube_depth.vert")),
+			shader_from_string(GL_GEOMETRY_SHADER, read_file("../shaders/cube_depth.geo")),
+			shader_from_string(GL_FRAGMENT_SHADER, read_file("../shaders/cube_depth.frag"))
 		});
 		
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_shadow_map);
@@ -90,34 +87,31 @@ namespace SE {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	texture_info punctual_light::gen_shadow_map(const std::vector<object*>& objects) {
+	texture punctual_light::gen_shadow_map(const std::vector<object*>& objects) {
 		glBindFramebuffer(GL_FRAMEBUFFER, m_shadow_map_fbo);
 		glViewport(0, 0, SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT);
 		glClear(GL_DEPTH_BUFFER_BIT);
 		glCullFace(GL_FRONT);
 		glUseProgram(m_shadow_map_program);
 		std::array<m4, 6> matrices = light_space_matrices();
-		glUniform1f(glGetUniformLocation(m_shadow_map_program, "far"), m_far);
-		glUniform3f(glGetUniformLocation(m_shadow_map_program, "light_vec"), m_light_vec.x, m_light_vec.y, m_light_vec.z);
+		set_uniform_float(m_shadow_map_program, "far", m_far);
+		set_uniform_vec3(m_shadow_map_program, "light_vec", glm::vec3(m_light_vec));
 
 		for (int i = 0; i < 6; i++) {
-			glUniformMatrix4fv(glGetUniformLocation(m_shadow_map_program, ("transforms[" +std::to_string(i)+ "]").c_str()), 1, GL_FALSE, (float*)&(matrices[i]));
+			set_uniform_mat4(m_shadow_map_program, "transforms[" + std::to_string(i) + "]", matrices[i]);
 		}
 		for (auto& o : objects) {
 			if (o->m_transparent) continue;
-			m4 model_matrix = o->get_model_matrix();
-			glUniformMatrix4fv(glGetUniformLocation(m_shadow_map_program, "model_matrix"), 1, GL_FALSE, (float*)&model_matrix);
+			set_uniform_mat4(m_shadow_map_program, "model_matrix", o->get_model_matrix());
 			
 
-			glBindVertexArray(o->m_mesh.vertex_array);
-			glDrawElements(GL_TRIANGLES, o->m_mesh.size, GL_UNSIGNED_INT, nullptr);
-			glBindVertexArray(0);
+			o->m_mesh.render();
 		}
 
 		glCullFace(GL_NONE);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-		return { "shadow_map", m_shadow_map };
+		return { m_shadow_map, "shadow_map" };
 	}
 
 	std::array<glm::mat4, 6> punctual_light::light_space_matrices() {

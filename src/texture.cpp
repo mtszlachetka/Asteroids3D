@@ -1,8 +1,9 @@
-#include "texture_manager.hpp"
+#include "texture.hpp"
 #include "SOIL.h"
 
-namespace SE {
-	texture_info texture_manager::load_texture(const char* filepath, const char* uniform_name) {
+namespace se {
+
+	texture load_texture_2d_named(const std::string_view &filepath, const std::string_view &t_name) {
 		GLuint id;
 		glGenTextures(1, &id);
 		glBindTexture(GL_TEXTURE_2D, id);
@@ -13,14 +14,16 @@ namespace SE {
 
 		int w, h;
 
-		unsigned char* img = SOIL_load_image(filepath, &w, &h, 0, SOIL_LOAD_RGBA);
+		unsigned char* img = SOIL_load_image(filepath.data(), &w, &h, 0, SOIL_LOAD_RGBA);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
 		SOIL_free_image_data(img);
 		glGenerateMipmap(GL_TEXTURE_2D);
+		SOIL_free_image_data(img);
 
-		return texture_info{uniform_name, id};
+		return { id, t_name };
 	}
-	texture_info texture_manager::load_cubemap(const char** paths, const char* uniform_name) {
+
+	texture load_cubemap_named(const std::array<const std::string_view, 6> &paths, const std::string_view &t_name) {
 		GLuint id;
 		glGenTextures(1, &id);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, id);
@@ -33,11 +36,11 @@ namespace SE {
 		int w, h;
 		unsigned char* img;
 		for (int i = 0; i < 6; i++) {
-			img = SOIL_load_image(paths[i], &w, &h, 0, SOIL_LOAD_RGBA);
+			img = SOIL_load_image(paths[i].data(), &w, &h, 0, SOIL_LOAD_RGBA);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
 			SOIL_free_image_data(img);
 		}
 
-		return texture_info{uniform_name, id};
+		return { id, t_name };
 	}
 }

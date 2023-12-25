@@ -7,12 +7,11 @@
 
 extern float ASPECT_RATIO;
 
-namespace SE {
+namespace se {
 
     class camera {
-        friend class io_processor;
         friend class scene;
-		friend class object;
+		friend class player;
         private:
             float m_near, m_far;
             glm::vec3 m_up, m_dir, m_side, m_pos;
