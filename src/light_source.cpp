@@ -49,9 +49,7 @@ namespace se {
 		for (auto& o : objects) {
 			if (o->m_transparent) continue;
 			set_uniform_mat4(m_shadow_map_program, "model_matrix", o->get_model_matrix());
-			glBindVertexArray(o->m_mesh.vertex_array);
-			glDrawElements(GL_TRIANGLES, o->m_mesh.size, GL_UNSIGNED_INT, nullptr);
-			glBindVertexArray(0);
+			o->m_mesh.render();
 		}
 		glCullFace(GL_NONE);
 
@@ -107,9 +105,7 @@ namespace se {
 			set_uniform_mat4(m_shadow_map_program, "model_matrix", o->get_model_matrix());
 			
 
-			glBindVertexArray(o->m_mesh.vertex_array);
-			glDrawElements(GL_TRIANGLES, o->m_mesh.size, GL_UNSIGNED_INT, nullptr);
-			glBindVertexArray(0);
+			o->m_mesh.render();
 		}
 
 		glCullFace(GL_NONE);

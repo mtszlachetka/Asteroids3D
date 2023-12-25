@@ -11,9 +11,9 @@
 namespace se {
 
 	struct skybox_info {
-		texture_info cubemap;
-		GLuint program;
-		mesh_info mesh;
+		texture_info m_cubemap;
+		GLuint m_program;
+		mesh m_mesh;
 	};
 
 	class scene {

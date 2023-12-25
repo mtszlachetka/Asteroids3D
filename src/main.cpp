@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <stdexcept>
 
-#include "mesh_manager.hpp"
+#include "mesh.hpp"
 #include "shader.hpp"
 #include "camera.hpp"
 #include "io_processor.hpp"
@@ -56,9 +56,9 @@ int main() {
 	glClearColor(0.3,0.3,0.3,1);
 
     // model loading
-    se::mesh_info ship_mesh = se::s_mesh_manager.load("../models/spaceship.obj");
-    se::mesh_info sphere_mesh = se::s_mesh_manager.load("../models/sphere.obj");
-    se::mesh_info cube_mesh = se::s_mesh_manager.load("../models/cube.obj");
+    se::mesh ship_mesh = se::load_model("../models/spaceship.obj");
+    se::mesh sphere_mesh = se::load_model("../models/sphere.obj");
+    se::mesh cube_mesh = se::load_model("../models/cube.obj");
 
 
 	// // textures for PBR

@@ -24,16 +24,14 @@ namespace se {
 
 		glm::mat4 skybox_pos = glm::translate(glm::mat4(1.), m_cam->m_pos);
 		
-		glUseProgram(m_skybox.program);
-		pass_matrices(m_skybox.program, skybox_pos, camera_matrix, perspective_matrix);
-		set_uniform_int(m_skybox.program, m_skybox.cubemap.uniform_name, 0);
+		glUseProgram(m_skybox.m_program);
+		pass_matrices(m_skybox.m_program, skybox_pos, camera_matrix, perspective_matrix);
+		set_uniform_int(m_skybox.m_program, m_skybox.m_cubemap.uniform_name, 0);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, m_skybox.cubemap.id);
-		glBindVertexArray(m_skybox.mesh.vertex_array);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_skybox.m_cubemap.id);
 		glDisable(GL_DEPTH_TEST);
-		glDrawElements(GL_TRIANGLES, m_skybox.mesh.size, GL_UNSIGNED_INT, nullptr);
+		m_skybox.m_mesh.render();
 		glEnable(GL_DEPTH_TEST);
-		glBindVertexArray(0);
 				
 
 		for (auto& o : m_objects) {
@@ -73,9 +71,7 @@ namespace se {
 			pass_matrices(o->m_program, model, camera_matrix, perspective_matrix);
 			set_uniform_vec3(o->m_program, "camera_pos", m_cam->m_pos);
 
-			glBindVertexArray(o->m_mesh.vertex_array);
-			glDrawElements(GL_TRIANGLES, o->m_mesh.size, GL_UNSIGNED_INT, nullptr);
-			glBindVertexArray(0);
+			o->m_mesh.render();
 		}
 		glUseProgram(0);
 	}
