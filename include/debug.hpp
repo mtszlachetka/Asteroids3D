@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <cstring>
 #include "camera.hpp"
+#include "shader.hpp"
 namespace se {
 namespace debug {
 
@@ -20,7 +21,7 @@ namespace debug {
 				-1.f,	-1.f,	0.f,	0.f,	1.f
 			};
 			static constexpr const GLuint indices[] = {0, 1, 2, 1, 2, 3};
-			static constexpr const GLchar* vsrc = 
+			static constexpr const std::string_view vsrc = 
 				"#version 430 core\n"
 				"layout(location = 0) in vec3 vertex_position;\n"
 				"layout(location = 1) in vec2 vertex_tex_coord;\n"
@@ -29,8 +30,7 @@ namespace debug {
 					"gl_Position = vec4(vertex_position.x, vertex_position.y, 0.0, 1.0);\n"
 					"tex_coord = vertex_tex_coord;\n"
 				"}\n\0";
-			static constexpr const GLint vsize = std::strlen(vsrc);
-			static constexpr const GLchar* fsrc = 
+			static constexpr const std::string_view fsrc = 
 			"#version 430 core\n"
 			"uniform sampler2D tex;\n"
 			"in vec2 tex_coord;\n"
@@ -38,19 +38,11 @@ namespace debug {
 			"void main() {\n"
 				"out_color = texture(tex, tex_coord);\n"
 			"}\n\0";
-			static constexpr const GLint fsize = std::strlen(fsrc);
 		void compile_shaders() {
-			GLuint vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-			glShaderSource(vertex_shader, 1, &vsrc, &vsize);
-			glCompileShader(vertex_shader);
-			GLuint fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-			glShaderSource(fragment_shader, 1, &fsrc, &fsize);
-			glCompileShader(fragment_shader);
+			GLuint vertex_shader = shader_from_string(GL_VERTEX_SHADER, vsrc);
+			GLuint fragment_shader = shader_from_string(GL_FRAGMENT_SHADER, fsrc);
 
-			program = glCreateProgram();
-			glAttachShader(program, vertex_shader);
-			glAttachShader(program, fragment_shader);
-			glLinkProgram(program);
+			program = make_program({vertex_shader, fragment_shader});
 
 			glDeleteShader(vertex_shader);
 			glDeleteShader(fragment_shader);

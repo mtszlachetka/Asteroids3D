@@ -4,12 +4,12 @@
 #include <stdexcept>
 
 #include "mesh_manager.hpp"
-#include "shader_manager.hpp"
+#include "shader.hpp"
 #include "camera.hpp"
 #include "io_processor.hpp"
 #include "texture_manager.hpp"
 #include "scene.hpp"
-#include "debug.hpp"
+#include "read_file.hpp"
 
 int WINDOW_WIDTH = 1920;
 int WINDOW_HEIGHT = 1080;
@@ -82,20 +82,20 @@ int main() {
     se::texture_info skybox_cubemap = se::s_texture_manager.load_cubemap(walls, "skybox");
 
     // // shader creation
-    GLuint star_vert = se::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/sun.vert");
-    GLuint star_frag = se::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/sun.frag");
+    GLuint star_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/sun.vert"));
+    GLuint star_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/sun.frag"));
 
-	GLuint punct_vert = se::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/punctual.vert");
-	GLuint punct_frag = se::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/punctual.frag");
+	GLuint punct_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/punctual.vert"));
+	GLuint punct_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/punctual.frag"));
 	
-    GLuint skybox_vert = se::s_shader_manager.create_shader(GL_VERTEX_SHADER, "../shaders/skybox.vert");
-    GLuint skybox_frag = se::s_shader_manager.create_shader(GL_FRAGMENT_SHADER, "../shaders/skybox.frag");
+    GLuint skybox_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/skybox.vert"));
+    GLuint skybox_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/skybox.frag"));
 	
 	GLuint star_program, skybox_program, punct_program;
 	try {
-		star_program = se::s_shader_manager.create_program({star_vert, star_frag});
-		skybox_program = se::s_shader_manager.create_program({skybox_vert, skybox_frag});
-		punct_program = se::s_shader_manager.create_program({punct_vert, punct_frag});
+		star_program = se::make_program({star_vert, star_frag});
+		skybox_program = se::make_program({skybox_vert, skybox_frag});
+		punct_program = se::make_program({punct_vert, punct_frag});
 	} catch(std::runtime_error& e) {
 		std::cerr << e.what() << std::endl;
 		return 1;
