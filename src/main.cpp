@@ -6,7 +6,7 @@
 #include "mesh.hpp"
 #include "shader.hpp"
 #include "camera.hpp"
-#include "io_processor.hpp"
+#include "input_module.hpp"
 #include "texture.hpp"
 #include "scene.hpp"
 #include "read_file.hpp"
@@ -109,7 +109,7 @@ int main() {
 	);
 	planet.set_scale(glm::scale(glm::mat4(1), glm::vec3(0.5)));
 
-	se::controllable_object player(ship_mesh, punct_program, {ship_diff, ship_normals, ship_amr}, {0,0,0}, {0,0,1}, 0.05, 0.05);
+	se::player player(ship_mesh, punct_program, {ship_diff, ship_normals, ship_amr}, {0,0,0}, {0,0,1}, 0.05, 0.05);
 	player.set_scale(glm::scale(glm::mat4(1), glm::vec3(0.02)));
 
 	se::camera ship_camera(0.01, 2000, {1, 0, 0}, {0, 0, 0});
@@ -125,12 +125,16 @@ int main() {
 	simple.set_skybox({skybox_cubemap, skybox_program, cube_mesh});
 	simple.set_exposition(3000);
 
+	se::input_module input;
+	input.set_active_window(window);
+	input.attach(&player);
+
 
     while (!glfwWindowShouldClose(window)) {
 		time_elapsed = static_cast<float>(glfwGetTime());
 		delta_time = time_elapsed - last_time;
 		last_time = time_elapsed;
-		se::s_io_processor.process_input(window, player);
+		input.tick();
 		simple.render();
         glfwSwapBuffers(window);
         glfwPollEvents();

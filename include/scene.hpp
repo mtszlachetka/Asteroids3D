@@ -17,7 +17,6 @@ namespace se {
 	};
 
 	class scene {
-		friend class renderer;
 		private:
 			float m_exposition;
 			std::vector<object*> m_objects;

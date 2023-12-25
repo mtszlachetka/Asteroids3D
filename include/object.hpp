@@ -7,6 +7,7 @@
 #include "mesh.hpp"
 #include "texture.hpp"
 #include "camera.hpp"
+#include "input_module.hpp"
 
 namespace se {
 
@@ -27,7 +28,6 @@ class object {
 		object() = delete;
 		object(const mesh& t_mesh, GLuint t_program, const std::vector<texture>& t_textures, bool t_transparent = false) :
 			m_mesh(t_mesh), m_program(t_program), m_textures(t_textures), m_transparent(t_transparent) {}
-		void attach_camera(camera& cam) { m_camera = &cam; }
 		void set_position_callback(glm::mat4 (*callback)(void)) { m_position_callback = callback; }
 		void set_mesh(const mesh& t_mesh) { m_mesh = t_mesh; }
 		void set_program(GLuint t_program) { m_program = t_program; }
@@ -37,9 +37,8 @@ class object {
 		virtual ~object() {}
 		// virtual void render();
 };
-class controllable_object : public object {
+class player : public object, public input_listener {
 		using v3 = glm::vec3;
-		friend class io_processor;
 		private:
 			v3 m_pos, m_dir, m_side, m_up;
 			float m_movespeed, m_anglespeed;
@@ -52,15 +51,24 @@ class controllable_object : public object {
 				};
 			}
 		public:
-			controllable_object(const se::mesh& t_mesh, GLuint t_program, const std::vector<se::texture>& tex, const v3& t_pos, const v3& t_dir, 
+			player(const se::mesh& t_mesh, GLuint t_program, const std::vector<se::texture>& tex, const v3& t_pos, const v3& t_dir, 
 					float mspeed, float aspeed) : object(t_mesh, t_program, tex), m_pos(t_pos), m_dir(t_dir), 
 						m_movespeed(mspeed), m_anglespeed(aspeed) { rebase(); }
 			virtual glm::mat4 get_model_matrix() const { return glm::translate(glm::mat4(1.0), m_pos) * get_rotation_matrix() * m_scale; }
+
+			void attach_camera(camera& cam) { 
+				m_camera = &cam;
+				m_camera->m_pos = m_pos - 0.8f * m_dir + glm::vec3(0, 1, 0) * 0.3f; // TODO - make this configurable
+				m_camera->m_dir = m_dir;
+				m_camera->m_side = m_side;
+				m_camera->m_up = m_up;
+			}
 			void rebase() {
 				m_side = glm::normalize(glm::cross(m_dir, {0, 1, 0}));
 				m_up = glm::normalize(glm::cross(m_side, m_dir));
 			}
-			~controllable_object() {}
+			void update(input_event event);
+			~player() {}
 	};
 
 }
