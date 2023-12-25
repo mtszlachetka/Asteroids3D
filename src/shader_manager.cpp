@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-namespace SE {
+namespace se {
 std::string shader_manager::read_shader(const std::string& path) {
     std::string shader_code;
 	std::ifstream file(path, std::ios::in);

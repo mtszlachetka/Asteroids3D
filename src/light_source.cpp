@@ -5,7 +5,7 @@
 
 extern int WINDOW_WIDTH, WINDOW_HEIGHT;
 
-namespace SE {
+namespace se {
 
 	light_source::light_source(const v4& t_vec, float t_near, float t_far) : m_near(t_near), m_far(t_far), m_light_vec(t_vec) {
 		glGenFramebuffers(1, &m_shadow_map_fbo);

@@ -7,7 +7,7 @@
 
 extern float ASPECT_RATIO;
 
-namespace SE {
+namespace se {
 
     class camera {
         friend class io_processor;

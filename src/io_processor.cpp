@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <iostream>
 
-namespace SE {
+namespace se {
 void io_processor::process_input(GLFWwindow* window, controllable_object& sh) {
 
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {

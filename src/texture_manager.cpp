@@ -1,7 +1,7 @@
 #include "texture_manager.hpp"
 #include "SOIL.h"
 
-namespace SE {
+namespace se {
 	texture_info texture_manager::load_texture(const char* filepath, const char* uniform_name) {
 		GLuint id;
 		glGenTextures(1, &id);

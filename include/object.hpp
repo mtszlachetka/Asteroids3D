@@ -8,7 +8,7 @@
 #include "texture_manager.hpp"
 #include "camera.hpp"
 
-namespace SE {
+namespace se {
 
 class object {
 	friend class scene;
@@ -52,7 +52,7 @@ class controllable_object : public object {
 				};
 			}
 		public:
-			controllable_object(const SE::mesh_info& t_mesh, GLuint t_program, const std::vector<SE::texture_info>& tex, const v3& t_pos, const v3& t_dir, 
+			controllable_object(const se::mesh_info& t_mesh, GLuint t_program, const std::vector<se::texture_info>& tex, const v3& t_pos, const v3& t_dir, 
 					float mspeed, float aspeed) : object(t_mesh, t_program, tex), m_pos(t_pos), m_dir(t_dir), 
 						m_movespeed(mspeed), m_anglespeed(aspeed) { rebase(); }
 			virtual glm::mat4 get_model_matrix() const { return glm::translate(glm::mat4(1.0), m_pos) * get_rotation_matrix() * m_scale; }

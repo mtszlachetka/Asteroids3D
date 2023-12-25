@@ -8,7 +8,7 @@
 #include "texture_manager.hpp"
 #include "camera.hpp"
 
-namespace SE {
+namespace se {
 
 	struct skybox_info {
 		texture_info cubemap;

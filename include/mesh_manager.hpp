@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include <string>
 
-namespace SE {
+namespace se {
 	
 	struct mesh_info {
 		GLuint vertex_array;

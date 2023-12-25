@@ -2,7 +2,7 @@
 #define _TEXTURE_MANAGER_HPP_
 #include <GL/glew.h>
 
-namespace SE {
+namespace se {
     struct texture_info {
         const char* uniform_name;
         GLuint id;

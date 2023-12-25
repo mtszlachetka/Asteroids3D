@@ -5,7 +5,7 @@
 #include <GL/glew.h>
 #include <vector>
 
-namespace SE {
+namespace se {
 struct shader_info {
     GLenum type;
     const char* path;

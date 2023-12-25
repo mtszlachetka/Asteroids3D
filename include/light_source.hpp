@@ -8,7 +8,7 @@
 #include "object.hpp"
 #include <vector>
 
-namespace SE {
+namespace se {
 
 	class light_source {
 		friend class scene;

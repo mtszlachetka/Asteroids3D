@@ -5,7 +5,7 @@
 #include "camera.hpp"
 #include <GLFW/glfw3.h>
 
-namespace SE {
+namespace se {
     class io_processor {
         public:
             void process_input(GLFWwindow* win, controllable_object& sh);

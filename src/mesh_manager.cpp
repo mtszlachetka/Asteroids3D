@@ -4,7 +4,7 @@
 #include <assimp/scene.h>
 #include <stdexcept>
 #include <vector>
-namespace SE {
+namespace se {
 mesh_info mesh_manager::load(const std::string& path) {
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_CalcTangentSpace);

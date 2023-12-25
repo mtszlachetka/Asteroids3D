@@ -4,8 +4,8 @@
 #include <GL/glew.h>
 #include <cstring>
 #include "camera.hpp"
-namespace SE {
-namespace DEBUG {
+namespace se {
+namespace debug {
 
 
 	class texture_drawer {

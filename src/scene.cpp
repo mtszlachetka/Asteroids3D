@@ -13,7 +13,7 @@ static inline void pass_matrices(GLuint program, glm::mat4 model, glm::mat4 cam,
 }
 
 
-namespace SE {
+namespace se {
 
 	void scene::render() {
 		
