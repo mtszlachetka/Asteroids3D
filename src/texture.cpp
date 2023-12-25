@@ -18,7 +18,6 @@ namespace se {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
 		SOIL_free_image_data(img);
 		glGenerateMipmap(GL_TEXTURE_2D);
-		SOIL_free_image_data(img);
 
 		return { id, t_name };
 	}
