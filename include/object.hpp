@@ -50,6 +50,14 @@ class player : public object, public input_listener {
 					0, 0, 0, 1
 				};
 			}
+			void adjust_camera() {
+				if (m_camera != nullptr) {
+					m_camera->m_pos = m_pos - 0.8f * m_dir + glm::vec3(0, 1, 0) * 0.3f; // TODO - make this configurable
+					m_camera->m_dir = m_dir;
+					m_camera->m_side = m_side;
+					m_camera->m_up = m_up;
+				}
+			}
 		public:
 			player(const se::mesh& t_mesh, GLuint t_program, const std::vector<se::texture>& tex, const v3& t_pos, const v3& t_dir, 
 					float mspeed, float aspeed) : object(t_mesh, t_program, tex), m_pos(t_pos), m_dir(t_dir), 
@@ -58,10 +66,7 @@ class player : public object, public input_listener {
 
 			void attach_camera(camera& cam) { 
 				m_camera = &cam;
-				m_camera->m_pos = m_pos - 0.8f * m_dir + glm::vec3(0, 1, 0) * 0.3f; // TODO - make this configurable
-				m_camera->m_dir = m_dir;
-				m_camera->m_side = m_side;
-				m_camera->m_up = m_up;
+				adjust_camera();
 			}
 			void rebase() {
 				m_side = glm::normalize(glm::cross(m_dir, {0, 1, 0}));
