@@ -42,7 +42,9 @@ class player : public object, public input_listener {
 		using v3 = glm::vec3;
 		private:
 			v3 m_dir, m_side, m_up;
-			float m_movespeed, m_anglespeed;
+			float m_movespeed, m_anglespeed, laser_speed;
+			const se::mesh& laser_mesh; // TODO: Replace with actual laser information
+			texture laser_texture_1, laser_texture_2, laser_texture_3; // TODO: Replace with actual laser information
 			glm::mat4 get_rotation_matrix() const {
 				return {
 					m_side.x, m_up.x, m_dir.x, 0,
@@ -60,9 +62,12 @@ class player : public object, public input_listener {
 				}
 			}
 		public:
+			std::vector<object> m_laser_beams;
 			player(const se::mesh& t_mesh, GLuint t_program, const std::vector<se::texture>& tex, const v3& t_pos, float t_scale, const v3& t_dir, 
-					float mspeed, float aspeed) : object(t_mesh, t_program, tex, t_pos, t_scale), m_dir(t_dir), 
-						m_movespeed(mspeed), m_anglespeed(aspeed) { rebase(); }
+					float mspeed, float aspeed, const se::mesh& laser_mesh, texture laser_tex1, texture laser_tex2, texture laser_tex3, float t_laser_speed) :
+					object(t_mesh, t_program, tex, t_pos, t_scale),
+					m_dir(t_dir), m_movespeed(mspeed), m_anglespeed(aspeed), laser_mesh(t_mesh),
+					laser_texture_1(laser_tex1), laser_texture_2(laser_tex2), laser_texture_3(laser_tex3), laser_speed(t_laser_speed) { rebase(); }
 			virtual glm::mat4 get_model_matrix() override { return glm::translate(glm::mat4(1.0), m_pos) * get_rotation_matrix() * glm::scale(glm::mat4(1), glm::vec3(m_scale_factor)); }
 
 			void attach_camera(camera& cam) { 

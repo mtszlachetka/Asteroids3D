@@ -113,7 +113,7 @@ int main() {
 	se::object planet3(sphere_mesh, punct_program, {merc_diff, merc_normals, merc_amr}, {1, 0, 0}, 0.3);
 	planet3.set_velocity({-0.1, 0, 0});
 
-	se::player player(ship_mesh, punct_program, {ship_diff, ship_normals, ship_amr}, {0,0,0}, 0.02, {0,0,1}, 0.05, 0.05);
+	se::player player(ship_mesh, punct_program, {ship_diff, ship_normals, ship_amr}, {0,0,0}, 0.02, {0,0,1}, 0.05, 0.05, ship_mesh, ship_diff, ship_normals, ship_amr, 6.f);
 
 	se::camera ship_camera(0.01, 2000, {1, 0, 0}, {0, 0, 0});
 
@@ -140,6 +140,10 @@ int main() {
 		delta_time = time_elapsed - last_time;
 		last_time = time_elapsed;
 		input.tick();
+		simple.set_objects({&planet, &player, &planet2, &planet3});
+		for (auto& o : player.m_laser_beams) {
+			simple.add_object(&o);
+		}
 		collider.tick();
 		simple.render();
         glfwSwapBuffers(window);

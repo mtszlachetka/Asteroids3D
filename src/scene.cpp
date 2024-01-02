@@ -33,12 +33,10 @@ namespace se {
 		m_skybox.m_mesh.render();
 		glEnable(GL_DEPTH_TEST);
 				
+		glm::vec4 lv = m_light->m_light_vec;
+		texture depth_map = m_light->gen_shadow_map(m_objects);
 
 		for (auto& o : m_objects) {
-
-			glm::vec4 lv = m_light->m_light_vec;
-
-			texture depth_map = m_light->gen_shadow_map(m_objects);
 			GLuint program = o->m_program;
 			glUseProgram(program);
 
