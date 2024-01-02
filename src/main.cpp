@@ -133,7 +133,7 @@ int main() {
 	input.attach(&player);
 
 	se::collision_detector collider;
-	collider.set_objects({&planet, &planet2, &planet3, &player});
+	collider.set_objects({&planet, &planet2, &planet3});
 
     while (!glfwWindowShouldClose(window)) {
 		time_elapsed = static_cast<float>(glfwGetTime());

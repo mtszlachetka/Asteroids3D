@@ -26,12 +26,13 @@ class object {
 		std::vector<texture> m_textures;
 		bool m_transparent;
 		glm::vec3 m_pos, m_velocity;
-		float m_scale_factor;
+		float m_scale_factor; // scale factor determines both size and mass
+		float m_mass;
 		void update_position() { m_pos += m_velocity * delta_time; }
 	public:
 		object() = delete;
 		object(const mesh& t_mesh, GLuint t_program, const std::vector<texture>& t_textures, const glm::vec3& t_pos, float t_scale, bool t_transparent = false) :
-			m_mesh(t_mesh), m_program(t_program), m_textures(t_textures), m_transparent(t_transparent), m_pos(t_pos), m_scale_factor(t_scale), m_velocity(0) {}
+			m_mesh(t_mesh), m_program(t_program), m_textures(t_textures), m_transparent(t_transparent), m_pos(t_pos), m_scale_factor(t_scale), m_velocity(0), m_mass(t_scale) {}
 		void set_velocity(const glm::vec3& t_v) { m_velocity = t_v; }
 		virtual glm::mat4 get_model_matrix() { update_position(); return glm::translate(glm::mat4(1.f), m_pos) * glm::scale(glm::mat4(1), glm::vec3(m_scale_factor)); }
 		virtual ~object() {}
