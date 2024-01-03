@@ -32,9 +32,9 @@ namespace se {
 				this->rebase();
 				break;
 			case input_event::space_pressed:
-				se::object new_laser_beam(laser_mesh, m_program, {laser_texture_1, laser_texture_2, laser_texture_3}, m_pos, 0.01f);
-				new_laser_beam.set_velocity(laser_speed * m_dir);
-				m_laser_beams.push_back(new_laser_beam);
+				se::laser_beam newLaserBeam(laserBeamPointer, m_pos);
+				newLaserBeam.set_velocity(m_dir * laserBeamPointer->laser_speed);
+				laser_beams.push_back(&newLaserBeam);
 				break;
 		}
 

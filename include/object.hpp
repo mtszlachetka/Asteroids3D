@@ -38,13 +38,49 @@ class object {
 		virtual ~object() {}
 		// virtual void render();
 };
+
+class laser_beam : public object {
+		using v3 = glm::vec3;
+		friend class player;
+		private:
+			float laser_speed;
+		public:
+			laser_beam(const se::mesh& t_mesh, GLuint t_program, const std::vector<se::texture>& tex, const v3& t_pos, float t_scale, float speed) :
+					object(t_mesh, t_program, tex, t_pos, t_scale), laser_speed(speed) {}
+
+			laser_beam(const laser_beam* existing_beam, const v3& player_pos) :
+					object(existing_beam->get_mesh(), existing_beam->get_program(), existing_beam->get_textures(), player_pos, existing_beam->get_scale_factor()),
+					laser_speed(existing_beam->get_laser_speed()) {}
+
+			const se::mesh& get_mesh() const {
+				return m_mesh;
+			}
+			GLuint get_program() const {
+				return m_program;
+			}
+			std::vector<se::texture> get_textures() const {
+				return m_textures;
+			}
+			glm::vec3 get_position() const {
+				return m_pos;
+			}
+			float get_scale_factor() const {
+				return m_scale_factor;
+			}
+			float get_laser_speed() const {
+				return laser_speed;
+			}
+
+			~laser_beam() {}
+	};
+
 class player : public object, public input_listener {
 		using v3 = glm::vec3;
 		private:
 			v3 m_dir, m_side, m_up;
-			float m_movespeed, m_anglespeed, laser_speed;
-			const se::mesh& laser_mesh; // TODO: Replace with actual laser information
-			texture laser_texture_1, laser_texture_2, laser_texture_3; // TODO: Replace with actual laser information
+			float m_movespeed, m_anglespeed;
+			const se::laser_beam* laserBeamPointer;
+			std::vector<se::laser_beam*> laser_beams;
 			glm::mat4 get_rotation_matrix() const {
 				return {
 					m_side.x, m_up.x, m_dir.x, 0,
@@ -62,12 +98,10 @@ class player : public object, public input_listener {
 				}
 			}
 		public:
-			std::vector<object> m_laser_beams;
-			player(const se::mesh& t_mesh, GLuint t_program, const std::vector<se::texture>& tex, const v3& t_pos, float t_scale, const v3& t_dir, 
-					float mspeed, float aspeed, const se::mesh& laser_mesh, texture laser_tex1, texture laser_tex2, texture laser_tex3, float t_laser_speed) :
+			player(const se::mesh& t_mesh, GLuint t_program, const std::vector<se::texture>& tex, const v3& t_pos, float t_scale, const v3& t_dir, float mspeed, float aspeed, const se::laser_beam* laserBeamPtr) :
 					object(t_mesh, t_program, tex, t_pos, t_scale),
-					m_dir(t_dir), m_movespeed(mspeed), m_anglespeed(aspeed), laser_mesh(t_mesh),
-					laser_texture_1(laser_tex1), laser_texture_2(laser_tex2), laser_texture_3(laser_tex3), laser_speed(t_laser_speed) { rebase(); }
+					m_dir(t_dir), m_movespeed(mspeed), m_anglespeed(aspeed), laserBeamPointer(laserBeamPtr)
+					{ rebase(); }
 			virtual glm::mat4 get_model_matrix() override { return glm::translate(glm::mat4(1.0), m_pos) * get_rotation_matrix() * glm::scale(glm::mat4(1), glm::vec3(m_scale_factor)); }
 
 			void attach_camera(camera& cam) { 
@@ -80,8 +114,11 @@ class player : public object, public input_listener {
 			}
 			void update(input_event event);
 			~player() {}
-	};
 
+			std::vector<se::laser_beam*> get_laser_beams() const {
+				return laser_beams;
+			}
+	};
 }
 
 #endif
