@@ -8,6 +8,7 @@
 #include "texture.hpp"
 #include "camera.hpp"
 #include "input_module.hpp"
+#include <memory>
 
 extern float delta_time, time_elapsed, last_time;
 
@@ -80,7 +81,7 @@ class player : public object, public input_listener {
 			v3 m_dir, m_side, m_up;
 			float m_movespeed, m_anglespeed;
 			const se::laser_beam* laserBeamPointer;
-			std::vector<se::laser_beam*> laser_beams;
+			std::vector<std::unique_ptr<se::laser_beam>> laser_beams;
 			glm::mat4 get_rotation_matrix() const {
 				return {
 					m_side.x, m_up.x, m_dir.x, 0,
@@ -115,7 +116,7 @@ class player : public object, public input_listener {
 			void update(input_event event);
 			~player() {}
 
-			std::vector<se::laser_beam*> get_laser_beams() const {
+			const std::vector<std::unique_ptr<se::laser_beam>>& get_laser_beams() const {
 				return laser_beams;
 			}
 	};

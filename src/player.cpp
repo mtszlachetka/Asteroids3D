@@ -32,9 +32,9 @@ namespace se {
 				this->rebase();
 				break;
 			case input_event::space_pressed:
-				se::laser_beam* newLaserBeam = new se::laser_beam(laserBeamPointer, m_pos);
+				std::unique_ptr<se::laser_beam> newLaserBeam = std::make_unique<se::laser_beam>(laserBeamPointer, m_pos);
 				newLaserBeam->set_velocity(m_dir * laserBeamPointer->laser_speed);
-				laser_beams.push_back(newLaserBeam);
+				laser_beams.push_back(std::move(newLaserBeam));
 				break;
 		}
 

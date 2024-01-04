@@ -143,8 +143,8 @@ int main() {
 		last_time = time_elapsed;
 		input.tick();
 		simple.set_objects({&planet, &player, &planet2, &planet3});
-		for (auto& laser_beam : player.get_laser_beams()) {
-			simple.add_object(laser_beam);
+		for (const auto& laser_beam : player.get_laser_beams()) {
+			simple.add_object(laser_beam.get());
 		}
 		collider.tick();
 		simple.render();
