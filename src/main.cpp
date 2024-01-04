@@ -11,6 +11,7 @@
 #include "scene.hpp"
 #include "read_file.hpp"
 #include "physics_module.hpp"
+#include "hud.hpp"
 
 int WINDOW_WIDTH = 1920;
 int WINDOW_HEIGHT = 1080;
@@ -128,6 +129,11 @@ int main() {
 	simple.set_skybox({skybox_cubemap, skybox_program, cube_mesh});
 	simple.set_exposition(3000);
 
+	se::hud hud;
+	hud.set_player(&player);
+
+	hud.initializeHUD();
+
 	se::input_module input;
 	input.set_active_window(window);
 	input.attach(&player);
@@ -142,6 +148,7 @@ int main() {
 		input.tick();
 		collider.tick();
 		simple.render();
+		hud.render();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
