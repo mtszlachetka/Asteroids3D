@@ -31,6 +31,11 @@ namespace se {
 				m_dir = glm::vec3(glm::eulerAngleY(-m_anglespeed) * glm::vec4(m_dir, 1.f));
 				this->rebase();
 				break;
+			case input_event::space_pressed:
+				se::laser_beam* newLaserBeam = new se::laser_beam(laserBeamPointer, m_pos);
+				newLaserBeam->set_velocity(m_dir * laserBeamPointer->laser_speed);
+				laser_beams.push_back(newLaserBeam);
+				break;
 		}
 
 		this->adjust_camera();

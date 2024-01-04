@@ -35,6 +35,9 @@ void input_module::tick() {
 		if (glfwGetKey(m_p_active_window, GLFW_KEY_F) == GLFW_PRESS) {
 			notify(input_event::f_pressed);
 		}
+		if (glfwGetKey(m_p_active_window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+            notify(input_event::space_pressed);
+        }
 	}
 
 }

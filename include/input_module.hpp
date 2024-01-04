@@ -16,7 +16,8 @@ namespace se {
 		c_pressed,
 		f_pressed,
 		r_pressed,
-		x_pressed
+		x_pressed,
+		space_pressed
 	};
 
 	// every class taht reacts to input inherits from this
