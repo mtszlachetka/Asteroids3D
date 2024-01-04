@@ -27,13 +27,13 @@ namespace se {
         program = se::make_program({hud_vert, hud_frag});
 
         float vertexArray[24] = {
-            -.05f, .05f, .0f, 1.0f,  0.0f, 1.0f,
-            .05f,  -.05f, .0f, 1.0f,  1.0f, 0.0f,
-            .05f, .05f, .0f, 1.0f,  1.0f, 1.0f,
-            -.05f, -.05f, .0f, 1.0f,  0.0f, 0.0f
+            0.05f, .05f, .0f, 1.0f,  1.0f, 0.0f,
+            .05f,  -.05f, .0f, 1.0f,  1.0f, 1.0f,
+            -.05f, .05f, .0f, 1.0f,  0.0f, 0.0f,
+            -.05f, -.05f, .0f, 1.0f,  0.0f, 1.0f
         };
 
-        unsigned int indexArray[6] = {0, 1, 2, 0, 2, 3};
+        unsigned int indexArray[6] = {0, 1, 2, 1, 2, 3};
 
         glGenVertexArrays(1, &hudVAO);
         glGenBuffers(1, &hudVBO);
@@ -42,7 +42,7 @@ namespace se {
         glBindVertexArray(hudVAO);
 
         glBindBuffer(GL_ARRAY_BUFFER, hudVBO);
-        glBufferData(GL_ARRAY_BUFFER, numVertices * elementSize * sizeof(float), vertexArray, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(vertexArray), vertexArray, GL_STATIC_DRAW);
 
         glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
