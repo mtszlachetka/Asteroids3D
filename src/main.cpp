@@ -132,8 +132,6 @@ int main() {
 	se::hud hud;
 	hud.set_player(&player);
 
-	hud.initializeHUD();
-
 	se::input_module input;
 	input.set_active_window(window);
 	input.attach(&player);
