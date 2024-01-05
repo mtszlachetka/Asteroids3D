@@ -38,10 +38,10 @@ namespace se {
                 program = se::make_program({hud_vert, hud_frag});
 
                 float vertexArray[24] = {
-                    0.05f, .05f, .0f, 1.0f,  1.0f, 0.0f,
-                    .05f,  -.05f, .0f, 1.0f,  1.0f, 1.0f,
-                    -.05f, .05f, .0f, 1.0f,  0.0f, 0.0f,
-                    -.05f, -.05f, .0f, 1.0f,  0.0f, 1.0f
+                    .035f, .0f, .0f, 1.0f,  1.0f, 0.0f,
+                    .035f,  -.12f, .0f, 1.0f,  1.0f, 1.0f,
+                    -.035f, .0f, .0f, 1.0f,  0.0f, 0.0f,
+                    -.035f, -.12f, .0f, 1.0f,  0.0f, 1.0f
                 };
 
                 unsigned int indexArray[6] = {0, 1, 2, 1, 2, 3};
