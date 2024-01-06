@@ -32,9 +32,13 @@ namespace se {
 				this->rebase();
 				break;
 			case input_event::space_pressed:
+				if (static_cast<float>(glfwGetTime()) - last_time_shot_a_laser < 0.25f) {
+					break;
+				}
 				std::unique_ptr<se::laser_beam> newLaserBeam = std::make_unique<se::laser_beam>(laserBeamPointer, m_pos);
 				newLaserBeam->set_velocity(m_dir * laserBeamPointer->laser_speed);
 				laser_beams.push_back(std::move(newLaserBeam));
+				last_time_shot_a_laser = static_cast<float>(glfwGetTime());
 				break;
 		}
 

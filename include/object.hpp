@@ -82,6 +82,7 @@ class player : public object, public input_listener {
 			float m_movespeed, m_anglespeed;
 			const se::laser_beam* laserBeamPointer;
 			std::vector<std::unique_ptr<se::laser_beam>> laser_beams;
+			float last_time_shot_a_laser = 0.f;
 			glm::mat4 get_rotation_matrix() const {
 				return {
 					m_side.x, m_up.x, m_dir.x, 0,
