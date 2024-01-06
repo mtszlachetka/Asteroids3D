@@ -48,7 +48,6 @@ class missile : public object {
 			glm::mat4 rotationZMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 			float missile_speed;
 			v3 m_dir, m_side, m_up;
-			void update_position() { m_pos += m_velocity * delta_time; }
 			glm::mat4 get_rotation_matrix() const {
 				glm::mat4 rotationMatrix = {
 					m_side.x, m_up.x, m_dir.x, 0,
