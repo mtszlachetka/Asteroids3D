@@ -45,13 +45,25 @@ class laser_beam : public object {
 		friend class player;
 		private:
 			float laser_speed;
+			v3 m_dir, m_side, m_up;
+			void update_position() { m_pos += m_velocity * delta_time; }
+			glm::mat4 get_rotation_matrix() const {
+				return {
+					m_side.x, m_up.x, m_dir.x, 0,
+					m_side.y, m_up.y, m_dir.y, 0,
+					m_side.z, m_up.z, m_dir.z, 0,
+					0, 0, 0, 1
+				};
+			}
 		public:
 			laser_beam(const se::mesh& t_mesh, GLuint t_program, const std::vector<se::texture>& tex, const v3& t_pos, float t_scale, float speed) :
 					object(t_mesh, t_program, tex, t_pos, t_scale), laser_speed(speed) {}
 
-			laser_beam(const laser_beam* existing_beam, const v3& player_pos) :
+			laser_beam(const laser_beam* existing_beam, const v3& player_pos, const v3& player_dir, const v3& player_side, const v3& player_up) :
 					object(existing_beam->get_mesh(), existing_beam->get_program(), existing_beam->get_textures(), player_pos, existing_beam->get_scale_factor()),
-					laser_speed(existing_beam->get_laser_speed()) {}
+					laser_speed(existing_beam->get_laser_speed()), m_dir(player_dir), m_side(player_side), m_up(player_up) {}
+			
+			virtual glm::mat4 get_model_matrix() override { update_position(); return glm::translate(glm::mat4(1.0), m_pos) * get_rotation_matrix() * glm::scale(glm::mat4(1), glm::vec3(m_scale_factor)); }
 
 			const se::mesh& get_mesh() const {
 				return m_mesh;
