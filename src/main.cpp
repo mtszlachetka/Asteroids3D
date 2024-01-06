@@ -119,7 +119,7 @@ int main() {
 	se::object planet3(sphere_mesh, punct_program, {merc_diff, merc_normals, merc_amr}, {1, 0, 0}, 0.3);
 	planet3.set_velocity({-0.1, 0, 0});
 
-	se::missile original_missile(missile_mesh, punct_program, {missile_diff, missile_normals, missile_amr}, {0,0,0}, 0.05f, 6.f);
+	se::missile original_missile(missile_mesh, punct_program, {}, {0,0,0}, 0.05f, 6.f);
 
 	se::player player(ship_mesh, punct_program, {ship_diff, ship_normals, ship_amr}, {0,0,0}, 0.02, {0,0,1}, 0.05, 0.05, &original_missile);
 
