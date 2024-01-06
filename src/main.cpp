@@ -61,6 +61,7 @@ int main() {
     se::mesh ship_mesh = se::load_model("../models/spaceship.obj");
     se::mesh sphere_mesh = se::load_model("../models/sphere.obj");
     se::mesh cube_mesh = se::load_model("../models/cube.obj");
+	se::mesh missile_mesh = se::load_model("../models/missile.obj");
 
 
 	// // textures for PBR
@@ -71,6 +72,10 @@ int main() {
 	se::texture merc_diff = se::load_texture_2d_named("../textures/rock/diff.jpg", "diffuse_map");
 	se::texture merc_normals = se::load_texture_2d_named("../textures/rock/norm.jpg", "normal_map");
 	se::texture merc_amr = se::load_texture_2d_named("../textures/rock/arm.jpg", "amr_map");
+
+	se::texture missile_diff = se::load_texture_2d_named("../textures/missile/diff.png", "diffuse_map");
+	se::texture missile_normals = se::load_texture_2d_named("../textures/missile/norm.png", "normal_map");
+	se::texture missile_amr = se::load_texture_2d_named("../textures/missile/amr.png", "amr_map");
 
     // // cubemaps
     std::array<const std::string_view, 6> walls = {
@@ -114,9 +119,9 @@ int main() {
 	se::object planet3(sphere_mesh, punct_program, {merc_diff, merc_normals, merc_amr}, {1, 0, 0}, 0.3);
 	planet3.set_velocity({-0.1, 0, 0});
 
-	se::laser_beam laser_beam(ship_mesh, punct_program, {ship_diff, ship_normals, ship_amr}, {0,0,0}, 0.005f, 6.f);
+	se::missile original_missile(missile_mesh, punct_program, {missile_diff, missile_normals, missile_amr}, {0,0,0}, 0.05f, 6.f);
 
-	se::player player(ship_mesh, punct_program, {ship_diff, ship_normals, ship_amr}, {0,0,0}, 0.02, {0,0,1}, 0.05, 0.05, &laser_beam);
+	se::player player(ship_mesh, punct_program, {ship_diff, ship_normals, ship_amr}, {0,0,0}, 0.02, {0,0,1}, 0.05, 0.05, &original_missile);
 
 	se::camera ship_camera(0.01, 2000, {1, 0, 0}, {0, 0, 0});
 
@@ -147,8 +152,8 @@ int main() {
 		last_time = time_elapsed;
 		input.tick();
 		simple.set_objects({&planet, &player, &planet2, &planet3});
-		for (const auto& laser_beam : player.get_laser_beams()) {
-			simple.add_object(laser_beam.get());
+		for (const auto& missile : player.get_missiles()) {
+			simple.add_object(missile.get());
 		}
 		collider.tick();
 		simple.render();
