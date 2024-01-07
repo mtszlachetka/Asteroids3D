@@ -32,9 +32,13 @@ namespace se {
 				this->rebase();
 				break;
 			case input_event::space_pressed:
-				std::unique_ptr<se::laser_beam> newLaserBeam = std::make_unique<se::laser_beam>(laserBeamPointer, m_pos);
-				newLaserBeam->set_velocity(m_dir * laserBeamPointer->laser_speed);
-				laser_beams.push_back(std::move(newLaserBeam));
+				if (static_cast<float>(glfwGetTime()) - last_time_shot_a_missile < shooting_cooldown) {
+					break;
+				}
+				std::unique_ptr<se::missile> newMissile = std::make_unique<se::missile>(missilePointer, m_pos, m_dir, m_side, m_up);
+				newMissile->set_velocity(m_dir * missilePointer->missile_speed);
+				missiles.push_back(std::move(newMissile));
+				last_time_shot_a_missile = static_cast<float>(glfwGetTime());
 				break;
 		}
 

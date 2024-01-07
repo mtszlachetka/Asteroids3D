@@ -40,18 +40,32 @@ class object {
 		// virtual void render();
 };
 
-class laser_beam : public object {
+class missile : public object {
 		using v3 = glm::vec3;
 		friend class player;
 		private:
-			float laser_speed;
+			glm::mat4 rotationXMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			glm::mat4 rotationZMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+			float missile_speed;
+			v3 m_dir, m_side, m_up;
+			glm::mat4 get_rotation_matrix() const {
+				glm::mat4 rotationMatrix = {
+					m_side.x, m_up.x, m_dir.x, 0,
+					m_side.y, m_up.y, m_dir.y, 0,
+					m_side.z, m_up.z, m_dir.z, 0,
+					0, 0, 0, 1
+				};
+				return rotationMatrix * rotationZMatrix * rotationXMatrix;
+			}
 		public:
-			laser_beam(const se::mesh& t_mesh, GLuint t_program, const std::vector<se::texture>& tex, const v3& t_pos, float t_scale, float speed) :
-					object(t_mesh, t_program, tex, t_pos, t_scale), laser_speed(speed) {}
+			missile(const se::mesh& t_mesh, GLuint t_program, const std::vector<se::texture>& tex, const v3& t_pos, float t_scale, float speed) :
+					object(t_mesh, t_program, tex, t_pos, t_scale), missile_speed(speed) {}
 
-			laser_beam(const laser_beam* existing_beam, const v3& player_pos) :
-					object(existing_beam->get_mesh(), existing_beam->get_program(), existing_beam->get_textures(), player_pos, existing_beam->get_scale_factor()),
-					laser_speed(existing_beam->get_laser_speed()) {}
+			missile(const missile* existing_missile, const v3& player_pos, const v3& player_dir, const v3& player_side, const v3& player_up) :
+					object(existing_missile->get_mesh(), existing_missile->get_program(), existing_missile->get_textures(), player_pos, existing_missile->get_scale_factor()),
+					missile_speed(existing_missile->get_missile_speed()), m_dir(player_dir), m_side(player_side), m_up(player_up) {}
+			
+			virtual glm::mat4 get_model_matrix() override { update_position(); return glm::translate(glm::mat4(1.0), m_pos) * get_rotation_matrix() * glm::scale(glm::mat4(1), glm::vec3(m_scale_factor)); }
 
 			const se::mesh& get_mesh() const {
 				return m_mesh;
@@ -68,11 +82,11 @@ class laser_beam : public object {
 			float get_scale_factor() const {
 				return m_scale_factor;
 			}
-			float get_laser_speed() const {
-				return laser_speed;
+			float get_missile_speed() const {
+				return missile_speed;
 			}
 
-			~laser_beam() {}
+			~missile() {}
 	};
 
 class player : public object, public input_listener {
@@ -80,8 +94,10 @@ class player : public object, public input_listener {
 		private:
 			v3 m_dir, m_side, m_up;
 			float m_movespeed, m_anglespeed;
-			const se::laser_beam* laserBeamPointer;
-			std::vector<std::unique_ptr<se::laser_beam>> laser_beams;
+			float shooting_cooldown;
+			const se::missile* missilePointer;
+			std::vector<std::unique_ptr<se::missile>> missiles;
+			float last_time_shot_a_missile = 0.f;
 			glm::mat4 get_rotation_matrix() const {
 				return {
 					m_side.x, m_up.x, m_dir.x, 0,
@@ -99,9 +115,9 @@ class player : public object, public input_listener {
 				}
 			}
 		public:
-			player(const se::mesh& t_mesh, GLuint t_program, const std::vector<se::texture>& tex, const v3& t_pos, float t_scale, const v3& t_dir, float mspeed, float aspeed, const se::laser_beam* laserBeamPtr) :
+			player(const se::mesh& t_mesh, GLuint t_program, const std::vector<se::texture>& tex, const v3& t_pos, float t_scale, const v3& t_dir, float mspeed, float aspeed, const se::missile* missilePtr, float time_between_shots = 0.4f) :
 					object(t_mesh, t_program, tex, t_pos, t_scale),
-					m_dir(t_dir), m_movespeed(mspeed), m_anglespeed(aspeed), laserBeamPointer(laserBeamPtr)
+					m_dir(t_dir), m_movespeed(mspeed), m_anglespeed(aspeed), missilePointer(missilePtr), shooting_cooldown(time_between_shots)
 					{ rebase(); }
 			virtual glm::mat4 get_model_matrix() override { return glm::translate(glm::mat4(1.0), m_pos) * get_rotation_matrix() * glm::scale(glm::mat4(1), glm::vec3(m_scale_factor)); }
 
@@ -116,8 +132,8 @@ class player : public object, public input_listener {
 			void update(input_event event);
 			~player() {}
 
-			const std::vector<std::unique_ptr<se::laser_beam>>& get_laser_beams() const {
-				return laser_beams;
+			const std::vector<std::unique_ptr<se::missile>>& get_missiles() const {
+				return missiles;
 			}
 	};
 }
