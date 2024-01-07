@@ -1,12 +1,20 @@
 #include "hud.hpp"
 
-extern int WINDOW_WIDTH, WINDOW_HEIGHT;
-
 namespace se {
-    void hud::drawHUD() {
+    void hud::drawCrosshair() {
         glUniform1i(textureUniform, 0);
 
-        glBindVertexArray(hudVAO);
+        glBindVertexArray(crosshairVAO);
+
+        glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
+
+        glBindVertexArray(0);
+    }
+
+    void hud::drawReady() {
+        glUniform1i(textureUniform, 0);
+
+        glBindVertexArray(readyVAO);
 
         glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
 
@@ -21,7 +29,11 @@ namespace se {
 
         glUseProgram(program);
 
-        drawHUD();
+        if (static_cast<float>(glfwGetTime()) - m_player->get_last_time_shot_a_missile() > m_player->get_shooting_cooldown()) {
+            drawReady();
+        }
+
+        drawCrosshair();
 
         glUseProgram(0);
 
