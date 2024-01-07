@@ -29,16 +29,16 @@ namespace se {
             int elementSize = 4;
             int numIndexes = 6;
 
-            texture crosshair;
-            texture ready;
+            texture crosshairTexture;
+            texture readyTexture;
         public:
             void set_player(const player* t_player) { m_player = t_player; }
             void render();
             void drawCrosshair();
             void drawReady();
             hud() {
-                crosshair = se::load_texture_2d_named("../textures/crosshair.png", "crosshair");
-                ready = se::load_texture_2d_named("../textures/ready.png", "ready");
+                crosshairTexture = se::load_texture_2d_named("../textures/crosshair.png", "crosshair");
+                readyTexture = se::load_texture_2d_named("../textures/ready.png", "ready");
 
                 GLuint hud_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/hud.vert"));
                 GLuint hud_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/hud.frag"));

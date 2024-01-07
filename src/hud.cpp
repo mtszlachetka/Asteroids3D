@@ -6,15 +6,21 @@ namespace se {
 
         glBindVertexArray(crosshairVAO);
 
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, crosshairTexture.m_id);
+
         glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
 
         glBindVertexArray(0);
     }
 
     void hud::drawReady() {
-        glUniform1i(textureUniform, 0);
+        glUniform1i(textureUniform, 1);
 
         glBindVertexArray(readyVAO);
+
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, readyTexture.m_id);
 
         glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
 
