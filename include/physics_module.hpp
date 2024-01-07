@@ -11,6 +11,7 @@ namespace se {
 		public:
 			void set_objects(const std::vector<object*> t_objects) { m_objects = t_objects; }
 			void tick();
+			std::vector<object*> detect_missile_strike(const std::vector<std::unique_ptr<se::missile>>& t_missiles);
 	};
 }
 

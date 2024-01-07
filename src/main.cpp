@@ -129,10 +129,11 @@ int main() {
 
 	se::punctual_light plight({0,0,-10}, 0, 50);
 	
+	std::vector<se::object*> objects_to_render = {};
+	std::vector<se::object*> planets = {&planet, &planet2, &planet3};
 	se::scene simple;
 	simple.set_camera(ship_camera);
 	simple.set_light(&plight);
-	simple.set_objects({&planet, &player, &planet2, &planet3});
 	simple.set_skybox({skybox_cubemap, skybox_program, cube_mesh});
 	simple.set_exposition(3000);
 
@@ -144,18 +145,31 @@ int main() {
 	input.attach(&player);
 
 	se::collision_detector collider;
-	collider.set_objects({&planet, &planet2, &planet3});
+	collider.set_objects(planets);
 
     while (!glfwWindowShouldClose(window)) {
 		time_elapsed = static_cast<float>(glfwGetTime());
 		delta_time = time_elapsed - last_time;
 		last_time = time_elapsed;
 		input.tick();
-		simple.set_objects({&planet, &player, &planet2, &planet3});
-		for (const auto& missile : player.get_missiles()) {
-			simple.add_object(missile.get());
+
+		objects_to_render.clear();
+		objects_to_render.push_back(&player);
+		for (const auto& missilePtr : player.get_missiles()) {
+			auto missile = missilePtr.get();
+			if (missile->get_active()) {
+				objects_to_render.push_back(missile);
+			}
 		}
+		for (const auto& planet : planets) {
+			objects_to_render.push_back(planet);
+		}
+		simple.set_objects(objects_to_render);
+
+		collider.set_objects(planets);
 		collider.tick();
+		planets = collider.detect_missile_strike(player.get_missiles());
+		
 		simple.render();
 		hud.render();
         glfwSwapBuffers(window);
