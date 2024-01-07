@@ -135,6 +135,14 @@ class player : public object, public input_listener {
 			const std::vector<std::unique_ptr<se::missile>>& get_missiles() const {
 				return missiles;
 			}
+
+			float get_last_time_shot_a_missile() const {
+				return last_time_shot_a_missile;
+			}
+
+			float get_shooting_cooldown() const {
+				return shooting_cooldown;
+			}
 	};
 }
 
