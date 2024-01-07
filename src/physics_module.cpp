@@ -30,4 +30,25 @@ namespace se {
 		}
 	}
 
+	std::vector<object*> collision_detector::detect_missile_strike(const std::vector<std::unique_ptr<missile>>& m_missiles) {
+		std::vector<object*> new_planets;
+		for (auto j = 0; j < m_objects.size(); j++) {
+			object* planet = m_objects[j];
+			bool hit = false;
+			for (auto i = 0; i < m_missiles.size(); i++) {
+				missile* missile = m_missiles[i].get();
+				float dist2 = glm::length2(missile->m_pos - planet->m_pos);
+				float treshold = (planet->m_scale_factor + missile->m_scale_factor) * (planet->m_scale_factor + missile->m_scale_factor);
+				if (dist2 <= treshold) {
+					missile->set_active(false);
+					hit = true;
+					break;
+				}
+			}
+			if (!hit) {
+				new_planets.push_back(planet);
+			}
+		}
+		return new_planets;
+	}
 }

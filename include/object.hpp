@@ -46,6 +46,7 @@ class missile : public object {
 		private:
 			glm::mat4 rotationXMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 			glm::mat4 rotationZMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+			bool is_active = true;
 			float missile_speed;
 			v3 m_dir, m_side, m_up;
 			glm::mat4 get_rotation_matrix() const {
@@ -84,6 +85,12 @@ class missile : public object {
 			}
 			float get_missile_speed() const {
 				return missile_speed;
+			}
+			bool get_active() {
+				return is_active;
+			}
+			void set_active(bool active) {
+				is_active = active;
 			}
 
 			~missile() {}
