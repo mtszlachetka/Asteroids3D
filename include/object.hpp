@@ -9,6 +9,7 @@
 #include "camera.hpp"
 #include "input_module.hpp"
 #include <memory>
+#include <list>
 
 extern float delta_time, time_elapsed, last_time;
 
@@ -103,7 +104,7 @@ class player : public object, public input_listener {
 			float m_movespeed, m_anglespeed;
 			float shooting_cooldown;
 			const se::missile* missilePointer;
-			std::vector<std::unique_ptr<se::missile>> missiles;
+			std::list<std::unique_ptr<se::missile>> missiles;
 			float last_time_shot_a_missile = 0.f;
 			glm::mat4 get_rotation_matrix() const {
 				return {
@@ -139,7 +140,7 @@ class player : public object, public input_listener {
 			void update(input_event event);
 			~player() {}
 
-			const std::vector<std::unique_ptr<se::missile>>& get_missiles() const {
+			const std::list<std::unique_ptr<se::missile>>& get_missiles() const {
 				return missiles;
 			}
 

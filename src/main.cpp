@@ -110,11 +110,11 @@ int main() {
     
 	se::object sun(sphere_mesh, star_program, {}, {0,0,0}, true);
 
-	se::object planet(sphere_mesh, punct_program, {merc_diff, merc_normals, merc_amr}, {16, 0, 0}, 0.5);
-	planet.set_velocity({-0.3, 0, 0});
+	se::object planet(sphere_mesh, punct_program, {merc_diff, merc_normals, merc_amr}, {16, 7, 0}, 0.5);
+	planet.set_velocity({-1.6 / 2, -0.7 / 2, 0});
 
-	se::object planet2(sphere_mesh, punct_program, {merc_diff, merc_normals, merc_amr}, {-17, 0, 0}, 0.6);
-	planet2.set_velocity({0.2, 0, 0});
+	se::object planet2(sphere_mesh, punct_program, {merc_diff, merc_normals, merc_amr}, {-17, 6, 0}, 0.6);
+	planet2.set_velocity({1.7 / 2, -0.6 / 2, 0});
 
 	se::object planet3(sphere_mesh, punct_program, {merc_diff, merc_normals, merc_amr}, {1, 0, 0}, 0.3);
 	planet3.set_velocity({-0.1, 0, 0});
