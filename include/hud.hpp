@@ -2,8 +2,6 @@
 #define HUD_HPP
 
 #include <GL/glew.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
 #include "object.hpp"
 #include "shader.hpp"
 #include "read_file.hpp"
