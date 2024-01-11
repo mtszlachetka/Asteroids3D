@@ -9,8 +9,7 @@
 #include "camera.hpp"
 #include "input_module.hpp"
 #include <memory>
-
-extern float delta_time, time_elapsed, last_time;
+#include "clock.hpp"
 
 namespace se {
 
@@ -29,7 +28,7 @@ class object {
 		glm::vec3 m_pos, m_velocity;
 		float m_scale_factor; // scale factor determines both size and mass
 		float m_mass;
-		void update_position() { m_pos += m_velocity * delta_time; }
+		void update_position() { game_clock& cl = game_clock::get_instance(); m_pos += m_velocity * cl.get_delta_time(); }
 	public:
 		object() = delete;
 		object(const mesh& t_mesh, GLuint t_program, const std::vector<texture>& t_textures, const glm::vec3& t_pos, float t_scale, bool t_transparent = false) :
