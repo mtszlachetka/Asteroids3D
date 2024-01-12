@@ -9,8 +9,8 @@ namespace se {
 		physics_engine::get_instance().attach(this);
 	}
 
-	rigid_body::rigid_body(const v3& t_position, const v3& t_scale, const qu& t_orientation, const v3& t_velocity, float t_mass) 
-		: transformable(t_position, t_scale, t_orientation), m_velocity(t_velocity), m_mass(t_mass) {
+	rigid_body::rigid_body(const v3& t_position, const v3& t_scale, const v3& t_velocity, float t_mass) 
+		: transformable(t_position, t_scale), m_velocity(t_velocity), m_mass(t_mass) {
 		physics_engine::get_instance().attach(this);
 	}
 

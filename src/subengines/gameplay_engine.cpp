@@ -41,8 +41,8 @@ namespace se {
 
 		m_station_textures = m_player_textures; // TODO: replace with proper station textures
 
-		m_station_ptr = std::make_unique<se::station>(glm::vec3(0.f), glm::vec3(0.2f), glm::quat(0.f, 0.f, 1.f, 0.f), m_station_mesh, m_station_textures, m_program, 1000);
-		m_player_ptr = std::make_unique<se::player>(glm::vec3(0.f, 0.f, 10.f), glm::vec3(0.2f), glm::quat(0.f, 0.f, 1.f, 0.f), m_player_mesh, m_player_textures, m_program);
+		m_station_ptr = std::make_unique<se::station>(glm::vec3(0.f), glm::vec3(0.2f), m_station_mesh, m_station_textures, m_program, 1000);
+		m_player_ptr = std::make_unique<se::player>(glm::vec3(0.f, 0.f, 10.f), glm::vec3(0.2f), m_player_mesh, m_player_textures, m_program);
 
 
 		m_last_spawn_time = 0.f;
@@ -64,8 +64,7 @@ namespace se {
 			
 			std::unique_ptr<se::asteroid> aptr = std::make_unique<se::asteroid>(
 				glm::vec3(x_pos, y_pos, z_pos),
-				glm::vec3(1.f), 
-				glm::quat(0.f, 0.f, 1.f, 0.f),
+				glm::vec3(1.f),
 				m_asteroid_mesh,
 				m_asteroid_textures,
 				m_program,

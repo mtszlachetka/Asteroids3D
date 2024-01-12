@@ -92,11 +92,11 @@ int main() {
 	se::input_engine& ie = se::input_engine::get_instance();
 	ie.set_active_window(window);
 
-	se::free_camera freecam(0.01f, 200.f, {0,0,1}, {0,0,-2});
+	// se::free_camera freecam(0.01f, 200.f, {0,0,1}, {0,0,-2});
 	se::skybox skybox(skybox_cubemap, cube_mesh, skybox_program);
 	se::light_source sunlight({0,0,30});
 
-	re.set_camera(&freecam);
+	// re.set_camera(&freecam);
 	re.set_skybox(&skybox);
 	re.set_light(&sunlight);
 
