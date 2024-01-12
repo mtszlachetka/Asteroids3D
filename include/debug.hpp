@@ -31,13 +31,13 @@ namespace debug {
 					"tex_coord = vertex_tex_coord;\n"
 				"}\n\0";
 			static constexpr const std::string_view fsrc = 
-			"#version 430 core\n"
-			"uniform sampler2D tex;\n"
-			"in vec2 tex_coord;\n"
-			"out vec4 out_color;\n"
-			"void main() {\n"
-				"out_color = texture(tex, tex_coord);\n"
-			"}\n\0";
+				"#version 430 core\n"
+				"uniform sampler2D tex;\n"
+				"in vec2 tex_coord;\n"
+				"out vec4 out_color;\n"
+				"void main() {\n"
+					"out_color = texture(tex, tex_coord);\n"
+				"}\n\0";
 		void compile_shaders() {
 			GLuint vertex_shader = shader_from_string(GL_VERTEX_SHADER, vsrc);
 			GLuint fragment_shader = shader_from_string(GL_FRAGMENT_SHADER, fsrc);

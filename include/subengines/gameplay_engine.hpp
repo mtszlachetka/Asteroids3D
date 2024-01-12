@@ -1,16 +1,19 @@
 #ifndef GAMEPLAY_ENGINE_HPP
 #define GAMEPLAY_ENGINE_HPP
 
-#include "gameplay_object.hpp"
+
+#include <glm/glm.hpp>
+#include <list>
+#include <memory>
+
 #include "gameplay/asteroid.hpp"
 #include "gameplay/missile.hpp"
 #include "gameplay/player.hpp"
 #include "gameplay/station.hpp"
-
-#include <glm/glm.hpp>
-#include <glm/gtc/quaternion.hpp>
-#include <glm/gtx/quaternion.hpp>
-#include <list>
+#include "texture.hpp"
+#include "mesh.hpp"
+#include <GL/glew.h>
+#include <random>
 
 namespace se {
 
@@ -23,7 +26,20 @@ namespace se {
 
 	class gameplay_engine {
 		private:
-			std::list<gameplay_object*> m_objects;
+			std::list<std::unique_ptr<se::asteroid>> m_asteroid_ptrs;
+			std::list<std::unique_ptr<se::missile>> m_missile_ptrs;
+			std::unique_ptr<se::station> m_station_ptr;
+			std::unique_ptr<se::player> m_player_ptr;
+			std::list<se::texture> m_asteroid_textures;
+			std::list<se::texture> m_missile_textures;
+			std::list<se::texture> m_station_textures;
+			std::list<se::texture> m_player_textures;
+			se::mesh m_asteroid_mesh;
+			se::mesh m_missile_mesh;
+			se::mesh m_player_mesh;
+			se::mesh m_station_mesh;
+			GLuint m_program; // uniform shader for all objects
+			float m_last_spawn_time;
 			gameplay_engine() {}
 		public:
 			gameplay_engine(const gameplay_engine& other) = delete;
@@ -34,9 +50,8 @@ namespace se {
 				static gameplay_engine instance;
 				return instance;
 			}
-			void spawn_asteroid();
 			void init();
-			void run();
+			void tick();
 	};
 }
 

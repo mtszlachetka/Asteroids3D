@@ -3,11 +3,28 @@
 
 #include <glm/glm.hpp>
 #include <list>
+#include <iostream>
 
-#include "rigid_body.hpp"
+#include "subengines/transformable.hpp"
 
 namespace se {
-	
+	class rigid_body : virtual public transformable {
+		using v3 = glm::vec3;
+		using qu = glm::quat;
+		protected:
+			v3 m_velocity {0};
+			float m_mass {0};
+			// v3 m_inertia {0};
+			// v3 m_angular_velocity {0};
+		public:
+			rigid_body();
+			rigid_body(const v3& t_position, const v3& t_scale, const qu& t_orientation, const v3& t_velocity, float t_mass);
+			v3 get_velocity() const { return m_velocity; }
+			float get_mass() const { return m_mass; }
+			void set_velocity(const v3& t_velocity) { m_velocity = t_velocity; }
+			void set_mass(float t_mass) { m_mass = t_mass; }
+			virtual ~rigid_body();
+	};
 
 	class physics_engine {
 		private:

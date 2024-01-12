@@ -1,22 +1,22 @@
-#ifndef _CAMERA_HPP_
-#define _CAMERA_HPP_
+#ifndef CAMERA_HPP
+#define CAMERA_HPP
 
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <iostream>
+
+#include "subengines/input_engine.hpp"
 
 extern float ASPECT_RATIO;
 
 namespace se {
 
     class camera {
-        friend class scene;
-		friend class player;
-        private:
+        protected:
             float m_near, m_far;
             glm::vec3 m_up, m_dir, m_side, m_pos;
         public:
-            camera(float t_near, float t_far, glm::vec3 t_dir, glm::vec3 t_pos) : m_near(t_near), m_far(t_far), m_dir(t_dir), m_pos(t_pos) {
+            camera(float t_near, float t_far, const glm::vec3& t_dir, const glm::vec3& t_pos) : m_near(t_near), m_far(t_far), m_dir(t_dir), m_pos(t_pos) {
                 rebase();
             }
             void rebase() {
@@ -41,9 +41,15 @@ namespace se {
 					0, 0, 2 * m_far * m_near / (m_near - m_far), 0
 				};
 			}
-
+			glm::vec3 get_position() const { return m_pos; }
             ~camera() {}
     };
+
+	class free_camera : public camera, public input_listener {
+		public:
+			free_camera(float t_near, float t_far, const glm::vec3& t_dir, const glm::vec3& t_pos) : camera(t_near, t_far, t_dir, t_pos), input_listener() {}
+			virtual void update(input_event e) override;
+	};
 }
 
 
