@@ -74,9 +74,9 @@ void main() {
 	float bias = 0.005;
 	float shadow;
 	if (current > 1.0) {
-		shadow = 0.0;
+		shadow = ambient;
 	} else {
-		shadow = current - bias > closest ? 1.0 : 0.0;
+		shadow = current - bias > closest ? 1.0 : ambient;
 	}
 
 	color *= (1 - shadow);
