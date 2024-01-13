@@ -85,7 +85,7 @@ namespace se {
 			m_missile_mesh,
 			m_missile_textures,
 			m_program,
-			m_player_ptr->get_direction() * 40.f,
+			m_player_ptr->get_direction() * 80.f,
 			1
 		);
 		m_missile_ptrs.push_back(std::move(mptr));

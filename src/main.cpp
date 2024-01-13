@@ -17,6 +17,7 @@
 #include "subengines/gameplay_engine.hpp"
 #include "skybox.hpp"
 #include "light_source.hpp"
+#include "hud.hpp"
 
 int WINDOW_WIDTH = 1920;
 int WINDOW_HEIGHT = 1080;
@@ -103,12 +104,15 @@ int main() {
 	se::gameplay_engine& ge = se::gameplay_engine::get_instance();
 	ge.init();
 
+	se::hud hud;
+
     while (!glfwWindowShouldClose(window)) {
 		clock.tick();
 		ie.tick();
 		ge.tick();
 		pe.tick();
 		re.tick();
+		hud.render();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
