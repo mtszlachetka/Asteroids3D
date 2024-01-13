@@ -51,6 +51,7 @@ namespace se {
 			void spawn_missile();
 			float get_last_shot_time() const { return m_last_shot_time; }
 			float get_shooting_cooldown() const { return m_shooting_cooldown; }
+			void clear();
 	};
 }
 

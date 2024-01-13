@@ -2,6 +2,7 @@
 #include "camera.hpp"
 #include <glm/gtx/euler_angles.hpp>
 #include "subengines/gameplay_engine.hpp"
+#include "subengines/collision_engine.hpp"
 
 namespace se {
 	player::player(
@@ -21,6 +22,12 @@ namespace se {
 		this->adjust_camera();
 
 		render_engine::get_instance().set_camera(m_camera.get());
+
+		collision_engine::get_instance().attach(this);
+	}
+
+	player::~player() {
+		collision_engine::get_instance().detach_player();
 	}
 
 	void player::update(input_event e) {
@@ -57,4 +64,6 @@ namespace se {
 
 		this->adjust_camera();
 	}
+
+
 }

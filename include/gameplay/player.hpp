@@ -35,7 +35,7 @@ namespace se {
 				};
 			}
 		public:
-			player() = default;
+			player() = delete;
 			// Giant constructor
 			player(
 				const v3& t_position,
@@ -51,6 +51,7 @@ namespace se {
 			}
 			v3 get_direction() const { return m_dir; }
 			v3 get_side() const { return m_side; }
+			~player();
 	
 	};
 }

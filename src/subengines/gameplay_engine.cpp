@@ -91,4 +91,13 @@ namespace se {
 		m_missile_ptrs.push_back(std::move(mptr));
 		m_last_shot_time = game_clock::get_instance().get_current_frame_time();
 	}
+
+	void gameplay_engine::clear() { // this is needed to avoid a segfault after exiting main loop
+		for (auto& a : m_asteroid_ptrs) {
+			a.reset();
+		}
+		for (auto& m : m_missile_ptrs) {
+			m.reset();
+		}
+	}
 }

@@ -18,10 +18,8 @@ namespace se {
 				const std::list<se::texture>& t_textures, 
 				GLuint t_program, 
 				float t_health
-			) : transformable(t_position, t_scale),
-				renderable(t_position, t_scale, t_mesh, t_textures, t_program),
-				m_health(t_health) {}
-			float get_health() const { return m_health; }
+			);
+			~station();
 	};
 }
 

@@ -15,6 +15,7 @@
 #include "subengines/render_engine.hpp"
 #include "subengines/input_engine.hpp"
 #include "subengines/gameplay_engine.hpp"
+#include "subengines/collision_engine.hpp"
 #include "skybox.hpp"
 #include "light_source.hpp"
 #include "hud.hpp"
@@ -32,8 +33,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 
 
 int main() {
-
-    // window creation
+	// window creation
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -85,23 +85,22 @@ int main() {
 		std::cerr << e.what() << std::endl;
 		return 1;
 	}
-
 	se::game_clock& clock = se::game_clock::get_instance();
 
 	se::physics_engine& pe = se::physics_engine::get_instance();
 	se::render_engine& re = se::render_engine::get_instance();
 	se::input_engine& ie = se::input_engine::get_instance();
+	se::gameplay_engine& ge = se::gameplay_engine::get_instance();
+	se::collision_engine& ce = se::collision_engine::get_instance();
+
 	ie.set_active_window(window);
 
-	// se::free_camera freecam(0.01f, 200.f, {0,0,1}, {0,0,-2});
 	se::skybox skybox(skybox_cubemap, cube_mesh, skybox_program);
 	se::light_source sunlight({0,0,30});
 
-	// re.set_camera(&freecam);
 	re.set_skybox(&skybox);
 	re.set_light(&sunlight);
 
-	se::gameplay_engine& ge = se::gameplay_engine::get_instance();
 	ge.init();
 
 	se::hud hud;
@@ -111,15 +110,16 @@ int main() {
 		ie.tick();
 		ge.tick();
 		pe.tick();
+		// ce.tick();
 		re.tick();
 		hud.render();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+	ge.clear();
 
-	re.set_skybox(nullptr);
-	re.set_camera(nullptr);
 
     glfwTerminate();
+	
 }
