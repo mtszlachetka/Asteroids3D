@@ -39,7 +39,9 @@ namespace se {
 			se::mesh m_player_mesh;
 			se::mesh m_station_mesh;
 			GLuint m_program; // uniform shader for all objects
-			float m_last_spawn_time;
+			float m_last_spawn_time; // last asteroid spawn
+			float m_last_shot_time; // last time a missile was fired
+			float m_shooting_cooldown = 0.4f;
 			gameplay_engine() {}
 		public:
 			gameplay_engine(const gameplay_engine& other) = delete;
@@ -52,6 +54,7 @@ namespace se {
 			}
 			void init();
 			void tick();
+			void spawn_missile();
 	};
 }
 

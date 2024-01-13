@@ -1,6 +1,7 @@
 #include "gameplay/player.hpp"
 #include "camera.hpp"
 #include <glm/gtx/euler_angles.hpp>
+#include "subengines/gameplay_engine.hpp"
 
 namespace se {
 	player::player(
@@ -50,6 +51,8 @@ namespace se {
 				m_dir = glm::vec3(glm::eulerAngleY(-0.05f) * glm::vec4(m_dir, 1.f));
 				this->rebase();
 				break;
+			case input_event::space_pressed:
+				gameplay_engine::get_instance().spawn_missile();
 		}
 
 		this->adjust_camera();

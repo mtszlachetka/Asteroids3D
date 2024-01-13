@@ -46,7 +46,12 @@ namespace se {
 			);
 
 			void update(input_event e) override;
-			virtual glm::mat4 get_model_matrix() const override { return glm::translate(glm::mat4(1.0), m_position) * get_rotation_matrix() * glm::scale(glm::mat4(1), m_scale); }
+			virtual glm::mat4 get_model_matrix() const override { 
+				return glm::translate(glm::mat4(1.0), m_position) * get_rotation_matrix() * glm::scale(glm::mat4(1), m_scale); 
+			}
+			v3 get_direction() const { return m_dir; }
+			v3 get_side() const { return m_side; }
+	
 	};
 }
 

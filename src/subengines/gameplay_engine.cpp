@@ -32,7 +32,7 @@ namespace se {
 		se::texture missile_diff = se::load_texture_2d_named("../textures/missile/diff.png", "diffuse_map");
 		se::texture missile_normals = se::load_texture_2d_named("../textures/missile/norm.png", "normal_map");
 		se::texture missile_amr = se::load_texture_2d_named("../textures/missile/amr.png", "amr_map");
-		m_missile_textures = {missile_diff, missile_normals, missile_amr};
+		m_missile_textures = {};
 
 		GLuint vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/default.vert"));
 		GLuint frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/default.frag"));
@@ -74,5 +74,21 @@ namespace se {
 			m_asteroid_ptrs.push_back(std::move(aptr));
 			m_last_spawn_time = game_clock::get_instance().get_current_frame_time();
 		}
+	}
+	void gameplay_engine::spawn_missile() {
+		if (game_clock::get_instance().get_current_frame_time() - m_last_shot_time < m_shooting_cooldown) return;
+		std::unique_ptr<se::missile> mptr = std::make_unique<se::missile>(
+			m_player_ptr->get_position(),
+			glm::vec3(0.3f),
+			m_player_ptr->get_direction(),
+			m_player_ptr->get_side(),
+			m_missile_mesh,
+			m_missile_textures,
+			m_program,
+			m_player_ptr->get_direction() * 40.f,
+			1
+		);
+		m_missile_ptrs.push_back(std::move(mptr));
+		m_last_shot_time = game_clock::get_instance().get_current_frame_time();
 	}
 }
