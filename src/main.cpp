@@ -110,7 +110,7 @@ int main() {
 		ie.tick();
 		ge.tick();
 		pe.tick();
-		// ce.tick();
+		ce.tick();
 		re.tick();
 		hud.render();
 

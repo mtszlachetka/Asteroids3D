@@ -1,5 +1,6 @@
 #include "gameplay/missile.hpp"
 #include "subengines/collision_engine.hpp"
+#include "clock.hpp"
 
 namespace se {
 	missile::missile(
@@ -17,6 +18,7 @@ namespace se {
 	renderable(t_position, t_scale, t_mesh, t_textures, t_program), 
 	rigid_body(t_position, t_scale, t_velocity, t_mass),
 	m_dir(t_direction), m_side(t_side) {
+		m_spawn_timestamp = game_clock::get_instance().get_current_frame_time();
 		collision_engine::get_instance().attach(this);
 	}
 

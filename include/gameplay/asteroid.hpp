@@ -8,6 +8,8 @@ namespace se {
 	class asteroid : public renderable, public rigid_body {
 		using v3 = glm::vec3;
 		using qu = glm::quat;
+		private:
+			bool should_destruct = false;
 		public:
 			asteroid() = delete;
 			// Giant constructor
@@ -21,6 +23,10 @@ namespace se {
 				float t_mass
 			);
 			virtual ~asteroid();
+			void notify_missile_collision() { should_destruct = true; }
+			void notify_asteroid_collision();
+			void notify_station_collision() { should_destruct = true; }
+			bool get_should_destruct() const { return should_destruct; }
 	};
 }
 

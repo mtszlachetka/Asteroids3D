@@ -9,6 +9,7 @@ namespace se {
 		using qu = glm::quat;
 		private:
 			float m_health;
+			bool should_destruct = false;
 		public:
 			station() = delete;
 			station(
@@ -19,6 +20,7 @@ namespace se {
 				GLuint t_program, 
 				float t_health
 			);
+			bool get_should_destruct() const { return should_destruct; }
 			~station();
 	};
 }

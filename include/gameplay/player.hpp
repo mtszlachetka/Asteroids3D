@@ -34,6 +34,7 @@ namespace se {
 					0, 0, 0, 1
 				};
 			}
+			bool should_destruct = false;
 		public:
 			player() = delete;
 			// Giant constructor
@@ -51,6 +52,7 @@ namespace se {
 			}
 			v3 get_direction() const { return m_dir; }
 			v3 get_side() const { return m_side; }
+			bool get_should_destruct() const { return should_destruct; }
 			~player();
 	
 	};

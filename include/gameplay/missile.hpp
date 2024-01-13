@@ -3,6 +3,7 @@
 
 #include "subengines/render_engine.hpp"
 #include "subengines/physics_engine.hpp"
+#include "clock.hpp"
 
 namespace se {
 	class missile : public renderable, public rigid_body {
@@ -34,6 +35,9 @@ namespace se {
 
 				}) * z_rotation * x_rotation;
 			}
+			bool should_destruct = false;
+			float m_lifetime = 4.f;
+			float m_spawn_timestamp; // exact time of creation
 		public:
 			missile() = delete;
 			// Giant constructor
@@ -50,6 +54,10 @@ namespace se {
 			);
 			virtual m4 get_model_matrix() const override { return glm::translate(m4(1.f), m_position) * get_rotation_matrix() * glm::scale(m4(1.f), m_scale); }
 			virtual ~missile();
+			void notify_collision() { should_destruct = true; } // same response for all collisions
+			bool get_should_destruct() const { 
+				return should_destruct || game_clock::get_instance().get_current_frame_time() - m_spawn_timestamp >= m_lifetime;
+			}
 	};
 }
 

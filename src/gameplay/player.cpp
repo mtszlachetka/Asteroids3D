@@ -18,7 +18,7 @@ namespace se {
 		m_dir = v3(0.f, 0.f, 1.f);
 		m_up = v3(0.f, 1.f, 0.f);
 		m_side = v3(1.f, 0.f, 0.f);
-		m_camera = std::make_unique<player_follow_camera>(0.01f, 200.f, m_dir, v3(0.f));
+		m_camera = std::make_unique<player_follow_camera>(0.01f, 20000.f, m_dir, v3(0.f));
 		this->adjust_camera();
 
 		render_engine::get_instance().set_camera(m_camera.get());
