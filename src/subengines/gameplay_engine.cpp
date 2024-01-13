@@ -29,10 +29,10 @@ namespace se {
 		se::texture rock_amr = se::load_texture_2d_named("../textures/rock/arm.jpg", "amr_map");
 		m_asteroid_textures = {rock_diff, rock_normals, rock_amr};
 
-		se::texture missile_diff = se::load_texture_2d_named("../textures/missile/diff.png", "diffuse_map");
-		se::texture missile_normals = se::load_texture_2d_named("../textures/missile/norm.png", "normal_map");
-		se::texture missile_amr = se::load_texture_2d_named("../textures/missile/amr.png", "amr_map");
-		m_missile_textures = {};
+		se::texture missile_diff = se::load_texture_2d_named("../textures/missile/diff_.jpg", "diffuse_map");
+		se::texture missile_normals = se::load_texture_2d_named("../textures/missile/norm_.jpg", "normal_map");
+		se::texture missile_amr = se::load_texture_2d_named("../textures/missile/amr_.jpg", "amr_map");
+		m_missile_textures = {missile_diff, missile_normals, missile_amr};
 
 		GLuint vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/default.vert"));
 		GLuint frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/default.frag"));
