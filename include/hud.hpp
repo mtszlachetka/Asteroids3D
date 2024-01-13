@@ -4,7 +4,6 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include "object.hpp"
 #include "shader.hpp"
 #include "read_file.hpp"
 #include "texture.hpp"
@@ -13,7 +12,6 @@ namespace se {
 
     class hud {
         private:
-            const player* m_player;
             GLuint crosshairVBO;
             GLuint crosshairVAO; 
             GLuint crosshairEBO; 
@@ -31,11 +29,11 @@ namespace se {
 
             texture crosshairTexture;
             texture readyTexture;
-        public:
-            void set_player(const player* t_player) { m_player = t_player; }
-            void render();
+			
             void drawCrosshair();
             void drawReady();
+        public:
+            void render();
             hud() {
                 crosshairTexture = se::load_texture_2d_named("../textures/crosshair.png", "crosshair");
                 readyTexture = se::load_texture_2d_named("../textures/ready.png", "ready");

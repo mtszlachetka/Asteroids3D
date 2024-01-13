@@ -6,19 +6,23 @@
 #include "mesh.hpp"
 #include "shader.hpp"
 #include "camera.hpp"
-#include "input_module.hpp"
 #include "texture.hpp"
-#include "scene.hpp"
 #include "read_file.hpp"
-#include "physics_module.hpp"
+#include "clock.hpp"
+#include "gameplay/asteroid.hpp"
+#include "gameplay/station.hpp"
+#include "subengines/physics_engine.hpp"
+#include "subengines/render_engine.hpp"
+#include "subengines/input_engine.hpp"
+#include "subengines/gameplay_engine.hpp"
+#include "subengines/collision_engine.hpp"
+#include "skybox.hpp"
+#include "light_source.hpp"
 #include "hud.hpp"
 
 int WINDOW_WIDTH = 1920;
 int WINDOW_HEIGHT = 1080;
 float ASPECT_RATIO = (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT;
-float time_elapsed = 0.f;
-float delta_time = 0.f;
-float last_time = 0.f;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height); 
@@ -29,8 +33,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 
 
 int main() {
-
-    // window creation
+	// window creation
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -58,24 +61,7 @@ int main() {
 	glClearColor(0.3,0.3,0.3,1);
 
     // model loading
-    se::mesh ship_mesh = se::load_model("../models/spaceship.obj");
-    se::mesh sphere_mesh = se::load_model("../models/sphere.obj");
     se::mesh cube_mesh = se::load_model("../models/cube.obj");
-	se::mesh missile_mesh = se::load_model("../models/missile.obj");
-
-
-	// // textures for PBR
-	se::texture ship_diff = se::load_texture_2d_named("../textures/spaceshipPBR/diff.png", "diffuse_map");
-	se::texture ship_normals = se::load_texture_2d_named("../textures/spaceshipPBR/norm.png", "normal_map");
-	se::texture ship_amr = se::load_texture_2d_named("../textures/spaceshipPBR/amr.png", "amr_map");
-
-	se::texture merc_diff = se::load_texture_2d_named("../textures/rock/diff.jpg", "diffuse_map");
-	se::texture merc_normals = se::load_texture_2d_named("../textures/rock/norm.jpg", "normal_map");
-	se::texture merc_amr = se::load_texture_2d_named("../textures/rock/arm.jpg", "amr_map");
-
-	se::texture missile_diff = se::load_texture_2d_named("../textures/missile/diff.png", "diffuse_map");
-	se::texture missile_normals = se::load_texture_2d_named("../textures/missile/norm.png", "normal_map");
-	se::texture missile_amr = se::load_texture_2d_named("../textures/missile/amr.png", "amr_map");
 
     // // cubemaps
     std::array<const std::string_view, 6> walls = {
@@ -83,84 +69,57 @@ int main() {
         "../textures/skybox/space_lf.png", 
         "../textures/skybox/space_up.png", 
         "../textures/skybox/space_dn.png", 
-        "../textures/skybox/space_bk.png", 
+        "../textures/skybox/space_bk_sun.png", 
         "../textures/skybox/space_ft_galaxy.png"
     };
     se::texture skybox_cubemap = se::load_cubemap_named(walls, "skybox");
 
-    // // shader creation
-    GLuint star_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/sun.vert"));
-    GLuint star_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/sun.frag"));
-
-	GLuint punct_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/punctual.vert"));
-	GLuint punct_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/punctual.frag"));
-	
+    // // shader creation	
     GLuint skybox_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/skybox.vert"));
     GLuint skybox_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/skybox.frag"));
 	
-	GLuint star_program, skybox_program, punct_program;
+	GLuint skybox_program;
 	try {
-		star_program = se::make_program({star_vert, star_frag});
 		skybox_program = se::make_program({skybox_vert, skybox_frag});
-		punct_program = se::make_program({punct_vert, punct_frag});
 	} catch(std::runtime_error& e) {
 		std::cerr << e.what() << std::endl;
 		return 1;
 	}
-    
-	se::object sun(sphere_mesh, star_program, {}, {0,0,0}, true);
+	se::game_clock& clock = se::game_clock::get_instance();
 
-	se::object planet(sphere_mesh, punct_program, {merc_diff, merc_normals, merc_amr}, {16, 0, 0}, 0.5);
-	planet.set_velocity({-0.3, 0, 0});
+	se::physics_engine& pe = se::physics_engine::get_instance();
+	se::render_engine& re = se::render_engine::get_instance();
+	se::input_engine& ie = se::input_engine::get_instance();
+	se::gameplay_engine& ge = se::gameplay_engine::get_instance();
+	se::collision_engine& ce = se::collision_engine::get_instance();
 
-	se::object planet2(sphere_mesh, punct_program, {merc_diff, merc_normals, merc_amr}, {-17, 0, 0}, 0.6);
-	planet2.set_velocity({0.2, 0, 0});
+	ie.set_active_window(window);
 
-	se::object planet3(sphere_mesh, punct_program, {merc_diff, merc_normals, merc_amr}, {1, 0, 0}, 0.3);
-	planet3.set_velocity({-0.1, 0, 0});
+	se::skybox skybox(skybox_cubemap, cube_mesh, skybox_program);
+	se::light_source sunlight({0,0,30});
 
-	se::missile original_missile(missile_mesh, punct_program, {}, {0,0,0}, 0.05f, 6.f);
+	re.set_skybox(&skybox);
+	re.set_light(&sunlight);
 
-	se::player player(ship_mesh, punct_program, {ship_diff, ship_normals, ship_amr}, {0,0,0}, 0.02, {0,0,1}, 0.05, 0.05, &original_missile);
-
-	se::camera ship_camera(0.01, 2000, {1, 0, 0}, {0, 0, 0});
-
-	player.attach_camera(ship_camera);
-
-	se::punctual_light plight({0,0,-10}, 0, 50);
-	
-	se::scene simple;
-	simple.set_camera(ship_camera);
-	simple.set_light(&plight);
-	simple.set_objects({&planet, &player, &planet2, &planet3});
-	simple.set_skybox({skybox_cubemap, skybox_program, cube_mesh});
-	simple.set_exposition(3000);
+	ge.init();
 
 	se::hud hud;
-	hud.set_player(&player);
-
-	se::input_module input;
-	input.set_active_window(window);
-	input.attach(&player);
-
-	se::collision_detector collider;
-	collider.set_objects({&planet, &planet2, &planet3});
 
     while (!glfwWindowShouldClose(window)) {
-		time_elapsed = static_cast<float>(glfwGetTime());
-		delta_time = time_elapsed - last_time;
-		last_time = time_elapsed;
-		input.tick();
-		simple.set_objects({&planet, &player, &planet2, &planet3});
-		for (const auto& missile : player.get_missiles()) {
-			simple.add_object(missile.get());
-		}
-		collider.tick();
-		simple.render();
+		clock.tick();
+		ie.tick();
+		ge.tick();
+		pe.tick();
+		ce.tick();
+		re.tick();
 		hud.render();
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+	ge.clear();
+
 
     glfwTerminate();
+	
 }

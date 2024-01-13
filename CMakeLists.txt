@@ -15,4 +15,4 @@ find_package(assimp REQUIRED)
 
 target_include_directories(SpaceEngine PUBLIC ${GLEW_INCLUDE_DIRS})
 target_include_directories(SpaceEngine PUBLIC ${OPEN_GL_INCLUDE_DIRS})
-target_link_libraries(SpaceEngine PUBLIC EngineUtils SOIL glfw GLEW::glew OpenGL::GL assimp compiler_flags)
+target_link_libraries(SpaceEngine PUBLIC EngineUtils Subengines Gameplay SOIL glfw GLEW::glew OpenGL::GL assimp compiler_flags)

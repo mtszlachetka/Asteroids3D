@@ -1,4 +1,6 @@
 #include "hud.hpp"
+#include "clock.hpp"
+#include "subengines/gameplay_engine.hpp"
 
 namespace se {
     void hud::drawCrosshair() {
@@ -35,7 +37,7 @@ namespace se {
 
         glUseProgram(program);
 
-        if (static_cast<float>(glfwGetTime()) - m_player->get_last_time_shot_a_missile() > m_player->get_shooting_cooldown()) {
+        if (game_clock::get_instance().get_current_frame_time() - gameplay_engine::get_instance().get_last_shot_time() > gameplay_engine::get_instance().get_shooting_cooldown()) {
             drawReady();
         }
 

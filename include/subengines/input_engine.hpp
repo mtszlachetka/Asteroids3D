@@ -1,12 +1,12 @@
-#ifndef INPUT_MODULE_HPP
-#define INPUT_MODULE_HPP
+#ifndef INPUT_ENGINE_HPP
+#define INPUT_ENGINE_HPP
 
 #include <GLFW/glfw3.h>
 #include <list>
 
+
 namespace se {
-    
-	// possible events
+   // possible events
 	enum class input_event {
 		w_pressed,
 		s_pressed,
@@ -20,14 +20,16 @@ namespace se {
 		space_pressed
 	};
 
+	
 	// every class taht reacts to input inherits from this
 	class input_listener {
 		public:
+			input_listener();
 			virtual void update(input_event event) = 0;
-			virtual ~input_listener() {}
+			virtual ~input_listener();
 	};
 
-	class input_module {
+	class input_engine {
 		private:
 			GLFWwindow* m_p_active_window = nullptr;
 			std::list<input_listener*> m_listeners;
@@ -36,7 +38,16 @@ namespace se {
 					l->update(e);
 				}
 			}
+			input_engine() {}
 		public:
+			input_engine(const input_engine& other) = delete;
+			input_engine(const input_engine&& other) = delete;
+			void operator=(const input_engine& other) = delete;
+			void operator=(const input_engine&& other) = delete;
+			static input_engine& get_instance() {
+				static input_engine instance;
+				return instance;
+			}
 			void tick();
 			void attach(input_listener* listener) { m_listeners.push_back(listener); }
 			void detach(input_listener* listener) { m_listeners.remove(listener); }
@@ -44,7 +55,5 @@ namespace se {
 	}; 
 
 }
-
-
 
 #endif
