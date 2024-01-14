@@ -24,7 +24,7 @@ namespace se {
 			);
 			virtual ~asteroid();
 			void notify_missile_collision() { should_destruct = true; }
-			void notify_asteroid_collision();
+			void notify_asteroid_collision(const v3& other_velocity, float other_mass);
 			void notify_station_collision() { should_destruct = true; }
 			bool get_should_destruct() const { return should_destruct; }
 	};

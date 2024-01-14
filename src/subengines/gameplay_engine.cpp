@@ -66,6 +66,7 @@ namespace se {
 			std::uniform_real_distribution<> dist(15.0, 30.0);
 			std::uniform_int_distribution<> minus(0,1);
 			std::uniform_real_distribution<> sc(0.8, 2.0);
+			std::uniform_real_distribution<> vel(10.f, 25.f);
 			float x_pos = dist(gen);
 			float y_pos = dist(gen);
 			float z_pos = dist(gen);
@@ -73,6 +74,7 @@ namespace se {
 			y_pos *= (minus(gen) == 0 ? 1 : -1);
 			z_pos *= (minus(gen) == 0 ? 1 : -1);
 			float scale_factor = sc(gen);
+			float velocity_factor = vel(gen);
 			
 			std::unique_ptr<se::asteroid> aptr = std::make_unique<se::asteroid>(
 				glm::vec3(x_pos, y_pos, z_pos),
@@ -80,8 +82,8 @@ namespace se {
 				m_asteroid_mesh,
 				m_asteroid_textures,
 				m_program,
-				glm::vec3(x_pos, y_pos, z_pos) * - 1.f / 25.f,
-				1.f
+				glm::vec3(x_pos, y_pos, z_pos) * - 1.f / velocity_factor,
+				scale_factor
 			);
 			m_asteroid_ptrs.push_back(std::move(aptr));
 			m_last_spawn_time = game_clock::get_instance().get_current_frame_time();

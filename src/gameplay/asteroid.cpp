@@ -21,4 +21,13 @@ namespace se {
 	asteroid::~asteroid() {
 		collision_engine::get_instance().detach(this);
 	}
+
+	void asteroid::notify_asteroid_collision(const v3& other_velocity, float other_mass) {
+		if (m_mass == other_mass) {
+			m_velocity = other_velocity;
+		} else {
+			m_velocity = (m_mass - other_mass) / (m_mass + other_mass) * m_velocity + 2 * other_mass / (m_mass + other_mass) * other_velocity;
+			// m_velocity = (1 / (m_mass + other_mass)) * ((m_mass - other_mass) * m_velocity + 2 * other_mass * other_velocity);
+		}
+	}
 }
