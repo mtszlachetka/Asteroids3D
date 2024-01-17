@@ -39,14 +39,14 @@ namespace se {
 		GLuint frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/default.frag"));
 		m_program = se::make_program({vert, frag});
 
-		m_explosion_program = se::make_program({ // placeholder shaders
-			se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/pass.vert")),
-			se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/pass.frag"))
-		});
+		GLuint explosion_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/explosion.vert"));
+		GLuint explosion_geom = se::shader_from_string(GL_GEOMETRY_SHADER, se::read_file("../shaders/explosion.geom"));
+		GLuint explosion_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/explosion.frag"));
+		m_explosion_program = se::make_program({explosion_vert, explosion_geom, explosion_frag});
 
 		m_station_textures = m_player_textures; // TODO: replace with proper station textures
 
-		m_station_ptr = std::make_unique<se::station>(glm::vec3(0.f), glm::vec3(0.2f), m_station_mesh, m_station_textures, m_program, 1000);
+		m_station_ptr = std::make_unique<se::station>(glm::vec3(0.f), glm::vec3(0.2f), m_station_mesh, m_station_textures, m_explosion_program, 1000);
 		m_player_ptr = std::make_unique<se::player>(glm::vec3(0.f, 0.f, 10.f), glm::vec3(0.2f), m_player_mesh, m_player_textures, m_program);
 
 	}
@@ -56,6 +56,7 @@ namespace se {
 		m_asteroid_ptrs.remove_if([](std::unique_ptr<asteroid>& a) -> bool { return a->get_should_destruct(); });
 		m_missile_ptrs.remove_if([](std::unique_ptr<missile>& m) -> bool { return m->get_should_destruct(); });
 
+		set_uniform_float(m_explosion_program, "time_for_explosion", game_clock::get_instance().get_current_frame_time());
 
 		// spawn asteroids
 		if (game_clock::get_instance().get_current_frame_time() - m_last_spawn_time > 3.f) { // every 3 seconds
@@ -79,7 +80,7 @@ namespace se {
 				glm::vec3(scale_factor),
 				m_asteroid_mesh,
 				m_asteroid_textures,
-				m_program,
+				m_explosion_program,
 				glm::vec3(x_pos, y_pos, z_pos) * - 1.f / 25.f,
 				1.f
 			);
