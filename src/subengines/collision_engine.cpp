@@ -19,6 +19,27 @@ namespace se {
 				if (sq_distance <= treshold) { // collision
 					mptr->notify_collision();
 					aptr->notify_missile_collision();
+					gameplay_engine::get_instance().add_points(100);
+				}
+			}
+		}
+		// asteroid - asteroid collision
+		for (std::list<asteroid*>::iterator as1 = m_asteroids.begin(); as1 != m_asteroids.end(); as1++) {
+			for (std::list<asteroid*>::iterator as2 = as1; as2 != m_asteroids.end(); as2++) {
+				// assume all dimensions are equal scale
+				float radius1 = (*as1)->get_scale()[0];
+				float radius2 = (*as2)->get_scale()[0];
+
+				float sq_distance = glm::length2((*as1)->get_position() - (*as2)->get_position());
+				float treshold = (radius1 + radius2) * (radius1 + radius2);
+
+				if (sq_distance <= treshold) {
+					const float m1 = (*as1)->get_mass();
+					const float m2 = (*as2)->get_mass();
+					const glm::vec3 v1 = (*as1)->get_velocity();
+					const glm::vec3 v2 = (*as2)->get_velocity();
+					(*as1)->notify_asteroid_collision(v2, m2);
+					(*as2)->notify_asteroid_collision(v1, m1);
 				}
 			}
 		}
