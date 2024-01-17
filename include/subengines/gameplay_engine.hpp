@@ -37,6 +37,7 @@ namespace se {
 			float m_last_spawn_time = 0.f; // last asteroid spawn
 			float m_last_shot_time = 0.f; // last time a missile was fired
 			float m_shooting_cooldown = 0.4f;
+			int m_points = 0;
 			gameplay_engine() {}
 		public:
 			gameplay_engine(const gameplay_engine& other) = delete;
@@ -52,6 +53,8 @@ namespace se {
 			void spawn_missile();
 			float get_last_shot_time() const { return m_last_shot_time; }
 			float get_shooting_cooldown() const { return m_shooting_cooldown; }
+			int get_points() const { return m_points; }
+			void add_points(int points) { m_points += points; }
 			void clear();
 	};
 }
