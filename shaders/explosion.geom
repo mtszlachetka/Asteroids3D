@@ -19,7 +19,9 @@ uniform float time_for_explosion;
 vec4 explode(vec4 position, vec3 normal)
 {
     float magnitude = 10.0;
-    vec3 direction = normal * ((sin(time_for_explosion) + 1.0) / 5.0) * magnitude; 
+    if (time_for_explosion <= 0.0)
+        return position;
+    vec3 direction = normal * (magnitude * time_for_explosion + abs(sin(position.x * position.y * position.z)));
     return position + vec4(direction, 0.0);
 } 
 

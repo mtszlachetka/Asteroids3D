@@ -46,7 +46,7 @@ namespace se {
 
 		m_station_textures = m_player_textures; // TODO: replace with proper station textures
 
-		m_station_ptr = std::make_unique<se::station>(glm::vec3(0.f), glm::vec3(0.2f), m_station_mesh, m_station_textures, m_explosion_program, 1000);
+		m_station_ptr = std::make_unique<se::station>(glm::vec3(0.f), glm::vec3(0.2f), m_station_mesh, m_station_textures, m_program, 1000);
 		m_player_ptr = std::make_unique<se::player>(glm::vec3(0.f, 0.f, 10.f), glm::vec3(0.2f), m_player_mesh, m_player_textures, m_program);
 
 	}
@@ -55,8 +55,6 @@ namespace se {
 		// check whether any objects should be destroyed
 		m_asteroid_ptrs.remove_if([](std::unique_ptr<asteroid>& a) -> bool { return a->get_should_destruct(); });
 		m_missile_ptrs.remove_if([](std::unique_ptr<missile>& m) -> bool { return m->get_should_destruct(); });
-
-		set_uniform_float(m_explosion_program, "time_for_explosion", game_clock::get_instance().get_current_frame_time());
 
 		// spawn asteroids
 		if (game_clock::get_instance().get_current_frame_time() - m_last_spawn_time > 3.f) { // every 3 seconds

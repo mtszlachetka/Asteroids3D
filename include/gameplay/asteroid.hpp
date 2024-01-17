@@ -23,10 +23,12 @@ namespace se {
 				float t_mass
 			);
 			virtual ~asteroid();
-			void notify_missile_collision() { should_destruct = true; }
+			void notify_missile_collision() {
+				this->set_time_of_destruction(game_clock::get_instance().get_current_frame_time());
+			}
 			void notify_asteroid_collision();
 			void notify_station_collision() { should_destruct = true; }
-			bool get_should_destruct() const { return should_destruct; }
+			bool get_should_destruct() const { return this->get_dissapear(); }
 	};
 }
 
