@@ -19,6 +19,7 @@ namespace se {
 				if (sq_distance <= treshold) { // collision
 					mptr->notify_collision();
 					aptr->notify_missile_collision();
+					gameplay_engine::get_instance().add_points(100);
 				}
 			}
 		}
