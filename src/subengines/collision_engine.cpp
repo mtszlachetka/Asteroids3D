@@ -16,7 +16,7 @@ namespace se {
 				float sq_distance = glm::length2(mptr->get_position() - aptr->get_position());
 				float treshold = (missile_bound_radius + asteroid_bound_radius) * (missile_bound_radius + asteroid_bound_radius);
 
-				if (sq_distance <= treshold) { // collision
+				if (sq_distance <= treshold && aptr->get_time_of_destruction() == 0.f) { // collision
 					mptr->notify_collision();
 					aptr->notify_missile_collision();
 					gameplay_engine::get_instance().add_points(100);
