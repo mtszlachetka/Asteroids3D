@@ -83,11 +83,9 @@ namespace se {
 			pitch = -89.0f;
 		}
 
-		glm::vec3 front;
-		front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-		front.y = sin(glm::radians(pitch));
-		front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-		m_dir = glm::normalize(front);
+		m_dir.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+		m_dir.y = sin(glm::radians(pitch));
+		m_dir.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 
 		this->rebase();
 		this->adjust_camera();
