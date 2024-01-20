@@ -73,7 +73,7 @@ namespace se {
 		x_offset *= mouse_sensitivity;
 		y_offset *= mouse_sensitivity;
 
-		pitch = y_offset;
+		pitch += y_offset;
 		yaw += x_offset;
 
 		if (pitch > 89.0f) {
