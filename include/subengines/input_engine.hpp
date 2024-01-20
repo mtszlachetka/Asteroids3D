@@ -17,7 +17,8 @@ namespace se {
 		f_pressed,
 		r_pressed,
 		x_pressed,
-		space_pressed
+		space_pressed,
+		left_mouse_button_pressed,
 	};
 
 	
@@ -26,16 +27,25 @@ namespace se {
 		public:
 			input_listener();
 			virtual void update(input_event event) = 0;
+			virtual void update_mouse_offset(double x, double y) = 0;
 			virtual ~input_listener();
 	};
 
 	class input_engine {
 		private:
+			int m_window_width, m_window_height;
+			double x_cursor_pos, y_cursor_pos;
+			double x_offset, y_offset;
 			GLFWwindow* m_p_active_window = nullptr;
 			std::list<input_listener*> m_listeners;
 			void notify(input_event e) {
 				for (input_listener* l : m_listeners) {
 					l->update(e);
+				}
+			}
+			void notify_mouse_offset(double x, double y) {
+				for (input_listener* l : m_listeners) {
+					l->update_mouse_offset(x, y);
 				}
 			}
 			input_engine() {}

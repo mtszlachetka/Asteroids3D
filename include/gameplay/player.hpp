@@ -12,6 +12,9 @@ namespace se {
 		using v3 = glm::vec3;
 		using m4 = glm::mat4;
 		private:
+			double mouse_sensitivity = 0.003f;
+			float pitch = 0.0f;
+			float yaw = -90.0f;
 			std::unique_ptr<player_follow_camera> m_camera;
 			v3 m_dir, m_up, m_side;
 			void rebase() {
@@ -47,6 +50,7 @@ namespace se {
 			);
 
 			void update(input_event e) override;
+			void update_mouse_offset(double x, double y) override;
 			virtual glm::mat4 get_model_matrix() const override { 
 				return glm::translate(glm::mat4(1.0), m_position) * get_rotation_matrix() * glm::scale(glm::mat4(1), m_scale); 
 			}

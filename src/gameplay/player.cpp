@@ -60,10 +60,36 @@ namespace se {
 				break;
 			case input_event::space_pressed:
 				gameplay_engine::get_instance().spawn_missile();
+				break;
+			case input_event::left_mouse_button_pressed:
+				gameplay_engine::get_instance().spawn_missile();
+				break;
 		}
 
 		this->adjust_camera();
 	}
 
+	void player::update_mouse_offset(double x_offset, double y_offset) {
+		x_offset *= mouse_sensitivity;
+		y_offset *= mouse_sensitivity;
 
+		pitch += y_offset;
+		yaw += x_offset;
+
+		if (pitch > 89.0f) {
+			pitch = 89.0f;
+		}
+		if (pitch < -89.0f) {
+			pitch = -89.0f;
+		}
+
+		glm::vec3 front;
+		front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+		front.y = sin(glm::radians(pitch));
+		front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+		m_dir = glm::normalize(front);
+
+		this->rebase();
+		this->adjust_camera();
+	}
 }
