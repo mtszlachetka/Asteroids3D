@@ -53,7 +53,7 @@ namespace se {
 		glUseProgram(m_shadow_map_program);
 		set_uniform_mat4(m_shadow_map_program, "light_space_matrix", m_light_space_matrix);
 		glCullFace(GL_FRONT);
-		for (renderable* re : m_renderables) {
+		for (const renderable* re : m_renderables) {
 			set_uniform_mat4(m_shadow_map_program, "model_matrix", re->get_model_matrix());
 			re->get_mesh().render();
 		}
@@ -85,7 +85,7 @@ namespace se {
 
 		gen_shadow_map();
 
-		for (renderable* re : m_renderables) {
+		for (const renderable* re : m_renderables) {
 			glUseProgram(re->get_program());
 			set_uniform_mat4(re->get_program(), "model_matrix", re->get_model_matrix());
 			// if (m_camera != nullptr) { assume always true
@@ -111,9 +111,6 @@ namespace se {
 
 			if (re->get_time_of_destruction() != 0.0) {
 				set_uniform_float(re->get_program(), "time_for_explosion", game_clock::get_instance().get_current_frame_time() - re->get_time_of_destruction());
-				if (game_clock::get_instance().get_current_frame_time() - re->get_time_of_destruction() > 3.f) {
-					re->set_dissapear(true);
-				}
 			} else {
 				set_uniform_float(re->get_program(), "time_for_explosion", 0.f);
 			}

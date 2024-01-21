@@ -21,7 +21,6 @@ namespace se {
 			std::list<se::texture> m_textures;
 			GLuint m_program;
 			float time_of_destruction = 0.f;
-			bool should_dissapear = false;
 		public:
 			renderable();
 			renderable(const v3& t_position, const v3& t_scale, const se::mesh& t_mesh, const std::list<se::texture>& t_textures, GLuint t_program);
@@ -34,8 +33,6 @@ namespace se {
 			void set_program(GLuint t_program) { m_program = t_program; }
 			float get_time_of_destruction() const { return time_of_destruction; }
 			void set_time_of_destruction(float t_time) { time_of_destruction = t_time; }
-			void set_dissapear(bool t_should_dissapear) { should_dissapear = t_should_dissapear; }
-			bool get_dissapear() const { return should_dissapear; }
 			virtual ~renderable();
 	};
 
