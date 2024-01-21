@@ -98,9 +98,8 @@ namespace se {
 	}
 
 	void player::update_mouse_offset(double x_offset, double y_offset) {
-		qu y_rotation = glm::angleAxis(glm::radians(static_cast<float>(-x_offset)), v3(m_orientation * glm::vec4(0,1,0,0)));
-		qu x_rotation = glm::angleAxis(glm::radians(static_cast<float>(-y_offset)), v3(m_orientation * glm::vec4(1,0,0,0)));
-
+		qu y_rotation = glm::angleAxis(glm::radians(static_cast<float>(-x_offset)), v3(glm::toMat4(m_orientation) * glm::vec4(0,1,0,0)));
+		qu x_rotation = glm::angleAxis(glm::radians(static_cast<float>(-y_offset)), v3(glm::toMat4(m_orientation) * glm::vec4(1,0,0,0)));
 
 		m_orientation = glm::normalize(y_rotation * x_rotation * m_orientation);
 		this->adjust_camera();
