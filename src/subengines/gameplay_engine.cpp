@@ -59,13 +59,12 @@ namespace se {
 		// spawn asteroids
 		if (game_clock::get_instance().get_current_frame_time() - m_last_spawn_time > 3.f) { // every 3 seconds
 			
-			// TODO: move RNGs outside
-			std::random_device rd;
-			std::mt19937 gen(rd());
-			std::uniform_real_distribution<> dist(15.0, 30.0);
-			std::uniform_int_distribution<> minus(0,1);
-			std::uniform_real_distribution<> sc(0.8, 2.0);
-			std::uniform_real_distribution<> vel(10.f, 25.f);
+			static std::random_device rd;
+			static std::mt19937 gen(rd());
+			static std::uniform_real_distribution<> dist(15.0, 30.0);
+			static std::uniform_int_distribution<> minus(0,1);
+			static std::uniform_real_distribution<> sc(0.8, 2.0);
+			static std::uniform_real_distribution<> vel(10.f, 25.f);
 			float x_pos = dist(gen);
 			float y_pos = dist(gen);
 			float z_pos = dist(gen);
