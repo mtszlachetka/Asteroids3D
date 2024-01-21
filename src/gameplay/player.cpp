@@ -3,22 +3,21 @@
 #include <glm/gtx/euler_angles.hpp>
 #include "subengines/gameplay_engine.hpp"
 #include "subengines/collision_engine.hpp"
+#include <iostream>
 
 namespace se {
 	player::player(
 		const v3& t_position,
 		const v3& t_scale,
+		const qu& t_orientation,
 		const mesh& t_mesh,
 		const std::list<texture>& t_textures,
 		GLuint t_program
-	) : transformable(t_position, t_scale),
-		renderable(t_position, t_scale, t_mesh, t_textures, t_program),
+	) : transformable(t_position, t_scale, t_orientation),
+		renderable(t_position, t_scale, t_orientation, t_mesh, t_textures, t_program),
 		input_listener() {
-		
-		m_dir = v3(0.f, 0.f, 1.f);
-		m_up = v3(0.f, 1.f, 0.f);
-		m_side = v3(1.f, 0.f, 0.f);
-		m_camera = std::make_unique<player_follow_camera>(0.01f, 20000.f, m_dir, v3(0.f));
+
+		m_camera = std::make_unique<player_follow_camera>(0.01f, 20000.f, v3(0,0,1), v3(0));
 		this->adjust_camera();
 
 		render_engine::get_instance().set_camera(m_camera.get());
@@ -32,32 +31,36 @@ namespace se {
 
 	void player::update(input_event e) {
 		switch (e) {
-			case input_event::w_pressed:
-				m_position += 0.25f * m_dir;
+			case input_event::w_pressed: {
+				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
+				m_position += 0.25f * direction;
 				break;
-			case input_event::s_pressed:
-				m_position -= 0.25f * m_dir;
+			}
+			case input_event::s_pressed: {
+				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
+				m_position -= 0.25f * direction;
 				break;
-			case input_event::z_pressed:
-				m_position -= 0.25f * m_side;
+			}
+			case input_event::z_pressed: {
+				v3 side = glm::toMat4(m_orientation) * glm::vec4(1,0,0,0);
+				m_position += 0.25f * side;
 				break;
-			case input_event::x_pressed:
-				m_position += 0.25f * m_side;
+			}
+			case input_event::x_pressed: {
+				v3 side = glm::toMat4(m_orientation) * glm::vec4(1,0,0,0);
+				m_position -= 0.25f * side;
 				break;
-			case input_event::r_pressed:
-				m_position += 0.25f * m_up;
+			}
+			case input_event::r_pressed: {
+				v3 up = glm::toMat4(m_orientation) * glm::vec4(0,1,0,0);
+				m_position += 0.25f * up;
 				break;
-			case input_event::f_pressed:
-				m_position -= 0.25f * m_up;
+			}
+			case input_event::f_pressed: {
+				v3 up = glm::toMat4(m_orientation) * glm::vec4(0,1,0,0);
+				m_position -= 0.25f * up;
 				break;
-			case input_event::a_pressed:
-				m_dir = glm::vec3(glm::eulerAngleY(0.05f) * glm::vec4(m_dir, 1.f));
-				this->rebase();
-				break;
-			case input_event::d_pressed:
-				m_dir = glm::vec3(glm::eulerAngleY(-0.05f) * glm::vec4(m_dir, 1.f));
-				this->rebase();
-				break;
+			}
 			case input_event::space_pressed:
 				gameplay_engine::get_instance().spawn_missile();
 				break;
@@ -67,25 +70,15 @@ namespace se {
 		}
 
 		this->adjust_camera();
+
 	}
 
 	void player::update_mouse_offset(double x_offset, double y_offset) {
-		pitch += y_offset;
-		yaw += x_offset;
+		qu y_rotation = glm::angleAxis(glm::radians(static_cast<float>(-x_offset)), v3(m_orientation * glm::vec4(0,1,0,0)));
+		qu x_rotation = glm::angleAxis(glm::radians(static_cast<float>(-y_offset)), v3(m_orientation * glm::vec4(1,0,0,0)));
 
-		if (pitch > 89.0f) {
-			pitch = 89.0f;
-		}
-		if (pitch < -89.0f) {
-			pitch = -89.0f;
-		}
-
-		m_dir.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-		m_dir.y = sin(glm::radians(pitch));
-		m_dir.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-		m_dir = glm::normalize(m_dir);
-
-		this->rebase();
+		m_orientation = y_rotation * x_rotation * m_orientation;
 		this->adjust_camera();
+
 	}
 }

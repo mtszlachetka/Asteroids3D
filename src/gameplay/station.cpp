@@ -9,8 +9,8 @@ namespace se {
 		const std::list<se::texture>& t_textures, 
 		GLuint t_program, 
 		float t_health
-	) : transformable(t_position, t_scale),
-		renderable(t_position, t_scale, t_mesh, t_textures, t_program),
+	) : transformable(t_position, t_scale, {1,0,0,0}),
+		renderable(t_position, t_scale, {1,0,0,0}, t_mesh, t_textures, t_program),
 		m_health(t_health) {
 		
 		collision_engine::get_instance().attach(this);

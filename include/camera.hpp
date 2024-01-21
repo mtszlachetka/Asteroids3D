@@ -49,6 +49,7 @@ namespace se {
 		public:
 			free_camera(float t_near, float t_far, const glm::vec3& t_dir, const glm::vec3& t_pos) : camera(t_near, t_far, t_dir, t_pos), input_listener() {}
 			virtual void update(input_event e) override;
+			virtual void update_mouse_offset(double x, double y) override {}
 	};
 
 	class player_follow_camera : public camera {

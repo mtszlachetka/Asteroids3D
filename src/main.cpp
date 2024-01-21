@@ -105,6 +105,9 @@ int main() {
 
 	se::hud hud;
 
+	// se::free_camera free(0.01, 200, {0,0,1}, {0,0,0});
+	// re.set_camera(&free);
+
     while (!glfwWindowShouldClose(window)) {
 		clock.tick();
 		ie.tick();
