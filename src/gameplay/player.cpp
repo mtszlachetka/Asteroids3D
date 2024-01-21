@@ -61,6 +61,16 @@ namespace se {
 				m_position -= 0.25f * up;
 				break;
 			}
+			case input_event::q_pressed: {
+				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
+				m_orientation = m_orientation * glm::angleAxis(-0.05f, direction);
+				break;
+			}
+			case input_event::e_pressed: {
+				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
+				m_orientation = m_orientation * glm::angleAxis(0.05f, direction);
+				break;
+			}
 			case input_event::space_pressed:
 				gameplay_engine::get_instance().spawn_missile();
 				break;

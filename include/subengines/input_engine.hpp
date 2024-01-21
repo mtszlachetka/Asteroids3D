@@ -17,12 +17,14 @@ namespace se {
 		f_pressed,
 		r_pressed,
 		x_pressed,
+		q_pressed,
+		e_pressed,
 		space_pressed,
 		left_mouse_button_pressed,
 	};
 
 	
-	// every class taht reacts to input inherits from this
+	// every class that reacts to input inherits from this
 	class input_listener {
 		public:
 			input_listener();

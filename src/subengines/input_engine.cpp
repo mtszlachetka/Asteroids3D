@@ -43,6 +43,12 @@ namespace se {
 			if (glfwGetKey(m_p_active_window, GLFW_KEY_F) == GLFW_PRESS) {
 				notify(input_event::f_pressed);
 			}
+			if (glfwGetKey(m_p_active_window, GLFW_KEY_Q) == GLFW_PRESS) {
+				notify(input_event::q_pressed);
+			}
+			if (glfwGetKey(m_p_active_window, GLFW_KEY_E) == GLFW_PRESS) {
+				notify(input_event::e_pressed);
+			}
 			if (glfwGetKey(m_p_active_window, GLFW_KEY_SPACE) == GLFW_PRESS) {
 				notify(input_event::space_pressed);
 			}
