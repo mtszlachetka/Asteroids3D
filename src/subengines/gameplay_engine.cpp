@@ -92,11 +92,11 @@ namespace se {
 	void gameplay_engine::spawn_missile() {
 		if (game_clock::get_instance().get_current_frame_time() - m_last_shot_time < m_shooting_cooldown) return;
 		using v3 = glm::vec3;
-		v3 player_dir = v3(m_player_ptr->get_orientation() * v3(0,0,1));
+		v3 player_dir = v3(glm::toMat4(m_player_ptr->get_orientation()) * glm::vec4(0,0,1,0));
 		std::unique_ptr<se::missile> mptr = std::make_unique<se::missile>(
 			m_player_ptr->get_position(),
 			glm::vec3(0.3f),
-			glm::angleAxis(glm::radians(90.f), v3(1,0,0)) * m_player_ptr->get_orientation(),
+			m_player_ptr->get_orientation() * glm::angleAxis(glm::radians(90.f), v3(1,0,0)),
 			m_missile_mesh,
 			m_missile_textures,
 			m_program,
