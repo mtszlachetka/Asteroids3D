@@ -38,7 +38,7 @@ namespace se {
 
 	class render_engine {
 		private:
-			std::list<renderable*> m_renderables;
+			std::list<const renderable*> m_renderables;
 			const camera* m_camera = nullptr;
 			const skybox* m_skybox = nullptr; // for now render engine holds a pointer to skybox - this can change later
 			render_engine();
@@ -59,8 +59,8 @@ namespace se {
 				static render_engine instance;
 				return instance;
 			}
-			void attach(renderable* rd) { m_renderables.push_back(rd); }
-			void detach(renderable* rd) { m_renderables.remove(rd); }
+			void attach(const renderable* rd) { m_renderables.push_back(rd); }
+			void detach(const renderable* rd) { m_renderables.remove(rd); }
 			void tick();
 			void set_camera(const camera* t_camera) { m_camera = t_camera; }
 			void set_skybox(const skybox* sk) { m_skybox = sk; }
