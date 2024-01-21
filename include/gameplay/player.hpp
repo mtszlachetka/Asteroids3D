@@ -15,6 +15,13 @@ namespace se {
 		private:
 			std::unique_ptr<player_follow_camera> m_camera;
 			bool should_destruct = false;
+			static constexpr float m_base_speed = 0.25f;
+			float m_movespeed = m_base_speed;
+			float m_anglespeed = 0.05f;
+			void update_mouse_offset(double x, double y);
+			static constexpr float m_base_zoom = -8.f;
+			float m_camera_zoom_factor = m_base_zoom;
+
 		public:
 			player() = delete;
 			// Giant constructor
@@ -29,13 +36,12 @@ namespace se {
 
 			void adjust_camera() {
 				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
-				m_camera->m_pos = m_position -8.f * direction + v3(0,1,0) * 3.f;
+				m_camera->m_pos = m_position + m_camera_zoom_factor * direction + v3(0,1,0) * 3.f;
 				m_camera->m_dir = direction;
 				m_camera->rebase();
 			}
 
 			void update(input_event e) override;
-			void update_mouse_offset(double x, double y) override;
 			bool get_should_destruct() const { return should_destruct; }
 			~player();
 	

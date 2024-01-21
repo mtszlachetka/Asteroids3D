@@ -33,42 +33,42 @@ namespace se {
 		switch (e) {
 			case input_event::w_pressed: {
 				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
-				m_position += 0.25f * direction;
+				m_position += m_movespeed * direction;
 				break;
 			}
 			case input_event::s_pressed: {
 				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
-				m_position -= 0.25f * direction;
+				m_position -= m_movespeed * direction;
 				break;
 			}
 			case input_event::z_pressed: {
 				v3 side = glm::toMat4(m_orientation) * glm::vec4(1,0,0,0);
-				m_position += 0.25f * side;
+				m_position += m_movespeed * side;
 				break;
 			}
 			case input_event::x_pressed: {
 				v3 side = glm::toMat4(m_orientation) * glm::vec4(1,0,0,0);
-				m_position -= 0.25f * side;
+				m_position -= m_movespeed * side;
 				break;
 			}
 			case input_event::r_pressed: {
 				v3 up = glm::toMat4(m_orientation) * glm::vec4(0,1,0,0);
-				m_position += 0.25f * up;
+				m_position += m_movespeed * up;
 				break;
 			}
 			case input_event::f_pressed: {
 				v3 up = glm::toMat4(m_orientation) * glm::vec4(0,1,0,0);
-				m_position -= 0.25f * up;
+				m_position -= m_movespeed * up;
 				break;
 			}
 			case input_event::q_pressed: {
 				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
-				m_orientation = m_orientation * glm::angleAxis(-0.05f, direction);
+				m_orientation = m_orientation * glm::angleAxis(m_anglespeed, direction);
 				break;
 			}
 			case input_event::e_pressed: {
 				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
-				m_orientation = m_orientation * glm::angleAxis(0.05f, direction);
+				m_orientation = m_orientation * glm::angleAxis(m_anglespeed, direction);
 				break;
 			}
 			case input_event::space_pressed:
@@ -76,6 +76,20 @@ namespace se {
 				break;
 			case input_event::left_mouse_button_pressed:
 				gameplay_engine::get_instance().spawn_missile();
+				break;
+			case input_event::left_shift_pressed:
+				m_movespeed = 0.60f;
+				m_camera->shake = true;
+				m_camera_zoom_factor = m_base_zoom + 0.2f;
+				break;
+			case input_event::left_shift_released:
+				m_movespeed = m_base_speed;
+				m_camera->shake = false;
+				m_camera_zoom_factor = m_base_zoom;
+				break;
+			case input_event::mouse_moved:
+				auto [x_offset, y_offset] = input_engine::get_instance().get_mouse_coords();
+				update_mouse_offset(x_offset, y_offset);
 				break;
 		}
 
