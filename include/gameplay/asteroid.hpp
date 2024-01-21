@@ -27,11 +27,13 @@ namespace se {
 			void notify_missile_collision() {
 				time_of_destruction = game_clock::get_instance().get_current_frame_time();
 				this->set_time_of_destruction(time_of_destruction);
+				m_occluder = false;
 			}
 			void notify_asteroid_collision(const v3& other_velocity, float other_mass);
 			void notify_station_collision() { 
 				time_of_destruction = game_clock::get_instance().get_current_frame_time(); 
 				this->set_time_of_destruction(time_of_destruction);
+				m_occluder = false;
 			}
 			bool get_should_destruct() const { 
 				if (time_of_destruction != 0.0) {

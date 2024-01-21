@@ -54,6 +54,7 @@ namespace se {
 		set_uniform_mat4(m_shadow_map_program, "light_space_matrix", m_light_space_matrix);
 		glCullFace(GL_FRONT);
 		for (const renderable* re : m_renderables) {
+			if (!re->get_occluder()) continue;
 			set_uniform_mat4(m_shadow_map_program, "model_matrix", re->get_model_matrix());
 			re->get_mesh().render();
 		}
