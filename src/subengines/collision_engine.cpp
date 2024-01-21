@@ -43,5 +43,19 @@ namespace se {
 				}
 			}
 		}
+
+		// asteroid - station collision
+		for (asteroid* aptr : m_asteroids) {
+			float asteroid_bound_radius = aptr->get_scale()[0];
+			float station_bound_radius = m_station->get_scale()[0] + 2.0f;
+
+			float sq_distance = glm::length2(aptr->get_position() - m_station->get_position());
+			float treshold = (asteroid_bound_radius + station_bound_radius) * (asteroid_bound_radius + station_bound_radius);
+
+			if (sq_distance <= treshold && aptr->get_time_of_destruction() == 0.f) { // collision
+				aptr->notify_station_collision();
+				m_station->notify_asteroid_collision();
+			}
+		}
 	}
 }

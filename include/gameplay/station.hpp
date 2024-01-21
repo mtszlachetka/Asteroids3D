@@ -8,7 +8,7 @@ namespace se {
 		using v3 = glm::vec3;
 		using qu = glm::quat;
 		private:
-			float m_health;
+			int m_health;
 			bool should_destruct = false;
 		public:
 			station() = delete;
@@ -21,6 +21,12 @@ namespace se {
 				float t_health
 			);
 			bool get_should_destruct() const { return should_destruct; }
+			void notify_asteroid_collision() {
+				m_health--;
+				if (m_health <= 0) {
+					// do something
+				}
+			}
 			~station();
 	};
 }
