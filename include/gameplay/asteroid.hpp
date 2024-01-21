@@ -9,7 +9,7 @@ namespace se {
 		using v3 = glm::vec3;
 		using qu = glm::quat;
 		private:
-			bool should_destruct = false;
+			float time_of_destruction = 0.f;
 		public:
 			asteroid() = delete;
 			// Giant constructor
@@ -23,10 +23,24 @@ namespace se {
 				float t_mass
 			);
 			virtual ~asteroid();
-			void notify_missile_collision() { should_destruct = true; }
+			void notify_missile_collision() {
+				time_of_destruction = game_clock::get_instance().get_current_frame_time();
+				this->set_time_of_destruction(time_of_destruction);
+			}
 			void notify_asteroid_collision(const v3& other_velocity, float other_mass);
-			void notify_station_collision() { should_destruct = true; }
-			bool get_should_destruct() const { return should_destruct; }
+			void notify_station_collision() { 
+				time_of_destruction = game_clock::get_instance().get_current_frame_time(); 
+				this->set_time_of_destruction(time_of_destruction);
+			}
+			bool get_should_destruct() const { 
+				if (time_of_destruction != 0.0) {
+					if (game_clock::get_instance().get_current_frame_time() - time_of_destruction > 3.f) {
+						return true;
+					}
+				}
+				return false;
+			}
+			float get_time_of_destruction() const { return time_of_destruction; }
 	};
 }
 

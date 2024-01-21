@@ -1,4 +1,5 @@
 #include "subengines/render_engine.hpp"
+#include "subengines/collision_engine.hpp"
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include "shader.hpp"
@@ -107,6 +108,12 @@ namespace se {
 				glActiveTexture(GL_TEXTURE0 + tex_num++);
 				glBindTexture(GL_TEXTURE_2D, m_shadow_map);
 			// }
+
+			if (re->get_time_of_destruction() != 0.0) {
+				set_uniform_float(re->get_program(), "time_for_explosion", game_clock::get_instance().get_current_frame_time() - re->get_time_of_destruction());
+			} else {
+				set_uniform_float(re->get_program(), "time_for_explosion", 0.f);
+			}
 
 			re->get_mesh().render();
 			glBindTexture(GL_TEXTURE_2D, 0);

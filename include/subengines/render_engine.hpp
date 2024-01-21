@@ -10,6 +10,7 @@
 #include "camera.hpp"
 #include "skybox.hpp"
 #include "light_source.hpp"
+#include "clock.hpp"
 
 namespace se {
 	class renderable : virtual public transformable {
@@ -19,6 +20,7 @@ namespace se {
 			se::mesh m_mesh;
 			std::list<se::texture> m_textures;
 			GLuint m_program;
+			float time_of_destruction = 0.f;
 		public:
 			renderable();
 			renderable(const v3& t_position, const v3& t_scale, const se::mesh& t_mesh, const std::list<se::texture>& t_textures, GLuint t_program);
@@ -29,6 +31,8 @@ namespace se {
 			void set_mesh(const se::mesh& t_mesh) { m_mesh = t_mesh; }
 			void set_textures(const std::list<se::texture>& t_textures) { m_textures = t_textures; }
 			void set_program(GLuint t_program) { m_program = t_program; }
+			float get_time_of_destruction() const { return time_of_destruction; }
+			void set_time_of_destruction(float t_time) { time_of_destruction = t_time; }
 			virtual ~renderable();
 	};
 

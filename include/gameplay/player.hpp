@@ -12,10 +12,12 @@ namespace se {
 		using v3 = glm::vec3;
 		using m4 = glm::mat4;
 		private:
+			float pitch = 0.0f;
+			float yaw = -90.0f;
 			std::unique_ptr<player_follow_camera> m_camera;
 			v3 m_dir, m_up, m_side;
 			void rebase() {
-				m_side = glm::normalize(glm::cross(m_dir, m_up));
+				m_side = glm::normalize(glm::cross(m_dir, glm::vec3(0, 1, 0)));
 				m_up = glm::normalize(glm::cross(m_side, m_dir));
 			}
 			void adjust_camera() {
@@ -47,6 +49,7 @@ namespace se {
 			);
 
 			void update(input_event e) override;
+			void update_mouse_offset(double x, double y) override;
 			virtual glm::mat4 get_model_matrix() const override { 
 				return glm::translate(glm::mat4(1.0), m_position) * get_rotation_matrix() * glm::scale(glm::mat4(1), m_scale); 
 			}
