@@ -36,6 +36,7 @@ namespace se {
 			int m_window_width, m_window_height;
 			double x_cursor_pos, y_cursor_pos;
 			double x_offset, y_offset;
+			double mouse_sensitivity = 0.003f;
 			GLFWwindow* m_p_active_window = nullptr;
 			std::list<input_listener*> m_listeners;
 			void notify(input_event e) {

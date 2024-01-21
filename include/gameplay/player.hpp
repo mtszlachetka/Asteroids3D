@@ -12,7 +12,6 @@ namespace se {
 		using v3 = glm::vec3;
 		using m4 = glm::mat4;
 		private:
-			double mouse_sensitivity = 0.003f;
 			float pitch = 0.0f;
 			float yaw = -90.0f;
 			std::unique_ptr<player_follow_camera> m_camera;

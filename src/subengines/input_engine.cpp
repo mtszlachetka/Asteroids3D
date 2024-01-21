@@ -12,8 +12,8 @@ namespace se {
 		if (m_p_active_window != nullptr) {
 			glfwGetWindowSize(m_p_active_window, &m_window_width, &m_window_height);
 			glfwGetCursorPos(m_p_active_window, &x_cursor_pos, &y_cursor_pos);
-			x_offset = x_cursor_pos - m_window_width / 2;
-			y_offset = m_window_height / 2 - y_cursor_pos;
+			x_offset = (x_cursor_pos - m_window_width / 2) * mouse_sensitivity;
+			y_offset = (m_window_height / 2 - y_cursor_pos) * mouse_sensitivity;
 			notify_mouse_offset(x_offset, y_offset);
 
 			if (glfwGetKey(m_p_active_window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {

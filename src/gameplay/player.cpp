@@ -70,9 +70,6 @@ namespace se {
 	}
 
 	void player::update_mouse_offset(double x_offset, double y_offset) {
-		x_offset *= mouse_sensitivity;
-		y_offset *= mouse_sensitivity;
-
 		pitch += y_offset;
 		yaw += x_offset;
 
@@ -86,6 +83,7 @@ namespace se {
 		m_dir.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 		m_dir.y = sin(glm::radians(pitch));
 		m_dir.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+		m_dir = glm::normalize(m_dir);
 
 		this->rebase();
 		this->adjust_camera();
