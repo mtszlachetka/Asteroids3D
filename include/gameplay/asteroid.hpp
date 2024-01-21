@@ -27,7 +27,7 @@ namespace se {
 				this->set_time_of_destruction(game_clock::get_instance().get_current_frame_time());
 			}
 			void notify_asteroid_collision(const v3& other_velocity, float other_mass);
-			void notify_station_collision() { should_destruct = true; }
+			void notify_station_collision() { this->set_time_of_destruction(game_clock::get_instance().get_current_frame_time()); }
 			bool get_should_destruct() const { return this->get_dissapear(); }
 	};
 }
