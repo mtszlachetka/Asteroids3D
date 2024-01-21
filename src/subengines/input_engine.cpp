@@ -15,7 +15,7 @@ namespace se {
 			x_offset = (x_cursor_pos - m_window_width / 2) * mouse_sensitivity;
 			y_offset = (m_window_height / 2 - y_cursor_pos) * mouse_sensitivity;
 			
-			if (x_offset * y_offset != 0) notify(input_event::mouse_moved);
+			if (x_offset != 0 || y_offset != 0) notify(input_event::mouse_moved);
 
 			if (glfwGetKey(m_p_active_window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 				glfwSetWindowShouldClose(m_p_active_window, true);
