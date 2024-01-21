@@ -63,7 +63,7 @@ namespace se {
 			}
 			case input_event::q_pressed: {
 				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
-				m_orientation = m_orientation * glm::angleAxis(m_anglespeed, direction);
+				m_orientation = m_orientation * glm::angleAxis(-m_anglespeed, direction);
 				break;
 			}
 			case input_event::e_pressed: {
