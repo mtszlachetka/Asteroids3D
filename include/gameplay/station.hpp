@@ -2,14 +2,18 @@
 #define STATION_HPP
 
 #include "subengines/render_engine.hpp"
+#include "subengines/collision_engine.hpp"
+#include <iostream>
 
 namespace se {
-	class station : public renderable {
+	class station : public renderable, public collidable {
 		using v3 = glm::vec3;
 		using qu = glm::quat;
 		private:
 			int m_health;
 			bool should_destruct = false;
+			dop14 m_cached_dop;
+			bounding_sphere m_sphere;
 		public:
 			station() = delete;
 			station(
@@ -20,12 +24,17 @@ namespace se {
 				GLuint t_program, 
 				float t_health
 			);
-			bool get_should_destruct() const { return should_destruct; }
-			void notify_asteroid_collision() {
+			bool get_should_destruct() const { return false /* m_health <= 0 */; }
+			dop14 get_dop14() {
+				return m_cached_dop;
+			}
+
+			bounding_sphere get_bounding_sphere() {
+				return {m_position, m_scale[0] + 2.f};
+			}
+
+			void collide_with(collidable* cl, collision_info* info) {
 				m_health--;
-				if (m_health <= 0) {
-					// do something
-				}
 			}
 			~station();
 	};

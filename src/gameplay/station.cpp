@@ -13,10 +13,8 @@ namespace se {
 		renderable(t_position, t_scale, {1,0,0,0}, t_mesh, t_textures, t_program),
 		m_health(t_health) {
 		
-		collision_engine::get_instance().attach(this);
 	}
 
 	station::~station() {
-		collision_engine::get_instance().detach_station();
 	}
 }

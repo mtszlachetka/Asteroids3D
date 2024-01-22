@@ -22,11 +22,9 @@ namespace se {
 
 		render_engine::get_instance().set_camera(m_camera.get());
 
-		collision_engine::get_instance().attach(this);
 	}
 
 	player::~player() {
-		collision_engine::get_instance().detach_player();
 	}
 
 	void player::update(input_event e) {

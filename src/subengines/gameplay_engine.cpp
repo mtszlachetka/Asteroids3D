@@ -55,6 +55,7 @@ namespace se {
 		// check whether any objects should be destroyed
 		m_asteroid_ptrs.remove_if([](std::unique_ptr<asteroid>& a) -> bool { return a->get_should_destruct(); });
 		m_missile_ptrs.remove_if([](std::unique_ptr<missile>& m) -> bool { return m->get_should_destruct(); });
+		if (m_station_ptr != nullptr && m_station_ptr->get_should_destruct()) m_station_ptr.reset();
 
 		// spawn asteroids
 		if (game_clock::get_instance().get_current_frame_time() - m_last_spawn_time > 3.f) { // every 3 seconds
@@ -113,5 +114,7 @@ namespace se {
 		for (auto& m : m_missile_ptrs) {
 			m.reset();
 		}
+		m_player_ptr.reset();
+		m_station_ptr.reset();
 	}
 }

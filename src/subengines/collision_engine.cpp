@@ -2,60 +2,42 @@
 #include "subengines/gameplay_engine.hpp"
 #include <glm/gtx/norm.hpp>
 #include <iostream>
+#include <utility>
+#include <tuple>
 
 namespace se {
 
+	collidable::collidable() {
+		collision_engine::get_instance().attach(this);
+	}
+	collidable::~collidable() {
+		collision_engine::get_instance().detach(this);
+	}
+
+	
 	void collision_engine::tick() {
-		// missile - asteroid collisions
-		for (missile* mptr : m_missiles) {
-			for (asteroid* aptr : m_asteroids) {
-				// assume all dimensions are equal scale
-				float missile_bound_radius = mptr->get_scale()[0];
-				float asteroid_bound_radius = aptr->get_scale()[0];
+		static std::list<std::tuple<collidable*, collidable*, std::shared_ptr<collision_info>, std::shared_ptr<collision_info>>> to_notify;
+		for (std::list<collidable*>::iterator cptr1 = m_collidables.begin(); cptr1 != m_collidables.end(); cptr1++) {
+			for (std::list<collidable*>::iterator cptr2 = std::next(cptr1); cptr2 != m_collidables.end(); cptr2++) {
+				// bounding sphere test
+				collidable* col1 = *cptr1;
+				collidable* col2 = *cptr2;
+				auto&& [c1, r1] = col1->get_bounding_sphere();
+				auto&& [c2, r2] = col2->get_bounding_sphere();
 
-				float sq_distance = glm::length2(mptr->get_position() - aptr->get_position());
-				float treshold = (missile_bound_radius + asteroid_bound_radius) * (missile_bound_radius + asteroid_bound_radius);
-
-				if (sq_distance <= treshold && aptr->get_time_of_destruction() == 0.f) { // collision
-					mptr->notify_collision();
-					aptr->notify_missile_collision();
-					gameplay_engine::get_instance().add_points(100);
-				}
-			}
-		}
-		// asteroid - asteroid collision
-		for (std::list<asteroid*>::iterator as1 = m_asteroids.begin(); as1 != m_asteroids.end(); as1++) {
-			for (std::list<asteroid*>::iterator as2 = as1; as2 != m_asteroids.end(); as2++) {
-				// assume all dimensions are equal scale
-				float radius1 = (*as1)->get_scale()[0];
-				float radius2 = (*as2)->get_scale()[0];
-
-				float sq_distance = glm::length2((*as1)->get_position() - (*as2)->get_position());
-				float treshold = (radius1 + radius2) * (radius1 + radius2);
+				float sq_distance = glm::length2(c1 - c2);
+				float treshold = (r1 + r2) * (r1 + r2);
 
 				if (sq_distance <= treshold) {
-					const float m1 = (*as1)->get_mass();
-					const float m2 = (*as2)->get_mass();
-					const glm::vec3 v1 = (*as1)->get_velocity();
-					const glm::vec3 v2 = (*as2)->get_velocity();
-					(*as1)->notify_asteroid_collision(v2, m2);
-					(*as2)->notify_asteroid_collision(v1, m1);
+					asteroid* a1 = dynamic_cast<asteroid*>(col1);
+					to_notify.push_back({col1, col2, col1->get_collision_info(), col2->get_collision_info()});
 				}
 			}
 		}
-
-		// asteroid - station collision
-		for (asteroid* aptr : m_asteroids) {
-			float asteroid_bound_radius = aptr->get_scale()[0];
-			float station_bound_radius = m_station->get_scale()[0] + 2.0f;
-
-			float sq_distance = glm::length2(aptr->get_position() - m_station->get_position());
-			float treshold = (asteroid_bound_radius + station_bound_radius) * (asteroid_bound_radius + station_bound_radius);
-
-			if (sq_distance <= treshold && aptr->get_time_of_destruction() == 0.f) { // collision
-				aptr->notify_station_collision();
-				m_station->notify_asteroid_collision();
-			}
+		for (auto [col1, col2, info_for_2, info_for_1] : to_notify) {
+			col1->collide_with(col2, info_for_1.get());
+			col2->collide_with(col1, info_for_2.get());
 		}
+		to_notify.clear();
 	}
 }

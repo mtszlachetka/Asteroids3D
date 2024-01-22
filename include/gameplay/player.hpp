@@ -4,11 +4,12 @@
 #include <glm/glm.hpp>
 #include "subengines/render_engine.hpp"
 #include "subengines/input_engine.hpp"
+#include "subengines/collision_engine.hpp"
 #include "camera.hpp"
 #include <memory>
 
 namespace se {
-	class player : public renderable, public input_listener {
+	class player : public renderable, public input_listener, public collidable {
 		using v3 = glm::vec3;
 		using m4 = glm::mat4;
 		using qu = glm::quat;
@@ -21,6 +22,8 @@ namespace se {
 			void update_mouse_offset(double x, double y);
 			static constexpr float m_base_zoom = -8.f;
 			float m_camera_zoom_factor = m_base_zoom;
+			dop14 m_cached_dop;
+			bounding_sphere m_bounding_sphere;
 
 		public:
 			player() = delete;
@@ -33,6 +36,18 @@ namespace se {
 				const std::list<texture>& t_textures,
 				GLuint t_program
 			);
+
+			dop14 get_dop14() {
+				return m_cached_dop;
+			}
+
+			bounding_sphere get_bounding_sphere() {
+				return {m_position, m_scale[0]};
+			}
+
+			void collide_with(collidable* cl, collision_info* info) {
+
+			}
 
 			void adjust_camera() {
 				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
