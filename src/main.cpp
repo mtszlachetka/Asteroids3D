@@ -69,7 +69,7 @@ int main() {
         "../textures/skybox/space_lf.png", 
         "../textures/skybox/space_up.png", 
         "../textures/skybox/space_dn.png", 
-        "../textures/skybox/space_bk_sun.png", 
+        "../textures/skybox/space_bk_sun_dark.png", 
         "../textures/skybox/space_ft_galaxy.png"
     };
     se::texture skybox_cubemap = se::load_cubemap_named(walls, "skybox");

@@ -10,6 +10,7 @@ namespace se {
 		using qu = glm::quat;
 		private:
 			float time_of_destruction = 0.f;
+			static constexpr float m_explosion_time = 0.6f;
 		public:
 			asteroid() = delete;
 			// Giant constructor
@@ -37,7 +38,7 @@ namespace se {
 			}
 			bool get_should_destruct() const { 
 				if (time_of_destruction != 0.0) {
-					if (game_clock::get_instance().get_current_frame_time() - time_of_destruction > 3.f) {
+					if (game_clock::get_instance().get_current_frame_time() - time_of_destruction > m_explosion_time) {
 						return true;
 					}
 				}
