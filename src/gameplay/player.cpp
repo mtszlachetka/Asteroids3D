@@ -34,31 +34,6 @@ namespace se {
 				m_position += m_movespeed * direction;
 				break;
 			}
-			case input_event::s_pressed: {
-				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
-				m_position -= m_movespeed * direction;
-				break;
-			}
-			case input_event::z_pressed: {
-				v3 side = glm::toMat4(m_orientation) * glm::vec4(1,0,0,0);
-				m_position += m_movespeed * side;
-				break;
-			}
-			case input_event::x_pressed: {
-				v3 side = glm::toMat4(m_orientation) * glm::vec4(1,0,0,0);
-				m_position -= m_movespeed * side;
-				break;
-			}
-			case input_event::r_pressed: {
-				v3 up = glm::toMat4(m_orientation) * glm::vec4(0,1,0,0);
-				m_position += m_movespeed * up;
-				break;
-			}
-			case input_event::f_pressed: {
-				v3 up = glm::toMat4(m_orientation) * glm::vec4(0,1,0,0);
-				m_position -= m_movespeed * up;
-				break;
-			}
 			case input_event::q_pressed: {
 				v3 direction = v3(glm::toMat4(m_orientation) * glm::vec4(0,0,1,0));
 				m_orientation = glm::angleAxis(-m_anglespeed, direction) * m_orientation;
