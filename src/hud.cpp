@@ -50,10 +50,21 @@ namespace se {
         glUseProgram(0);
     }
 
+	static float get_cooldown_percentage(float last_time_shot, float cooldown) {
+        float current_time = static_cast<float>(glfwGetTime());
+        float time_passed = current_time - (last_time_shot + cooldown);
+        if (time_passed > cooldown) {
+            return 1.0f;
+        } else if (time_passed <= .0f) {
+            return 0.1f;
+        } else {
+            return time_passed / cooldown;
+        }
+    }
 
     void hud::drawCrosshair() {
         glUniform1i(textureUniform, 0);
-        glUniform1f(glGetUniformLocation(program, "alphaMod"), 1.0f);
+        glUniform1f(glGetUniformLocation(program, "alphaMod"), get_cooldown_percentage(gameplay_engine::get_instance().get_last_shot_time(), gameplay_engine::get_instance().get_shooting_cooldown()));
 
         glBindVertexArray(crosshairVAO);
 
@@ -65,17 +76,6 @@ namespace se {
         glBindVertexArray(0);
     }
 
-    float get_cooldown_percentage(float last_time_shot, float cooldown) {
-        float current_time = static_cast<float>(glfwGetTime());
-        float time_passed = current_time - (last_time_shot + cooldown);
-        if (time_passed > cooldown) {
-            return 1.0f;
-        } else if (time_passed <= .0f) {
-            return 0.1f;
-        } else {
-            return time_passed / cooldown;
-        }
-    }
 
     void hud::drawReady() {
         glUniform1i(textureUniform, 1);
@@ -99,7 +99,7 @@ namespace se {
 
         glUseProgram(program);
 
-        drawReady();
+        // drawReady();
         drawCrosshair();
         drawText(hud::format_points(), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.9, 0.5f, glm::vec3(0.12, 1.f, 0.f));
 

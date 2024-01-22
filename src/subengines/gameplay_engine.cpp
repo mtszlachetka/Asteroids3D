@@ -47,7 +47,7 @@ namespace se {
 		m_station_textures = m_player_textures; // TODO: replace with proper station textures
 
 		m_station_ptr = std::make_unique<se::station>(glm::vec3(0.f), glm::vec3(0.2f), m_station_mesh, m_station_textures, m_program, 5);
-		m_player_ptr = std::make_unique<se::player>(glm::vec3(0.f, 0.f, 10.f), glm::vec3(0.2f), m_player_mesh, m_player_textures, m_program);
+		m_player_ptr = std::make_unique<se::player>(glm::vec3(0.f, 0.f, 10.f), glm::vec3(0.2f), glm::quat(1,0,0,0), m_player_mesh, m_player_textures, m_program);
 
 	}
 	void gameplay_engine::tick() {
@@ -59,13 +59,12 @@ namespace se {
 		// spawn asteroids
 		if (game_clock::get_instance().get_current_frame_time() - m_last_spawn_time > 3.f) { // every 3 seconds
 			
-			// TODO: move RNGs outside
-			std::random_device rd;
-			std::mt19937 gen(rd());
-			std::uniform_real_distribution<> dist(15.0, 30.0);
-			std::uniform_int_distribution<> minus(0,1);
-			std::uniform_real_distribution<> sc(0.8, 2.0);
-			std::uniform_real_distribution<> vel(10.f, 25.f);
+			static std::random_device rd;
+			static std::mt19937 gen(rd());
+			static std::uniform_real_distribution<> dist(15.0, 30.0);
+			static std::uniform_int_distribution<> minus(0,1);
+			static std::uniform_real_distribution<> sc(0.8, 2.0);
+			static std::uniform_real_distribution<> vel(10.f, 25.f);
 			float x_pos = dist(gen);
 			float y_pos = dist(gen);
 			float z_pos = dist(gen);
@@ -78,11 +77,12 @@ namespace se {
 			std::unique_ptr<se::asteroid> aptr = std::make_unique<se::asteroid>(
 				glm::vec3(x_pos, y_pos, z_pos),
 				glm::vec3(scale_factor),
+				glm::quat(1,0,0,0),
 				m_asteroid_mesh,
 				m_asteroid_textures,
 				m_explosion_program,
-				glm::vec3(x_pos, y_pos, z_pos) * - 1.f / 25.f,
-				1.f
+				glm::vec3(x_pos, y_pos, z_pos) * - 1.f / velocity_factor,
+				scale_factor
 			);
 			m_asteroid_ptrs.push_back(std::move(aptr));
 			m_last_spawn_time = game_clock::get_instance().get_current_frame_time();
@@ -90,15 +90,16 @@ namespace se {
 	}
 	void gameplay_engine::spawn_missile() {
 		if (game_clock::get_instance().get_current_frame_time() - m_last_shot_time < m_shooting_cooldown) return;
+		using v3 = glm::vec3;
+		v3 player_dir = v3(glm::toMat4(m_player_ptr->get_orientation()) * glm::vec4(0,0,1,0));
 		std::unique_ptr<se::missile> mptr = std::make_unique<se::missile>(
 			m_player_ptr->get_position(),
 			glm::vec3(0.3f),
-			m_player_ptr->get_direction(),
-			m_player_ptr->get_side(),
+			m_player_ptr->get_orientation() * glm::angleAxis(glm::radians(90.f), v3(1,0,0)),
 			m_missile_mesh,
 			m_missile_textures,
 			m_program,
-			m_player_ptr->get_direction() * 80.f,
+			player_dir * 80.f,
 			1
 		);
 		m_missile_ptrs.push_back(std::move(mptr));

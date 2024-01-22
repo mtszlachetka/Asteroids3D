@@ -3,6 +3,7 @@
 
 #include <GLFW/glfw3.h>
 #include <list>
+#include <tuple>
 
 
 namespace se {
@@ -17,17 +18,21 @@ namespace se {
 		f_pressed,
 		r_pressed,
 		x_pressed,
+		q_pressed,
+		e_pressed,
 		space_pressed,
+		left_shift_pressed,
+		left_shift_released,
 		left_mouse_button_pressed,
+		mouse_moved
 	};
 
 	
-	// every class taht reacts to input inherits from this
+	// every class that reacts to input inherits from this
 	class input_listener {
 		public:
 			input_listener();
 			virtual void update(input_event event) = 0;
-			virtual void update_mouse_offset(double x, double y) = 0;
 			virtual ~input_listener();
 	};
 
@@ -44,11 +49,6 @@ namespace se {
 					l->update(e);
 				}
 			}
-			void notify_mouse_offset(double x, double y) {
-				for (input_listener* l : m_listeners) {
-					l->update_mouse_offset(x, y);
-				}
-			}
 			input_engine() {}
 		public:
 			input_engine(const input_engine& other) = delete;
@@ -63,6 +63,9 @@ namespace se {
 			void attach(input_listener* listener) { m_listeners.push_back(listener); }
 			void detach(input_listener* listener) { m_listeners.remove(listener); }
 			void set_active_window(GLFWwindow* t_window) { m_p_active_window = t_window; }
+			std::tuple<double, double> get_mouse_coords() const {
+				return {x_offset, y_offset};
+			}
 	}; 
 
 }

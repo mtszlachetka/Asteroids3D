@@ -13,8 +13,8 @@ namespace se {
 	renderable::renderable() : transformable() {
 		render_engine::get_instance().attach(this);
 	}
-	renderable::renderable(const v3& t_position, const v3& t_scale, const se::mesh& t_mesh, const std::list<se::texture>& t_textures, GLuint t_program)
-		: transformable(t_position, t_scale), m_mesh(t_mesh), m_textures(t_textures), m_program(t_program) {
+	renderable::renderable(const v3& t_position, const v3& t_scale, const qu& t_orientation, const se::mesh& t_mesh, const std::list<se::texture>& t_textures, GLuint t_program)
+		: transformable(t_position, t_scale, t_orientation), m_mesh(t_mesh), m_textures(t_textures), m_program(t_program) {
 
 		render_engine::get_instance().attach(this);
 	}
@@ -54,6 +54,7 @@ namespace se {
 		set_uniform_mat4(m_shadow_map_program, "light_space_matrix", m_light_space_matrix);
 		glCullFace(GL_FRONT);
 		for (const renderable* re : m_renderables) {
+			if (!re->get_occluder()) continue;
 			set_uniform_mat4(m_shadow_map_program, "model_matrix", re->get_model_matrix());
 			re->get_mesh().render();
 		}

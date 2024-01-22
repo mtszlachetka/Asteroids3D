@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <iostream>
+#include <random>
 
 #include "subengines/input_engine.hpp"
 
@@ -24,7 +25,7 @@ namespace se {
                 m_up = glm::normalize(glm::cross(m_side, m_dir));
             }
 
-            glm::mat4 get_camera_matrix() const {
+            virtual glm::mat4 get_camera_matrix() const {
 
 				return glm::mat4({
 					m_side.x, m_up.x, -m_dir.x, 0,
@@ -53,8 +54,28 @@ namespace se {
 
 	class player_follow_camera : public camera {
 		friend class player;
+		private:
+			bool shake = false; // indicates whether camera should shake
 		public:
 			player_follow_camera(float t_near, float t_far, const glm::vec3& t_dir, const glm::vec3& t_pos) : camera(t_near, t_far, t_dir, t_pos) {}
+			glm::mat4 get_camera_matrix() const override {
+				static std::random_device rd;
+				static std::mt19937 gen(rd());
+				static std::uniform_real_distribution<float> divergence(0.f, 0.006f);
+
+				glm::vec3 used_dir = m_dir;
+
+				if (shake) {
+					glm::vec3 random_vec = glm::vec3(divergence(gen), divergence(gen), divergence(gen));
+					used_dir = m_dir + random_vec;
+				}		
+				return glm::mat4({
+					m_side.x, m_up.x, -used_dir.x, 0,
+					m_side.y, m_up.y, -used_dir.y, 0,
+					m_side.z, m_up.z, -used_dir.z, 0,
+					0, 0, 0, 1
+				}) * glm::translate(glm::mat4(1.0), -m_pos);
+			}
 	};
 }
 
