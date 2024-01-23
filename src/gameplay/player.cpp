@@ -71,7 +71,14 @@ namespace se {
 
 	void player::update_mouse_offset(double x_offset, double y_offset) {
 		qu y_rotation = glm::angleAxis(glm::radians(static_cast<float>(-x_offset)), v3(glm::toMat4(m_orientation) * glm::vec4(0,1,0,0)));
-		qu x_rotation = glm::angleAxis(glm::radians(static_cast<float>(-y_offset)), v3(glm::toMat4(m_orientation) * glm::vec4(1,0,0,0)));
+		
+		v3 direction = v3(glm::toMat4(m_orientation) * glm::vec4(0,0,1,0));
+		qu x_rotation =	glm::angleAxis(glm::radians(static_cast<float>(-y_offset)), v3(glm::toMat4(m_orientation) * glm::vec4(1,0,0,0)));
+
+		// if applying rotation would cause the camera to flip, replace with unit
+		x_rotation = std::abs(glm::dot(v3(glm::toMat4(x_rotation * m_orientation) * glm::vec4(0,0,1,0)), v3(0.f, 1.f, 0.f))) <= 0.9 ?
+			x_rotation :
+			qu(1.f, 0.f, 0.f, 0.f);
 
 		m_orientation = glm::normalize(y_rotation * x_rotation * m_orientation);
 		this->adjust_camera();
