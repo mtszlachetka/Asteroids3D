@@ -25,13 +25,13 @@ namespace se {
 			);
 			bool get_should_destruct() const { return false /* m_health <= 0 */; }
 			dop14 get_dop14() {
-				return m_cached_dop;
+				return compute_dop14(m_mesh.m_vertices, get_model_matrix());
 			}
 
 			void set_bounding_sphere(const bounding_sphere& sp) { m_sphere = sp; }
 
 			bounding_sphere get_bounding_sphere() const {
-				return {m_sphere.center + m_position, m_sphere.radius};
+				return translate(m_sphere, m_position);
 			}
 
 			void collide_with(collidable* cl, collision_info* info) {

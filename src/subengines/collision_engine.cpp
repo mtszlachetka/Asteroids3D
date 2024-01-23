@@ -3,6 +3,7 @@
 #include <glm/gtx/norm.hpp>
 #include <tuple>
 #include <vector>
+#include <limits>
 
 namespace se {
 
@@ -13,7 +14,24 @@ namespace se {
 		collision_engine::get_instance().detach(this);
 	}
 
-	
+	static inline bool intersection(const bounding_sphere& sp1, const bounding_sphere& sp2) {
+		auto&& [c1, r1] = sp1;
+		auto&& [c2, r2] = sp2;
+
+		float sq_distance = glm::length2(c1 - c2);
+		float treshold = (r1 + r2) * (r1 + r2);
+
+		return sq_distance <= treshold;
+	}
+
+	static inline bool intersection(const dop14& kd1, const dop14& kd2) {
+		for (int i = 0; i < 7; i++) {
+			if (kd1.min[i] > kd2.max[i] || kd1.max[i] < kd2.min[i])
+				return false;
+		}
+		return true;
+	}
+
 	void collision_engine::tick() {
 		static std::vector<std::tuple<collidable*, collidable*, std::shared_ptr<collision_info>, std::shared_ptr<collision_info>>> to_notify;
 		for (std::list<collidable*>::iterator cptr1 = m_collidables.begin(); cptr1 != m_collidables.end(); cptr1++) {
@@ -21,15 +39,12 @@ namespace se {
 				// bounding sphere test
 				collidable* col1 = *cptr1;
 				collidable* col2 = *cptr2;
-				auto&& [c1, r1] = col1->get_bounding_sphere();
-				auto&& [c2, r2] = col2->get_bounding_sphere();
 
-				float sq_distance = glm::length2(c1 - c2);
-				float treshold = (r1 + r2) * (r1 + r2);
-
-				if (sq_distance <= treshold) {
-					asteroid* a1 = dynamic_cast<asteroid*>(col1);
-					to_notify.push_back({col1, col2, col1->get_collision_info(), col2->get_collision_info()});
+				if (intersection(col1->get_bounding_sphere(), col2->get_bounding_sphere())) {
+					if (intersection(col1->get_dop14(), col2->get_dop14())) {
+						asteroid* a1 = dynamic_cast<asteroid*>(col1);
+						to_notify.push_back({col1, col2, col1->get_collision_info(), col2->get_collision_info()});
+					}					
 				}
 			}
 		}
@@ -88,9 +103,47 @@ namespace se {
  
 		return {midpoint, radius};
 	}
-	dop14 compute_dop_14(const std::vector<se::vertex>& t_vertices) {
-		// TODO
-		return dop14();
+	dop14 compute_dop14(const std::vector<se::vertex>& t_vertices, const glm::mat4& t_transform) {
+		dop14 dop;
+
+		for (int i = 0; i < 7; i++) {
+			dop.min[i] = std::numeric_limits<float>::max();
+			dop.max[i] = -std::numeric_limits<float>::max();
+		}
+
+		float value;
+		for (const vertex& vert : t_vertices) {
+			const glm::vec3& pos = t_transform * glm::vec4(vert.m_position, 1.f);
+			// {1, 0, 0}
+			value = pos.x;
+			if (value < dop.min[0]) dop.min[0] = value;
+			if (value > dop.max[0]) dop.max[0] = value;
+			// {0, 1, 0}
+			value = pos.y;
+			if (value < dop.min[1]) dop.min[1] = value;
+			if (value > dop.max[1]) dop.max[1] = value;
+			// {0, 0, 1}
+			value = pos.z;
+			if (value < dop.min[2]) dop.min[2] = value;
+			if (value > dop.max[2]) dop.max[2] = value;
+			// {1, 1, 1}
+			value = pos.x + pos.y + pos.z;
+			if (value < dop.min[3]) dop.min[3] = value;
+			if (value > dop.max[3]) dop.max[3] = value;
+			// {1, 1, -1}
+			value = pos.x + pos.y - pos.z;
+			if (value < dop.min[4]) dop.min[4] = value;
+			if (value > dop.max[4]) dop.max[4] = value;
+			// {1, -1, 1}
+			value = pos.x - pos.y + pos.z;
+			if (value < dop.min[5]) dop.min[5] = value;
+			if (value > dop.max[5]) dop.max[5] = value;
+			// {1, -1, -1}
+			value = pos.x - pos.y - pos.z;
+			if (value < dop.min[6]) dop.min[6] = value;
+			if (value > dop.max[6]) dop.max[6] = value;
+		}
+		return dop;
 	}
 }
 

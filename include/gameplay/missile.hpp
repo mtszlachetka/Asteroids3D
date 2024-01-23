@@ -32,11 +32,11 @@ namespace se {
 			);
 			virtual ~missile();
 
-			dop14 get_dop14() { return m_cached_dop; }
+			dop14 get_dop14() { return compute_dop14(m_mesh.m_vertices, get_model_matrix()); }
 			void set_bounding_sphere(const bounding_sphere& sp) { m_sphere = sp; }
 
 			bounding_sphere get_bounding_sphere() const {
-				return {m_sphere.center + m_position, m_sphere.radius};
+				return translate(m_sphere, m_position);
 			}
 			void collide_with(collidable* cl, collision_info* info);
 

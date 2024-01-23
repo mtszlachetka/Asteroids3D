@@ -25,11 +25,17 @@ namespace se {
 		float max[7];
 	};
 
+	inline dop14 translate(const dop14& dop, const glm::vec3& v);
+
 	struct bounding_sphere {
 		glm::vec3 center;
 		float radius;
 		bounding_sphere operator*(float f) { return {center, radius * f}; }
 	};
+
+	inline bounding_sphere translate(const bounding_sphere& sp, const glm::vec3& v) {
+		return {sp.center + v, sp.radius};
+	}
 
 	struct collision_info { // base for polymorphic pointers
 		virtual ~collision_info() {}
@@ -71,7 +77,7 @@ namespace se {
 	};
 
 	bounding_sphere compute_bounding_sphere(const std::vector<se::vertex>& t_vertices);
-	dop14 compute_dop_14(const std::vector<se::vertex>& t_vertices); 
+	dop14 compute_dop14(const std::vector<se::vertex>& t_vertices, const glm::mat4& t_transform); 
 }
 
 #endif
