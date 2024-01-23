@@ -29,17 +29,17 @@ namespace se {
 	void player::update(input_event e) {
 		switch (e) {
 			case input_event::w_pressed: {
-				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
+				v3 direction = glm::toMat3(m_orientation) * v3(0,0,1);
 				m_position += m_movespeed * direction;
 				break;
 			}
 			case input_event::q_pressed: {
-				v3 direction = v3(glm::toMat4(m_orientation) * glm::vec4(0,0,1,0));
+				v3 direction = glm::toMat3(m_orientation) * v3(0,0,1);
 				m_orientation = glm::angleAxis(-m_anglespeed, direction) * m_orientation;
 				break;
 			}
 			case input_event::e_pressed: {
-				v3 direction = v3(glm::toMat4(m_orientation) * glm::vec4(0,0,1,0));
+				v3 direction = glm::toMat3(m_orientation) * v3(0,0,1);
 				m_orientation = glm::angleAxis(m_anglespeed, direction) * m_orientation;
 				break;
 			}
@@ -70,11 +70,11 @@ namespace se {
 	}
 
 	void player::update_mouse_offset(double x_offset, double y_offset) {
-		qu y_rotation = glm::angleAxis(glm::radians(static_cast<float>(-x_offset)), v3(glm::toMat4(m_orientation) * glm::vec4(0,1,0,0)));		
-		qu x_rotation =	glm::angleAxis(glm::radians(static_cast<float>(-y_offset)), v3(glm::toMat4(m_orientation) * glm::vec4(1,0,0,0)));
+		qu y_rotation = glm::angleAxis(glm::radians(static_cast<float>(-x_offset)), glm::toMat3(m_orientation) * v3(0,1,0));		
+		qu x_rotation =	glm::angleAxis(glm::radians(static_cast<float>(-y_offset)), glm::toMat3(m_orientation) * v3(1,0,0));
 
 		// if applying rotation would cause the camera to flip, replace with unit
-		x_rotation = std::abs(glm::dot(v3(glm::toMat4(x_rotation * m_orientation) * glm::vec4(0,0,1,0)), v3(0.f, 1.f, 0.f))) <= 0.9 ?
+		x_rotation = std::abs(glm::dot(glm::toMat3(x_rotation * m_orientation) * v3(0,0,1), v3(0.f, 1.f, 0.f))) <= 0.9 ?
 			x_rotation :
 			qu(1.f, 0.f, 0.f, 0.f);
 
