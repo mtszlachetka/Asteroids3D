@@ -5,6 +5,8 @@
 #include <utility>
 #include <glm/glm.hpp>
 #include <memory>
+#include <vector>
+#include "mesh.hpp"
 
 namespace se {
 
@@ -66,6 +68,9 @@ namespace se {
 			void detach(collidable* cl) { m_collidables.remove(cl); }
 			void tick();
 	};
+
+	bounding_sphere compute_bounding_sphere(const std::vector<se::vertex>& t_vertices);
+	dop14 compute_dop_14(const std::vector<se::vertex>& t_vertices); 
 }
 
 #endif
