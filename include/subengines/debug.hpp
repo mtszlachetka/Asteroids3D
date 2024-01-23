@@ -1,10 +1,12 @@
-#ifndef _DEBUG_HPP_
-#define _DEBUG_HPP_
+#ifndef DEBUG_HPP
+#define DEBUG_HPP
 
 #include <GL/glew.h>
 #include <cstring>
 #include "camera.hpp"
 #include "shader.hpp"
+#include "mesh.hpp"
+#include <iostream>
 namespace se {
 namespace debug {
 
@@ -82,6 +84,8 @@ namespace debug {
 				glBindVertexArray(0);
 			}
 	};
+
+	void print_mesh_info(const mesh& t_mesh);
 }
 }
 

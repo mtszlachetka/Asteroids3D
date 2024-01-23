@@ -19,6 +19,7 @@ namespace se {
 		using qu = glm::quat;
 		protected:
 			se::mesh m_mesh;
+			GLuint m_vao, m_vbo, m_ebo;
 			std::list<se::texture> m_textures;
 			GLuint m_program;
 			float m_light_source = 0.f;
@@ -37,6 +38,7 @@ namespace se {
 			float get_time_of_destruction() const { return m_time_of_destruction; }
 			void set_time_of_destruction(float t_time) { m_time_of_destruction = t_time; }
 			bool get_occluder() const { return m_occluder; }
+			void render() const;
 			virtual ~renderable();
 	};
 
