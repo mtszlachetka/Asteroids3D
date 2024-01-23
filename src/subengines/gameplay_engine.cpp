@@ -17,9 +17,9 @@ namespace se {
 		// load assets
 		m_player_mesh = se::load_model("../models/spaceship.obj");
 		m_asteroid_meshes[0] = se::load_model("../models/Asteroid_1_LOW_MODEL_.obj");
-		m_asteroid_meshes[1] = se::load_model("../models/Asteroid_1_LOW_MODEL_.obj");
-		m_asteroid_meshes[2] = se::load_model("../models/Asteroid_1_LOW_MODEL_.obj");
-		m_asteroid_meshes[3] = se::load_model("../models/Asteroid_1_LOW_MODEL_.obj");
+		m_asteroid_meshes[1] = se::load_model("../models/Asteroid_2_LOW_MODEL_.obj");
+		m_asteroid_meshes[2] = se::load_model("../models/Asteroid_3_LOW_MODEL_.obj");
+		m_asteroid_meshes[3] = se::load_model("../models/Asteroid_4_LOW_MODEL_.obj");
 		m_station_mesh = se::load_model("../models/cube.obj");
 		m_missile_mesh = se::load_model("../models/missile.obj");
 
