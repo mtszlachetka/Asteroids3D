@@ -27,6 +27,11 @@ namespace se {
 				glDrawElements(GL_TRIANGLES, m_mesh.m_indices.size(), GL_UNSIGNED_INT, nullptr);
 				glBindVertexArray(0);
 			}
+			~skybox() {
+				glDeleteBuffers(1, &m_vbo);
+				glDeleteBuffers(1, &m_ebo);
+				glDeleteVertexArrays(1, &m_vao);
+			}
 	};
 }
 
