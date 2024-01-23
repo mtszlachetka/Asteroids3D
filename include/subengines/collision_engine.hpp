@@ -36,7 +36,8 @@ namespace se {
 	}
 
 	struct aabb {
-
+		glm::vec3 center;
+		float r[3];
 	};
 
 	struct collision_info { // base for polymorphic pointers

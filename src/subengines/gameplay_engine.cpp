@@ -107,6 +107,9 @@ namespace se {
 			for (vertex& vert : scaled_mesh.m_vertices) {
 				vert.m_position *= scale_factor;
 			}
+
+			float R = m_asteroid_spheres[mesh_num].radius * scale_factor;
+			float I = 0.2f * scale_factor * R;
 			
 			std::unique_ptr<se::asteroid> aptr = std::make_unique<se::asteroid>(
 				glm::vec3(x_pos, y_pos, z_pos),
@@ -116,7 +119,7 @@ namespace se {
 				m_explosion_program,
 				glm::vec3(x_pos, y_pos, z_pos) * - 1.f / velocity_factor,
 				scale_factor,
-				glm::vec3(scale_factor, scale_factor, scale_factor),
+				glm::vec3(I),
 				glm::vec3(vel(gen), vel(gen), vel(gen))
 			);
 			
