@@ -16,7 +16,10 @@ namespace se {
 	void gameplay_engine::init() {
 		// load assets
 		m_player_mesh = se::load_model("../models/spaceship.obj");
-		m_asteroid_mesh = se::load_model("../models/sphere.obj");
+		m_asteroid_meshes[0] = se::load_model("../models/Asteroid_1_LOW_MODEL_.obj");
+		m_asteroid_meshes[1] = se::load_model("../models/Asteroid_1_LOW_MODEL_.obj");
+		m_asteroid_meshes[2] = se::load_model("../models/Asteroid_1_LOW_MODEL_.obj");
+		m_asteroid_meshes[3] = se::load_model("../models/Asteroid_1_LOW_MODEL_.obj");
 		m_station_mesh = se::load_model("../models/cube.obj");
 		m_missile_mesh = se::load_model("../models/missile.obj");
 
@@ -37,7 +40,9 @@ namespace se {
 		m_player_sphere = compute_bounding_sphere(m_player_mesh.m_vertices);
 		m_station_sphere = compute_bounding_sphere(m_station_mesh.m_vertices);
 		m_missile_sphere = compute_bounding_sphere(m_missile_mesh.m_vertices);
-		m_asteroid_sphere = compute_bounding_sphere(m_asteroid_mesh.m_vertices);
+
+		for (int i = 0; i < 4; i++)
+			m_asteroid_spheres[i] = compute_bounding_sphere(m_asteroid_meshes[i].m_vertices);
 
 		se::texture ship_diff = se::load_texture_2d_named("../textures/spaceshipPBR/diff.png", "diffuse_map");
 		se::texture ship_normals = se::load_texture_2d_named("../textures/spaceshipPBR/norm.png", "normal_map");
@@ -87,6 +92,7 @@ namespace se {
 			static std::uniform_int_distribution<> minus(0,1);
 			static std::uniform_real_distribution<> sc(0.8, 2.0);
 			static std::uniform_real_distribution<> vel(10.f, 25.f);
+			static std::uniform_int_distribution<> mn(0,3);
 			float x_pos = dist(gen);
 			float y_pos = dist(gen);
 			float z_pos = dist(gen);
@@ -96,7 +102,8 @@ namespace se {
 			float scale_factor = sc(gen);
 			float velocity_factor = vel(gen);
 
-			mesh scaled_mesh = m_asteroid_mesh;
+			int mesh_num = mn(gen);
+			mesh scaled_mesh = m_asteroid_meshes[mesh_num];
 			for (vertex& vert : scaled_mesh.m_vertices) {
 				vert.m_position *= scale_factor;
 			}
@@ -111,7 +118,7 @@ namespace se {
 				scale_factor
 			);
 			
-			aptr->set_bounding_sphere(m_asteroid_sphere * scale_factor);
+			aptr->set_bounding_sphere(m_asteroid_spheres[mesh_num] * scale_factor);
 			m_asteroid_ptrs.push_back(std::move(aptr));
 			m_last_spawn_time = game_clock::get_instance().get_current_frame_time();
 		}

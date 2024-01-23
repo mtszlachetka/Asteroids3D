@@ -15,6 +15,7 @@
 #include <GL/glew.h>
 #include <random>
 #include "subengines/collision_engine.hpp"
+#include <array>
 
 namespace se {
 
@@ -29,7 +30,7 @@ namespace se {
 			std::list<se::texture> m_missile_textures;
 			std::list<se::texture> m_station_textures;
 			std::list<se::texture> m_player_textures;
-			se::mesh m_asteroid_mesh;
+			std::array<se::mesh, 4> m_asteroid_meshes;
 			se::mesh m_missile_mesh;
 			se::mesh m_player_mesh;
 			se::mesh m_station_mesh;
@@ -42,7 +43,7 @@ namespace se {
 			se::bounding_sphere m_player_sphere;
 			se::bounding_sphere m_station_sphere;
 			se::bounding_sphere m_missile_sphere;
-			se::bounding_sphere m_asteroid_sphere;
+			std::array<se::bounding_sphere, 4> m_asteroid_spheres;
 			gameplay_engine() {}
 		public:
 			gameplay_engine(const gameplay_engine& other) = delete;
