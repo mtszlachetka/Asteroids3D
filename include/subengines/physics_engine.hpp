@@ -18,7 +18,7 @@ namespace se {
 			// v3 m_angular_velocity {0};
 		public:
 			rigid_body();
-			rigid_body(const v3& t_position, const v3& t_scale, const qu& t_orientation, const v3& t_velocity, float t_mass);
+			rigid_body(const v3& t_position, const qu& t_orientation, const v3& t_velocity, float t_mass);
 			v3 get_velocity() const { return m_velocity; }
 			float get_mass() const { return m_mass; }
 			void set_velocity(const v3& t_velocity) { m_velocity = t_velocity; }

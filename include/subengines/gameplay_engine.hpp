@@ -14,6 +14,7 @@
 #include "mesh.hpp"
 #include <GL/glew.h>
 #include <random>
+#include "subengines/collision_engine.hpp"
 
 namespace se {
 
@@ -38,6 +39,10 @@ namespace se {
 			float m_last_shot_time = 0.f; // last time a missile was fired
 			float m_shooting_cooldown = 0.4f;
 			int m_points = 0;
+			se::bounding_sphere m_player_sphere;
+			se::bounding_sphere m_station_sphere;
+			se::bounding_sphere m_missile_sphere;
+			se::bounding_sphere m_asteroid_sphere;
 			gameplay_engine() {}
 		public:
 			gameplay_engine(const gameplay_engine& other) = delete;

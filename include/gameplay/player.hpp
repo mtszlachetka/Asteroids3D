@@ -23,14 +23,13 @@ namespace se {
 			static constexpr float m_base_zoom = -8.f;
 			float m_camera_zoom_factor = m_base_zoom;
 			dop14 m_cached_dop;
-			bounding_sphere m_bounding_sphere;
+			bounding_sphere m_sphere;
 
 		public:
 			player() = delete;
 			// Giant constructor
 			player(
 				const v3& t_position,
-				const v3& t_scale,
 				const qu& t_orientation,
 				const mesh& t_mesh,
 				const std::list<texture>& t_textures,
@@ -41,8 +40,10 @@ namespace se {
 				return m_cached_dop;
 			}
 
-			bounding_sphere get_bounding_sphere() {
-				return {m_position, m_scale[0]};
+			void set_bounding_sphere(const bounding_sphere& sp) { m_sphere = sp; }
+
+			bounding_sphere get_bounding_sphere() const {
+				return {m_sphere.center + m_position, m_sphere.radius};
 			}
 
 			void collide_with(collidable* cl, collision_info* info) {

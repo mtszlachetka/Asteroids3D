@@ -21,7 +21,6 @@ namespace se {
 			// Giant constructor
 			asteroid(
 				const v3& t_position,
-				const v3& t_scale,
 				const qu& t_orientation,
 				const se::mesh& t_mesh,
 				const std::list<se::texture>& t_textures,
@@ -35,8 +34,10 @@ namespace se {
 				return m_cached_dop;
 			}
 
-			bounding_sphere get_bounding_sphere() {
-				return {m_position, m_scale[0]};
+			void set_bounding_sphere(const bounding_sphere& sp) { m_sphere = sp; }
+
+			bounding_sphere get_bounding_sphere() const {
+				return {m_sphere.center + m_position, m_sphere.radius};
 			}
 
 			void collide_with(collidable* cl, collision_info* info);

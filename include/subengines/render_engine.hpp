@@ -27,11 +27,11 @@ namespace se {
 			float m_time_of_destruction = 0.f;
 		public:
 			renderable();
-			renderable(const v3& t_position, const v3& t_scale, const qu& t_orientation, const se::mesh& t_mesh, const std::list<se::texture>& t_textures, GLuint t_program);
+			renderable(const v3& t_position, const qu& t_orientation, const se::mesh& t_mesh, const std::list<se::texture>& t_textures, GLuint t_program);
 			se::mesh get_mesh() const { return m_mesh; }
 			std::list<se::texture> get_textures() const { return m_textures; }
 			GLuint get_program() const { return m_program; }
-			virtual m4 get_model_matrix() const { return glm::translate(m4(1.f), m_position) * glm::toMat4(m_orientation) * glm::scale(m4(1.f), m_scale); }
+			virtual m4 get_model_matrix() const { return glm::translate(m4(1.f), m_position) * glm::toMat4(m_orientation); }
 			void set_mesh(const se::mesh& t_mesh) { m_mesh = t_mesh; }
 			void set_textures(const std::list<se::texture>& t_textures) { m_textures = t_textures; }
 			void set_program(GLuint t_program) { m_program = t_program; }
