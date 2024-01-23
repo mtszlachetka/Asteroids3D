@@ -22,7 +22,6 @@ namespace se {
 			GLuint m_vao, m_vbo, m_ebo;
 			std::list<se::texture> m_textures;
 			GLuint m_program;
-			float m_light_source = 0.f;
 			bool m_occluder = true; // idicates whether object should cast shadow
 			float m_time_of_destruction = 0.f;
 		public:
@@ -32,9 +31,6 @@ namespace se {
 			std::list<se::texture> get_textures() const { return m_textures; }
 			GLuint get_program() const { return m_program; }
 			virtual m4 get_model_matrix() const { return glm::translate(m4(1.f), m_position) * glm::toMat4(m_orientation); }
-			void set_mesh(const se::mesh& t_mesh) { m_mesh = t_mesh; }
-			void set_textures(const std::list<se::texture>& t_textures) { m_textures = t_textures; }
-			void set_program(GLuint t_program) { m_program = t_program; }
 			float get_time_of_destruction() const { return m_time_of_destruction; }
 			void set_time_of_destruction(float t_time) { m_time_of_destruction = t_time; }
 			bool get_occluder() const { return m_occluder; }
