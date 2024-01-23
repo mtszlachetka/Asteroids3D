@@ -25,8 +25,6 @@ namespace se {
 		float max[7];
 	};
 
-	inline dop14 translate(const dop14& dop, const glm::vec3& v);
-
 	struct bounding_sphere {
 		glm::vec3 center;
 		float radius;
@@ -36,6 +34,10 @@ namespace se {
 	inline bounding_sphere translate(const bounding_sphere& sp, const glm::vec3& v) {
 		return {sp.center + v, sp.radius};
 	}
+
+	struct aabb {
+
+	};
 
 	struct collision_info { // base for polymorphic pointers
 		virtual ~collision_info() {}

@@ -12,14 +12,15 @@ namespace se {
 		using v3 = glm::vec3;
 		using qu = glm::quat;
 		protected:
-			v3 m_velocity {0};
-			float m_mass {0};
-			// v3 m_inertia {0};
-			// v3 m_angular_velocity {0};
+			v3 m_velocity = v3(0.f);
+			float m_mass = 0.f;
+			v3 m_inertia = v3(1.f);
+			v3 m_angular_velocity = v3(0.f);
 		public:
-			rigid_body();
-			rigid_body(const v3& t_position, const qu& t_orientation, const v3& t_velocity, float t_mass);
+			rigid_body(const v3& t_position, const qu& t_orientation, const v3& t_velocity, float t_mass, const v3& t_inertia, const v3& t_angular);
 			v3 get_velocity() const { return m_velocity; }
+			v3 get_inertia() const { return m_inertia; }
+			v3 get_angular() const { return m_angular_velocity; }
 			float get_mass() const { return m_mass; }
 			void set_velocity(const v3& t_velocity) { m_velocity = t_velocity; }
 			void set_mass(float t_mass) { m_mass = t_mass; }

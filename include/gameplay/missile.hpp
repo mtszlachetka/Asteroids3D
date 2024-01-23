@@ -28,7 +28,9 @@ namespace se {
 				const std::list<se::texture>& t_textures,
 				GLuint t_program,
 				const v3& t_velocity,
-				float t_mass
+				float t_mass,
+				const v3& t_inertia, 
+				const v3& t_angular
 			);
 			virtual ~missile();
 

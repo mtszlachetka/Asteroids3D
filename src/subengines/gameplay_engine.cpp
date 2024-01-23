@@ -115,7 +115,9 @@ namespace se {
 				m_asteroid_textures,
 				m_explosion_program,
 				glm::vec3(x_pos, y_pos, z_pos) * - 1.f / velocity_factor,
-				scale_factor
+				scale_factor,
+				glm::vec3(scale_factor, scale_factor, scale_factor),
+				glm::vec3(vel(gen), vel(gen), vel(gen))
 			);
 			
 			aptr->set_bounding_sphere(m_asteroid_spheres[mesh_num] * scale_factor);
@@ -134,7 +136,9 @@ namespace se {
 			m_missile_textures,
 			m_program,
 			player_dir * 80.f,
-			1
+			1,
+			glm::vec3(1.f),
+			glm::vec3(0.f)
 		);
 		mptr->set_bounding_sphere(m_missile_sphere);
 		m_missile_ptrs.push_back(std::move(mptr));

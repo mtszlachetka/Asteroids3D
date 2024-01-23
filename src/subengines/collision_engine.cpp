@@ -41,10 +41,10 @@ namespace se {
 				collidable* col2 = *cptr2;
 
 				if (intersection(col1->get_bounding_sphere(), col2->get_bounding_sphere())) {
-					if (intersection(col1->get_dop14(), col2->get_dop14())) {
+					// if (intersection(col1->get_dop14(), col2->get_dop14())) {
 						asteroid* a1 = dynamic_cast<asteroid*>(col1);
 						to_notify.push_back({col1, col2, col1->get_collision_info(), col2->get_collision_info()});
-					}					
+					// }					
 				}
 			}
 		}
