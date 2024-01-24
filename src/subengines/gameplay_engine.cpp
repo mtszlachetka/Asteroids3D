@@ -16,9 +16,33 @@ namespace se {
 	void gameplay_engine::init() {
 		// load assets
 		m_player_mesh = se::load_model("../models/spaceship.obj");
-		m_asteroid_mesh = se::load_model("../models/sphere.obj");
+		m_asteroid_meshes[0] = se::load_model("../models/Asteroid_1_LOW_MODEL_.obj");
+		m_asteroid_meshes[1] = se::load_model("../models/Asteroid_2_LOW_MODEL_.obj");
+		m_asteroid_meshes[2] = se::load_model("../models/Asteroid_3_LOW_MODEL_.obj");
+		m_asteroid_meshes[3] = se::load_model("../models/Asteroid_4_LOW_MODEL_.obj");
 		m_station_mesh = se::load_model("../models/cube.obj");
 		m_missile_mesh = se::load_model("../models/missile.obj");
+
+		// scale meshes
+		for (vertex& vert : m_player_mesh.m_vertices) {
+			vert.m_position *= 0.2f;
+		}
+
+		for (vertex& vert : m_station_mesh.m_vertices) {
+			vert.m_position *= 0.2f;
+		}
+
+		for (vertex& vert : m_missile_mesh.m_vertices) {
+			vert.m_position *= 0.3f;
+		}
+
+		// compute bounding spheres
+		m_player_sphere = compute_bounding_sphere(m_player_mesh.m_vertices);
+		m_station_sphere = compute_bounding_sphere(m_station_mesh.m_vertices);
+		m_missile_sphere = compute_bounding_sphere(m_missile_mesh.m_vertices);
+
+		for (int i = 0; i < 4; i++)
+			m_asteroid_spheres[i] = compute_bounding_sphere(m_asteroid_meshes[i].m_vertices);
 
 		se::texture ship_diff = se::load_texture_2d_named("../textures/spaceshipPBR/diff.png", "diffuse_map");
 		se::texture ship_normals = se::load_texture_2d_named("../textures/spaceshipPBR/norm.png", "normal_map");
@@ -46,8 +70,10 @@ namespace se {
 
 		m_station_textures = m_player_textures; // TODO: replace with proper station textures
 
-		m_station_ptr = std::make_unique<se::station>(glm::vec3(0.f), glm::vec3(0.2f), m_station_mesh, m_station_textures, m_program, 5);
-		m_player_ptr = std::make_unique<se::player>(glm::vec3(0.f, 0.f, 10.f), glm::vec3(0.2f), glm::quat(1,0,0,0), m_player_mesh, m_player_textures, m_program);
+		m_station_ptr = std::make_unique<se::station>(glm::vec3(0.f), m_station_mesh, m_station_textures, m_program, 5);
+		m_station_ptr->set_bounding_sphere(m_station_sphere);
+		m_player_ptr = std::make_unique<se::player>(glm::vec3(0.f, 0.f, 10.f), glm::quat(1,0,0,0), m_player_mesh, m_player_textures, m_program);
+		m_player_ptr->set_bounding_sphere(m_player_sphere);
 
 	}
 	void gameplay_engine::tick() {
@@ -55,6 +81,7 @@ namespace se {
 		// check whether any objects should be destroyed
 		m_asteroid_ptrs.remove_if([](std::unique_ptr<asteroid>& a) -> bool { return a->get_should_destruct(); });
 		m_missile_ptrs.remove_if([](std::unique_ptr<missile>& m) -> bool { return m->get_should_destruct(); });
+		if (m_station_ptr != nullptr && m_station_ptr->get_should_destruct()) m_station_ptr.reset();
 
 		// spawn asteroids
 		if (game_clock::get_instance().get_current_frame_time() - m_last_spawn_time > 3.f) { // every 3 seconds
@@ -65,6 +92,7 @@ namespace se {
 			static std::uniform_int_distribution<> minus(0,1);
 			static std::uniform_real_distribution<> sc(0.8, 2.0);
 			static std::uniform_real_distribution<> vel(10.f, 25.f);
+			static std::uniform_int_distribution<> mn(0,3);
 			float x_pos = dist(gen);
 			float y_pos = dist(gen);
 			float z_pos = dist(gen);
@@ -73,17 +101,29 @@ namespace se {
 			z_pos *= (minus(gen) == 0 ? 1 : -1);
 			float scale_factor = sc(gen);
 			float velocity_factor = vel(gen);
+
+			int mesh_num = mn(gen);
+			mesh scaled_mesh = m_asteroid_meshes[mesh_num];
+			for (vertex& vert : scaled_mesh.m_vertices) {
+				vert.m_position *= scale_factor;
+			}
+
+			float R = m_asteroid_spheres[mesh_num].radius * scale_factor;
+			float I = 0.2f * scale_factor * R;
 			
 			std::unique_ptr<se::asteroid> aptr = std::make_unique<se::asteroid>(
 				glm::vec3(x_pos, y_pos, z_pos),
-				glm::vec3(scale_factor),
 				glm::quat(1,0,0,0),
-				m_asteroid_mesh,
+				scaled_mesh,
 				m_asteroid_textures,
 				m_explosion_program,
 				glm::vec3(x_pos, y_pos, z_pos) * - 1.f / velocity_factor,
-				scale_factor
+				scale_factor,
+				glm::vec3(I),
+				glm::vec3(vel(gen), vel(gen), vel(gen))
 			);
+			
+			aptr->set_bounding_sphere(m_asteroid_spheres[mesh_num] * scale_factor);
 			m_asteroid_ptrs.push_back(std::move(aptr));
 			m_last_spawn_time = game_clock::get_instance().get_current_frame_time();
 		}
@@ -94,14 +134,16 @@ namespace se {
 		v3 player_dir = v3(glm::toMat4(m_player_ptr->get_orientation()) * glm::vec4(0,0,1,0));
 		std::unique_ptr<se::missile> mptr = std::make_unique<se::missile>(
 			m_player_ptr->get_position(),
-			glm::vec3(0.3f),
 			m_player_ptr->get_orientation() * glm::angleAxis(glm::radians(90.f), v3(1,0,0)),
 			m_missile_mesh,
 			m_missile_textures,
 			m_program,
 			player_dir * 80.f,
-			1
+			1,
+			glm::vec3(1.f),
+			glm::vec3(0.f)
 		);
+		mptr->set_bounding_sphere(m_missile_sphere);
 		m_missile_ptrs.push_back(std::move(mptr));
 		m_last_shot_time = game_clock::get_instance().get_current_frame_time();
 	}
@@ -113,5 +155,7 @@ namespace se {
 		for (auto& m : m_missile_ptrs) {
 			m.reset();
 		}
+		m_player_ptr.reset();
+		m_station_ptr.reset();
 	}
 }

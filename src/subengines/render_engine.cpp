@@ -5,7 +5,7 @@
 #include "shader.hpp"
 #include <cstdint>
 #include "read_file.hpp"
-#include "debug.hpp"
+#include "subengines/debug.hpp"
 
 extern int WINDOW_WIDTH, WINDOW_HEIGHT;
 
@@ -13,13 +13,51 @@ namespace se {
 	renderable::renderable() : transformable() {
 		render_engine::get_instance().attach(this);
 	}
-	renderable::renderable(const v3& t_position, const v3& t_scale, const qu& t_orientation, const se::mesh& t_mesh, const std::list<se::texture>& t_textures, GLuint t_program)
-		: transformable(t_position, t_scale, t_orientation), m_mesh(t_mesh), m_textures(t_textures), m_program(t_program) {
+	renderable::renderable(const v3& t_position, const qu& t_orientation, const se::mesh& t_mesh, const std::list<se::texture>& t_textures, GLuint t_program)
+		: transformable(t_position,t_orientation), m_mesh(t_mesh), m_textures(t_textures), m_program(t_program) {
+
+		glGenVertexArrays(1, &m_vao);
+		glGenBuffers(1, &m_vbo);
+		glGenBuffers(1, &m_ebo);
+
+		unsigned num_vertices = m_mesh.m_vertices.size();
+		unsigned num_indices = m_mesh.m_indices.size();
+
+		unsigned 
+			data_size = sizeof(float) * 3,
+			normal_size = sizeof(float) * 3,
+			tex_size = sizeof(float) * 2,
+			tangent_size = sizeof(float) * 3,
+			bitangent_size = sizeof(float) * 3;
+
+		glBindVertexArray(m_vao);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, num_indices * sizeof(unsigned), m_mesh.m_indices.data(), GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+		glBufferData(GL_ARRAY_BUFFER, num_vertices * sizeof(vertex), m_mesh.m_vertices.data(), GL_STATIC_DRAW);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)(0));
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)(data_size));
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)(data_size + normal_size));
+		glEnableVertexAttribArray(3);
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)(data_size + normal_size + tex_size));
+		glEnableVertexAttribArray(4);
+		glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)(data_size + normal_size + tex_size + tangent_size));
+
+		glBindVertexArray(0);
 
 		render_engine::get_instance().attach(this);
 	}
 	renderable::~renderable() {
 		render_engine::get_instance().detach(this);
+		glDeleteBuffers(1, &m_ebo);
+		glDeleteBuffers(1, &m_vbo);
+		glDeleteVertexArrays(1, &m_vao);
 	}
 
 	render_engine::render_engine() { // assuming shadow map is always being generated
@@ -45,6 +83,12 @@ namespace se {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
+	void renderable::render() const {
+		glBindVertexArray(m_vao);
+		glDrawElements(GL_TRIANGLES, m_mesh.m_indices.size(), GL_UNSIGNED_INT, nullptr);
+		glBindVertexArray(0);
+	}
+
 	void render_engine::gen_shadow_map() { // if multiple lights were to be supported, should take a pointer as argument
 		if (m_light_source == nullptr) return;
 		glBindFramebuffer(GL_FRAMEBUFFER, m_shadow_map_fbo);
@@ -56,7 +100,7 @@ namespace se {
 		for (const renderable* re : m_renderables) {
 			if (!re->get_occluder()) continue;
 			set_uniform_mat4(m_shadow_map_program, "model_matrix", re->get_model_matrix());
-			re->get_mesh().render();
+			re->render();
 		}
 		glCullFace(GL_NONE);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -79,7 +123,7 @@ namespace se {
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, m_skybox->get_cubemap().m_id);
 			glDisable(GL_DEPTH_TEST);
-			m_skybox->get_mesh().render();
+			m_skybox->render();
 			glEnable(GL_DEPTH_TEST);
 			glUseProgram(0);
 		// }
@@ -116,12 +160,9 @@ namespace se {
 				set_uniform_float(re->get_program(), "time_for_explosion", 0.f);
 			}
 
-			re->get_mesh().render();
+			re->render();
 			glBindTexture(GL_TEXTURE_2D, 0);
 			glUseProgram(0);
-
-			// debug::texture_drawer drawer;
-			// drawer.draw(m_shadow_map);
 		}
 
 	}

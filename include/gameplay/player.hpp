@@ -4,11 +4,12 @@
 #include <glm/glm.hpp>
 #include "subengines/render_engine.hpp"
 #include "subengines/input_engine.hpp"
+#include "subengines/collision_engine.hpp"
 #include "camera.hpp"
 #include <memory>
 
 namespace se {
-	class player : public renderable, public input_listener {
+	class player : public renderable, public input_listener, public collidable {
 		using v3 = glm::vec3;
 		using m4 = glm::mat4;
 		using qu = glm::quat;
@@ -21,18 +22,38 @@ namespace se {
 			void update_mouse_offset(double x, double y);
 			static constexpr float m_base_zoom = -8.f;
 			float m_camera_zoom_factor = m_base_zoom;
+			dop14 m_cached_dop;
+			bounding_sphere m_sphere;
+			void turn_on_boost();
+			void turn_off_boost();
+			bool m_boost_active;
 
 		public:
 			player() = delete;
 			// Giant constructor
 			player(
 				const v3& t_position,
-				const v3& t_scale,
 				const qu& t_orientation,
 				const mesh& t_mesh,
 				const std::list<texture>& t_textures,
 				GLuint t_program
 			);
+
+			dop14 get_dop14() {
+				return compute_dop14(m_mesh.m_vertices, get_model_matrix());
+			}
+
+			void set_bounding_sphere(const bounding_sphere& sp) { m_sphere = sp; }
+
+			bounding_sphere get_bounding_sphere() const {
+				return translate(m_sphere, m_position);
+			}
+
+			void collide_with(collidable* cl, collision_info* info) {
+
+			}
+
+			bool is_boosting() const { return m_boost_active; }
 
 			void adjust_camera() {
 				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
