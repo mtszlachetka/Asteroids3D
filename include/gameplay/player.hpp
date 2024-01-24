@@ -7,6 +7,7 @@
 #include "subengines/collision_engine.hpp"
 #include "camera.hpp"
 #include <memory>
+#include <iostream>
 
 namespace se {
 	class player : public renderable, public input_listener, public collidable {
@@ -26,7 +27,9 @@ namespace se {
 			bounding_sphere m_sphere;
 			void turn_on_boost();
 			void turn_off_boost();
-			bool m_boost_active;
+			bool m_boost_active = false;
+			bool m_controls_active = true;
+			void turn_around();
 
 		public:
 			player() = delete;
@@ -54,6 +57,10 @@ namespace se {
 			}
 
 			bool is_boosting() const { return m_boost_active; }
+
+			void set_controls(bool t_active) {
+				m_controls_active = t_active;
+			}
 
 			void adjust_camera() {
 				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
