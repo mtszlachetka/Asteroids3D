@@ -33,17 +33,17 @@ namespace se {
 		if (m_controls_active == false) return;
 		switch (e) {
 			case input_event::w_pressed: {
-				v3 direction = glm::toMat3(m_orientation) * v3(0,0,1);
+				v3 direction = glm::toMat3(m_orientation)[2];
 				m_position += m_movespeed * direction;
 				break;
 			}
 			case input_event::q_pressed: {
-				v3 direction = glm::toMat3(m_orientation) * v3(0,0,1);
+				v3 direction = glm::toMat3(m_orientation)[2];
 				m_orientation = glm::angleAxis(-m_anglespeed, direction) * m_orientation;
 				break;
 			}
 			case input_event::e_pressed: {
-				v3 direction = glm::toMat3(m_orientation) * v3(0,0,1);
+				v3 direction = glm::toMat3(m_orientation)[2];
 				m_orientation = glm::angleAxis(m_anglespeed, direction) * m_orientation;
 				break;
 			}
@@ -87,11 +87,11 @@ namespace se {
 	}
 
 	void player::update_mouse_offset(double x_offset, double y_offset) {
-		qu y_rotation = glm::angleAxis(glm::radians(static_cast<float>(-x_offset)), glm::toMat3(m_orientation) * v3(0,1,0));		
-		qu x_rotation =	glm::angleAxis(glm::radians(static_cast<float>(-y_offset)), glm::toMat3(m_orientation) * v3(1,0,0));
+		qu y_rotation = glm::angleAxis(glm::radians(static_cast<float>(-x_offset)), glm::toMat3(m_orientation)[1]);		
+		qu x_rotation =	glm::angleAxis(glm::radians(static_cast<float>(-y_offset)), glm::toMat3(m_orientation)[0]);
 
 		// if applying rotation would cause the camera to flip, replace with unit
-		x_rotation = std::abs(glm::dot(glm::toMat3(x_rotation * m_orientation) * v3(0,0,1), v3(0.f, 1.f, 0.f))) <= 0.9 ?
+		x_rotation = std::abs(glm::dot(glm::toMat3(x_rotation * m_orientation)[2], v3(0.f, 1.f, 0.f))) <= 0.9 ?
 			x_rotation :
 			qu(1.f, 0.f, 0.f, 0.f);
 
@@ -115,18 +115,34 @@ namespace se {
 		glm::quat player_orientation = pl->get_orientation();
 		glm::mat3 rotation = glm::toMat3(player_orientation);
 
-		glm::vec3 axis_side = rotation * glm::normalize(glm::vec3(-1.f, 0.f, 0.f));
-		glm::vec3 axis_dir = rotation * glm::normalize(glm::vec3(0.f, 0.f, 1.f));
+		glm::vec3 player_dir = rotation[2];
+
+		glm::vec3 initial_position = pl->get_position();
+		glm::vec3 goal_position = initial_position + rotation * glm::vec3(-10.f, 0.f, 18.f);
 
 		glm::quat initial_orientation = player_orientation;
-		glm::quat current_orientation = player_orientation;
-		glm::quat goal_orientation = glm::angleAxis(glm::radians(180.f), axis_dir) * glm::angleAxis(glm::radians(180.f), axis_side) * current_orientation;
+		glm::quat current_orientation = initial_orientation;
+
+		glm::quat checkpoint1 = glm::angleAxis(glm::radians(120.f), player_dir) * initial_orientation;
+		glm::quat checkpoint2 = glm::angleAxis(glm::radians(240.f), player_dir) * initial_orientation;
+		glm::quat checkpoint3 = initial_orientation;
 
 		float t = 0.f;
-		while(t != 1.f) {
-			current_orientation = glm::slerp(initial_orientation, goal_orientation, t);
+
+		glm::vec3 current_position = initial_position;
+
+		while (t != 1.f) {
+			current_position = (1 - t) * initial_position + t * goal_position;
+			pl->set_position(current_position);
+			if (t <= 0.33f) {
+				current_orientation = glm::slerp(initial_orientation, checkpoint1, t * 3);
+			} else if (t <= 0.66f) {
+				current_orientation = glm::slerp(checkpoint1, checkpoint2, (t - 0.33f) * 3);
+			} else {
+				current_orientation = glm::slerp(checkpoint2, initial_orientation, (t - 0.66f) * 3);
+			}
+			pl->set_orientation(current_orientation);
 			t = std::clamp<float>(0.f, (clock.get_current_frame_time() - timestamp), 1.f);
-			pl->set_orientation(current_orientation); 
 			pl->adjust_camera();
 		}
 
