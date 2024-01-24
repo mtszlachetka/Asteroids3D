@@ -50,14 +50,10 @@ namespace se {
 				gameplay_engine::get_instance().spawn_missile();
 				break;
 			case input_event::left_shift_pressed:
-				m_movespeed = 0.60f;
-				m_camera->shake = true;
-				m_camera_zoom_factor = m_base_zoom + 0.2f;
+				this->turn_on_boost();
 				break;
 			case input_event::left_shift_released:
-				m_movespeed = m_base_speed;
-				m_camera->shake = false;
-				m_camera_zoom_factor = m_base_zoom;
+				this->turn_off_boost();
 				break;
 			case input_event::mouse_moved:
 				auto [x_offset, y_offset] = input_engine::get_instance().get_mouse_coords();
@@ -67,6 +63,20 @@ namespace se {
 
 		this->adjust_camera();
 
+	}
+
+	inline void player::turn_on_boost() {
+		m_movespeed = 0.60f;
+		m_camera->shake = true;
+		m_camera_zoom_factor = m_base_zoom + 0.2f;
+		m_boost_active = true;
+	}
+
+	inline void player::turn_off_boost() {
+		m_movespeed = m_base_speed;
+		m_camera->shake = false;
+		m_camera_zoom_factor = m_base_zoom;
+		m_boost_active = false;
 	}
 
 	void player::update_mouse_offset(double x_offset, double y_offset) {

@@ -24,6 +24,9 @@ namespace se {
 			float m_camera_zoom_factor = m_base_zoom;
 			dop14 m_cached_dop;
 			bounding_sphere m_sphere;
+			void turn_on_boost();
+			void turn_off_boost();
+			bool m_boost_active;
 
 		public:
 			player() = delete;
@@ -49,6 +52,8 @@ namespace se {
 			void collide_with(collidable* cl, collision_info* info) {
 
 			}
+
+			bool is_boosting() const { return m_boost_active; }
 
 			void adjust_camera() {
 				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
