@@ -167,17 +167,21 @@ namespace se {
 
 		glm::vec3 initial_position = pl->get_position();
 
+		auto [x, y] = input_engine::get_instance().get_mouse_coords();
+		float sign = x >= 0.f ? 1.f : -1.f;
+
 		glm::vec3 P0 = initial_position;
-		glm::vec3 P1 = initial_position + rotation * glm::vec3(10.f, 0.f, 15.f);
-		glm::vec3 P2 = initial_position + rotation * glm::vec3(20.f, 0.f, 15.f);
-		glm::vec3 P3 = initial_position + rotation * glm::vec3(30.f, 0.f, 0.f);
+		glm::vec3 P1 = initial_position + rotation * glm::vec3(- sign * 10.f, 0.f, 15.f);
+		glm::vec3 P2 = initial_position + rotation * glm::vec3(- sign * 20.f, 0.f, 15.f);
+		glm::vec3 P3 = initial_position + rotation * glm::vec3(- sign * 30.f, 0.f, 0.f);
 
 		glm::mat4x3 bezier_full = glm::mat4x3(P0, P1, P2, P3) * bezier_base;
 
 
+
 		glm::quat initial_orientation = player_orientation;
-		glm::quat checkpoint1 = glm::angleAxis(glm::radians(-90.f), rotation[2]) * glm::angleAxis(glm::radians(-90.f), rotation[0]) * initial_orientation;
-		glm::quat goal_orientation = glm::angleAxis(glm::radians(180.f), rotation[1]) * initial_orientation;;
+		glm::quat checkpoint1 = glm::angleAxis(glm::radians(sign * 90.f), rotation[2]) * glm::angleAxis(glm::radians(-90.f), rotation[0]) * initial_orientation;
+		glm::quat goal_orientation = glm::angleAxis(glm::radians(-sign * 180.f), rotation[1]) * initial_orientation;;
 
 		float t = 0.f;
 		while (t != 1.f) {
