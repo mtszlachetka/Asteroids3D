@@ -113,8 +113,10 @@ namespace se {
 
 		glm::vec3 player_dir = rotation[2];
 
+		float mult = pl->is_boosting() ? 2.4f : 1.f;
+
 		glm::vec3 initial_position = pl->get_position();
-		glm::vec3 goal_position = initial_position + rotation * glm::vec3(-10.f, 0.f, 18.f);
+		glm::vec3 goal_position = initial_position + rotation * glm::vec3(-10.f, 0.f, 18.f) * mult;
 
 		glm::quat initial_orientation = player_orientation;
 		glm::quat current_orientation = initial_orientation;
@@ -170,10 +172,12 @@ namespace se {
 		auto [x, y] = input_engine::get_instance().get_mouse_coords();
 		float sign = x >= 0.f ? 1.f : -1.f;
 
+		float mult = pl->is_boosting() ? 2.4f : 1.f;
+
 		glm::vec3 P0 = initial_position;
-		glm::vec3 P1 = initial_position + rotation * glm::vec3(- sign * 10.f, 0.f, 15.f);
-		glm::vec3 P2 = initial_position + rotation * glm::vec3(- sign * 20.f, 0.f, 15.f);
-		glm::vec3 P3 = initial_position + rotation * glm::vec3(- sign * 30.f, 0.f, 0.f);
+		glm::vec3 P1 = initial_position + rotation * glm::vec3(- sign * 10.f, 0.f, 15.f) * mult;
+		glm::vec3 P2 = initial_position + rotation * glm::vec3(- sign * 20.f, 0.f, 15.f) * mult;
+		glm::vec3 P3 = initial_position + rotation * glm::vec3(- sign * 30.f, 0.f, 0.f) * mult;
 
 		glm::mat4x3 bezier_full = glm::mat4x3(P0, P1, P2, P3) * bezier_base;
 
