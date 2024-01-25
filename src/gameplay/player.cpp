@@ -59,7 +59,10 @@ namespace se {
 			case input_event::left_shift_released:
 				this->turn_off_boost();
 				break;
-			case input_event::c_pressed:
+			case input_event::left_alt_pressed:
+				this->evade();
+				break;
+			case input_event::left_ctlr_pressed:
 				this->turn_around();
 				break;
 			case input_event::mouse_moved:
@@ -100,14 +103,7 @@ namespace se {
 
 	}
 
-	static void animate(player* pl);
-
-	void player::turn_around() {
-		std::thread animation_thread(animate, this);
-		animation_thread.detach();
-	}
-
-	static void animate(player* pl) {
+	static void evade_animation(player* pl) {
 		pl->set_controls(false);
 		game_clock& clock = game_clock::get_instance();
 		float timestamp = clock.get_current_frame_time();
@@ -148,4 +144,68 @@ namespace se {
 
 		pl->set_controls(true);
 	}
+
+	void player::evade() {
+		std::thread animation_thread(evade_animation, this);
+		animation_thread.detach();
+	}
+
+	static void turn_animation(player* pl) {
+		static constexpr glm::mat4 bezier_base = {
+			-1,	3,	-3,	1,
+			3,	-6,	3,	0,
+			-3,	3,	0,	0,
+			1,	0,	0,	0
+		};
+
+		pl->set_controls(false);
+		game_clock& clock = game_clock::get_instance();
+		float timestamp = clock.get_current_frame_time();
+
+		glm::quat player_orientation = pl->get_orientation();
+		glm::mat3 rotation = glm::toMat3(player_orientation);
+
+		glm::vec3 initial_position = pl->get_position();
+
+		glm::vec3 P0 = initial_position;
+		glm::vec3 P1 = initial_position + rotation * glm::vec3(10.f, 0.f, 15.f);
+		glm::vec3 P2 = initial_position + rotation * glm::vec3(20.f, 0.f, 15.f);
+		glm::vec3 P3 = initial_position + rotation * glm::vec3(30.f, 0.f, 0.f);
+
+		glm::mat4x3 bezier_full = glm::mat4x3(P0, P1, P2, P3) * bezier_base;
+
+
+		glm::quat initial_orientation = player_orientation;
+		glm::quat checkpoint1 = glm::angleAxis(glm::radians(-90.f), rotation[2]) * glm::angleAxis(glm::radians(-90.f), rotation[0]) * initial_orientation;
+		glm::quat goal_orientation = glm::angleAxis(glm::radians(180.f), rotation[1]) * initial_orientation;;
+
+		float t = 0.f;
+		while (t != 1.f) {
+			
+			glm::vec3 new_position;
+			glm::quat new_orientation;
+	
+			glm::vec4 T(t * t * t, t * t, t, 1);
+			new_position = bezier_full * T;
+			pl->set_position(new_position);
+
+			// update orientation with slerp
+			if (t <= 0.5f) {
+				new_orientation = glm::slerp(initial_orientation, checkpoint1, t * 2.f);
+			} else {
+				new_orientation = glm::slerp(checkpoint1, goal_orientation, (t - 0.5f) * 2.f);
+			}
+			pl->set_orientation(new_orientation);
+			t = std::clamp<float>(0.f, (clock.get_current_frame_time() - timestamp) / 2.f, 1.f);
+			pl->adjust_camera();
+		}
+
+		pl->set_controls(true);
+	} 
+
+	void player::turn_around() {
+		std::thread animation_thread(turn_animation, this);
+		animation_thread.detach();
+	}
+
 }

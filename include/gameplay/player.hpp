@@ -30,7 +30,7 @@ namespace se {
 			bool m_boost_active = false;
 			bool m_controls_active = true;
 			void turn_around();
-
+			void evade();
 		public:
 			player() = delete;
 			// Giant constructor
@@ -63,7 +63,7 @@ namespace se {
 			}
 
 			void adjust_camera() {
-				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
+				v3 direction = glm::toMat3(m_orientation)[2];
 				m_camera->m_pos = m_position + m_camera_zoom_factor * direction + v3(0,1,0) * 3.f;
 				m_camera->m_dir = direction;
 				m_camera->rebase();
