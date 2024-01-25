@@ -115,14 +115,17 @@ namespace se {
 
 		float mult = pl->is_boosting() ? 2.4f : 1.f;
 
+		auto [x, y] = input_engine::get_instance().get_mouse_coords();
+		float sign = x >= 0.f ? 1.f : -1.f;
+
 		glm::vec3 initial_position = pl->get_position();
-		glm::vec3 goal_position = initial_position + rotation * glm::vec3(-10.f, 0.f, 18.f) * mult;
+		glm::vec3 goal_position = initial_position + rotation * glm::vec3(-10.f * sign, 0.f, 18.f) * mult;
 
 		glm::quat initial_orientation = player_orientation;
 		glm::quat current_orientation = initial_orientation;
 
-		glm::quat checkpoint1 = glm::angleAxis(glm::radians(120.f), player_dir) * initial_orientation;
-		glm::quat checkpoint2 = glm::angleAxis(glm::radians(240.f), player_dir) * initial_orientation;
+		glm::quat checkpoint1 = glm::angleAxis(glm::radians(sign * 120.f), player_dir) * initial_orientation;
+		glm::quat checkpoint2 = glm::angleAxis(glm::radians(sign * 240.f), player_dir) * initial_orientation;
 		glm::quat checkpoint3 = initial_orientation;
 
 		float t = 0.f;
