@@ -77,20 +77,6 @@ namespace se {
     }
 
 
-    void hud::drawReady() {
-        glUniform1i(textureUniform, 1);
-        glUniform1f(glGetUniformLocation(program, "alphaMod"), get_cooldown_percentage(gameplay_engine::get_instance().get_last_shot_time(), gameplay_engine::get_instance().get_shooting_cooldown()));
-
-        glBindVertexArray(readyVAO);
-
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, readyTexture.m_id);
-
-        glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
-
-        glBindVertexArray(0);
-    }
-
     void hud::render() {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -99,7 +85,6 @@ namespace se {
 
         glUseProgram(program);
 
-        // drawReady();
         drawCrosshair();
         drawText(hud::format_points(), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.9, 0.5f, glm::vec3(0.12, 1.f, 0.f));
 
