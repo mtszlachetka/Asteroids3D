@@ -36,12 +36,10 @@ namespace se {
             int numIndexes = 6;
 
             texture crosshairTexture;
-            texture readyTexture;
 
             std::map<char, Character> Characters;
 			
             void drawCrosshair();
-            void drawReady();
             void drawText(std::string text, float x, float y, float scale, glm::vec3 color);
         public:
             void render();
