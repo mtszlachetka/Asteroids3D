@@ -146,6 +146,8 @@ namespace se {
 			t = std::min<float>(clock.get_current_frame_time() - timestamp, 1.f);
 			pl->adjust_camera();
 		}
+		pl->set_position(goal_position);
+		pl->set_orientation(initial_orientation);
 
 		pl->set_controls(true);
 	}
@@ -210,7 +212,8 @@ namespace se {
 			t = std::min<float>((clock.get_current_frame_time() - timestamp) / 2.f, 1.f);
 			pl->adjust_camera();
 		}
-
+		pl->set_position(bezier_full * glm::vec4(1.f));
+		pl->set_orientation(goal_orientation);
 		pl->set_controls(true);
 	} 
 
