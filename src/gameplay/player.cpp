@@ -143,7 +143,7 @@ namespace se {
 				current_orientation = glm::slerp(checkpoint2, initial_orientation, (t - 0.66f) * 3);
 			}
 			pl->set_orientation(current_orientation);
-			t = std::clamp<float>(0.f, (clock.get_current_frame_time() - timestamp), 1.f);
+			t = std::min<float>(clock.get_current_frame_time() - timestamp, 1.f);
 			pl->adjust_camera();
 		}
 
@@ -207,7 +207,7 @@ namespace se {
 				new_orientation = glm::slerp(checkpoint1, goal_orientation, (t - 0.5f) * 2.f);
 			}
 			pl->set_orientation(new_orientation);
-			t = std::clamp<float>(0.f, (clock.get_current_frame_time() - timestamp) / 2.f, 1.f);
+			t = std::min<float>((clock.get_current_frame_time() - timestamp) / 2.f, 1.f);
 			pl->adjust_camera();
 		}
 
