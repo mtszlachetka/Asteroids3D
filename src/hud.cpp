@@ -5,11 +5,36 @@
 extern int WINDOW_WIDTH, WINDOW_HEIGHT;
 
 namespace se {
-    void hud::drawText(std::string text, float x, float y, float scale, glm::vec3 color)
-    {
+	static float get_cooldown_percentage(float last_time_shot, float cooldown) {
+        float current_time = static_cast<float>(glfwGetTime());
+        float time_passed = current_time - (last_time_shot + cooldown);
+        if (time_passed > cooldown) {
+            return 1.0f;
+        } else if (time_passed <= .0f) {
+            return 0.1f;
+        } else {
+            return time_passed / cooldown;
+        }
+    }
+
+    void hud::drawCrosshair() {
+        glUniform1i(textureUniform, 0);
+        set_uniform_float(program, "alphaMod", get_cooldown_percentage(gameplay_engine::get_instance().get_last_shot_time(), gameplay_engine::get_instance().get_shooting_cooldown()));
+        
+        glBindVertexArray(crosshairVAO);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, crosshairTexture.m_id);
+
+        glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
+
+        glBindVertexArray(0);
+    }
+
+    void hud::drawText(std::string text, float x, float y, float scale, glm::vec3 color) {
         glUseProgram(text_program);
         set_uniform_mat4(text_program, "projection", glm::ortho(0.0f, static_cast<float>(WINDOW_WIDTH), 0.0f, static_cast<float>(WINDOW_HEIGHT)));
-        glUniform3f(glGetUniformLocation(text_program, "textColor"), color.x, color.y, color.z);
+        set_uniform_vec3(text_program, "textColor", color);
         glActiveTexture(GL_TEXTURE0);
         glBindVertexArray(textVAO);
 
@@ -50,32 +75,43 @@ namespace se {
         glUseProgram(0);
     }
 
-	static float get_cooldown_percentage(float last_time_shot, float cooldown) {
-        float current_time = static_cast<float>(glfwGetTime());
-        float time_passed = current_time - (last_time_shot + cooldown);
-        if (time_passed > cooldown) {
-            return 1.0f;
-        } else if (time_passed <= .0f) {
-            return 0.1f;
-        } else {
-            return time_passed / cooldown;
-        }
-    }
+    void hud::drawHealth(int percentage, float x, float y, float scale, glm::vec3 color) {
+        glUseProgram(simple_program);
 
-    void hud::drawCrosshair() {
-        glUniform1i(textureUniform, 0);
-        glUniform1f(glGetUniformLocation(program, "alphaMod"), get_cooldown_percentage(gameplay_engine::get_instance().get_last_shot_time(), gameplay_engine::get_instance().get_shooting_cooldown()));
+        float healthBarVertexArray[16] = {
+            0.5f,  0.5f, 0.0f, 1.0f,
+            0.5f, -0.5f, 0.0f, 1.0f,
+            -0.5f, -0.5f, 0.0f, 1.0f,
+            -0.5f,  0.5f, 0.0f, 1.0f 
+        };
+        unsigned int healthBarIndexArray[6] = {0, 1, 2, 1, 2, 3};
+        glGenVertexArrays(1, &healthVAO);  
+        glGenBuffers(1, &healthVBO);  
+        glGenBuffers(1, &healthEBO);  
 
-        glBindVertexArray(crosshairVAO);
+        glBindVertexArray(healthVAO);
+        glBindBuffer(GL_ARRAY_BUFFER, healthVBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(healthBarVertexArray), healthBarVertexArray, GL_STATIC_DRAW);
 
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, crosshairTexture.m_id);
+        glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
 
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(4 * sizeof(float)));
+        glEnableVertexAttribArray(1);
+    
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, healthEBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), healthBarIndexArray, GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        set_uniform_vec3(simple_program, "color", color);
+
+        glBindVertexArray(healthVAO);
         glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
-
         glBindVertexArray(0);
-    }
 
+        glUseProgram(0);
+    }
 
     void hud::render() {
         glEnable(GL_BLEND);
@@ -86,7 +122,9 @@ namespace se {
         glUseProgram(program);
 
         drawCrosshair();
-        drawText(hud::format_points(), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.9, 0.5f, glm::vec3(0.12, 1.f, 0.f));
+        drawText(hud::format_points(), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.9, 0.5f, green_color);
+        drawText(hud::format_time(), WINDOW_WIDTH * 0.85, WINDOW_HEIGHT * 0.9, 0.5f, blue_color);
+        drawHealth(100, 10, 10, 1.f, red_color);
 
         glUseProgram(0);
 

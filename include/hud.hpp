@@ -25,11 +25,17 @@ namespace se {
         private:
             GLuint crosshairVBO, crosshairVAO, crosshairEBO;
             GLuint textVAO, textVBO;
+            GLuint healthVAO, healthVBO, healthEBO;
 
             GLuint program;
             GLuint text_program;
+            GLuint simple_program;
 
             GLuint textureUniform;
+
+            glm::vec3 green_color = glm::vec3(0.12, 1.f, 0.f);
+            glm::vec3 blue_color = glm::vec3(0.f, 0.12f, 1.f);
+            glm::vec3 red_color = glm::vec3(1.f, 0.f, 0.12f);  
 
             int numVertices = 4;
             int elementSize = 4;
@@ -41,6 +47,7 @@ namespace se {
 			
             void drawCrosshair();
             void drawText(std::string text, float x, float y, float scale, glm::vec3 color);
+            void drawHealth(int percentage, float x, float y, float scale, glm::vec3 color);
         public:
             void render();
             hud() {
@@ -158,6 +165,12 @@ namespace se {
                 glBindVertexArray(0);
 
                 textureUniform = glGetUniformLocation(program, "hudTexture");
+
+                // ---------------------------------------------------------------------------------------------
+
+                GLuint simple_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/simple.vert"));
+                GLuint simple_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/simple.frag"));
+                simple_program = se::make_program({simple_vert, simple_frag});
             }
             std::string format_points() {
                 int points = gameplay_engine::get_instance().get_points();
@@ -168,6 +181,31 @@ namespace se {
                 }
                 formatted_points += points_str;
                 return formatted_points;
+            }
+            std::string format_time() {
+                float time = static_cast<float>(glfwGetTime());
+                int hours = static_cast<int>(time / 3600);
+                int minutes = static_cast<int>(time / 60);
+                int seconds = static_cast<int>(time) % 60;
+                std::string hours_str = std::to_string(hours);
+                std::string minutes_str = std::to_string(minutes);
+                std::string seconds_str = std::to_string(seconds);
+                std::string formatted_time = "";
+                for (int i = 0; i < 2 - hours_str.length(); i++) {
+                    formatted_time += "0";
+                }
+                formatted_time += hours_str;
+                formatted_time += ":";
+                for (int i = 0; i < 2 - minutes_str.length(); i++) {
+                    formatted_time += "0";
+                }
+                formatted_time += minutes_str;
+                formatted_time += ":";
+                for (int i = 0; i < 2 - seconds_str.length(); i++) {
+                    formatted_time += "0";
+                }
+                formatted_time += seconds_str;
+                return formatted_time;
             }
     };
 
