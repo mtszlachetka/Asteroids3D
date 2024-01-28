@@ -75,38 +75,132 @@ namespace se {
         glUseProgram(0);
     }
 
-    void hud::drawHealth(int percentage, float x, float y, float scale, glm::vec3 color) {
+    void hud::drawStationHealth(int percentage, glm::vec3 color) {
         glUseProgram(simple_program);
 
-        float healthBarVertexArray[16] = {
-            0.5f,  0.5f, 0.0f, 1.0f,
-            0.5f, -0.5f, 0.0f, 1.0f,
-            -0.5f, -0.5f, 0.0f, 1.0f,
-            -0.5f,  0.5f, 0.0f, 1.0f 
-        };
-        unsigned int healthBarIndexArray[6] = {0, 1, 2, 1, 2, 3};
-        glGenVertexArrays(1, &healthVAO);  
-        glGenBuffers(1, &healthVBO);  
-        glGenBuffers(1, &healthEBO);  
+        float val = calculate_value(-0.9f, -0.2f ,percentage);
 
-        glBindVertexArray(healthVAO);
-        glBindBuffer(GL_ARRAY_BUFFER, healthVBO);
+        float healthBarVertexArray[16] = {
+            val,  -0.9f, 0.0f, 1.0f,
+            val, -0.95f, 0.0f, 1.0f,
+            -0.9f, -0.95f, 0.0f, 1.0f,
+            -0.9f,  -0.9f, 0.0f, 1.0f 
+        };
+        unsigned int healthBarIndexArray[6] = {0, 1, 3, 1, 2, 3};
+        glGenVertexArrays(1, &stationHealthVAO);  
+        glGenBuffers(1, &stationHealthVBO);  
+        glGenBuffers(1, &stationHealthEBO);  
+
+        glBindVertexArray(stationHealthVAO);
+        glBindBuffer(GL_ARRAY_BUFFER, stationHealthVBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(healthBarVertexArray), healthBarVertexArray, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(4 * sizeof(float)));
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(4 * sizeof(float)));
         glEnableVertexAttribArray(1);
     
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, healthEBO);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, stationHealthEBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), healthBarIndexArray, GL_STATIC_DRAW);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         set_uniform_vec3(simple_program, "color", color);
 
-        glBindVertexArray(healthVAO);
+        glBindVertexArray(stationHealthOutlineVAO);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glBindVertexArray(stationHealthVAO);
+        glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+
+        glUseProgram(0);
+    }
+
+    void hud::drawBoost(int percentage, glm::vec3 color) {
+        glUseProgram(simple_program);
+
+        float val = calculate_value(-0.9f, -0.3f ,percentage);
+
+        float boostBarVertexArray[16] = {
+            val,  -0.8f, 0.0f, 1.0f,
+            val, -0.85f, 0.0f, 1.0f,
+            -0.9f, -0.85f, 0.0f, 1.0f,
+            -0.9f,  -0.8f, 0.0f, 1.0f 
+        };
+        unsigned int healthBarIndexArray[6] = {0, 1, 3, 1, 2, 3};
+        glGenVertexArrays(1, &boostVAO);  
+        glGenBuffers(1, &boostVBO);  
+        glGenBuffers(1, &boostEBO);  
+
+        glBindVertexArray(boostVAO);
+        glBindBuffer(GL_ARRAY_BUFFER, boostVBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(boostBarVertexArray), boostBarVertexArray, GL_STATIC_DRAW);
+
+        glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(4 * sizeof(float)));
+        glEnableVertexAttribArray(1);
+    
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, boostEBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), healthBarIndexArray, GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        set_uniform_vec3(simple_program, "color", color);
+
+        glBindVertexArray(boostOutlineVAO);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glBindVertexArray(boostVAO);
+        glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+
+        glUseProgram(0);
+    }
+
+    void hud::drawPlayerHealth(int percentage, glm::vec3 color) {
+        glUseProgram(simple_program);
+
+        float val = calculate_value(-0.9f, -0.4f ,percentage);
+
+        float healthBarVertexArray[16] = {
+            val,  -0.7f, 0.0f, 1.0f,
+            val, -0.75f, 0.0f, 1.0f,
+            -0.9f, -0.75f, 0.0f, 1.0f,
+            -0.9f,  -0.7f, 0.0f, 1.0f 
+        };
+        unsigned int healthBarIndexArray[6] = {0, 1, 3, 1, 2, 3};
+        glGenVertexArrays(1, &playerHealthVAO);  
+        glGenBuffers(1, &playerHealthVBO);  
+        glGenBuffers(1, &playerHealthEBO);  
+
+        glBindVertexArray(playerHealthVAO);
+        glBindBuffer(GL_ARRAY_BUFFER, playerHealthVBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(healthBarVertexArray), healthBarVertexArray, GL_STATIC_DRAW);
+
+        glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(4 * sizeof(float)));
+        glEnableVertexAttribArray(1);
+    
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, playerHealthEBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), healthBarIndexArray, GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        set_uniform_vec3(simple_program, "color", color);
+
+        glBindVertexArray(playerHealthOutlineVAO);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glBindVertexArray(playerHealthVAO);
         glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
@@ -123,9 +217,10 @@ namespace se {
 
         drawCrosshair();
         drawText(hud::format_points(), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.9, 0.5f, green_color);
-        drawText(hud::format_time(), WINDOW_WIDTH * 0.85, WINDOW_HEIGHT * 0.9, 0.5f, blue_color);
-        drawHealth(100, 10, 10, 1.f, red_color);
-
+        drawText(hud::format_time(), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.85, 0.5f, blue_color);
+        drawStationHealth(gameplay_engine::get_instance().get_station_health(), red_color);
+        drawBoost(100, blue_color);
+        drawPlayerHealth(gameplay_engine::get_instance().get_player_health(), green_color);
         glUseProgram(0);
 
         glDepthMask(GL_TRUE);

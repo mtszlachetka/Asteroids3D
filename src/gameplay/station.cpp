@@ -7,7 +7,7 @@ namespace se {
 		const se::mesh& t_mesh, 
 		const std::list<se::texture>& t_textures, 
 		GLuint t_program, 
-		float t_health
+		int t_health
 	) : transformable(t_position, {1,0,0,0}),
 		renderable(t_position, {1,0,0,0}, t_mesh, t_textures, t_program),
 		m_health(t_health) {

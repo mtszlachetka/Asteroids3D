@@ -10,7 +10,7 @@ namespace se {
 		using v3 = glm::vec3;
 		using qu = glm::quat;
 		private:
-			int m_health;
+			int m_health = 100;
 			bool should_destruct = false;
 			dop14 m_cached_dop;
 			bounding_sphere m_sphere;
@@ -20,10 +20,15 @@ namespace se {
 				const v3& t_position, 
 				const se::mesh& t_mesh, 
 				const std::list<se::texture>& t_textures, 
-				GLuint t_program, 
-				float t_health
+				GLuint t_program,
+				int t_health
 			);
-			bool get_should_destruct() const { return false /* m_health <= 0 */; }
+			bool get_should_destruct() const { 
+				if (m_health <= 0) {
+					return true;
+				}
+				return false; 
+			}
 			dop14 get_dop14() {
 				return compute_dop14(m_mesh.m_vertices, get_model_matrix());
 			}
@@ -35,8 +40,9 @@ namespace se {
 			}
 
 			void collide_with(collidable* cl, collision_info* info) {
-				m_health--;
+				m_health -= 20;
 			}
+			int get_health() { return m_health; }
 			~station();
 	};
 }

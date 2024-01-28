@@ -61,6 +61,8 @@ namespace se {
 			float get_shooting_cooldown() const { return m_shooting_cooldown; }
 			int get_points() const { return m_points; }
 			void add_points(int points) { m_points += points; }
+			int get_player_health() { return m_player_ptr->get_health(); }
+			int get_station_health() { return m_station_ptr->get_health(); }
 			void clear();
 	};
 }

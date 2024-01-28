@@ -27,6 +27,7 @@ namespace se {
 			void turn_on_boost();
 			void turn_off_boost();
 			bool m_boost_active;
+			int m_health = 100;
 
 		public:
 			player() = delete;
@@ -64,6 +65,7 @@ namespace se {
 
 			void update(input_event e) override;
 			bool get_should_destruct() const { return should_destruct; }
+			int get_health() { return m_health; }
 			~player();
 	
 	};

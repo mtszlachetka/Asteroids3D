@@ -25,7 +25,15 @@ namespace se {
         private:
             GLuint crosshairVBO, crosshairVAO, crosshairEBO;
             GLuint textVAO, textVBO;
-            GLuint healthVAO, healthVBO, healthEBO;
+
+            GLuint stationHealthOutlineVAO, stationHealthOutlineVBO, stationHealthOutlineEBO;
+            GLuint stationHealthVAO, stationHealthVBO, stationHealthEBO;
+
+            GLuint boostOutlineVAO, boostOutlineVBO, boostOutlineEBO;
+            GLuint boostVAO, boostVBO, boostEBO;
+
+            GLuint playerHealthOutlineVAO, playerHealthOutlineVBO, playerHealthOutlineEBO;
+            GLuint playerHealthVAO, playerHealthVBO, playerHealthEBO;
 
             GLuint program;
             GLuint text_program;
@@ -47,7 +55,9 @@ namespace se {
 			
             void drawCrosshair();
             void drawText(std::string text, float x, float y, float scale, glm::vec3 color);
-            void drawHealth(int percentage, float x, float y, float scale, glm::vec3 color);
+            void drawStationHealth(int percentage, glm::vec3 color);
+            void drawBoost(int percentage, glm::vec3 color);
+            void drawPlayerHealth(int percentage, glm::vec3 color);
         public:
             void render();
             hud() {
@@ -171,6 +181,88 @@ namespace se {
                 GLuint simple_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/simple.vert"));
                 GLuint simple_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/simple.frag"));
                 simple_program = se::make_program({simple_vert, simple_frag});
+
+
+                float healthBarVertexArray[16] = {
+                    -0.2f,  -0.9f, 0.0f, 1.0f,
+                    -0.2f, -0.95f, 0.0f, 1.0f,
+                    -0.9f, -0.95f, 0.0f, 1.0f,
+                    -0.9f,  -0.9f, 0.0f, 1.0f 
+                };
+
+                unsigned int healthBarIndexArray[6] = {0, 1, 3, 1, 2, 3};
+                glGenVertexArrays(1, &stationHealthOutlineVAO);  
+                glGenBuffers(1, &stationHealthOutlineVBO);  
+                glGenBuffers(1, &stationHealthOutlineEBO);  
+
+                glBindVertexArray(stationHealthOutlineVAO);
+                glBindBuffer(GL_ARRAY_BUFFER, stationHealthOutlineVBO);
+                glBufferData(GL_ARRAY_BUFFER, sizeof(healthBarVertexArray), healthBarVertexArray, GL_STATIC_DRAW);
+
+                glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+                glEnableVertexAttribArray(0);
+
+                glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(4 * sizeof(float)));
+                glEnableVertexAttribArray(1);
+            
+                glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, stationHealthOutlineEBO);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), healthBarIndexArray, GL_STATIC_DRAW);
+
+                glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+                float boostBarVertexArray[16] = {
+                    -0.3f,  -0.8f, 0.0f, 1.0f,
+                    -0.3f, -0.85f, 0.0f, 1.0f,
+                    -0.9f, -0.85f, 0.0f, 1.0f,
+                    -0.9f,  -0.8f, 0.0f, 1.0f 
+                };
+
+                glGenVertexArrays(1, &boostOutlineVAO);  
+                glGenBuffers(1, &boostOutlineVBO);  
+                glGenBuffers(1, &boostOutlineEBO);  
+
+                glBindVertexArray(boostOutlineVAO);
+                glBindBuffer(GL_ARRAY_BUFFER, boostOutlineVBO);
+                glBufferData(GL_ARRAY_BUFFER, sizeof(boostBarVertexArray), boostBarVertexArray, GL_STATIC_DRAW);
+
+                glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+                glEnableVertexAttribArray(0);
+
+                glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(4 * sizeof(float)));
+                glEnableVertexAttribArray(1);
+            
+                glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, boostOutlineEBO);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), healthBarIndexArray, GL_STATIC_DRAW);
+
+                glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+
+                float playerBarVertexArray[16] = {
+                    -0.4f,  -0.7f, 0.0f, 1.0f,
+                    -0.4f, -0.75f, 0.0f, 1.0f,
+                    -0.9f, -0.75f, 0.0f, 1.0f,
+                    -0.9f,  -0.7f, 0.0f, 1.0f 
+                };
+
+                glGenVertexArrays(1, &playerHealthOutlineVAO);  
+                glGenBuffers(1, &playerHealthOutlineVBO);  
+                glGenBuffers(1, &playerHealthOutlineEBO);  
+
+                glBindVertexArray(playerHealthOutlineVAO);
+                glBindBuffer(GL_ARRAY_BUFFER, playerHealthOutlineVBO);
+                glBufferData(GL_ARRAY_BUFFER, sizeof(playerBarVertexArray), playerBarVertexArray, GL_STATIC_DRAW);
+
+                glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+                glEnableVertexAttribArray(0);
+
+                glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(4 * sizeof(float)));
+                glEnableVertexAttribArray(1);
+            
+                glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, playerHealthOutlineEBO);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), healthBarIndexArray, GL_STATIC_DRAW);
+
+                glBindBuffer(GL_ARRAY_BUFFER, 0);
+
             }
             std::string format_points() {
                 int points = gameplay_engine::get_instance().get_points();
@@ -206,6 +298,12 @@ namespace se {
                 }
                 formatted_time += seconds_str;
                 return formatted_time;
+            }
+            float calculate_value(float min, float max, int percentage) {
+                float percent = percentage / 100.0f;
+                float range = max - min;
+                float value = min + percent * range;
+                return value;
             }
     };
 
