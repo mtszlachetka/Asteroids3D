@@ -82,6 +82,9 @@ namespace se {
 		m_asteroid_ptrs.remove_if([](std::unique_ptr<asteroid>& a) -> bool { return a->get_should_destruct(); });
 		m_missile_ptrs.remove_if([](std::unique_ptr<missile>& m) -> bool { return m->get_should_destruct(); });
 		if (m_station_ptr != nullptr && m_station_ptr->get_should_destruct()) m_station_ptr.reset();
+		if (!m_player_ptr->is_boosting() && m_player_ptr->get_boost() < 100 && game_clock::get_instance().get_current_frame_time() - m_player_ptr->get_boost_time_used() > 1.f) {
+			m_player_ptr->recharge_boost();
+		} 
 
 		// spawn asteroids
 		if (game_clock::get_instance().get_current_frame_time() - m_last_spawn_time > 3.f) { // every 3 seconds

@@ -215,12 +215,34 @@ namespace se {
 
         glUseProgram(program);
 
+        updatedPoints = gameplay_engine::get_instance().get_points();
+        if (currentPoints < updatedPoints) {
+            currentPoints += 1;
+        }
+
+        updatedStationHealth = gameplay_engine::get_instance().get_station_health();
+        if (currentStationHealth > updatedStationHealth) {
+            currentStationHealth -= 1;
+        }
+
+        updatedBoost = gameplay_engine::get_instance().get_boost();
+        if (currentBoost > updatedBoost && updatedBoost >= 0) {
+            currentBoost -= 1;
+        } else if (currentBoost < updatedBoost && updatedBoost <= 100) {
+            currentBoost += 1;
+        }
+
+        updatedPlayerHealth = gameplay_engine::get_instance().get_player_health();
+        if (currentPlayerHealth > updatedPlayerHealth) {
+            currentPlayerHealth -= 1;
+        }
+
         drawCrosshair();
-        drawText(hud::format_points(), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.9, 0.5f, green_color);
+        drawText(hud::format_points(currentPoints), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.9, 0.5f, green_color);
         drawText(hud::format_time(), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.85, 0.5f, blue_color);
-        drawStationHealth(gameplay_engine::get_instance().get_station_health(), red_color);
-        drawBoost(100, blue_color);
-        drawPlayerHealth(gameplay_engine::get_instance().get_player_health(), green_color);
+        drawStationHealth(currentStationHealth, red_color);
+        drawBoost(currentBoost, blue_color);
+        drawPlayerHealth(currentPlayerHealth, green_color);
         glUseProgram(0);
 
         glDepthMask(GL_TRUE);

@@ -52,6 +52,18 @@ namespace se {
             texture crosshairTexture;
 
             std::map<char, Character> Characters;
+
+            int currentPoints = 0;
+            int updatedPoints = 0;
+
+            int currentStationHealth = 100;
+            int updatedStationHealth = 100;
+
+            int currentBoost = 100;
+            int updatedBoost = 100;
+
+            int currentPlayerHealth = 100;
+            int updatedPlayerHealth = 100;
 			
             void drawCrosshair();
             void drawText(std::string text, float x, float y, float scale, glm::vec3 color);
@@ -264,8 +276,7 @@ namespace se {
                 glBindBuffer(GL_ARRAY_BUFFER, 0);
 
             }
-            std::string format_points() {
-                int points = gameplay_engine::get_instance().get_points();
+            std::string format_points(int points) {
                 std::string points_str = std::to_string(points);
                 std::string formatted_points = "";
                 for (int i = 0; i < 6 - points_str.length(); i++) {
@@ -275,7 +286,7 @@ namespace se {
                 return formatted_points;
             }
             std::string format_time() {
-                float time = static_cast<float>(glfwGetTime());
+                float time = game_clock::get_instance().get_current_frame_time();
                 int hours = static_cast<int>(time / 3600);
                 int minutes = static_cast<int>(time / 60);
                 int seconds = static_cast<int>(time) % 60;

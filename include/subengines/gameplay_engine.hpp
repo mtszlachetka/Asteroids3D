@@ -63,6 +63,8 @@ namespace se {
 			void add_points(int points) { m_points += points; }
 			int get_player_health() { return m_player_ptr->get_health(); }
 			int get_station_health() { return m_station_ptr->get_health(); }
+			int get_boost() { return m_player_ptr->get_boost(); }
+			float get_boost_time_used() { return m_player_ptr->get_boost_time_used(); }
 			void clear();
 	};
 }
