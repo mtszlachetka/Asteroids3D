@@ -28,7 +28,7 @@ namespace se {
 	struct bounding_sphere {
 		glm::vec3 center;
 		float radius;
-		bounding_sphere operator*(float f) { return {center, radius * f}; }
+		bounding_sphere operator*(float f) { return {center * f, radius * f}; }
 	};
 
 	inline bounding_sphere translate(const bounding_sphere& sp, const glm::vec3& v) {

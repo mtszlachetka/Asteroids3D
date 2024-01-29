@@ -7,6 +7,7 @@
 #include "subengines/collision_engine.hpp"
 #include "camera.hpp"
 #include <memory>
+#include <iostream>
 
 namespace se {
 	class player : public renderable, public input_listener, public collidable {
@@ -26,10 +27,13 @@ namespace se {
 			bounding_sphere m_sphere;
 			void turn_on_boost();
 			void turn_off_boost();
-			bool m_boost_active;
 			int m_health = 100;
 			int m_boost = 100;
 			float m_boost_time_used = 0.f;
+			bool m_boost_active = false;
+			bool m_controls_active = true;
+			void turn_around();
+			void evade();
 		public:
 			player() = delete;
 			// Giant constructor
@@ -57,8 +61,12 @@ namespace se {
 
 			bool is_boosting() const { return m_boost_active; }
 
+			void set_controls(bool t_active) {
+				m_controls_active = t_active;
+			}
+
 			void adjust_camera() {
-				v3 direction = glm::toMat4(m_orientation) * glm::vec4(0,0,1,0);
+				v3 direction = glm::toMat3(m_orientation)[2];
 				m_camera->m_pos = m_position + m_camera_zoom_factor * direction + v3(0,1,0) * 3.f;
 				m_camera->m_dir = direction;
 				m_camera->rebase();

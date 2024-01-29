@@ -24,7 +24,9 @@ namespace se {
 		left_shift_pressed,
 		left_shift_released,
 		left_mouse_button_pressed,
-		mouse_moved
+		mouse_moved,
+		left_ctlr_pressed,
+		left_alt_pressed
 	};
 
 	
