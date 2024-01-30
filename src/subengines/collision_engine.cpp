@@ -44,7 +44,6 @@ namespace se {
 
 				if (intersection(col1->get_bounding_sphere(), col2->get_bounding_sphere())) {
 					if (intersection(col1->get_obb(), col2->get_obb())) {
-						asteroid* a1 = dynamic_cast<asteroid*>(col1);
 						to_notify.push_back({col1, col2, col1->get_collision_info(), col2->get_collision_info()});
 					}					
 				}
