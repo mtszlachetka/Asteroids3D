@@ -87,6 +87,8 @@ namespace se {
 	bounding_sphere compute_bounding_sphere(const std::vector<se::vertex>& t_vertices);
 	dop14 compute_dop14(const std::vector<se::vertex>& t_vertices, const glm::mat4& t_transform); 
 	obb compute_obb(const std::vector<se::vertex>& t_vertices);
+
+	bool intersection(const obb& t_box1, const obb& t_box2);
 }
 
 #endif

@@ -43,10 +43,10 @@ namespace se {
 				collidable* col2 = *cptr2;
 
 				if (intersection(col1->get_bounding_sphere(), col2->get_bounding_sphere())) {
-					// if (intersection(col1->get_dop14(), col2->get_dop14())) {
+					if (intersection(col1->get_obb(), col2->get_obb())) {
 						asteroid* a1 = dynamic_cast<asteroid*>(col1);
 						to_notify.push_back({col1, col2, col1->get_collision_info(), col2->get_collision_info()});
-					// }					
+					}					
 				}
 			}
 		}
@@ -218,6 +218,87 @@ namespace se {
 		glm::vec3 extents(max.x - center.x, max.y - center.y, max.z - center.z);
 
 		return {center, U, extents};
+	}
+
+	bool intersection(const obb& t_box_a, const obb& t_box_b) {
+		glm::mat3 R; // rotation matrix from B to A coordinate frame
+		const glm::mat3& A = t_box_a.m_rotation;
+		const glm::mat3& B = t_box_b.m_rotation;
+		for (int i = 0; i < 3; i++) 
+			for (int j = 0; j < 3; j++)
+				R[i][j] = glm::dot(A[i], B[j]);
+		
+		glm::vec3 T = R * (t_box_b.m_center - t_box_a.m_center); // distance vector between centers in A's coordinate drame
+
+		
+		static const float epsilon = 0.000001f;
+		glm::mat3 absR = glm::abs(R) + epsilon; // matrix of absulute values of R, add eps for numeric reasons
+		// for (int i = 0; i < 3; i++) 
+		// 	for (int j = 0; j < 3; j++)
+		// 		absR[i][j] = std::abs(R[i][j]) + epsilon; // add eps for numerical reasons
+		
+		// SAT time
+		float ra, rb;
+		// test A's axes
+		for (int i = 0; i < 3; i++) {
+			ra = t_box_a.m_extents[i];
+			rb = glm::dot(t_box_b.m_extents, absR[i]);
+			if (glm::abs(T[i]) > ra + rb) return false; // separating axis found
+		}
+		// same for B
+		for (int i =0; i < 3; i++) {
+			ra = glm::dot(t_box_a.m_extents, absR[i]);
+			rb = t_box_b.m_extents[i];
+			if (glm::abs(T[i]) > ra + rb) return false; // separating axis found
+		}
+
+		// A0 X B0
+		ra = t_box_a.m_extents[1] * absR[2][0] + t_box_a.m_extents[2] * absR[1][0];
+		rb = t_box_b.m_extents[1] * absR[0][2] + t_box_b.m_extents[2] * absR[0][1];
+		if (glm::abs(T[2] * R[1][0] - T[1] * R[2][0]) > ra + rb) return false;
+
+		// AO X B1
+		ra = t_box_a.m_extents[1] * absR[2][1] + t_box_a.m_extents[2] * absR[1][1];
+		rb = t_box_b.m_extents[0] * absR[0][2] + t_box_b.m_extents[2] * absR[0][0];
+		if (glm::abs(T[2] * R[1][1] - T[1] * R[2][1]) > ra + rb) return false;
+
+		// AO X B2
+		ra = t_box_a.m_extents[1] * absR[2][2] + t_box_a.m_extents[2] * absR[1][2];
+		rb = t_box_b.m_extents[0] * absR[0][1] + t_box_b.m_extents[1] * absR[0][0];
+		if (glm::abs(T[2] * R[1][2] - T[1] * R[2][2]) > ra + rb) return false;
+
+		// A1 X B0
+		ra = t_box_a.m_extents[0] * absR[2][0] + t_box_a.m_extents[2] * absR[0][0];
+		rb = t_box_b.m_extents[1] * absR[1][2] + t_box_b.m_extents[2] * absR[1][1];
+		if (glm::abs(T[0] * R[2][0] - T[2] * R[0][0]) > ra + rb) return false;
+
+		// A1 X B1
+		ra = t_box_a.m_extents[0] * absR[2][1] + t_box_a.m_extents[2] * absR[0][1];
+		rb = t_box_b.m_extents[0] * absR[1][2] + t_box_b.m_extents[2] * absR[1][0];
+		if (glm::abs(T[0] * R[2][1] - T[2] * R[0][1]) > ra + rb) return false;
+
+		// A1 X B2
+		ra = t_box_a.m_extents[0] * absR[2][2] + t_box_a.m_extents[2] * absR[0][2];
+		rb = t_box_b.m_extents[0] * absR[1][1] + t_box_b.m_extents[1] * absR[1][0];
+		if (glm::abs(T[0] * R[2][2] - T[2] * R[0][2]) > ra + rb) return false;
+
+		// A2 X B0
+		ra = t_box_a.m_extents[0] * absR[1][0] + t_box_a.m_extents[1] * absR[0][0];
+		rb = t_box_b.m_extents[1] * absR[2][2] + t_box_b.m_extents[2] * absR[2][1];
+		if (glm::abs(T[1] * R[0][0] - T[0] * R[1][0]) > ra + rb) return false;
+
+		// A2 X B1
+		ra = t_box_a.m_extents[0] * absR[1][1] + t_box_a.m_extents[1] * absR[0][1];
+		rb = t_box_b.m_extents[0] * absR[2][2] + t_box_b.m_extents[2] * absR[2][0];
+		if (glm::abs(T[1] * R[0][1] - T[0] * R[1][1]) > ra + rb) return false;
+
+		// A2 X B2
+		ra = t_box_a.m_extents[0] * absR[1][2] + t_box_a.m_extents[1] * absR[0][2];
+		rb = t_box_b.m_extents[0] * absR[2][1] + t_box_b.m_extents[1] * absR[2][0];
+		if (glm::abs(T[1] * R[0][2] - T[0] * R[1][2]) > ra + rb) return false;
+
+		// All this for nothing
+		return true;
 	}
 }
 
