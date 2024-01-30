@@ -35,9 +35,11 @@ namespace se {
 		return {sp.center + v, sp.radius};
 	}
 
-	struct aabb {
-		glm::vec3 center;
-		float r[3];
+	struct obb {
+		glm::vec3 m_center;
+		glm::mat3 m_rotation;
+		glm::vec3 m_extents;
+		obb operator*(float f) { return { m_center * f, m_rotation, m_extents * f }; }
 	};
 
 	struct collision_info { // base for polymorphic pointers
@@ -81,6 +83,7 @@ namespace se {
 
 	bounding_sphere compute_bounding_sphere(const std::vector<se::vertex>& t_vertices);
 	dop14 compute_dop14(const std::vector<se::vertex>& t_vertices, const glm::mat4& t_transform); 
+	obb compute_obb(const std::vector<se::vertex>& t_vertices);
 }
 
 #endif

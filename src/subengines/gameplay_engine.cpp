@@ -11,6 +11,7 @@
 #include <memory>
 #include <random>
 #include "clock.hpp"
+#include "subengines/debug.hpp"
 
 namespace se {
 	void gameplay_engine::init() {
@@ -41,8 +42,14 @@ namespace se {
 		m_station_sphere = compute_bounding_sphere(m_station_mesh.m_vertices);
 		m_missile_sphere = compute_bounding_sphere(m_missile_mesh.m_vertices);
 
-		for (int i = 0; i < 4; i++)
+		m_player_obb = compute_obb(m_player_mesh.m_vertices);
+		m_station_obb = compute_obb(m_station_mesh.m_vertices);
+		m_missile_obb = compute_obb(m_missile_mesh.m_vertices);
+
+		for (int i = 0; i < 4; i++) {
 			m_asteroid_spheres[i] = compute_bounding_sphere(m_asteroid_meshes[i].m_vertices);
+			m_asteroid_obbs[i] = compute_obb(m_asteroid_meshes[i].m_vertices);
+		}
 
 		se::texture ship_diff = se::load_texture_2d_named("../textures/spaceshipPBR/diff.png", "diffuse_map");
 		se::texture ship_normals = se::load_texture_2d_named("../textures/spaceshipPBR/norm.png", "normal_map");

@@ -4,6 +4,8 @@
 #include <tuple>
 #include <vector>
 #include <limits>
+#include "subengines/debug.hpp"
+#include "math.hpp"
 
 namespace se {
 
@@ -144,6 +146,78 @@ namespace se {
 			if (value > dop.max[6]) dop.max[6] = value;
 		}
 		return dop;
+	}
+
+	obb compute_obb(const std::vector<se::vertex>& t_vertices) {
+		using v3 = glm::vec3;
+		// find centroid
+		float one_over_n = 1.f / t_vertices.size();
+		v3 sumvec(0.f);
+
+		for (const vertex& vert : t_vertices) {
+			const v3& pos = vert.m_position;
+			sumvec += pos;
+		}
+
+		v3 centroid = sumvec * one_over_n;
+
+		// build covariance matrix
+		glm::mat3 cov(0.f);
+		for (const vertex& vert : t_vertices) {
+			const v3& pos = vert.m_position;
+			
+			cov[0][0] += (pos.x - centroid.x) * (pos.x - centroid.x); // xx
+			cov[0][1] += (pos.x - centroid.x) * (pos.y - centroid.y); // xy
+			cov[0][2] += (pos.x - centroid.x) * (pos.z - centroid.z); // xz
+
+			cov[1][0] += (pos.y - centroid.y) * (pos.x - centroid.x); // yx
+			cov[1][1] += (pos.y - centroid.y) * (pos.y - centroid.y); // yy
+			cov[2][2] += (pos.y - centroid.y) * (pos.z - centroid.z); // yz
+
+			cov[2][0] += (pos.z - centroid.z) * (pos.x - centroid.x); // zx
+			cov[2][1] += (pos.z - centroid.z) * (pos.y - centroid.y); // zy
+			cov[2][2] += (pos.z - centroid.z) * (pos.z - centroid.z); // zz
+		}
+
+		cov *= one_over_n;
+
+		// find eigenvectors of unitary matrix
+		glm::mat3 A = cov * glm::transpose(cov);
+		auto&& [eigenval1, eigenvec1] = math::power_eigen(A, A[0]);
+
+		glm::mat3 Ainv = glm::inverse(A);
+		auto&& [eigenval2, eigenvec2] = math::power_eigen(Ainv, A[1]);
+
+		v3 eigenvec3 = glm::normalize(glm::cross(eigenvec1, eigenvec2));
+
+		// U matrix in SVD
+		glm::mat3 U = glm::transpose(glm::mat3(eigenvec1, eigenvec2, eigenvec3));
+
+		// find min-max along each axis
+
+		glm::mat3 inv_rotation = glm::transpose(U); // inverse is transpose, since orthonormal
+
+		float maxf = std::numeric_limits<float>::max();
+
+		float minx = maxf, maxx = -maxf, miny = maxf, maxy = -maxf, minz = maxf, maxz = -maxf;
+		for (const vertex& vert : t_vertices) {
+			const v3& pos = inv_rotation * vert.m_position; // align with standard basis
+			if (pos.x < minx) minx = pos.x;
+			if (pos.x > maxx) maxx = pos.x;
+			if (pos.y < miny) miny = pos.y;
+			if (pos.y > maxy) maxy = pos.y;
+			if (pos.z < minz) minz = pos.z;
+			if (pos.z > maxz) maxz = pos.z;
+		}
+
+		v3 min(minx, miny, minz);
+		v3 max(maxx, maxy, maxz);
+
+		glm::vec3 center = 0.5f * (min + max);
+
+		glm::vec3 extents(max.x - center.x, max.y - center.y, max.z - center.z);
+
+		return {center, U, extents};
 	}
 }
 
