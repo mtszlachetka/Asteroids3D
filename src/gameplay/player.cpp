@@ -13,10 +13,13 @@ namespace se {
 		const qu& t_orientation,
 		const mesh& t_mesh,
 		const std::list<texture>& t_textures,
-		GLuint t_program
+		GLuint t_program,
+		const bounding_sphere& t_sphere,
+		const obb& t_box
 	) : transformable(t_position, t_orientation),
 		renderable(t_position, t_orientation, t_mesh, t_textures, t_program),
-		input_listener() {
+		input_listener(),
+		collidable(t_sphere, t_box) {
 
 		m_camera = std::make_unique<player_follow_camera>(0.01f, 20000.f, v3(0,0,1), v3(0));
 		this->adjust_camera();

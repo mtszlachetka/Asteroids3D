@@ -9,7 +9,7 @@
 
 namespace se {
 
-	collidable::collidable() {
+	collidable::collidable(const bounding_sphere& t_sphere, const obb& t_box) : m_base_sphere(t_sphere), m_base_obb(t_box) {
 		collision_engine::get_instance().attach(this);
 	}
 	collidable::~collidable() {

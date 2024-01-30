@@ -23,8 +23,6 @@ namespace se {
 			void update_mouse_offset(double x, double y);
 			static constexpr float m_base_zoom = -8.f;
 			float m_camera_zoom_factor = m_base_zoom;
-			dop14 m_cached_dop;
-			bounding_sphere m_sphere;
 			void turn_on_boost();
 			void turn_off_boost();
 			bool m_boost_active = false;
@@ -39,17 +37,21 @@ namespace se {
 				const qu& t_orientation,
 				const mesh& t_mesh,
 				const std::list<texture>& t_textures,
-				GLuint t_program
+				GLuint t_program,
+				const bounding_sphere&,
+				const obb&
 			);
 
-			dop14 get_dop14() {
-				return compute_dop14(m_mesh.m_vertices, get_model_matrix());
+			obb get_obb() const override {
+				return {
+					m_base_obb.m_center + m_position,
+					glm::toMat3(m_orientation) * m_base_obb.m_rotation,
+					m_base_obb.m_extents
+				};
 			}
 
-			void set_bounding_sphere(const bounding_sphere& sp) { m_sphere = sp; }
-
-			bounding_sphere get_bounding_sphere() const {
-				return translate(m_sphere, m_position);
+			bounding_sphere get_bounding_sphere() const override {
+				return translate(m_base_sphere, m_position);
 			}
 
 			void collide_with(collidable* cl, collision_info* info) {

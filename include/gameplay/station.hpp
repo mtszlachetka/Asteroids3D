@@ -12,26 +12,28 @@ namespace se {
 		private:
 			int m_health;
 			bool should_destruct = false;
-			dop14 m_cached_dop;
-			bounding_sphere m_sphere;
 		public:
 			station() = delete;
 			station(
 				const v3& t_position, 
 				const se::mesh& t_mesh, 
 				const std::list<se::texture>& t_textures, 
-				GLuint t_program, 
+				GLuint t_program,
+				const bounding_sphere&,
+				const obb&, 
 				float t_health
 			);
 			bool get_should_destruct() const { return false /* m_health <= 0 */; }
-			dop14 get_dop14() {
-				return compute_dop14(m_mesh.m_vertices, get_model_matrix());
+			obb get_obb() const override {
+				return {
+					m_base_obb.m_center + m_position,
+					glm::toMat3(m_orientation) * m_base_obb.m_rotation,
+					m_base_obb.m_extents
+				};
 			}
 
-			void set_bounding_sphere(const bounding_sphere& sp) { m_sphere = sp; }
-
-			bounding_sphere get_bounding_sphere() const {
-				return translate(m_sphere, m_position);
+			bounding_sphere get_bounding_sphere() const override {
+				return translate(m_base_sphere, m_position);
 			}
 
 			void collide_with(collidable* cl, collision_info* info) {

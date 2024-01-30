@@ -16,8 +16,6 @@ namespace se {
 			bool should_destruct = false;
 			float m_lifetime = 4.f;
 			float m_spawn_timestamp; // exact time of creation
-			dop14 m_cached_dop;
-			bounding_sphere m_sphere;
 		public:
 			missile() = delete;
 			// Giant constructor
@@ -30,15 +28,22 @@ namespace se {
 				const v3& t_velocity,
 				float t_mass,
 				const v3& t_inertia, 
-				const v3& t_angular
+				const v3& t_angular,
+				const bounding_sphere&,
+				const obb&
 			);
 			virtual ~missile();
 
-			dop14 get_dop14() { return compute_dop14(m_mesh.m_vertices, get_model_matrix()); }
-			void set_bounding_sphere(const bounding_sphere& sp) { m_sphere = sp; }
+			obb get_obb() const override {
+				return {
+					m_base_obb.m_center + m_position,
+					glm::toMat3(m_orientation) * m_base_obb.m_rotation,
+					m_base_obb.m_extents
+				};
+			}
 
-			bounding_sphere get_bounding_sphere() const {
-				return translate(m_sphere, m_position);
+			bounding_sphere get_bounding_sphere() const override {
+				return translate(m_base_sphere, m_position);
 			}
 			void collide_with(collidable* cl, collision_info* info);
 
