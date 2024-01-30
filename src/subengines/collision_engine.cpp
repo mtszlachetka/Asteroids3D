@@ -233,9 +233,6 @@ namespace se {
 		
 		static const float epsilon = 0.000001f;
 		glm::mat3 absR = glm::abs(R) + epsilon; // matrix of absulute values of R, add eps for numeric reasons
-		// for (int i = 0; i < 3; i++) 
-		// 	for (int j = 0; j < 3; j++)
-		// 		absR[i][j] = std::abs(R[i][j]) + epsilon; // add eps for numerical reasons
 		
 		// SAT time
 		float ra, rb;
