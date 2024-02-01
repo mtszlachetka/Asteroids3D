@@ -16,11 +16,14 @@ namespace se {
 		const v3& t_velocity,
 		float t_mass,
 		const v3& t_inertia, 
-		const v3& t_angular
+		const v3& t_angular,
+		const bounding_sphere& t_sphere,
+		const obb& t_box
 	) : 
 	transformable(t_position, t_orientation),
 	renderable(t_position, t_orientation, t_mesh, t_textures, t_program), 
-	rigid_body(t_position, t_orientation, t_velocity, t_mass, t_inertia, t_angular) {
+	rigid_body(t_position, t_orientation, t_velocity, t_mass, t_inertia, t_angular),
+	collidable(t_sphere, t_box) {
 	}
 
 	asteroid::~asteroid() {

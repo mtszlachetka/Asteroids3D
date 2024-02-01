@@ -35,9 +35,11 @@ namespace se {
 		return {sp.center + v, sp.radius};
 	}
 
-	struct aabb {
-		glm::vec3 center;
-		float r[3];
+	struct obb {
+		glm::vec3 m_center;
+		glm::mat3 m_rotation;
+		glm::vec3 m_extents;
+		obb operator*(float f) { return { m_center * f, m_rotation, m_extents * f }; }
 	};
 
 	struct collision_info { // base for polymorphic pointers
@@ -51,9 +53,12 @@ namespace se {
 
 
 	class collidable {
+		protected:
+			bounding_sphere m_base_sphere;
+			obb m_base_obb;
 		public:
-			collidable();
-			virtual dop14 get_dop14() = 0;
+			collidable(const bounding_sphere& t_sphere, const obb& t_box);
+			virtual obb get_obb() const = 0;
 			virtual bounding_sphere get_bounding_sphere() const = 0;
 			virtual void collide_with(collidable* cl, collision_info* info) = 0;
 			virtual std::shared_ptr<collision_info> get_collision_info() { return {}; } // override if object needs to pass something to other colliding objects
@@ -81,6 +86,9 @@ namespace se {
 
 	bounding_sphere compute_bounding_sphere(const std::vector<se::vertex>& t_vertices);
 	dop14 compute_dop14(const std::vector<se::vertex>& t_vertices, const glm::mat4& t_transform); 
+	obb compute_obb(const std::vector<se::vertex>& t_vertices);
+
+	bool intersection(const obb& t_box1, const obb& t_box2);
 }
 
 #endif

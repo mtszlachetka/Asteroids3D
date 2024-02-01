@@ -7,9 +7,12 @@ namespace se {
 		const se::mesh& t_mesh, 
 		const std::list<se::texture>& t_textures, 
 		GLuint t_program, 
+		const bounding_sphere& t_sphere,
+		const obb& t_box,
 		float t_health
 	) : transformable(t_position, {1,0,0,0}),
 		renderable(t_position, {1,0,0,0}, t_mesh, t_textures, t_program),
+		collidable(t_sphere, t_box),
 		m_health(t_health) {
 		
 	}

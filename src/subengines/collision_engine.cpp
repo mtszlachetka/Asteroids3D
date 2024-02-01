@@ -4,10 +4,12 @@
 #include <tuple>
 #include <vector>
 #include <limits>
+#include "subengines/debug.hpp"
+#include "math.hpp"
 
 namespace se {
 
-	collidable::collidable() {
+	collidable::collidable(const bounding_sphere& t_sphere, const obb& t_box) : m_base_sphere(t_sphere), m_base_obb(t_box) {
 		collision_engine::get_instance().attach(this);
 	}
 	collidable::~collidable() {
@@ -41,10 +43,9 @@ namespace se {
 				collidable* col2 = *cptr2;
 
 				if (intersection(col1->get_bounding_sphere(), col2->get_bounding_sphere())) {
-					// if (intersection(col1->get_dop14(), col2->get_dop14())) {
-						asteroid* a1 = dynamic_cast<asteroid*>(col1);
+					if (intersection(col1->get_obb(), col2->get_obb())) {
 						to_notify.push_back({col1, col2, col1->get_collision_info(), col2->get_collision_info()});
-					// }					
+					}					
 				}
 			}
 		}
@@ -144,6 +145,156 @@ namespace se {
 			if (value > dop.max[6]) dop.max[6] = value;
 		}
 		return dop;
+	}
+
+	obb compute_obb(const std::vector<se::vertex>& t_vertices) {
+		using v3 = glm::vec3;
+		// find centroid
+		float one_over_n = 1.f / t_vertices.size();
+		v3 sumvec(0.f);
+
+		for (const vertex& vert : t_vertices) {
+			const v3& pos = vert.m_position;
+			sumvec += pos;
+		}
+
+		v3 centroid = sumvec * one_over_n;
+
+		// build covariance matrix
+		glm::mat3 cov(0.f);
+		for (const vertex& vert : t_vertices) {
+			const v3& pos = vert.m_position;
+			
+			cov[0][0] += (pos.x - centroid.x) * (pos.x - centroid.x); // xx
+			cov[0][1] += (pos.x - centroid.x) * (pos.y - centroid.y); // xy
+			cov[0][2] += (pos.x - centroid.x) * (pos.z - centroid.z); // xz
+
+			cov[1][0] += (pos.y - centroid.y) * (pos.x - centroid.x); // yx
+			cov[1][1] += (pos.y - centroid.y) * (pos.y - centroid.y); // yy
+			cov[2][2] += (pos.y - centroid.y) * (pos.z - centroid.z); // yz
+
+			cov[2][0] += (pos.z - centroid.z) * (pos.x - centroid.x); // zx
+			cov[2][1] += (pos.z - centroid.z) * (pos.y - centroid.y); // zy
+			cov[2][2] += (pos.z - centroid.z) * (pos.z - centroid.z); // zz
+		}
+
+		cov *= one_over_n;
+
+		// find eigenvectors of unitary matrix
+		glm::mat3 A = cov * glm::transpose(cov);
+		auto&& [eigenval1, eigenvec1] = math::power_eigen(A, A[0]);
+
+		glm::mat3 Ainv = glm::inverse(A);
+		auto&& [eigenval2, eigenvec2] = math::power_eigen(Ainv, A[1]);
+
+		v3 eigenvec3 = glm::normalize(glm::cross(eigenvec1, eigenvec2));
+
+		// U matrix in SVD
+		glm::mat3 U = glm::transpose(glm::mat3(eigenvec1, eigenvec2, eigenvec3));
+
+		// find min-max along each axis
+
+		glm::mat3 inv_rotation = glm::transpose(U); // inverse is transpose, since orthonormal
+
+		float maxf = std::numeric_limits<float>::max();
+
+		float minx = maxf, maxx = -maxf, miny = maxf, maxy = -maxf, minz = maxf, maxz = -maxf;
+		for (const vertex& vert : t_vertices) {
+			const v3& pos = inv_rotation * vert.m_position; // align with standard basis
+			if (pos.x < minx) minx = pos.x;
+			if (pos.x > maxx) maxx = pos.x;
+			if (pos.y < miny) miny = pos.y;
+			if (pos.y > maxy) maxy = pos.y;
+			if (pos.z < minz) minz = pos.z;
+			if (pos.z > maxz) maxz = pos.z;
+		}
+
+		v3 min(minx, miny, minz);
+		v3 max(maxx, maxy, maxz);
+
+		glm::vec3 center = 0.5f * (min + max);
+
+		glm::vec3 extents(max.x - center.x, max.y - center.y, max.z - center.z);
+
+		return {center, U, extents};
+	}
+
+	bool intersection(const obb& t_box_a, const obb& t_box_b) {
+		glm::mat3 R; // rotation matrix from B to A coordinate frame
+		const glm::mat3& A = t_box_a.m_rotation;
+		const glm::mat3& B = t_box_b.m_rotation;
+		for (int i = 0; i < 3; i++) 
+			for (int j = 0; j < 3; j++)
+				R[i][j] = glm::dot(A[i], B[j]);
+		
+		glm::vec3 T = R * (t_box_b.m_center - t_box_a.m_center); // distance vector between centers in A's coordinate drame
+
+		
+		static const float epsilon = 0.000001f;
+		glm::mat3 absR = glm::mat3(glm::abs(R[0]), glm::abs(R[1]), glm::abs(R[2])) + epsilon; // matrix of absulute values of R, add eps for numeric reasons
+		
+		// SAT time
+		float ra, rb;
+		// test A's axes
+		for (int i = 0; i < 3; i++) {
+			ra = t_box_a.m_extents[i];
+			rb = glm::dot(t_box_b.m_extents, absR[i]);
+			if (glm::abs(T[i]) > ra + rb) return false; // separating axis found
+		}
+		// same for B
+		for (int i =0; i < 3; i++) {
+			ra = glm::dot(t_box_a.m_extents, absR[i]);
+			rb = t_box_b.m_extents[i];
+			if (glm::abs(T[i]) > ra + rb) return false; // separating axis found
+		}
+
+		// A0 X B0
+		ra = t_box_a.m_extents[1] * absR[2][0] + t_box_a.m_extents[2] * absR[1][0];
+		rb = t_box_b.m_extents[1] * absR[0][2] + t_box_b.m_extents[2] * absR[0][1];
+		if (glm::abs(T[2] * R[1][0] - T[1] * R[2][0]) > ra + rb) return false;
+
+		// AO X B1
+		ra = t_box_a.m_extents[1] * absR[2][1] + t_box_a.m_extents[2] * absR[1][1];
+		rb = t_box_b.m_extents[0] * absR[0][2] + t_box_b.m_extents[2] * absR[0][0];
+		if (glm::abs(T[2] * R[1][1] - T[1] * R[2][1]) > ra + rb) return false;
+
+		// AO X B2
+		ra = t_box_a.m_extents[1] * absR[2][2] + t_box_a.m_extents[2] * absR[1][2];
+		rb = t_box_b.m_extents[0] * absR[0][1] + t_box_b.m_extents[1] * absR[0][0];
+		if (glm::abs(T[2] * R[1][2] - T[1] * R[2][2]) > ra + rb) return false;
+
+		// A1 X B0
+		ra = t_box_a.m_extents[0] * absR[2][0] + t_box_a.m_extents[2] * absR[0][0];
+		rb = t_box_b.m_extents[1] * absR[1][2] + t_box_b.m_extents[2] * absR[1][1];
+		if (glm::abs(T[0] * R[2][0] - T[2] * R[0][0]) > ra + rb) return false;
+
+		// A1 X B1
+		ra = t_box_a.m_extents[0] * absR[2][1] + t_box_a.m_extents[2] * absR[0][1];
+		rb = t_box_b.m_extents[0] * absR[1][2] + t_box_b.m_extents[2] * absR[1][0];
+		if (glm::abs(T[0] * R[2][1] - T[2] * R[0][1]) > ra + rb) return false;
+
+		// A1 X B2
+		ra = t_box_a.m_extents[0] * absR[2][2] + t_box_a.m_extents[2] * absR[0][2];
+		rb = t_box_b.m_extents[0] * absR[1][1] + t_box_b.m_extents[1] * absR[1][0];
+		if (glm::abs(T[0] * R[2][2] - T[2] * R[0][2]) > ra + rb) return false;
+
+		// A2 X B0
+		ra = t_box_a.m_extents[0] * absR[1][0] + t_box_a.m_extents[1] * absR[0][0];
+		rb = t_box_b.m_extents[1] * absR[2][2] + t_box_b.m_extents[2] * absR[2][1];
+		if (glm::abs(T[1] * R[0][0] - T[0] * R[1][0]) > ra + rb) return false;
+
+		// A2 X B1
+		ra = t_box_a.m_extents[0] * absR[1][1] + t_box_a.m_extents[1] * absR[0][1];
+		rb = t_box_b.m_extents[0] * absR[2][2] + t_box_b.m_extents[2] * absR[2][0];
+		if (glm::abs(T[1] * R[0][1] - T[0] * R[1][1]) > ra + rb) return false;
+
+		// A2 X B2
+		ra = t_box_a.m_extents[0] * absR[1][2] + t_box_a.m_extents[1] * absR[0][2];
+		rb = t_box_b.m_extents[0] * absR[2][1] + t_box_b.m_extents[1] * absR[2][0];
+		if (glm::abs(T[1] * R[0][2] - T[0] * R[1][2]) > ra + rb) return false;
+
+		// All this for nothing
+		return true;
 	}
 }
 
