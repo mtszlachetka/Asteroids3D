@@ -231,4 +231,10 @@ namespace se {
 		animation_thread.detach();
 	}
 
+	void player::collide_with(collidable* cl, collision_info* info) {
+		missile* m_ptr = dynamic_cast<missile*>(cl);
+		if (m_ptr != nullptr) return;
+		m_health -= 10;
+	}
+
 }
