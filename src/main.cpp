@@ -107,6 +107,7 @@ int main() {
 
 	// se::free_camera free(0.01, 200, {0,0,1}, {0,0,0});
 	// re.set_camera(&free);
+	clock.init();
 
     while (!glfwWindowShouldClose(window)) {
 		clock.tick();
