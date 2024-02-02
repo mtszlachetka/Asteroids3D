@@ -59,7 +59,7 @@ namespace se {
 			case input_event::left_shift_pressed:
 				if (m_boost <= 0) {
 					this->turn_off_boost();
-					this->m_boost_time_used = static_cast<float>(game_clock::get_instance().get_current_frame_time());
+					this->m_boost_time_used = game_clock::get_instance().get_current_frame_time();
 					break;
 				}
 				this->turn_on_boost();

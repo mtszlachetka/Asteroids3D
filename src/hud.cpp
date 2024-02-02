@@ -6,7 +6,7 @@ extern int WINDOW_WIDTH, WINDOW_HEIGHT;
 
 namespace se {
 	static float get_cooldown_percentage(float last_time_shot, float cooldown) {
-        float current_time = static_cast<float>(glfwGetTime());
+        float current_time = game_clock::get_instance().get_current_frame_time();
         float time_passed = current_time - (last_time_shot + cooldown);
         if (time_passed > cooldown) {
             return 1.0f;
