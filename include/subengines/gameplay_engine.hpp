@@ -65,8 +65,8 @@ namespace se {
 			float get_shooting_cooldown() const { return m_shooting_cooldown; }
 			int get_points() const { return m_points; }
 			void add_points(int points) { m_points += points; }
-			std::unique_ptr<se::player> get_player() { return std::move(m_player_ptr); }
-			std::unique_ptr<se::station> get_station() { return std::move(m_station_ptr); }
+			se::player* get_player() { return m_player_ptr.get(); }
+			se::station* get_station() { return m_station_ptr.get(); }
 			void clear();
 	};
 }

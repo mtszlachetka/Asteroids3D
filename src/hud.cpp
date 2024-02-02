@@ -188,8 +188,8 @@ namespace se {
 
         glUseProgram(program);
 
-        std::unique_ptr<se::player> player = gameplay_engine::get_instance().get_player();
-        std::unique_ptr<se::station> station = gameplay_engine::get_instance().get_station();
+        se::player* player = gameplay_engine::get_instance().get_player();
+        se::station* station = gameplay_engine::get_instance().get_station();
 
         updatedPoints = gameplay_engine::get_instance().get_points();
         if (currentPoints < updatedPoints) {
