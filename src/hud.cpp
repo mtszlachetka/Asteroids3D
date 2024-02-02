@@ -81,11 +81,7 @@ namespace se {
         float val = calculate_value(-0.9f, -0.2f ,percentage);
 
         stationHealthBarVertexArray[0] = val;
-        stationHealthBarVertexArray[4] = val - 0.05f;
-
-        glGenVertexArrays(1, &stationHealthVAO);  
-        glGenBuffers(1, &stationHealthVBO);  
-        glGenBuffers(1, &stationHealthEBO);  
+        stationHealthBarVertexArray[4] = val - 0.05f; 
 
         glBindVertexArray(stationHealthVAO);
         glBindBuffer(GL_ARRAY_BUFFER, stationHealthVBO);
@@ -122,10 +118,6 @@ namespace se {
         boostBarVertexArray[0] = val;
         boostBarVertexArray[4] = val - 0.05f;
 
-        glGenVertexArrays(1, &boostVAO);  
-        glGenBuffers(1, &boostVBO);  
-        glGenBuffers(1, &boostEBO);  
-
         glBindVertexArray(boostVAO);
         glBindBuffer(GL_ARRAY_BUFFER, boostVBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(boostBarVertexArray), boostBarVertexArray, GL_STATIC_DRAW);
@@ -159,11 +151,7 @@ namespace se {
         float val = calculate_value(-0.9f, -0.4f ,percentage);
 
         healthBarVertexArray[0] = val;
-        healthBarVertexArray[4] = val - 0.05f;
-
-        glGenVertexArrays(1, &playerHealthVAO);  
-        glGenBuffers(1, &playerHealthVBO);  
-        glGenBuffers(1, &playerHealthEBO);  
+        healthBarVertexArray[4] = val - 0.05f; 
 
         glBindVertexArray(playerHealthVAO);
         glBindBuffer(GL_ARRAY_BUFFER, playerHealthVBO);

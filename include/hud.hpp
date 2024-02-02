@@ -297,6 +297,18 @@ namespace se {
 
                 glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+                glGenVertexArrays(1, &stationHealthVAO);  
+                glGenBuffers(1, &stationHealthVBO);  
+                glGenBuffers(1, &stationHealthEBO); 
+
+                glGenVertexArrays(1, &boostVAO);  
+                glGenBuffers(1, &boostVBO);  
+                glGenBuffers(1, &boostEBO);  
+
+                glGenVertexArrays(1, &playerHealthVAO);  
+                glGenBuffers(1, &playerHealthVBO);  
+                glGenBuffers(1, &playerHealthEBO); 
+
             }
             std::string format_points(int points) {
                 std::string points_str = std::to_string(points);
