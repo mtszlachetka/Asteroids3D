@@ -81,6 +81,7 @@ namespace se {
 		m_player_ptr = std::make_unique<se::player>(glm::vec3(0.f, 0.f, 10.f), glm::quat(1,0,0,0), m_player_mesh, m_player_textures, m_program, m_player_sphere, m_player_obb);
 
 	}
+
 	void gameplay_engine::tick() {
 
 		// check whether any objects should be destroyed
@@ -92,7 +93,11 @@ namespace se {
 		} 
 
 		// spawn asteroids
-		if (game_clock::get_instance().get_current_frame_time() - m_last_spawn_time > 3.f) { // every 3 seconds
+		if (game_clock::get_instance().get_current_frame_time() - m_last_spawn_time > 2.f) { // every 2 seconds
+
+			const glm::vec3& player_pos = m_player_ptr->get_position();
+			const glm::vec3& player_dir = glm::toMat3(m_player_ptr->get_orientation())[2];
+
 			
 			static std::random_device rd;
 			static std::mt19937 gen(rd());
@@ -104,9 +109,13 @@ namespace se {
 			float x_pos = dist(gen);
 			float y_pos = dist(gen);
 			float z_pos = dist(gen);
-			x_pos *= (minus(gen) == 0 ? 1 : -1);
-			y_pos *= (minus(gen) == 0 ? 1 : -1);
-			z_pos *= (minus(gen) == 0 ? 1 : -1);
+			// always spawn behind player
+			x_pos *= (x_pos * player_dir.x >= 0 ? -1 : 1);
+			y_pos *= (y_pos * player_dir.y >= 0 ? -1 : 1);
+			z_pos *= (z_pos * player_dir.z >= 0 ? -1 : 1);
+
+			glm::vec3 final_pos = glm::vec3(x_pos, y_pos, z_pos) + player_pos;
+
 			float scale_factor = sc(gen);
 			float velocity_factor = vel(gen);
 
@@ -120,12 +129,12 @@ namespace se {
 			float I = 0.2f * scale_factor * R;
 			
 			std::unique_ptr<se::asteroid> aptr = std::make_unique<se::asteroid>(
-				glm::vec3(x_pos, y_pos, z_pos),
+				final_pos,
 				glm::quat(1,0,0,0),
 				scaled_mesh,
 				m_asteroid_textures,
 				m_explosion_program,
-				glm::vec3(x_pos, y_pos, z_pos) * - 1.f / velocity_factor,
+				final_pos * - 1.f / velocity_factor,
 				scale_factor,
 				glm::vec3(I),
 				glm::vec3(vel(gen), vel(gen), vel(gen)),
