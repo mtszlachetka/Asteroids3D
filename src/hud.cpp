@@ -81,7 +81,7 @@ namespace se {
         float val = calculate_value(-0.9f, -0.2f ,percentage);
 
         stationHealthBarVertexArray[0] = val;
-        stationHealthBarVertexArray[4] = val;
+        stationHealthBarVertexArray[4] = val - 0.05f;
 
         glGenVertexArrays(1, &stationHealthVAO);  
         glGenBuffers(1, &stationHealthVBO);  
@@ -103,11 +103,10 @@ namespace se {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         set_uniform_vec3(simple_program, "color", color);
-
+        set_uniform_float(simple_program, "alpha", .25f);
         glBindVertexArray(stationHealthOutlineVAO);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        set_uniform_float(simple_program, "alpha", .85f);
         glBindVertexArray(stationHealthVAO);
         glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
@@ -121,7 +120,7 @@ namespace se {
         float val = calculate_value(-0.9f, -0.3f ,percentage);
 
         boostBarVertexArray[0] = val;
-        boostBarVertexArray[4] = val;
+        boostBarVertexArray[4] = val - 0.05f;
 
         glGenVertexArrays(1, &boostVAO);  
         glGenBuffers(1, &boostVBO);  
@@ -143,11 +142,10 @@ namespace se {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         set_uniform_vec3(simple_program, "color", color);
-
+        set_uniform_float(simple_program, "alpha", .15f);
         glBindVertexArray(boostOutlineVAO);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        set_uniform_float(simple_program, "alpha", .7f);
         glBindVertexArray(boostVAO);
         glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
@@ -161,7 +159,7 @@ namespace se {
         float val = calculate_value(-0.9f, -0.4f ,percentage);
 
         healthBarVertexArray[0] = val;
-        healthBarVertexArray[4] = val;
+        healthBarVertexArray[4] = val - 0.05f;
 
         glGenVertexArrays(1, &playerHealthVAO);  
         glGenBuffers(1, &playerHealthVBO);  
@@ -183,11 +181,10 @@ namespace se {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         set_uniform_vec3(simple_program, "color", color);
-
+        set_uniform_float(simple_program, "alpha", .15f);
         glBindVertexArray(playerHealthOutlineVAO);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        set_uniform_float(simple_program, "alpha", .7f);
         glBindVertexArray(playerHealthVAO);
         glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);

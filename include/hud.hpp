@@ -42,7 +42,7 @@ namespace se {
             GLuint textureUniform;
 
             glm::vec3 green_color = glm::vec3(0.12, 1.f, 0.f);
-            glm::vec3 blue_color = glm::vec3(0.f, 0.12f, 1.f);
+            glm::vec3 blue_color = glm::vec3(0.2f, 0.4f, 1.f);
             glm::vec3 red_color = glm::vec3(1.f, 0.f, 0.12f);  
 
             int numVertices = 4;
@@ -55,22 +55,22 @@ namespace se {
 
             float stationHealthBarVertexArray[16] = {
                 -0.2f,  -0.9f, 0.0f, 1.0f,
-                -0.2f, -0.95f, 0.0f, 1.0f,
-                -0.9f, -0.95f, 0.0f, 1.0f,
+                -0.25f, -0.95f, 0.0f, 1.0f,
+                -0.95f, -0.95f, 0.0f, 1.0f,
                 -0.9f,  -0.9f, 0.0f, 1.0f 
             };
 
             float boostBarVertexArray[16] = {
                 -0.3f,  -0.8f, 0.0f, 1.0f,
-                -0.3f, -0.85f, 0.0f, 1.0f,
-                -0.9f, -0.85f, 0.0f, 1.0f,
+                -0.35f, -0.85f, 0.0f, 1.0f,
+                -0.95f, -0.85f, 0.0f, 1.0f,
                 -0.9f,  -0.8f, 0.0f, 1.0f 
             };
 
             float healthBarVertexArray[16] = {
                 -0.4f,  -0.7f, 0.0f, 1.0f,
-                -0.4f, -0.75f, 0.0f, 1.0f,
-                -0.9f, -0.75f, 0.0f, 1.0f,
+                -0.45f, -0.75f, 0.0f, 1.0f,
+                -0.95f, -0.75f, 0.0f, 1.0f,
                 -0.9f,  -0.7f, 0.0f, 1.0f 
             };
 
@@ -220,12 +220,11 @@ namespace se {
 
                 float healthBarVertexArray[16] = {
                     -0.2f,  -0.9f, 0.0f, 1.0f,
-                    -0.2f, -0.95f, 0.0f, 1.0f,
-                    -0.9f, -0.95f, 0.0f, 1.0f,
+                    -0.25f, -0.95f, 0.0f, 1.0f,
+                    -0.95f, -0.95f, 0.0f, 1.0f,
                     -0.9f,  -0.9f, 0.0f, 1.0f 
                 };
 
-                unsigned int healthBarIndexArray[6] = {0, 1, 3, 1, 2, 3};
                 glGenVertexArrays(1, &stationHealthOutlineVAO);  
                 glGenBuffers(1, &stationHealthOutlineVBO);  
                 glGenBuffers(1, &stationHealthOutlineEBO);  
@@ -241,14 +240,14 @@ namespace se {
                 glEnableVertexAttribArray(1);
             
                 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, stationHealthOutlineEBO);
-                glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), healthBarIndexArray, GL_STATIC_DRAW);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), barsIndexArray, GL_STATIC_DRAW);
 
                 glBindBuffer(GL_ARRAY_BUFFER, 0);
 
                 float boostBarVertexArray[16] = {
                     -0.3f,  -0.8f, 0.0f, 1.0f,
-                    -0.3f, -0.85f, 0.0f, 1.0f,
-                    -0.9f, -0.85f, 0.0f, 1.0f,
+                    -0.35f, -0.85f, 0.0f, 1.0f,
+                    -0.95f, -0.85f, 0.0f, 1.0f,
                     -0.9f,  -0.8f, 0.0f, 1.0f 
                 };
 
@@ -267,15 +266,15 @@ namespace se {
                 glEnableVertexAttribArray(1);
             
                 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, boostOutlineEBO);
-                glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), healthBarIndexArray, GL_STATIC_DRAW);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), barsIndexArray, GL_STATIC_DRAW);
 
                 glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 
                 float playerBarVertexArray[16] = {
                     -0.4f,  -0.7f, 0.0f, 1.0f,
-                    -0.4f, -0.75f, 0.0f, 1.0f,
-                    -0.9f, -0.75f, 0.0f, 1.0f,
+                    -0.45f, -0.75f, 0.0f, 1.0f,
+                    -0.95f, -0.75f, 0.0f, 1.0f,
                     -0.9f,  -0.7f, 0.0f, 1.0f 
                 };
 
@@ -294,7 +293,7 @@ namespace se {
                 glEnableVertexAttribArray(1);
             
                 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, playerHealthOutlineEBO);
-                glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), healthBarIndexArray, GL_STATIC_DRAW);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), barsIndexArray, GL_STATIC_DRAW);
 
                 glBindBuffer(GL_ARRAY_BUFFER, 0);
 
