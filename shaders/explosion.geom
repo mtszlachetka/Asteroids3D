@@ -13,8 +13,11 @@ out vec2 tex_coord;
 out vec3 view_dir_TS_;
 out vec3 light_dir_TS_;
 out vec3 light_space_pos_;
+out vec3 color_modifier_;
 
 uniform float time_for_explosion;
+
+vec3 color_modifier = vec3(1.0, 1.0, 1.0);
 
 vec4 explode(vec4 position, vec3 normal)
 {
@@ -22,6 +25,7 @@ vec4 explode(vec4 position, vec3 normal)
     if (time_for_explosion <= 0.0)
         return position;
     vec3 direction = normal * (magnitude * time_for_explosion + abs(sin(position.x * position.y * position.z)));
+    color_modifier = vec3(0.5/time_for_explosion, .8f, .8f);
     return position + vec4(direction, 0.0);
 } 
 
@@ -40,6 +44,7 @@ void main() {
     view_dir_TS_ = gs_in[0].view_dir_TS;
     light_dir_TS_ = gs_in[0].light_dir_TS;
     light_space_pos_ = gs_in[0].light_space_pos;
+    color_modifier_ = color_modifier;
     EmitVertex();
     
     gl_Position = explode(gl_in[1].gl_Position, normal);
@@ -47,6 +52,7 @@ void main() {
     view_dir_TS_ = gs_in[1].view_dir_TS;
     light_dir_TS_ = gs_in[1].light_dir_TS;
     light_space_pos_ = gs_in[1].light_space_pos;
+    color_modifier_ = color_modifier;
     EmitVertex();
     
     gl_Position = explode(gl_in[2].gl_Position, normal);
@@ -54,6 +60,7 @@ void main() {
     view_dir_TS_ = gs_in[2].view_dir_TS;
     light_dir_TS_ = gs_in[2].light_dir_TS;
     light_space_pos_ = gs_in[2].light_space_pos;
+    color_modifier_ = color_modifier;
     EmitVertex();
     
     EndPrimitive();

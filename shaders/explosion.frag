@@ -6,6 +6,7 @@ in vec2 tex_coord;
 in vec3 light_dir_TS_;
 in vec3 view_dir_TS_;
 in vec3 light_space_pos_;
+in vec3 color_modifier_;
 
 uniform sampler2D diffuse_map;
 uniform sampler2D normal_map;
@@ -87,4 +88,5 @@ void main() {
 	float exposition = 20;
 
 	out_color = 1 - vec4(exp(-color * exposition), 1);
+	out_color = vec4(out_color.xyz * color_modifier_, 1);
 }
