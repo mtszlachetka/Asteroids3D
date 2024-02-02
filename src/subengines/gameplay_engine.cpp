@@ -11,6 +11,7 @@
 #include <memory>
 #include <random>
 #include "clock.hpp"
+#include "subengines/debug.hpp"
 
 namespace se {
 	void gameplay_engine::init() {
@@ -41,8 +42,14 @@ namespace se {
 		m_station_sphere = compute_bounding_sphere(m_station_mesh.m_vertices);
 		m_missile_sphere = compute_bounding_sphere(m_missile_mesh.m_vertices);
 
-		for (int i = 0; i < 4; i++)
+		m_player_obb = compute_obb(m_player_mesh.m_vertices);
+		m_station_obb = compute_obb(m_station_mesh.m_vertices);
+		m_missile_obb = compute_obb(m_missile_mesh.m_vertices);
+
+		for (int i = 0; i < 4; i++) {
 			m_asteroid_spheres[i] = compute_bounding_sphere(m_asteroid_meshes[i].m_vertices);
+			m_asteroid_obbs[i] = compute_obb(m_asteroid_meshes[i].m_vertices);
+		}
 
 		se::texture ship_diff = se::load_texture_2d_named("../textures/spaceshipPBR/diff.png", "diffuse_map");
 		se::texture ship_normals = se::load_texture_2d_named("../textures/spaceshipPBR/norm.png", "normal_map");
@@ -70,10 +77,8 @@ namespace se {
 
 		m_station_textures = m_player_textures; // TODO: replace with proper station textures
 
-		m_station_ptr = std::make_unique<se::station>(glm::vec3(0.f), m_station_mesh, m_station_textures, m_program, 100);
-		m_station_ptr->set_bounding_sphere(m_station_sphere);
-		m_player_ptr = std::make_unique<se::player>(glm::vec3(0.f, 0.f, 10.f), glm::quat(1,0,0,0), m_player_mesh, m_player_textures, m_program);
-		m_player_ptr->set_bounding_sphere(m_player_sphere);
+		m_station_ptr = std::make_unique<se::station>(glm::vec3(0.f), m_station_mesh, m_station_textures, m_program, m_station_sphere, m_station_obb, 100);
+		m_player_ptr = std::make_unique<se::player>(glm::vec3(0.f, 0.f, 10.f), glm::quat(1,0,0,0), m_player_mesh, m_player_textures, m_program, m_player_sphere, m_player_obb);
 
 	}
 	void gameplay_engine::tick() {
@@ -123,10 +128,11 @@ namespace se {
 				glm::vec3(x_pos, y_pos, z_pos) * - 1.f / velocity_factor,
 				scale_factor,
 				glm::vec3(I),
-				glm::vec3(vel(gen), vel(gen), vel(gen))
+				glm::vec3(vel(gen), vel(gen), vel(gen)),
+				m_asteroid_spheres[mesh_num] * scale_factor,
+				m_asteroid_obbs[mesh_num] * scale_factor
 			);
 			
-			aptr->set_bounding_sphere(m_asteroid_spheres[mesh_num] * scale_factor);
 			m_asteroid_ptrs.push_back(std::move(aptr));
 			m_last_spawn_time = game_clock::get_instance().get_current_frame_time();
 		}
@@ -144,9 +150,10 @@ namespace se {
 			player_dir * 80.f,
 			1,
 			glm::vec3(1.f),
-			glm::vec3(0.f)
+			glm::vec3(0.f),
+			m_missile_sphere,
+			m_missile_obb
 		);
-		mptr->set_bounding_sphere(m_missile_sphere);
 		m_missile_ptrs.push_back(std::move(mptr));
 		m_last_shot_time = game_clock::get_instance().get_current_frame_time();
 	}
