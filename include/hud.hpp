@@ -53,6 +53,29 @@ namespace se {
 
             std::map<char, Character> Characters;
 
+            float stationHealthBarVertexArray[16] = {
+                -0.2f,  -0.9f, 0.0f, 1.0f,
+                -0.2f, -0.95f, 0.0f, 1.0f,
+                -0.9f, -0.95f, 0.0f, 1.0f,
+                -0.9f,  -0.9f, 0.0f, 1.0f 
+            };
+
+            float boostBarVertexArray[16] = {
+                -0.3f,  -0.8f, 0.0f, 1.0f,
+                -0.3f, -0.85f, 0.0f, 1.0f,
+                -0.9f, -0.85f, 0.0f, 1.0f,
+                -0.9f,  -0.8f, 0.0f, 1.0f 
+            };
+
+            float healthBarVertexArray[16] = {
+                -0.4f,  -0.7f, 0.0f, 1.0f,
+                -0.4f, -0.75f, 0.0f, 1.0f,
+                -0.9f, -0.75f, 0.0f, 1.0f,
+                -0.9f,  -0.7f, 0.0f, 1.0f 
+            };
+
+            unsigned int barsIndexArray[6] = {0, 1, 3, 1, 2, 3};
+
             int currentPoints = 0;
             int updatedPoints = 0;
 

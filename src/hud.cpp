@@ -80,20 +80,16 @@ namespace se {
 
         float val = calculate_value(-0.9f, -0.2f ,percentage);
 
-        float healthBarVertexArray[16] = {
-            val,  -0.9f, 0.0f, 1.0f,
-            val, -0.95f, 0.0f, 1.0f,
-            -0.9f, -0.95f, 0.0f, 1.0f,
-            -0.9f,  -0.9f, 0.0f, 1.0f 
-        };
-        unsigned int healthBarIndexArray[6] = {0, 1, 3, 1, 2, 3};
+        stationHealthBarVertexArray[0] = val;
+        stationHealthBarVertexArray[4] = val;
+
         glGenVertexArrays(1, &stationHealthVAO);  
         glGenBuffers(1, &stationHealthVBO);  
         glGenBuffers(1, &stationHealthEBO);  
 
         glBindVertexArray(stationHealthVAO);
         glBindBuffer(GL_ARRAY_BUFFER, stationHealthVBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(healthBarVertexArray), healthBarVertexArray, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(stationHealthBarVertexArray), stationHealthBarVertexArray, GL_STATIC_DRAW);
 
         glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
@@ -102,7 +98,7 @@ namespace se {
         glEnableVertexAttribArray(1);
     
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, stationHealthEBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), healthBarIndexArray, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), barsIndexArray, GL_STATIC_DRAW);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -124,13 +120,9 @@ namespace se {
 
         float val = calculate_value(-0.9f, -0.3f ,percentage);
 
-        float boostBarVertexArray[16] = {
-            val,  -0.8f, 0.0f, 1.0f,
-            val, -0.85f, 0.0f, 1.0f,
-            -0.9f, -0.85f, 0.0f, 1.0f,
-            -0.9f,  -0.8f, 0.0f, 1.0f 
-        };
-        unsigned int healthBarIndexArray[6] = {0, 1, 3, 1, 2, 3};
+        boostBarVertexArray[0] = val;
+        boostBarVertexArray[4] = val;
+
         glGenVertexArrays(1, &boostVAO);  
         glGenBuffers(1, &boostVBO);  
         glGenBuffers(1, &boostEBO);  
@@ -146,7 +138,7 @@ namespace se {
         glEnableVertexAttribArray(1);
     
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, boostEBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), healthBarIndexArray, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), barsIndexArray, GL_STATIC_DRAW);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -168,13 +160,9 @@ namespace se {
 
         float val = calculate_value(-0.9f, -0.4f ,percentage);
 
-        float healthBarVertexArray[16] = {
-            val,  -0.7f, 0.0f, 1.0f,
-            val, -0.75f, 0.0f, 1.0f,
-            -0.9f, -0.75f, 0.0f, 1.0f,
-            -0.9f,  -0.7f, 0.0f, 1.0f 
-        };
-        unsigned int healthBarIndexArray[6] = {0, 1, 3, 1, 2, 3};
+        healthBarVertexArray[0] = val;
+        healthBarVertexArray[4] = val;
+
         glGenVertexArrays(1, &playerHealthVAO);  
         glGenBuffers(1, &playerHealthVBO);  
         glGenBuffers(1, &playerHealthEBO);  
@@ -190,7 +178,7 @@ namespace se {
         glEnableVertexAttribArray(1);
     
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, playerHealthEBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), healthBarIndexArray, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), barsIndexArray, GL_STATIC_DRAW);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
