@@ -58,7 +58,7 @@ namespace se {
 			}
 
 			void collide_with(collidable* cl, collision_info* info) {
-
+				m_health -= 10;
 			}
 
 			bool is_boosting() const { return m_boost_active; }

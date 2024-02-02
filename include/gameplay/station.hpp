@@ -24,6 +24,7 @@ namespace se {
 				int t_health
 			);
 			bool get_should_destruct() const { 
+				return should_destruct;
 				if (m_health <= 0) {
 					return true;
 				}

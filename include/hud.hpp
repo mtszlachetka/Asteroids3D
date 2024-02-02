@@ -337,6 +337,9 @@ namespace se {
                 float percent = percentage / 100.0f;
                 float range = max - min;
                 float value = min + percent * range;
+                if (value < min) {
+                    return min;
+                }
                 return value;
             }
     };
