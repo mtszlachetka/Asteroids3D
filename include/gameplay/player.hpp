@@ -57,10 +57,7 @@ namespace se {
 				return translate(m_base_sphere, m_position);
 			}
 
-			void collide_with(collidable* cl, collision_info* info) {
-				m_health -= 10;
-			}
-
+			void collide_with(collidable* cl, collision_info* info);
 			bool is_boosting() const { return m_boost_active; }
 
 			void set_controls(bool t_active) {
