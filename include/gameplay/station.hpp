@@ -25,10 +25,6 @@ namespace se {
 			);
 			bool get_should_destruct() const { 
 				return should_destruct;
-				if (m_health <= 0) {
-					return true;
-				}
-				return false;
 			}
 			obb get_obb() const override {
 				return {
