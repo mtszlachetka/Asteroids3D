@@ -10,7 +10,7 @@ namespace se {
 		using v3 = glm::vec3;
 		using qu = glm::quat;
 		private:
-			int m_health;
+			int m_health = 100;
 			bool should_destruct = false;
 		public:
 			station() = delete;
@@ -21,9 +21,11 @@ namespace se {
 				GLuint t_program,
 				const bounding_sphere&,
 				const obb&, 
-				float t_health
+				int t_health
 			);
-			bool get_should_destruct() const { return false /* m_health <= 0 */; }
+			bool get_should_destruct() const { 
+				return should_destruct;
+			}
 			obb get_obb() const override {
 				return {
 					m_base_obb.m_center + m_position,
@@ -37,8 +39,9 @@ namespace se {
 			}
 
 			void collide_with(collidable* cl, collision_info* info) {
-				m_health--;
+				m_health -= 20;
 			}
+			int get_health() { return m_health; }
 			~station();
 	};
 }

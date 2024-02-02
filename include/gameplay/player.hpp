@@ -25,6 +25,9 @@ namespace se {
 			float m_camera_zoom_factor = m_base_zoom;
 			void turn_on_boost();
 			void turn_off_boost();
+			int m_health = 100;
+			int m_boost = 100;
+			float m_boost_time_used = 0.f;
 			bool m_boost_active = false;
 			bool m_controls_active = true;
 			void turn_around();
@@ -55,7 +58,7 @@ namespace se {
 			}
 
 			void collide_with(collidable* cl, collision_info* info) {
-
+				m_health -= 10;
 			}
 
 			bool is_boosting() const { return m_boost_active; }
@@ -73,6 +76,11 @@ namespace se {
 
 			void update(input_event e) override;
 			bool get_should_destruct() const { return should_destruct; }
+			int get_health() { return m_health; }
+			int get_boost() { return m_boost; }
+			void use_boost() { m_boost -= 1; }
+			void recharge_boost() { m_boost += 1; }
+			float get_boost_time_used() { return m_boost_time_used; }
 			~player();
 	
 	};

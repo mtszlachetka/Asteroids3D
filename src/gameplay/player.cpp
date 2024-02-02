@@ -57,7 +57,13 @@ namespace se {
 				gameplay_engine::get_instance().spawn_missile();
 				break;
 			case input_event::left_shift_pressed:
+				if (m_boost <= 0) {
+					this->turn_off_boost();
+					this->m_boost_time_used = game_clock::get_instance().get_current_frame_time();
+					break;
+				}
 				this->turn_on_boost();
+				this->use_boost();
 				break;
 			case input_event::left_shift_released:
 				this->turn_off_boost();
