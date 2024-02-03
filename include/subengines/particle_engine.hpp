@@ -12,6 +12,11 @@
 #include "subengines/gameplay_engine.hpp"
 
 namespace se {
+    struct particle_info_for_shader {
+        glm::vec3 position;
+        glm::vec3 color;
+    };
+
     struct particle_create_info {
         glm::vec3 position, velocity, acceleration;
         float lifetime;
