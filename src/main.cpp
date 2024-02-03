@@ -16,6 +16,7 @@
 #include "subengines/input_engine.hpp"
 #include "subengines/gameplay_engine.hpp"
 #include "subengines/collision_engine.hpp"
+#include "subengines/particle_engine.hpp"
 #include "skybox.hpp"
 #include "light_source.hpp"
 #include "hud.hpp"
@@ -92,6 +93,7 @@ int main() {
 	se::input_engine& ie = se::input_engine::get_instance();
 	se::gameplay_engine& ge = se::gameplay_engine::get_instance();
 	se::collision_engine& ce = se::collision_engine::get_instance();
+	se::particle_engine& particle_engine = se::particle_engine::get_instance();
 
 	ie.set_active_window(window);
 
@@ -102,6 +104,7 @@ int main() {
 	re.set_light(&sunlight);
 
 	ge.init();
+	particle_engine.init();
 
 	se::hud hud;
 
@@ -116,6 +119,7 @@ int main() {
 		pe.tick();
 		ce.tick();
 		re.tick();
+		particle_engine.render();
 		hud.render();
 
         glfwSwapBuffers(window);
