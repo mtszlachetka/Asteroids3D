@@ -14,8 +14,8 @@ namespace se {
     void particle_engine::init() {
         particle_mesh = se::load_model("../models/sphere.obj");
 
-        GLuint particle_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/pass.vert"));
-        GLuint particle_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/pass.frag"));
+        GLuint particle_vert = se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/particle.vert"));
+        GLuint particle_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/particle.frag"));
 
         program = se::make_program({particle_vert, particle_frag});
 
