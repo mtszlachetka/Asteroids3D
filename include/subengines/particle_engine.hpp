@@ -48,7 +48,7 @@ namespace se {
             }
     };
 
-    class particle_engine : public input_listener {
+    class particle_engine {
         private:
             GLuint program;
             GLuint vao;
@@ -75,7 +75,6 @@ namespace se {
 				static particle_engine instance;
 				return instance;
 			}
-            void update(input_event e) override;
 			void init();
             void render();
     };
