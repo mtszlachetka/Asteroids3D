@@ -16,23 +16,28 @@ namespace se {
         GLuint particle_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/particle.frag"));
 
         program = se::make_program({particle_vert, particle_frag});
+		m_particle_texture[0] = se::load_texture_2d_named("../textures/particle_.png", "particle1");
+		m_particle_texture[1] = se::load_texture_2d_named("../textures/particle_2.png", "particle2");
 
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
 
         glGenBuffers(1, &particles_vertex_buffer);
         glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(6);
         glBindBuffer(GL_ARRAY_BUFFER, particles_vertex_buffer);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)0);
         glVertexAttribDivisor(0, 0);
+		glVertexAttribPointer(6, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+		glVertexAttribDivisor(6, 0);
 
         glEnableVertexAttribArray(1);
         glGenBuffers(1, &particles_color_buffer);
         glBindBuffer(GL_ARRAY_BUFFER, particles_color_buffer);
         // Initialize with empty (NULL) buffer : it will be updated later, each frame.
-        glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * 4 * sizeof(GLfloat), NULL, GL_STREAM_DRAW);
-        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
+        glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * sizeof(float), NULL, GL_STREAM_DRAW);
+        glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, 0, (void*)0);
         glVertexAttribDivisor(1, 1);
 
         glGenBuffers(1, &particles_matrix_buffer);
@@ -51,13 +56,13 @@ namespace se {
     void particle_engine::render() {
         update();
 
-        glm::vec4 color_data[particle_ptrs.size()];
+        float tex_mix_data[particle_ptrs.size()];
         glm::mat4 model_matrices[particle_ptrs.size()];
 
         int i = particle_ptrs.size() - 1;
         for (auto it = particle_ptrs.rbegin(); it != particle_ptrs.rend(); ++it) {
             se::particle* p = it->get();
-            color_data[i] = p->tint;
+            tex_mix_data[i] = p->texture_mix_ratio;
             model_matrices[i] = p->model_transform;
             --i;
         }
@@ -66,17 +71,28 @@ namespace se {
 
         glBindBuffer(GL_ARRAY_BUFFER, particles_color_buffer);
         glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * 4 * sizeof(GLfloat), NULL, GL_STREAM_DRAW);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, particle_ptrs.size() * sizeof(glm::vec4), color_data);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, particle_ptrs.size() * sizeof(float), tex_mix_data);
 
         glBindBuffer(GL_ARRAY_BUFFER, particles_matrix_buffer);
         glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * sizeof(glm::mat4), NULL, GL_STREAM_DRAW);
         glBufferSubData(GL_ARRAY_BUFFER, 0, particle_ptrs.size() * sizeof(glm::mat4), model_matrices);
 
+		
+
         glUseProgram(program);
 		set_uniform_mat4(program, "projection_matrix", se::gameplay_engine::get_instance().get_player()->get_perspective_matrix());
         set_uniform_mat4(program, "camera_matrix", se::gameplay_engine::get_instance().get_player()->get_camera_matrix());
 
+		set_uniform_int(program, m_particle_texture[0].m_name, 0);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, m_particle_texture[0].m_id);
+		set_uniform_int(program, m_particle_texture[1].m_name, 1);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, m_particle_texture[1].m_id);
+
+
         glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, particle_ptrs.size());
+
 
         glBindVertexArray(0);
         glUseProgram(0);
@@ -107,9 +123,14 @@ namespace se {
         glm::quat player_orientation = se::gameplay_engine::get_instance().get_player()->get_orientation();
         glm::mat3 rotation = glm::toMat3(player_orientation);
         glm::vec3 direction = rotation[2];
-        create_info.acceleration = glm::vec3(0, 0, -0.001);
-        create_info.color = glm::vec3(0.2f, 0.2f, 0.8f);
+        create_info.acceleration = glm::dot(glm::vec3(0, 0, 0.001), direction) * direction;
+		static std::random_device rd;
+		static std::mt19937 gen(rd());
+		static std::uniform_real_distribution<float> tex(0.f,1.f);
+        create_info.texture_mix_ratio = tex(gen);
+		position -= 1.3f * direction;
         create_info.position = position;
+
 
         int particles_to_generate = se::gameplay_engine::get_instance().get_player()->is_boosting() ? 3000 : 1000;
         for (int i = 0; i < particles_to_generate; ++i) {
@@ -125,7 +146,7 @@ namespace se {
 
             create_info.velocity = outgoing;
 
-            x = 30.0f + float(generator() % 100) / 5.0f;
+            x = 10.0f + float(generator() % 100) / 5.0f;
             create_info.lifetime = x;
 
             particle_ptrs.push_back(std::make_unique<se::particle>(&create_info));
