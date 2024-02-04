@@ -71,6 +71,14 @@ namespace se {
 				m_camera->rebase();
 			}
 
+			m4 get_camera_matrix() const {
+				return m_camera->get_camera_matrix();
+			}
+
+			m4 get_perspective_matrix() const {
+				return m_camera->get_perspective_matrix();
+			}
+
 			void update(input_event e) override;
 			bool get_should_destruct() const { return should_destruct; }
 			int get_health() { return m_health; }

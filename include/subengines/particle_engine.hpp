@@ -12,11 +12,6 @@
 #include "subengines/gameplay_engine.hpp"
 
 namespace se {
-    struct particle_info_for_shader {
-        glm::vec3 position;
-        glm::vec3 color;
-    };
-
     struct particle_create_info {
         glm::vec3 position, velocity, acceleration;
         float lifetime;
@@ -54,9 +49,17 @@ namespace se {
 
     class particle_engine {
         private:
-            se::mesh particle_mesh;
             GLuint program;
-            GLuint vao, vbo;
+            GLfloat vertex_buffer_data[12] = {
+                -0.5f, -0.5f, 0.0f,
+                0.5f, -0.5f, 0.0f,
+                -0.5f, 0.5f, 0.0f,
+                0.5f, 0.5f, 0.0f,
+            };
+            GLuint particles_vertex_buffer;
+            static const int MAX_NUMBER_OF_PARTICLES = 100000;
+            GLuint particles_color_buffer;
+            GLuint particles_matrix_buffer;
             std::list<std::unique_ptr<se::particle>> particle_ptrs;
             void make_particles(glm::vec3 position, glm::vec3 incident, glm::vec3 normal);
             void update();
