@@ -146,7 +146,7 @@ namespace se {
 
             create_info.velocity = outgoing;
 
-            x = 30.0f + float(generator() % 100) / 5.0f;
+            x = 10.0f + float(generator() % 100) / 5.0f;
             create_info.lifetime = x;
 
             particle_ptrs.push_back(std::make_unique<se::particle>(&create_info));
