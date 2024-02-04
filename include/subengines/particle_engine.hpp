@@ -15,21 +15,20 @@ namespace se {
     struct particle_create_info {
         glm::vec3 position, velocity, acceleration;
         float lifetime;
-        glm::vec3 color;
+        int texture_num;
     };
 
     class particle {
         public:
             glm::vec3 position, velocity, acceleration;
             float t, lifetime;
-            glm::vec3 color;
-            glm::vec4 tint;
+            int texture_num;
             glm::mat4 model_transform;
             particle(particle_create_info* create_info) {
                 this->position = create_info->position;
                 this->velocity = create_info->velocity;
                 this->acceleration = create_info->acceleration;
-                this->color = create_info->color;
+                this->texture_num = create_info->texture_num;
                 this->lifetime = create_info->lifetime;
                 t = 0.0f;
                 model_transform = glm::mat4(1.0f);
@@ -44,7 +43,6 @@ namespace se {
                 model_transform = glm::scale(model_transform, glm::vec3(0.1f));
 
                 t += rate;
-                tint = glm::vec4(color, 1.0f - (t / lifetime));
             }
     };
 
@@ -63,7 +61,7 @@ namespace se {
             GLuint particles_color_buffer;
             GLuint particles_matrix_buffer;
             std::list<std::unique_ptr<se::particle>> particle_ptrs;
-			se::texture m_particle_texture;
+			se::texture m_particle_texture[2];
             void make_particles();
             void update();
             particle_engine() {}
