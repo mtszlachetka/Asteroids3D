@@ -87,7 +87,7 @@ namespace se {
 		static std::uniform_int_distribution<> tex(0,2);
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, m_particle_texture[0].m_id);
+		glBindTexture(GL_TEXTURE_2D, m_particle_texture[tex(gen)].m_id);
 
         glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, particle_ptrs.size());
 
