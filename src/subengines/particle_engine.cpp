@@ -121,7 +121,7 @@ namespace se {
         glm::quat player_orientation = se::gameplay_engine::get_instance().get_player()->get_orientation();
         glm::mat3 rotation = glm::toMat3(player_orientation);
         glm::vec3 direction = rotation[2];
-        create_info.acceleration = glm::vec3(0, 0, -0.001) * (-direction);
+        create_info.acceleration = glm::dot(glm::vec3(0, 0, 0.001), direction) * direction;
         create_info.color = glm::vec3(0.f, 1.f, 1.f);
 
 		position -= direction;
