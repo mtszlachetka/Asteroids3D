@@ -16,9 +16,7 @@ namespace se {
         GLuint particle_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/particle.frag"));
 
         program = se::make_program({particle_vert, particle_frag});
-		m_particle_texture[0] = se::load_texture_2d_named("../textures/blue_particle_texture.png", "particle");
-		m_particle_texture[1] = se::load_texture_2d_named("../textures/blue_particle_texture2.png", "particle");
-		m_particle_texture[2] = se::load_texture_2d_named("../textures/blue_particle_texture3.png", "particle");
+		m_particle_texture = se::load_texture_2d_named("../textures/particle_.png", "particle");
 
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
@@ -78,18 +76,19 @@ namespace se {
         glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * sizeof(glm::mat4), NULL, GL_STREAM_DRAW);
         glBufferSubData(GL_ARRAY_BUFFER, 0, particle_ptrs.size() * sizeof(glm::mat4), model_matrices);
 
+		
+
         glUseProgram(program);
 		set_uniform_mat4(program, "projection_matrix", se::gameplay_engine::get_instance().get_player()->get_perspective_matrix());
         set_uniform_mat4(program, "camera_matrix", se::gameplay_engine::get_instance().get_player()->get_camera_matrix());
 
-		static std::random_device rd;
-		static std::mt19937 gen(rd());
-		static std::uniform_int_distribution<> tex(0,2);
-
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, m_particle_texture[tex(gen)].m_id);
+		glBindTexture(GL_TEXTURE_2D, m_particle_texture.m_id);
+
+		
 
         glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, particle_ptrs.size());
+
 
         glBindVertexArray(0);
         glUseProgram(0);

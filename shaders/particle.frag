@@ -9,4 +9,7 @@ out vec4 fragOutput;
 void main()
 {
     fragOutput = texture(noise, tex_coords);
+	if (fragOutput.a <= 0.2) {
+		discard;
+	}
 }

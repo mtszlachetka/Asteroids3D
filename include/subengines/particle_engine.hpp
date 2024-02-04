@@ -63,7 +63,7 @@ namespace se {
             GLuint particles_color_buffer;
             GLuint particles_matrix_buffer;
             std::list<std::unique_ptr<se::particle>> particle_ptrs;
-			se::texture m_particle_texture[3];
+			se::texture m_particle_texture;
             void make_particles();
             void update();
             particle_engine() {}
