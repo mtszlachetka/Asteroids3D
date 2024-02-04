@@ -4,16 +4,12 @@ uniform sampler2D particle1;
 uniform sampler2D particle2;
 
 in vec2 tex_coords;
-in flat int tex_num;
+in float tex_mix_ratio;
 out vec4 fragOutput;
 
 void main()
 {
-	if (tex_num == 0) {
-		fragOutput = texture(particle1, tex_coords);
-	} else {
-		fragOutput = texture(particle2, tex_coords);
-	}
+	fragOutput = mix(texture(particle1, tex_coords), texture(particle2, tex_coords), tex_mix_ratio);
     
 	if (fragOutput.a <= 0.2) {
 		discard;

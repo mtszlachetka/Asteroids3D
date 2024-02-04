@@ -15,20 +15,20 @@ namespace se {
     struct particle_create_info {
         glm::vec3 position, velocity, acceleration;
         float lifetime;
-        int texture_num;
+        float texture_mix_ratio;
     };
 
     class particle {
         public:
             glm::vec3 position, velocity, acceleration;
             float t, lifetime;
-            int texture_num;
+            float texture_mix_ratio;
             glm::mat4 model_transform;
             particle(particle_create_info* create_info) {
                 this->position = create_info->position;
                 this->velocity = create_info->velocity;
                 this->acceleration = create_info->acceleration;
-                this->texture_num = create_info->texture_num;
+                this->texture_mix_ratio = create_info->texture_mix_ratio;
                 this->lifetime = create_info->lifetime;
                 t = 0.0f;
                 model_transform = glm::mat4(1.0f);

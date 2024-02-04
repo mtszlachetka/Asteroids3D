@@ -56,13 +56,13 @@ namespace se {
     void particle_engine::render() {
         update();
 
-        int tex_num_data[particle_ptrs.size()];
+        float tex_mix_data[particle_ptrs.size()];
         glm::mat4 model_matrices[particle_ptrs.size()];
 
         int i = particle_ptrs.size() - 1;
         for (auto it = particle_ptrs.rbegin(); it != particle_ptrs.rend(); ++it) {
             se::particle* p = it->get();
-            tex_num_data[i] = p->texture_num;
+            tex_mix_data[i] = p->texture_mix_ratio;
             model_matrices[i] = p->model_transform;
             --i;
         }
@@ -71,7 +71,7 @@ namespace se {
 
         glBindBuffer(GL_ARRAY_BUFFER, particles_color_buffer);
         glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * 4 * sizeof(GLfloat), NULL, GL_STREAM_DRAW);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, particle_ptrs.size() * sizeof(float), tex_num_data);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, particle_ptrs.size() * sizeof(float), tex_mix_data);
 
         glBindBuffer(GL_ARRAY_BUFFER, particles_matrix_buffer);
         glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * sizeof(glm::mat4), NULL, GL_STREAM_DRAW);
@@ -126,8 +126,8 @@ namespace se {
         create_info.acceleration = glm::dot(glm::vec3(0, 0, 0.001), direction) * direction;
 		static std::random_device rd;
 		static std::mt19937 gen(rd());
-		static std::uniform_int_distribution<> tex(0,1);
-        create_info.texture_num = tex(gen);
+		static std::uniform_real_distribution<float> tex(0.f,1.f);
+        create_info.texture_mix_ratio = tex(gen);
 		position -= 1.3f * direction;
         create_info.position = position;
 
