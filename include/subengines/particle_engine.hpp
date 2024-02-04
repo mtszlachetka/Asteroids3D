@@ -52,17 +52,18 @@ namespace se {
         private:
             GLuint program;
             GLuint vao;
-            GLfloat vertex_buffer_data[12] = {
-                -0.5f, -0.5f, 0.0f,
-                0.5f, -0.5f, 0.0f,
-                -0.5f, 0.5f, 0.0f,
-                0.5f, 0.5f, 0.0f,
+            static constexpr const GLfloat vertex_buffer_data[] = {
+                0.5f, 0.5f, 0.0f, 1.f, 0.f,
+                0.5f, -0.5f, 0.0f, 1.f, 1.f,
+                -0.5f, 0.5f, 0.0f, 0.f, 0.f,
+                -0.5f, -0.5f, 0.0f, 0.f, 1.f
             };
             GLuint particles_vertex_buffer;
             static const int MAX_NUMBER_OF_PARTICLES = 100000;
             GLuint particles_color_buffer;
             GLuint particles_matrix_buffer;
             std::list<std::unique_ptr<se::particle>> particle_ptrs;
+			se::texture m_particle_texture[3];
             void make_particles();
             void update();
             particle_engine() {}

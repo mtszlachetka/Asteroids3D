@@ -18,7 +18,7 @@ namespace se {
 		int w, h;
 
 		unsigned char* img = SOIL_load_image(filepath.data(), &w, &h, 0, SOIL_LOAD_RGBA);
-		// std::clog << result_string_pointer;
+		// std::clog << result_string_pointer << "\n";
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
 		SOIL_free_image_data(img);
 		glGenerateMipmap(GL_TEXTURE_2D);

@@ -16,6 +16,9 @@ namespace se {
         GLuint particle_frag = se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/particle.frag"));
 
         program = se::make_program({particle_vert, particle_frag});
+		m_particle_texture[0] = se::load_texture_2d_named("../textures/blue_particle_texture.png", "particle");
+		m_particle_texture[1] = se::load_texture_2d_named("../textures/blue_particle_texture2.png", "particle");
+		m_particle_texture[2] = se::load_texture_2d_named("../textures/blue_particle_texture3.png", "particle");
 
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
@@ -54,9 +57,13 @@ namespace se {
         glBindVertexArray(vao);
 
         glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(3);
         glBindBuffer(GL_ARRAY_BUFFER, particles_vertex_buffer);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)0);
         glVertexAttribDivisor(0, 0);
+		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+		glVertexAttribDivisor(3, 0);
+
 
         glEnableVertexAttribArray(1);
         glBindBuffer(GL_ARRAY_BUFFER, particles_color_buffer);
@@ -74,9 +81,17 @@ namespace se {
             glVertexAttribDivisor(2 + i, 1);
         }
 
+
         glUseProgram(program);
 		set_uniform_mat4(program, "projection_matrix", se::gameplay_engine::get_instance().get_player()->get_perspective_matrix());
         set_uniform_mat4(program, "camera_matrix", se::gameplay_engine::get_instance().get_player()->get_camera_matrix());
+
+		static std::random_device rd;
+		static std::mt19937 gen(rd());
+		static std::uniform_int_distribution<> tex(0,2);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, m_particle_texture[0].m_id);
 
         glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, particle_ptrs.size());
 
@@ -107,7 +122,7 @@ namespace se {
         glm::mat3 rotation = glm::toMat3(player_orientation);
         glm::vec3 direction = rotation[2];
         create_info.acceleration = glm::vec3(0, 0, -0.001);
-        create_info.color = glm::vec3(0.2f, 0.2f, 0.8f);
+        create_info.color = glm::vec3(0.f, 1.f, 1.f);
         create_info.position = position;
 
         int particles_to_generate = 1000;
