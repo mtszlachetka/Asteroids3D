@@ -48,7 +48,7 @@ namespace se {
             }
     };
 
-    class particle_engine {
+    class particle_engine : public input_listener {
         private:
             GLuint program;
             GLuint vao;
@@ -63,7 +63,7 @@ namespace se {
             GLuint particles_color_buffer;
             GLuint particles_matrix_buffer;
             std::list<std::unique_ptr<se::particle>> particle_ptrs;
-            void make_particles(glm::vec3 position, glm::vec3 incident, glm::vec3 normal);
+            void make_particles();
             void update();
             particle_engine() {}
         public:
@@ -75,6 +75,7 @@ namespace se {
 				static particle_engine instance;
 				return instance;
 			}
+            void update(input_event e) override;
 			void init();
             void render();
     };

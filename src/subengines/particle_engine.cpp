@@ -85,28 +85,32 @@ namespace se {
     }
 
     void particle_engine::update() {
-        glm::vec3 player_position = se::gameplay_engine::get_instance().get_player()->get_position();
-        make_particles(player_position, glm::normalize(glm::vec3(1, 0, 1)), glm::vec3(0, 0, -1)); // TODO: get other info on player
-
-        particle_ptrs.remove_if([](std::unique_ptr<particle>& p) -> bool { return p->t >= p->lifetime; });
-
         float rate = 10; // TODO: make it dependent on player's speed
         for (auto it = particle_ptrs.begin(); it != particle_ptrs.end(); ) {
             se::particle* p = it->get();
             p->update(rate);
             ++it;
         }
+        particle_ptrs.remove_if([](std::unique_ptr<particle>& p) -> bool { return p->t >= p->lifetime; });
     }
 
-    void particle_engine::make_particles(glm::vec3 position, glm::vec3 incident, glm::vec3 normal) {
+    void particle_engine::make_particles() {
+        glm::vec3 position = se::gameplay_engine::get_instance().get_player()->get_position();
+        glm::vec3 incident = glm::normalize(glm::vec3(1, 0, 1));
+        glm::vec3 normal = glm::vec3(0, 0, -1);
+
         unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();
         std::default_random_engine generator(seed);
 
         particle_create_info create_info;
+        glm::quat player_orientation = se::gameplay_engine::get_instance().get_player()->get_orientation();
+        glm::mat3 rotation = glm::toMat3(player_orientation);
+        glm::vec3 direction = rotation[2];
         create_info.acceleration = glm::vec3(0, 0, -0.001);
         create_info.color = glm::vec3(0.2f, 0.2f, 0.8f);
         create_info.position = position;
 
+        // TODO: make it dependant on player's speed
         for (int i = 0; i < 1000; ++i) {
             float x = float(generator() % 100) / 50.f - 1.0f;
             float y = float(generator() % 100) / 50.f - 1.0f;
@@ -120,10 +124,19 @@ namespace se {
 
             create_info.velocity = outgoing;
 
-            x = 50.0f + float(generator() % 100) / 5.0f;
+            x = 30.0f + float(generator() % 100) / 5.0f;
             create_info.lifetime = x;
 
             particle_ptrs.push_back(std::make_unique<se::particle>(&create_info));
         }
     }
+
+    void particle_engine::update(input_event e) {
+		switch (e) {
+			case input_event::w_pressed: {
+                make_particles();
+				break;
+			}
+		}
+	}
 }
