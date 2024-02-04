@@ -21,18 +21,29 @@ namespace se {
         glBindVertexArray(vao);
 
         glGenBuffers(1, &particles_vertex_buffer);
+        glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, particles_vertex_buffer);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+        glVertexAttribDivisor(0, 0);
 
+        glEnableVertexAttribArray(1);
         glGenBuffers(1, &particles_color_buffer);
         glBindBuffer(GL_ARRAY_BUFFER, particles_color_buffer);
         // Initialize with empty (NULL) buffer : it will be updated later, each frame.
         glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * 4 * sizeof(GLfloat), NULL, GL_STREAM_DRAW);
+        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
+        glVertexAttribDivisor(1, 1);
 
         glGenBuffers(1, &particles_matrix_buffer);
         glBindBuffer(GL_ARRAY_BUFFER, particles_matrix_buffer);
         // Initialize with empty (NULL) buffer : it will be updated later, each frame.
         glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * sizeof(glm::mat4), NULL, GL_STREAM_DRAW);
+        for (int i = 0; i < 4; ++i) {
+            glEnableVertexAttribArray(2 + i);
+            glVertexAttribPointer(2 + i, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4) * i));
+            glVertexAttribDivisor(2 + i, 1);
+        }
 
         glBindVertexArray(0);
     }
@@ -53,26 +64,13 @@ namespace se {
 
         glBindVertexArray(vao);
 
-        glEnableVertexAttribArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, particles_vertex_buffer);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-        glVertexAttribDivisor(0, 0);
-
-        glEnableVertexAttribArray(1);
         glBindBuffer(GL_ARRAY_BUFFER, particles_color_buffer);
         glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * 4 * sizeof(GLfloat), NULL, GL_STREAM_DRAW);
         glBufferSubData(GL_ARRAY_BUFFER, 0, particle_ptrs.size() * sizeof(glm::vec4), color_data);
-        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
-        glVertexAttribDivisor(1, 1);
 
         glBindBuffer(GL_ARRAY_BUFFER, particles_matrix_buffer);
         glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * sizeof(glm::mat4), NULL, GL_STREAM_DRAW);
         glBufferSubData(GL_ARRAY_BUFFER, 0, particle_ptrs.size() * sizeof(glm::mat4), model_matrices);
-        for (int i = 0; i < 4; ++i) {
-            glEnableVertexAttribArray(2 + i);
-            glVertexAttribPointer(2 + i, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4) * i));
-            glVertexAttribDivisor(2 + i, 1);
-        }
 
         glUseProgram(program);
 		set_uniform_mat4(program, "projection_matrix", se::gameplay_engine::get_instance().get_player()->get_perspective_matrix());
@@ -110,10 +108,7 @@ namespace se {
         create_info.color = glm::vec3(0.2f, 0.2f, 0.8f);
         create_info.position = position;
 
-        int particles_to_generate = 1000;
-        if (se::gameplay_engine::get_instance().get_player()->is_boosting()) {
-            particles_to_generate = 3000;
-        }
+        int particles_to_generate = se::gameplay_engine::get_instance().get_player()->is_boosting() ? 3000 : 1000;
         for (int i = 0; i < particles_to_generate; ++i) {
             float x = float(generator() % 100) / 50.f - 1.0f;
             float y = float(generator() % 100) / 50.f - 1.0f;
