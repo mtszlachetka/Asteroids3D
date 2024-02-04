@@ -41,6 +41,7 @@ namespace se {
 
                 model_transform = glm::mat4(1.0f);
                 model_transform = glm::translate(model_transform, position);
+                model_transform = glm::scale(model_transform, glm::vec3(0.1f));
 
                 t += rate;
                 tint = glm::vec4(color, 1.0f - (t / lifetime));
@@ -50,6 +51,7 @@ namespace se {
     class particle_engine {
         private:
             GLuint program;
+            GLuint vao;
             GLfloat vertex_buffer_data[12] = {
                 -0.5f, -0.5f, 0.0f,
                 0.5f, -0.5f, 0.0f,

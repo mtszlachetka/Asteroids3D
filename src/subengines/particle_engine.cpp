@@ -17,6 +17,9 @@ namespace se {
 
         program = se::make_program({particle_vert, particle_frag});
 
+        glGenVertexArrays(1, &vao);
+        glBindVertexArray(vao);
+
         glGenBuffers(1, &particles_vertex_buffer);
         glBindBuffer(GL_ARRAY_BUFFER, particles_vertex_buffer);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW);
@@ -30,6 +33,8 @@ namespace se {
         glBindBuffer(GL_ARRAY_BUFFER, particles_matrix_buffer);
         // Initialize with empty (NULL) buffer : it will be updated later, each frame.
         glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * sizeof(glm::mat4), NULL, GL_STREAM_DRAW);
+
+        glBindVertexArray(0);
     }
 
     void particle_engine::render() {
@@ -45,6 +50,8 @@ namespace se {
             model_matrices[i] = p->model_transform;
             --i;
         }
+
+        glBindVertexArray(vao);
 
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, particles_vertex_buffer);
@@ -97,10 +104,10 @@ namespace se {
 
         particle_create_info create_info;
         create_info.acceleration = glm::vec3(0, 0, -0.001);
-        create_info.color = glm::vec3(1.0);
+        create_info.color = glm::vec3(0.2f, 0.2f, 0.8f);
         create_info.position = position;
 
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 0; i < 1000; ++i) {
             float x = float(generator() % 100) / 50.f - 1.0f;
             float y = float(generator() % 100) / 50.f - 1.0f;
             float z = float(generator() % 100) / 50.f - 1.0f;
