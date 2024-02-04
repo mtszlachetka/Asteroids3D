@@ -29,6 +29,7 @@ namespace se {
 			int m_boost = 100;
 			float m_boost_time_used = 0.f;
 			bool m_boost_active = false;
+			bool moving = false;
 			bool m_controls_active = true;
 			void turn_around();
 			void evade();
@@ -59,6 +60,7 @@ namespace se {
 
 			void collide_with(collidable* cl, collision_info* info);
 			bool is_boosting() const { return m_boost_active; }
+			bool is_moving() const { return moving; }
 
 			void set_controls(bool t_active) {
 				m_controls_active = t_active;

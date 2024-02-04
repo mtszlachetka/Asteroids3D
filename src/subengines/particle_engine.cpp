@@ -24,18 +24,32 @@ namespace se {
         glBindVertexArray(vao);
 
         glGenBuffers(1, &particles_vertex_buffer);
+        glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(3);
         glBindBuffer(GL_ARRAY_BUFFER, particles_vertex_buffer);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)0);
+        glVertexAttribDivisor(0, 0);
+		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+		glVertexAttribDivisor(3, 0);
 
+        glEnableVertexAttribArray(1);
         glGenBuffers(1, &particles_color_buffer);
         glBindBuffer(GL_ARRAY_BUFFER, particles_color_buffer);
         // Initialize with empty (NULL) buffer : it will be updated later, each frame.
         glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * 4 * sizeof(GLfloat), NULL, GL_STREAM_DRAW);
+        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
+        glVertexAttribDivisor(1, 1);
 
         glGenBuffers(1, &particles_matrix_buffer);
         glBindBuffer(GL_ARRAY_BUFFER, particles_matrix_buffer);
         // Initialize with empty (NULL) buffer : it will be updated later, each frame.
         glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * sizeof(glm::mat4), NULL, GL_STREAM_DRAW);
+        for (int i = 0; i < 4; ++i) {
+            glEnableVertexAttribArray(2 + i);
+            glVertexAttribPointer(2 + i, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4) * i));
+            glVertexAttribDivisor(2 + i, 1);
+        }
 
         glBindVertexArray(0);
     }
@@ -56,31 +70,13 @@ namespace se {
 
         glBindVertexArray(vao);
 
-        glEnableVertexAttribArray(0);
-		glEnableVertexAttribArray(3);
-        glBindBuffer(GL_ARRAY_BUFFER, particles_vertex_buffer);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)0);
-        glVertexAttribDivisor(0, 0);
-		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-		glVertexAttribDivisor(3, 0);
-
-
-        glEnableVertexAttribArray(1);
         glBindBuffer(GL_ARRAY_BUFFER, particles_color_buffer);
         glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * 4 * sizeof(GLfloat), NULL, GL_STREAM_DRAW);
         glBufferSubData(GL_ARRAY_BUFFER, 0, particle_ptrs.size() * sizeof(glm::vec4), color_data);
-        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
-        glVertexAttribDivisor(1, 1);
 
         glBindBuffer(GL_ARRAY_BUFFER, particles_matrix_buffer);
         glBufferData(GL_ARRAY_BUFFER, MAX_NUMBER_OF_PARTICLES * sizeof(glm::mat4), NULL, GL_STREAM_DRAW);
         glBufferSubData(GL_ARRAY_BUFFER, 0, particle_ptrs.size() * sizeof(glm::mat4), model_matrices);
-        for (int i = 0; i < 4; ++i) {
-            glEnableVertexAttribArray(2 + i);
-            glVertexAttribPointer(2 + i, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4) * i));
-            glVertexAttribDivisor(2 + i, 1);
-        }
-
 
         glUseProgram(program);
 		set_uniform_mat4(program, "projection_matrix", se::gameplay_engine::get_instance().get_player()->get_perspective_matrix());
@@ -100,6 +96,9 @@ namespace se {
     }
 
     void particle_engine::update() {
+        if (se::gameplay_engine::get_instance().get_player()->is_moving()) {
+            make_particles();
+        }
         float rate = 10; // TODO: make it dependent on player's speed
         for (auto it = particle_ptrs.begin(); it != particle_ptrs.end(); ) {
             se::particle* p = it->get();
@@ -123,15 +122,11 @@ namespace se {
         glm::vec3 direction = rotation[2];
         create_info.acceleration = glm::dot(glm::vec3(0, 0, 0.001), direction) * direction;
         create_info.color = glm::vec3(0.f, 1.f, 1.f);
-
-		position -= direction;
+		position -= 1.5f * direction;
         create_info.position = position;
 
 
-        int particles_to_generate = 1000;
-        if (se::gameplay_engine::get_instance().get_player()->is_boosting()) {
-            particles_to_generate = 3000;
-        }
+        int particles_to_generate = se::gameplay_engine::get_instance().get_player()->is_boosting() ? 3000 : 1000;
         for (int i = 0; i < particles_to_generate; ++i) {
             float x = float(generator() % 100) / 50.f - 1.0f;
             float y = float(generator() % 100) / 50.f - 1.0f;
@@ -151,13 +146,4 @@ namespace se {
             particle_ptrs.push_back(std::make_unique<se::particle>(&create_info));
         }
     }
-
-    void particle_engine::update(input_event e) {
-		switch (e) {
-			case input_event::w_pressed: {
-                make_particles();
-				break;
-			}
-		}
-	}
 }
