@@ -110,8 +110,11 @@ namespace se {
         create_info.color = glm::vec3(0.2f, 0.2f, 0.8f);
         create_info.position = position;
 
-        // TODO: make it dependant on player's speed
-        for (int i = 0; i < 1000; ++i) {
+        int particles_to_generate = 1000;
+        if (se::gameplay_engine::get_instance().get_player()->is_boosting()) {
+            particles_to_generate = 3000;
+        }
+        for (int i = 0; i < particles_to_generate; ++i) {
             float x = float(generator() % 100) / 50.f - 1.0f;
             float y = float(generator() % 100) / 50.f - 1.0f;
             float z = float(generator() % 100) / 50.f - 1.0f;
