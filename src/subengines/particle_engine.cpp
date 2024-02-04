@@ -56,9 +56,6 @@ namespace se {
     void particle_engine::render() {
         update();
 
-        float tex_mix_data[particle_ptrs.size()];
-        glm::mat4 model_matrices[particle_ptrs.size()];
-
         int i = particle_ptrs.size() - 1;
         for (auto it = particle_ptrs.rbegin(); it != particle_ptrs.rend(); ++it) {
             se::particle* p = it->get();
@@ -128,12 +125,12 @@ namespace se {
 		static std::mt19937 gen(rd());
 		static std::uniform_real_distribution<float> tex(0.f,1.f);
         create_info.texture_mix_ratio = tex(gen);
-		position -= 1.3f * direction;
-        create_info.position = position;
-
 
         int particles_to_generate = se::gameplay_engine::get_instance().get_player()->is_boosting() ? 3000 : 1000;
         for (int i = 0; i < particles_to_generate; ++i) {
+            float offset = 1.3f + (float(generator() % 50) / 100.0f);
+            create_info.position = position - offset * direction;
+
             float x = float(generator() % 100) / 50.f - 1.0f;
             float y = float(generator() % 100) / 50.f - 1.0f;
             float z = float(generator() % 100) / 50.f - 1.0f;

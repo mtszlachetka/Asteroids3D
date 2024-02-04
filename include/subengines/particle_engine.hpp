@@ -58,6 +58,8 @@ namespace se {
             };
             GLuint particles_vertex_buffer;
             static const int MAX_NUMBER_OF_PARTICLES = 100000;
+            float tex_mix_data[MAX_NUMBER_OF_PARTICLES];
+            glm::mat4 model_matrices[MAX_NUMBER_OF_PARTICLES];
             GLuint particles_color_buffer;
             GLuint particles_matrix_buffer;
             std::list<std::unique_ptr<se::particle>> particle_ptrs;
