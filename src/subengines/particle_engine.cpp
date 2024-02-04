@@ -83,6 +83,9 @@ namespace se {
     }
 
     void particle_engine::update() {
+        if (se::gameplay_engine::get_instance().get_player()->is_moving()) {
+            make_particles();
+        }
         float rate = 10; // TODO: make it dependent on player's speed
         for (auto it = particle_ptrs.begin(); it != particle_ptrs.end(); ) {
             se::particle* p = it->get();
@@ -128,13 +131,4 @@ namespace se {
             particle_ptrs.push_back(std::make_unique<se::particle>(&create_info));
         }
     }
-
-    void particle_engine::update(input_event e) {
-		switch (e) {
-			case input_event::w_pressed: {
-                make_particles();
-				break;
-			}
-		}
-	}
 }

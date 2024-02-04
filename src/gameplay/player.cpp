@@ -36,13 +36,13 @@ namespace se {
 		if (m_controls_active == false) return;
 		switch (e) {
 			case input_event::w_pressed: {
-				is_moving = true;
+				moving = true;
 				v3 direction = glm::toMat3(m_orientation)[2];
 				m_position += m_movespeed * direction;
 				break;
 			}
 			case input_event::w_released: {
-				is_moving = false;
+				moving = false;
 				break;
 			}
 			case input_event::q_pressed: {
@@ -62,7 +62,7 @@ namespace se {
 				gameplay_engine::get_instance().spawn_missile();
 				break;
 			case input_event::left_shift_pressed:
-				if (is_moving) {
+				if (is_moving()) {
 					if (m_boost <= 0) {
 						this->turn_off_boost();
 						this->m_boost_time_used = game_clock::get_instance().get_current_frame_time();
