@@ -3,7 +3,7 @@
 layout (location = 0) in vec3 vertex_position;
 layout (location = 1) in vec4 tint;
 layout (location = 2) in mat4 instance_matrix;
-layout (location = 3) in vec2 texture_coords;
+layout (location = 6) in vec2 texture_coords;
 
 uniform mat4 projection_matrix;
 uniform mat4 camera_matrix;
