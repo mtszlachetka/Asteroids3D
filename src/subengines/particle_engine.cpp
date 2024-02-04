@@ -60,7 +60,7 @@ namespace se {
         for (auto it = particle_ptrs.rbegin(); it != particle_ptrs.rend(); ++it) {
             se::particle* p = it->get();
             tex_mix_data[i] = p->texture_mix_ratio;
-            model_matrices[i] = p->model_transform;
+            model_matrices[i] = p->get_model_matrix();
             --i;
         }
 
@@ -130,6 +130,13 @@ namespace se {
         for (int i = 0; i < particles_to_generate; ++i) {
             float offset = 1.3f + (float(generator() % 50) / 100.0f);
             create_info.position = position - offset * direction;
+
+            create_info.rotation_velocity = float(generator() % 100) / 100.0f;
+            create_info.rotation_axis = glm::normalize(glm::vec3(
+                float(generator() % 100) / 50.0f - 1.0f,
+                float(generator() % 100) / 50.0f - 1.0f,
+                float(generator() % 100) / 50.0f - 1.0f
+            ));
 
             float x = float(generator() % 100) / 50.f - 1.0f;
             float y = float(generator() % 100) / 50.f - 1.0f;

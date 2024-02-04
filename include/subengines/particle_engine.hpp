@@ -13,36 +13,41 @@
 
 namespace se {
     struct particle_create_info {
-        glm::vec3 position, velocity, acceleration;
+        glm::vec3 position, velocity, acceleration, rotation_axis;
+        float rotation_velocity;
         float lifetime;
         float texture_mix_ratio;
     };
 
     class particle {
         public:
-            glm::vec3 position, velocity, acceleration;
+            glm::vec3 position, velocity, acceleration, rotation_axis;
+            float rotation_velocity;
             float t, lifetime;
             float texture_mix_ratio;
-            glm::mat4 model_transform;
             particle(particle_create_info* create_info) {
                 this->position = create_info->position;
                 this->velocity = create_info->velocity;
                 this->acceleration = create_info->acceleration;
                 this->texture_mix_ratio = create_info->texture_mix_ratio;
                 this->lifetime = create_info->lifetime;
+                this->rotation_axis = create_info->rotation_axis;
+                this->rotation_velocity = create_info->rotation_velocity;
                 t = 0.0f;
-                model_transform = glm::mat4(1.0f);
-                model_transform = glm::translate(model_transform, position);
             }
             void update(float rate) {
                 velocity += rate * acceleration;
                 position += rate * velocity;
-
-                model_transform = glm::mat4(1.0f);
-                model_transform = glm::translate(model_transform, position);
-                model_transform = glm::scale(model_transform, glm::vec3(0.1f));
-
                 t += rate;
+            }
+
+            // get model matrix
+            glm::mat4 get_model_matrix() {
+                glm::mat4 model_matrix = glm::mat4(1.0f);
+                model_matrix = glm::translate(model_matrix, position);
+                model_matrix = glm::rotate(model_matrix, rotation_velocity, rotation_axis);
+                model_matrix = glm::scale(model_matrix, glm::vec3(0.1f));
+                return model_matrix;
             }
     };
 
