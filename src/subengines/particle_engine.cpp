@@ -61,8 +61,8 @@ namespace se {
         glBindBuffer(GL_ARRAY_BUFFER, particles_vertex_buffer);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)0);
         glVertexAttribDivisor(0, 0);
-		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-		glVertexAttribDivisor(3, 0);
+		glVertexAttribPointer(6, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+		glVertexAttribDivisor(6, 0);
 
 
         glEnableVertexAttribArray(1);

@@ -8,5 +8,5 @@ out vec4 fragOutput;
 
 void main()
 {
-    fragOutput = mix(texture(noise, tex_coords), fragColor, 0.5);
+    fragOutput = texture(noise, tex_coords);
 }
