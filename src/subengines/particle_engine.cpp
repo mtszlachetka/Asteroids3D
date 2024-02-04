@@ -122,7 +122,7 @@ namespace se {
         glm::vec3 direction = rotation[2];
         create_info.acceleration = glm::dot(glm::vec3(0, 0, 0.001), direction) * direction;
         create_info.color = glm::vec3(0.f, 1.f, 1.f);
-		position -= 1.5f * direction;
+		position -= 1.3f * direction;
         create_info.position = position;
 
 
