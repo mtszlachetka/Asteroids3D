@@ -29,6 +29,7 @@ namespace se {
 			int m_boost = 100;
 			float m_boost_time_used = 0.f;
 			bool m_boost_active = false;
+			bool is_moving = false;
 			bool m_controls_active = true;
 			void turn_around();
 			void evade();
