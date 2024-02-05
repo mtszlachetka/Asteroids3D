@@ -6,6 +6,7 @@
 #include <cstdint>
 #include "read_file.hpp"
 #include "subengines/debug.hpp"
+#include "subengines/particle_engine.hpp"
 
 extern int WINDOW_WIDTH, WINDOW_HEIGHT;
 
@@ -163,6 +164,8 @@ namespace se {
 			re->render();
 			glBindTexture(GL_TEXTURE_2D, 0);
 			glUseProgram(0);
+
+			particle_engine::get_instance().render();
 		}
 
 	}

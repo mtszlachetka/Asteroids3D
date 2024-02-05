@@ -118,8 +118,8 @@ int main() {
 		ge.tick();
 		pe.tick();
 		ce.tick();
+		particle_engine.tick();
 		re.tick();
-		particle_engine.render();
 		hud.render();
 
         glfwSwapBuffers(window);

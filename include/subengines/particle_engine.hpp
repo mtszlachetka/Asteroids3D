@@ -82,6 +82,7 @@ namespace se {
 				return instance;
 			}
 			void init();
+			void tick();
             void render();
     };
 }

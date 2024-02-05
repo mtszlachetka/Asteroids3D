@@ -53,9 +53,12 @@ namespace se {
         glBindVertexArray(0);
     }
 
-    void particle_engine::render() {
-        update();
+	void particle_engine::tick() {
+		update();
+	}
 
+    void particle_engine::render() {
+        
         int i = particle_ptrs.size() - 1;
         for (auto it = particle_ptrs.rbegin(); it != particle_ptrs.rend(); ++it) {
             se::particle* p = it->get();
