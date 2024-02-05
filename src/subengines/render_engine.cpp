@@ -236,7 +236,7 @@ namespace se {
 		glUseProgram(m_hdr_program);
 		glBindVertexArray(m_banner_vao);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, m_main_color_buffers[1]);
+		glBindTexture(GL_TEXTURE_2D, m_main_color_buffers[0]);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 		glBindVertexArray(0);
 		glUseProgram(0);
