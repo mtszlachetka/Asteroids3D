@@ -198,7 +198,7 @@ namespace se {
 		bool first_iteration = true;
 		glBindVertexArray(m_banner_vao);
 		glUseProgram(m_blur_program);
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 2; i++) {
 			glBindFramebuffer(GL_FRAMEBUFFER, m_blur_fbos[is_horizontal]);
 			se::set_uniform_int(m_blur_program, "is_horizontal", is_horizontal);
 			glActiveTexture(GL_TEXTURE0);
@@ -280,7 +280,7 @@ namespace se {
 		glBindTexture(GL_TEXTURE_2D, m_main_color_buffers[0]);
 		glActiveTexture(GL_TEXTURE1);
 		se::set_uniform_int(m_hdr_program, "bloomed", 1);
-		glBindTexture(GL_TEXTURE_2D, m_blur_color_buffers[1]);
+		glBindTexture(GL_TEXTURE_2D, m_blur_color_buffers[0]);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 		glBindVertexArray(0);
 		glUseProgram(0);
