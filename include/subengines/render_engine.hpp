@@ -49,9 +49,27 @@ namespace se {
 			GLuint m_shadow_map = 0;
 			unsigned m_shadow_map_height = 2048;
 			unsigned m_shadow_map_width = 2048;
+			GLuint m_main_fbo = 0; // renderbuffer used for drawing objects
+			GLuint m_main_color = 0; // texture to render to
+			GLuint m_main_depth = 0; // depth attachment
+			// rendering to quad spanning over screen
+			GLuint m_banner_vao, m_banner_vbo, m_banner_ebo;
+			GLuint m_banner_program;
+			static constexpr const GLfloat vertices[] = {
+				// vertex coords	// tex coords
+				1.f,	1.f,	1.f,	0.f,
+				1.f,	-1.f,	1.f,	1.f,
+				-1.f,	1.f,	0.f,	0.f,	
+				-1.f,	-1.f,	0.f,	1.f
+			};
+			static constexpr const GLuint indices[] = {0, 1, 2, 1, 2, 3};
 			const light_source* m_light_source = nullptr;
+			void init_banner();
+			void init_framebuffer();
 			void init_shadow_map();
 			void gen_shadow_map();
+			void render_to_framebuffer();
+			void render_to_screen();
 			glm::mat4 m_light_space_matrix = glm::mat4(1.f);
 		public:
 			render_engine(const render_engine& other) = delete;

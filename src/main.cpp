@@ -118,7 +118,7 @@ int main() {
 		ge.tick();
 		pe.tick();
 		ce.tick();
-		particle_engine.tick();
+		particle_engine.update();
 		re.tick();
 		hud.render();
 

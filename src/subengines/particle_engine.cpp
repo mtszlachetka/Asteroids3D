@@ -53,9 +53,6 @@ namespace se {
         glBindVertexArray(0);
     }
 
-	void particle_engine::tick() {
-		update();
-	}
 
     void particle_engine::render() {
         

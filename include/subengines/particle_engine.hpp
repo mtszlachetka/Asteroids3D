@@ -70,7 +70,6 @@ namespace se {
             std::list<std::unique_ptr<se::particle>> particle_ptrs;
 			se::texture m_particle_texture[2];
             void make_particles();
-            void update();
             particle_engine() {}
         public:
 			particle_engine(const particle_engine& other) = delete;
@@ -82,7 +81,7 @@ namespace se {
 				return instance;
 			}
 			void init();
-			void tick();
+            void update();
             void render();
     };
 }
