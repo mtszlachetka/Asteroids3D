@@ -36,8 +36,13 @@ namespace se {
 		if (m_controls_active == false) return;
 		switch (e) {
 			case input_event::w_pressed: {
+				m_is_moving = true;
 				v3 direction = glm::toMat3(m_orientation)[2];
 				m_position += m_movespeed * direction;
+				break;
+			}
+			case input_event::w_released: {
+				m_is_moving = false;
 				break;
 			}
 			case input_event::q_pressed: {
@@ -57,13 +62,17 @@ namespace se {
 				gameplay_engine::get_instance().spawn_missile();
 				break;
 			case input_event::left_shift_pressed:
-				if (m_boost <= 0) {
+				if (is_moving()) {
+					if (m_boost <= 0) {
+						this->turn_off_boost();
+						this->m_boost_time_used = game_clock::get_instance().get_current_frame_time();
+						break;
+					}
+					this->turn_on_boost();
+					this->use_boost();
+				} else {
 					this->turn_off_boost();
-					this->m_boost_time_used = game_clock::get_instance().get_current_frame_time();
-					break;
 				}
-				this->turn_on_boost();
-				this->use_boost();
 				break;
 			case input_event::left_shift_released:
 				this->turn_off_boost();
@@ -85,7 +94,7 @@ namespace se {
 	}
 
 	inline void player::turn_on_boost() {
-		m_movespeed = 0.60f;
+		m_movespeed = m_boost_speed;
 		m_camera->shake = true;
 		m_camera_zoom_factor = m_base_zoom + 0.2f;
 		m_boost_active = true;
@@ -234,7 +243,19 @@ namespace se {
 	void player::collide_with(collidable* cl, collision_info* info) {
 		missile* m_ptr = dynamic_cast<missile*>(cl);
 		if (m_ptr != nullptr) return;
-		m_health -= 10;
+
+		asteroid* a_ptr = dynamic_cast<asteroid*>(cl);
+		if (a_ptr != nullptr) {
+			asteroid_collision_info* a_info = dynamic_cast<asteroid_collision_info*>(info);
+			float asteroid_momentum = glm::length(a_info->t_velocity) * a_info->t_mass;
+			float player_momentum = 4.f * (m_is_moving ? 
+													(m_boost_active ? m_boost_speed : m_base_speed) :
+													0.f);
+			float damage = 0.3f * (asteroid_momentum + player_momentum) / game_clock::get_instance().get_delta_time();
+			m_health -= damage;
+			return;
+		}
+		m_health = 0;
 	}
 
 }

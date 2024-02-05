@@ -63,7 +63,17 @@ namespace se {
 			m_occluder = false;
 			collision_engine::get_instance().detach(this);
 			return;
-		}		
+		}	
+
+		// if player
+		player* pptr = dynamic_cast<player*>(cl);
+		if (pptr != nullptr) {
+			m_time_of_destruction = game_clock::get_instance().get_current_frame_time();
+			m_occluder = false;
+			collision_engine::get_instance().detach(this);
+			gameplay_engine::get_instance().add_points(100);
+			return;
+		}	
 	}
 
 }

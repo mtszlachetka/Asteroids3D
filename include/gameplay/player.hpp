@@ -18,6 +18,7 @@ namespace se {
 			std::unique_ptr<player_follow_camera> m_camera;
 			bool should_destruct = false;
 			static constexpr float m_base_speed = 0.25f;
+			static constexpr float m_boost_speed = 0.6f;
 			float m_movespeed = m_base_speed;
 			float m_anglespeed = 0.05f;
 			void update_mouse_offset(double x, double y);
@@ -29,6 +30,7 @@ namespace se {
 			int m_boost = 100;
 			float m_boost_time_used = 0.f;
 			bool m_boost_active = false;
+			bool m_is_moving = false;
 			bool m_controls_active = true;
 			void turn_around();
 			void evade();
@@ -59,6 +61,7 @@ namespace se {
 
 			void collide_with(collidable* cl, collision_info* info);
 			bool is_boosting() const { return m_boost_active; }
+			bool is_moving() const { return m_is_moving; }
 
 			void set_controls(bool t_active) {
 				m_controls_active = t_active;
@@ -69,6 +72,14 @@ namespace se {
 				m_camera->m_pos = m_position + m_camera_zoom_factor * direction + v3(0,1,0) * 3.f;
 				m_camera->m_dir = direction;
 				m_camera->rebase();
+			}
+
+			m4 get_camera_matrix() const {
+				return m_camera->get_camera_matrix();
+			}
+
+			m4 get_perspective_matrix() const {
+				return m_camera->get_perspective_matrix();
 			}
 
 			void update(input_event e) override;
