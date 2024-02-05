@@ -1,4 +1,5 @@
 #include "camera.hpp"
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/euler_angles.hpp>
 
 namespace se {

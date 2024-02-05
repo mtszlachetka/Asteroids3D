@@ -18,16 +18,19 @@ namespace se {
 			std::unique_ptr<player_follow_camera> m_camera;
 			bool should_destruct = false;
 			static constexpr float m_base_speed = 0.25f;
+			static constexpr float m_boost_speed = 0.6f;
 			float m_movespeed = m_base_speed;
 			float m_anglespeed = 0.05f;
 			void update_mouse_offset(double x, double y);
 			static constexpr float m_base_zoom = -8.f;
 			float m_camera_zoom_factor = m_base_zoom;
-			dop14 m_cached_dop;
-			bounding_sphere m_sphere;
 			void turn_on_boost();
 			void turn_off_boost();
+			int m_health = 100;
+			int m_boost = 100;
+			float m_boost_time_used = 0.f;
 			bool m_boost_active = false;
+			bool m_is_moving = false;
 			bool m_controls_active = true;
 			void turn_around();
 			void evade();
@@ -39,24 +42,26 @@ namespace se {
 				const qu& t_orientation,
 				const mesh& t_mesh,
 				const std::list<texture>& t_textures,
-				GLuint t_program
+				GLuint t_program,
+				const bounding_sphere&,
+				const obb&
 			);
 
-			dop14 get_dop14() {
-				return compute_dop14(m_mesh.m_vertices, get_model_matrix());
+			obb get_obb() const override {
+				return {
+					m_base_obb.m_center + m_position,
+					glm::toMat3(m_orientation) * m_base_obb.m_rotation,
+					m_base_obb.m_extents
+				};
 			}
 
-			void set_bounding_sphere(const bounding_sphere& sp) { m_sphere = sp; }
-
-			bounding_sphere get_bounding_sphere() const {
-				return translate(m_sphere, m_position);
+			bounding_sphere get_bounding_sphere() const override {
+				return translate(m_base_sphere, m_position);
 			}
 
-			void collide_with(collidable* cl, collision_info* info) {
-
-			}
-
+			void collide_with(collidable* cl, collision_info* info);
 			bool is_boosting() const { return m_boost_active; }
+			bool is_moving() const { return m_is_moving; }
 
 			void set_controls(bool t_active) {
 				m_controls_active = t_active;
@@ -69,8 +74,21 @@ namespace se {
 				m_camera->rebase();
 			}
 
+			m4 get_camera_matrix() const {
+				return m_camera->get_camera_matrix();
+			}
+
+			m4 get_perspective_matrix() const {
+				return m_camera->get_perspective_matrix();
+			}
+
 			void update(input_event e) override;
 			bool get_should_destruct() const { return should_destruct; }
+			int get_health() { return m_health; }
+			int get_boost() { return m_boost; }
+			void use_boost() { m_boost -= 1; }
+			void recharge_boost() { m_boost += 1; }
+			float get_boost_time_used() { return m_boost_time_used; }
 			~player();
 	
 	};

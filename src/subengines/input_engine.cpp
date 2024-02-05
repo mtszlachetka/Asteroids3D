@@ -23,6 +23,9 @@ namespace se {
 			if (glfwGetKey(m_p_active_window, GLFW_KEY_W) == GLFW_PRESS) {
 				notify(input_event::w_pressed);
 			}
+			if (glfwGetKey(m_p_active_window, GLFW_KEY_W) == GLFW_RELEASE) {
+				notify(input_event::w_released);
+			}
 			if (glfwGetKey(m_p_active_window, GLFW_KEY_S) == GLFW_PRESS) {
 				notify(input_event::s_pressed);
 			}

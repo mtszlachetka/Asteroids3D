@@ -1,2 +1,2 @@
-add_library(Subengines STATIC render_engine.cpp physics_engine.cpp input_engine.cpp collision_engine.cpp gameplay_engine.cpp debug.cpp)
-target_include_directories(Subengines PUBLIC "${PROJECT_SOURCE_DIR}/include")
+add_library(Subengines STATIC render_engine.cpp physics_engine.cpp input_engine.cpp collision_engine.cpp gameplay_engine.cpp particle_engine.cpp debug.cpp math.cpp)
+target_include_directories(Subengines PUBLIC "${PROJECT_SOURCE_DIR}/include" "${PROJECT_SOURCE_DIR}/lib/SOIL")

@@ -44,6 +44,10 @@ namespace se {
 			se::bounding_sphere m_station_sphere;
 			se::bounding_sphere m_missile_sphere;
 			std::array<se::bounding_sphere, 4> m_asteroid_spheres;
+			se::obb m_player_obb;
+			se::obb m_station_obb;
+			se::obb m_missile_obb;
+			std::array<se::obb, 4> m_asteroid_obbs;
 			gameplay_engine() {}
 		public:
 			gameplay_engine(const gameplay_engine& other) = delete;
@@ -61,6 +65,8 @@ namespace se {
 			float get_shooting_cooldown() const { return m_shooting_cooldown; }
 			int get_points() const { return m_points; }
 			void add_points(int points) { m_points += points; }
+			se::player* get_player() { return m_player_ptr.get(); }
+			se::station* get_station() { return m_station_ptr.get(); }
 			void clear();
 	};
 }

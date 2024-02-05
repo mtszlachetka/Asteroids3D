@@ -121,7 +121,7 @@ namespace se {
 			set_uniform_mat4(program, "projection_matrix", m_camera->get_perspective_matrix());
 			set_uniform_int(program, m_skybox->get_cubemap().m_name, 0);
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, m_skybox->get_cubemap().m_id);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, m_skybox->get_cubemap().m_id);
 			glDisable(GL_DEPTH_TEST);
 			m_skybox->render();
 			glEnable(GL_DEPTH_TEST);

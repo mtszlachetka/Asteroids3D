@@ -10,6 +10,7 @@ namespace se {
    // possible events
 	enum class input_event {
 		w_pressed,
+		w_released,
 		s_pressed,
 		a_pressed,
 		d_pressed,

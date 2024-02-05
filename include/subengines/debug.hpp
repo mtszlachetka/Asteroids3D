@@ -86,6 +86,17 @@ namespace debug {
 	};
 
 	void print_mesh_info(const mesh& t_mesh);
+
+	inline void print_vector3(const glm::vec3& vec) {
+		std::clog.precision(5);
+		std::clog.setf(std::ios_base::fixed);
+		std::clog << "[" << vec.x << " " << vec.y << " " << vec.z << "]\n"; 
+	}
+	inline void print_mat3(const glm::mat3& mat) {
+		print_vector3(mat[0]);
+		print_vector3(mat[1]);
+		print_vector3(mat[2]);
+	}
 }
 }
 

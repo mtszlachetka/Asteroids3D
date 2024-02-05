@@ -6,9 +6,10 @@
 namespace se {
 	class game_clock {
 		private:
-			float m_current_frame_time = 0;
-			float m_previous_frame_time = 0;
-			float m_delta_time = 0;
+			float m_current_frame_time = 0.f;
+			float m_previous_frame_time = 0.f;
+			float m_delta_time = 0.f;
+			float m_total_time = 0.f;
 			game_clock() {}
 		public:
 			game_clock(const game_clock& other) = delete;
@@ -19,9 +20,13 @@ namespace se {
 				static game_clock instance;
 				return instance;
 			}
+			void init() {
+				m_current_frame_time = m_previous_frame_time = m_delta_time = m_total_time = 0.f;
+			}
 			float get_current_frame_time() const { return m_current_frame_time; }
 			float get_previous_frame_time() const { return m_previous_frame_time; }
 			float get_delta_time() const { return m_delta_time; }
+			float get_total_time() const { return m_total_time; }
 			void tick() {
 				float new_time = glfwGetTime();
 				m_delta_time = new_time - m_current_frame_time;
