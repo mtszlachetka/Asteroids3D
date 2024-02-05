@@ -75,9 +75,9 @@ namespace se {
 	}
 
 	void render_engine::init_banner() {
-		m_banner_program = se::make_program({
-			se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/texture_draw.vert")),
-			se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/texture_draw.frag"))
+		m_hdr_program = se::make_program({
+			se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/hdr.vert")),
+			se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/hdr.frag"))
 		});
 
 		glGenVertexArrays(1, &m_banner_vao);
@@ -227,7 +227,7 @@ namespace se {
 
 	void render_engine::render_to_screen() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glUseProgram(m_banner_program);
+		glUseProgram(m_hdr_program);
 		glBindVertexArray(m_banner_vao);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, m_main_color);

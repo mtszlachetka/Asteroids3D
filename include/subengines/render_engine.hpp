@@ -54,7 +54,7 @@ namespace se {
 			GLuint m_main_depth = 0; // depth attachment
 			// rendering to quad spanning over screen
 			GLuint m_banner_vao, m_banner_vbo, m_banner_ebo;
-			GLuint m_banner_program;
+			GLuint m_hdr_program;
 			static constexpr const GLfloat m_banner_vertices[] = {
 				// vertex coords	// tex coords
 				1.f,	1.f,	1.f,	0.f,

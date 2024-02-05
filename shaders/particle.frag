@@ -14,4 +14,6 @@ void main()
 	if (fragOutput.a <= 0.2) {
 		discard;
 	}
+
+	fragOutput = vec4(vec3(10 * fragOutput.xyz), fragOutput.a);
 }
