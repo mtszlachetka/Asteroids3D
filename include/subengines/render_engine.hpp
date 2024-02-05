@@ -89,6 +89,7 @@ namespace se {
 				m_light_source = ls; 
 				m_light_space_matrix = glm::ortho(-30.f, 30.f, -30.f, 30.f, -60.f, 60.f) * glm::lookAt(m_light_source->get_position(), glm::vec3(0.f), glm::vec3(0, 1, 0)); 
 			}
+			void update_framebuffer();
 	};
 }
 

@@ -104,7 +104,7 @@ namespace se {
 
 		glGenTextures(1, &m_main_color);
 		glBindTexture(GL_TEXTURE_2D, m_main_color);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT, 0, GL_RGBA, GL_FLOAT, nullptr);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT * 0.95, 0, GL_RGBA, GL_FLOAT, nullptr);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
@@ -168,6 +168,7 @@ namespace se {
 
 	void render_engine::render_to_framebuffer() {
 		glBindFramebuffer(GL_FRAMEBUFFER, m_main_fbo);
+		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// if (m_skybox != nullptr && m_camera != nullptr) { assume always true
@@ -233,5 +234,14 @@ namespace se {
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 		glBindVertexArray(0);
 		glUseProgram(0);
+	}
+
+	void render_engine::update_framebuffer() {
+		glBindTexture(GL_TEXTURE_2D, m_main_color);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT * 0.95, 0, GL_RGBA, GL_FLOAT, nullptr);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, m_main_fbo);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_main_color, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 }
