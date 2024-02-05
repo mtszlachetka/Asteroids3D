@@ -85,11 +85,11 @@ namespace se {
 
 		glGenBuffers(1, &m_banner_vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, m_banner_vbo);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(m_banner_vertices), m_banner_vertices, GL_STATIC_DRAW);
 
 		glGenBuffers(1, &m_banner_ebo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_banner_ebo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(m_banner_indices), m_banner_indices, GL_STATIC_DRAW);
 
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)0);

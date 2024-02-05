@@ -55,14 +55,14 @@ namespace se {
 			// rendering to quad spanning over screen
 			GLuint m_banner_vao, m_banner_vbo, m_banner_ebo;
 			GLuint m_banner_program;
-			static constexpr const GLfloat vertices[] = {
+			static constexpr const GLfloat m_banner_vertices[] = {
 				// vertex coords	// tex coords
 				1.f,	1.f,	1.f,	0.f,
 				1.f,	-1.f,	1.f,	1.f,
 				-1.f,	1.f,	0.f,	0.f,	
 				-1.f,	-1.f,	0.f,	1.f
 			};
-			static constexpr const GLuint indices[] = {0, 1, 2, 1, 2, 3};
+			static constexpr const GLuint m_banner_indices[] = {0, 1, 2, 1, 2, 3};
 			const light_source* m_light_source = nullptr;
 			void init_banner();
 			void init_framebuffer();
