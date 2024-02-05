@@ -50,7 +50,7 @@ namespace se {
 			unsigned m_shadow_map_height = 2048;
 			unsigned m_shadow_map_width = 2048;
 			GLuint m_main_fbo = 0; // renderbuffer used for drawing objects
-			GLuint m_main_color = 0; // texture to render to
+			GLuint m_main_color_buffers[2] {0}; // textures for bloom
 			GLuint m_main_depth = 0; // depth attachment
 			// rendering to quad spanning over screen
 			GLuint m_banner_vao, m_banner_vbo, m_banner_ebo;

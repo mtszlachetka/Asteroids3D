@@ -101,20 +101,26 @@ namespace se {
 
 	void render_engine::init_framebuffer() {
 		glGenFramebuffers(1, &m_main_fbo);
+		glBindFramebuffer(GL_FRAMEBUFFER, m_main_fbo);
 
-		glGenTextures(1, &m_main_color);
-		glBindTexture(GL_TEXTURE_2D, m_main_color);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT * 0.95, 0, GL_RGBA, GL_FLOAT, nullptr);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glGenTextures(2, m_main_color_buffers);
+		for (int i = 0; i < 2; i++) {
+			glBindTexture(GL_TEXTURE_2D, m_main_color_buffers[i]);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT * 0.95, 0, GL_RGBA, GL_FLOAT, nullptr);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_main_color_buffers[i], 0);
+		}	
 
 		glGenRenderbuffers(1, &m_main_depth);
 		glBindRenderbuffer(GL_RENDERBUFFER, m_main_depth);
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-		glBindFramebuffer(GL_FRAMEBUFFER, m_main_fbo);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_main_color, 0);
+		
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_main_depth);
+
+		unsigned color_attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
+		glDrawBuffers(2, color_attachments);
+
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
@@ -230,18 +236,20 @@ namespace se {
 		glUseProgram(m_hdr_program);
 		glBindVertexArray(m_banner_vao);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, m_main_color);
+		glBindTexture(GL_TEXTURE_2D, m_main_color_buffers[1]);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 		glBindVertexArray(0);
 		glUseProgram(0);
 	}
 
 	void render_engine::update_framebuffer() {
-		glBindTexture(GL_TEXTURE_2D, m_main_color);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT * 0.95, 0, GL_RGBA, GL_FLOAT, nullptr);
-
 		glBindFramebuffer(GL_FRAMEBUFFER, m_main_fbo);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_main_color, 0);
+		for (int i = 0; i < 2; i++) {
+			glBindTexture(GL_TEXTURE_2D, m_main_color_buffers[i]);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT * 0.95, 0, GL_RGBA, GL_FLOAT, nullptr);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_main_color_buffers[i], 0);
+		}	
+		
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 }
