@@ -62,6 +62,10 @@ namespace se {
 	}
 
 	render_engine::render_engine() { // assuming shadow map is always being generated
+		init_shadow_map();
+	}
+
+	void render_engine::init_shadow_map() {
 		m_shadow_map_program = make_program({
 			shader_from_string(GL_VERTEX_SHADER, read_file("../shaders/shadow.vert")),
 			shader_from_string(GL_FRAGMENT_SHADER, read_file("../shaders/shadow.frag"))

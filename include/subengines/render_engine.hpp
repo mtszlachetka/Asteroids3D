@@ -50,6 +50,7 @@ namespace se {
 			unsigned m_shadow_map_height = 2048;
 			unsigned m_shadow_map_width = 2048;
 			const light_source* m_light_source = nullptr;
+			void init_shadow_map();
 			void gen_shadow_map();
 			glm::mat4 m_light_space_matrix = glm::mat4(1.f);
 		public:
