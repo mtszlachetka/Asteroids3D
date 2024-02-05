@@ -71,7 +71,27 @@ namespace se {
 	render_engine::render_engine() { // assuming shadow map is always being generated
 		init_framebuffer();
 		init_banner();
+		init_blur_buffers();
 		init_shadow_map();
+	}
+
+	void render_engine::init_blur_buffers() {
+		m_blur_program = se::make_program({
+			se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/blur.vert")),
+			se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/blur.frag"))
+		});
+		glGenFramebuffers(2, m_blur_fbos);
+		glGenTextures(2, m_blur_color_buffers);
+		for (int i = 0; i < 2; i++) {
+			glBindFramebuffer(GL_FRAMEBUFFER, m_blur_fbos[i]);
+			glBindTexture(GL_TEXTURE_2D, m_blur_color_buffers[i]);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT, 0, GL_RGBA, GL_FLOAT, nullptr);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_blur_color_buffers[i], 0);
+		}
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	void render_engine::init_banner() {
@@ -168,8 +188,28 @@ namespace se {
 
 	void render_engine::tick() {
 		gen_shadow_map();
-		render_to_framebuffer();		
+		render_to_framebuffer();
+		apply_blur();		
 		render_to_screen();
+	}
+
+	void render_engine::apply_blur() {
+		bool is_horizontal = true;
+		bool first_iteration = true;
+		glBindVertexArray(m_banner_vao);
+		glUseProgram(m_blur_program);
+		for (int i = 0; i < 10; i++) {
+			glBindFramebuffer(GL_FRAMEBUFFER, m_blur_fbos[is_horizontal]);
+			se::set_uniform_int(m_blur_program, "is_horizontal", is_horizontal);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, first_iteration ? m_main_color_buffers[1] : m_blur_color_buffers[!is_horizontal]);	
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+			is_horizontal = !is_horizontal;
+			if (first_iteration) first_iteration = false;
+		}
+		glBindVertexArray(0);
+		glUseProgram(0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	void render_engine::render_to_framebuffer() {
@@ -236,7 +276,11 @@ namespace se {
 		glUseProgram(m_hdr_program);
 		glBindVertexArray(m_banner_vao);
 		glActiveTexture(GL_TEXTURE0);
+		se::set_uniform_int(m_hdr_program, "tex", 0);
 		glBindTexture(GL_TEXTURE_2D, m_main_color_buffers[0]);
+		glActiveTexture(GL_TEXTURE1);
+		se::set_uniform_int(m_hdr_program, "bloomed", 1);
+		glBindTexture(GL_TEXTURE_2D, m_blur_color_buffers[1]);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 		glBindVertexArray(0);
 		glUseProgram(0);
@@ -248,6 +292,12 @@ namespace se {
 			glBindTexture(GL_TEXTURE_2D, m_main_color_buffers[i]);
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT * 0.95, 0, GL_RGBA, GL_FLOAT, nullptr);
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_main_color_buffers[i], 0);
+		}
+		for (int i = 0; i < 2; i++) {
+			glBindFramebuffer(GL_FRAMEBUFFER, m_blur_fbos[i]);
+			glBindTexture(GL_TEXTURE_2D, m_blur_color_buffers[i]);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT, 0, GL_RGBA, GL_FLOAT, nullptr);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_blur_color_buffers[i], 0);
 		}	
 		
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);

@@ -64,12 +64,17 @@ namespace se {
 			};
 			static constexpr const GLuint m_banner_indices[] = {0, 1, 2, 1, 2, 3};
 			const light_source* m_light_source = nullptr;
+			GLuint m_blur_fbos[2] {0};
+			GLuint m_blur_color_buffers[2] {0};
+			GLuint m_blur_program = 0;
 			void init_banner();
 			void init_framebuffer();
 			void init_shadow_map();
+			void init_blur_buffers();
 			void gen_shadow_map();
 			void render_to_framebuffer();
 			void render_to_screen();
+			void apply_blur();
 			glm::mat4 m_light_space_matrix = glm::mat4(1.f);
 		public:
 			render_engine(const render_engine& other) = delete;
