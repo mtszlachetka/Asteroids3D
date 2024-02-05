@@ -7,6 +7,6 @@ out vec4 out_color;
 
 void main() {
 	vec3 hdr_color = texture(tex, tex_coord).xyz;
-	vec3 tone = 1 - exp(-hdr_color);
+	vec3 tone = 1 - exp(-hdr_color * 1.2);
 	out_color = vec4(tone, 1);
 }
