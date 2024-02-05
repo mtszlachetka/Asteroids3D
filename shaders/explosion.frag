@@ -1,6 +1,7 @@
 #version 430 core
 
-out vec4 out_color;
+layout (location = 0) out vec4 out_color;
+layout (location = 1) out vec4 bright_color;
 
 in vec2 tex_coord;
 in vec3 light_dir_TS_;
@@ -89,4 +90,5 @@ void main() {
 
 	out_color = 1 - vec4(exp(-color * exposition), 1);
 	out_color = vec4(out_color.xyz * color_modifier_, 1);
+	bright_color = vec4(0);
 }

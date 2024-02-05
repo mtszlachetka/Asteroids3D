@@ -6,6 +6,7 @@
 #include <cstdint>
 #include "read_file.hpp"
 #include "subengines/debug.hpp"
+#include "subengines/particle_engine.hpp"
 
 extern int WINDOW_WIDTH, WINDOW_HEIGHT;
 
@@ -60,7 +61,90 @@ namespace se {
 		glDeleteVertexArrays(1, &m_vao);
 	}
 
+	void renderable::render() const {
+		glBindVertexArray(m_vao);
+		glDrawElements(GL_TRIANGLES, m_mesh.m_indices.size(), GL_UNSIGNED_INT, nullptr);
+		glBindVertexArray(0);
+	}
+
+
 	render_engine::render_engine() { // assuming shadow map is always being generated
+		init_framebuffer();
+		init_banner();
+		init_blur_buffers();
+		init_shadow_map();
+	}
+
+	void render_engine::init_blur_buffers() {
+		m_blur_program = se::make_program({
+			se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/blur.vert")),
+			se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/blur.frag"))
+		});
+		glGenFramebuffers(2, m_blur_fbos);
+		glGenTextures(2, m_blur_color_buffers);
+		for (int i = 0; i < 2; i++) {
+			glBindFramebuffer(GL_FRAMEBUFFER, m_blur_fbos[i]);
+			glBindTexture(GL_TEXTURE_2D, m_blur_color_buffers[i]);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT, 0, GL_RGBA, GL_FLOAT, nullptr);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_blur_color_buffers[i], 0);
+		}
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	void render_engine::init_banner() {
+		m_hdr_program = se::make_program({
+			se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/hdr.vert")),
+			se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/hdr.frag"))
+		});
+
+		glGenVertexArrays(1, &m_banner_vao);
+		glBindVertexArray(m_banner_vao);
+
+		glGenBuffers(1, &m_banner_vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, m_banner_vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(m_banner_vertices), m_banner_vertices, GL_STATIC_DRAW);
+
+		glGenBuffers(1, &m_banner_ebo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_banner_ebo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(m_banner_indices), m_banner_indices, GL_STATIC_DRAW);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
+
+		glBindVertexArray(0);
+	}
+
+	void render_engine::init_framebuffer() {
+		glGenFramebuffers(1, &m_main_fbo);
+		glBindFramebuffer(GL_FRAMEBUFFER, m_main_fbo);
+
+		glGenTextures(2, m_main_color_buffers);
+		for (int i = 0; i < 2; i++) {
+			glBindTexture(GL_TEXTURE_2D, m_main_color_buffers[i]);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT * 0.95, 0, GL_RGBA, GL_FLOAT, nullptr);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_main_color_buffers[i], 0);
+		}	
+
+		glGenRenderbuffers(1, &m_main_depth);
+		glBindRenderbuffer(GL_RENDERBUFFER, m_main_depth);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, WINDOW_WIDTH, WINDOW_HEIGHT);
+		
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_main_depth);
+
+		unsigned color_attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
+		glDrawBuffers(2, color_attachments);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	void render_engine::init_shadow_map() {
 		m_shadow_map_program = make_program({
 			shader_from_string(GL_VERTEX_SHADER, read_file("../shaders/shadow.vert")),
 			shader_from_string(GL_FRAGMENT_SHADER, read_file("../shaders/shadow.frag"))
@@ -83,12 +167,6 @@ namespace se {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	void renderable::render() const {
-		glBindVertexArray(m_vao);
-		glDrawElements(GL_TRIANGLES, m_mesh.m_indices.size(), GL_UNSIGNED_INT, nullptr);
-		glBindVertexArray(0);
-	}
-
 	void render_engine::gen_shadow_map() { // if multiple lights were to be supported, should take a pointer as argument
 		if (m_light_source == nullptr) return;
 		glBindFramebuffer(GL_FRAMEBUFFER, m_shadow_map_fbo);
@@ -109,7 +187,34 @@ namespace se {
 	}
 
 	void render_engine::tick() {
+		gen_shadow_map();
+		render_to_framebuffer();
+		apply_blur();		
+		render_to_screen();
+	}
 
+	void render_engine::apply_blur() {
+		bool is_horizontal = true;
+		bool first_iteration = true;
+		glBindVertexArray(m_banner_vao);
+		glUseProgram(m_blur_program);
+		for (int i = 0; i < 2; i++) {
+			glBindFramebuffer(GL_FRAMEBUFFER, m_blur_fbos[is_horizontal]);
+			se::set_uniform_int(m_blur_program, "is_horizontal", is_horizontal);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, first_iteration ? m_main_color_buffers[1] : m_blur_color_buffers[!is_horizontal]);	
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+			is_horizontal = !is_horizontal;
+			if (first_iteration) first_iteration = false;
+		}
+		glBindVertexArray(0);
+		glUseProgram(0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	void render_engine::render_to_framebuffer() {
+		glBindFramebuffer(GL_FRAMEBUFFER, m_main_fbo);
+		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// if (m_skybox != nullptr && m_camera != nullptr) { assume always true
@@ -127,8 +232,6 @@ namespace se {
 			glEnable(GL_DEPTH_TEST);
 			glUseProgram(0);
 		// }
-
-		gen_shadow_map();
 
 		for (const renderable* re : m_renderables) {
 			glUseProgram(re->get_program());
@@ -164,6 +267,39 @@ namespace se {
 			glBindTexture(GL_TEXTURE_2D, 0);
 			glUseProgram(0);
 		}
+		particle_engine::get_instance().render();
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
 
+	void render_engine::render_to_screen() {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glUseProgram(m_hdr_program);
+		glBindVertexArray(m_banner_vao);
+		glActiveTexture(GL_TEXTURE0);
+		se::set_uniform_int(m_hdr_program, "tex", 0);
+		glBindTexture(GL_TEXTURE_2D, m_main_color_buffers[0]);
+		glActiveTexture(GL_TEXTURE1);
+		se::set_uniform_int(m_hdr_program, "bloomed", 1);
+		glBindTexture(GL_TEXTURE_2D, m_blur_color_buffers[0]);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+		glBindVertexArray(0);
+		glUseProgram(0);
+	}
+
+	void render_engine::update_framebuffer() {
+		glBindFramebuffer(GL_FRAMEBUFFER, m_main_fbo);
+		for (int i = 0; i < 2; i++) {
+			glBindTexture(GL_TEXTURE_2D, m_main_color_buffers[i]);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT * 0.95, 0, GL_RGBA, GL_FLOAT, nullptr);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_main_color_buffers[i], 0);
+		}
+		for (int i = 0; i < 2; i++) {
+			glBindFramebuffer(GL_FRAMEBUFFER, m_blur_fbos[i]);
+			glBindTexture(GL_TEXTURE_2D, m_blur_color_buffers[i]);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT, 0, GL_RGBA, GL_FLOAT, nullptr);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_blur_color_buffers[i], 0);
+		}	
+		
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 }

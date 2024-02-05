@@ -30,6 +30,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	WINDOW_WIDTH = width; 
 	WINDOW_HEIGHT = height; 
 	ASPECT_RATIO = (float)width / (float)height;
+	se::render_engine::get_instance().update_framebuffer();
 }
 
 
@@ -118,8 +119,8 @@ int main() {
 		ge.tick();
 		pe.tick();
 		ce.tick();
+		particle_engine.update();
 		re.tick();
-		particle_engine.render();
 		hud.render();
 
         glfwSwapBuffers(window);
