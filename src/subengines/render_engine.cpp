@@ -198,7 +198,7 @@ namespace se {
 		bool first_iteration = true;
 		glBindVertexArray(m_banner_vao);
 		glUseProgram(m_blur_program);
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 3; i++) {
 			glBindFramebuffer(GL_FRAMEBUFFER, m_blur_fbos[is_horizontal]);
 			se::set_uniform_int(m_blur_program, "is_horizontal", is_horizontal);
 			glActiveTexture(GL_TEXTURE0);
