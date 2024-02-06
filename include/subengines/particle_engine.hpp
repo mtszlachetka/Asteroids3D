@@ -70,6 +70,10 @@ namespace se {
             std::list<std::unique_ptr<se::particle>> particle_ptrs;
 			se::texture m_particle_texture[2];
             void make_particles();
+            void generate_particles_in_given_position(
+                const glm::vec3& position, const glm::vec3& direction,
+                const glm::vec3& side, int particles_to_generate, std::default_random_engine generator,
+                particle_create_info create_info, glm::vec3 incident);
             particle_engine() {}
         public:
 			particle_engine(const particle_engine& other) = delete;

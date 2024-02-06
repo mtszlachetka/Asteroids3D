@@ -111,7 +111,6 @@ namespace se {
     void particle_engine::make_particles() {
         glm::vec3 position = se::gameplay_engine::get_instance().get_player()->get_position();
         glm::vec3 incident = glm::normalize(glm::vec3(1, 0, 1));
-        glm::vec3 normal = glm::vec3(0, 0, -1);
 
         unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();
         std::default_random_engine generator(seed);
@@ -119,6 +118,7 @@ namespace se {
         particle_create_info create_info;
         glm::quat player_orientation = se::gameplay_engine::get_instance().get_player()->get_orientation();
         glm::mat3 rotation = glm::toMat3(player_orientation);
+        glm::vec3 side = rotation[0];
         glm::vec3 direction = rotation[2];
         create_info.acceleration = glm::dot(glm::vec3(0, 0, 0.001), direction) * direction;
 		static std::random_device rd;
@@ -126,10 +126,19 @@ namespace se {
 		static std::uniform_real_distribution<float> tex(0.f,1.f);
         create_info.texture_mix_ratio = tex(gen);
 
-        int particles_to_generate = se::gameplay_engine::get_instance().get_player()->is_boosting() ? 3000 : 1000;
+        generate_particles_in_given_position(position, direction, side, 1000, generator, create_info, incident);
+        generate_particles_in_given_position(position, direction, -side * 0.88f, 1000, generator, create_info, incident);
+        if (se::gameplay_engine::get_instance().get_player()->is_boosting()) {
+            generate_particles_in_given_position(position, direction, glm::vec3(0), 2000, generator, create_info, incident);
+        }
+    }
+
+    void particle_engine::generate_particles_in_given_position(const glm::vec3& position, const glm::vec3& direction,
+        const glm::vec3& side, int particles_to_generate, std::default_random_engine generator,
+        particle_create_info create_info, glm::vec3 incident) {
         for (int i = 0; i < particles_to_generate; ++i) {
             float offset = 1.3f + (float(generator() % 50) / 100.0f);
-            create_info.position = position - offset * direction;
+            create_info.position = position - offset * direction - 0.67f * side;
 
             create_info.rotation_velocity = float(generator() % 100) / 100.0f;
             create_info.rotation_axis = glm::normalize(glm::vec3(
@@ -143,7 +152,7 @@ namespace se {
             float z = float(generator() % 100) / 50.f - 1.0f;
 
             glm::vec3 randomization = glm::vec3(x, y, z);
-            glm::vec3 randomized_normal = glm::normalize(0.9f * randomization + normal);
+            glm::vec3 randomized_normal = glm::normalize(0.9f * randomization + glm::vec3(0, 0, -1));
 
             x = float(generator() % 100) / 10000.0f;
             glm::vec3 outgoing = x * glm::reflect(incident, randomized_normal);
