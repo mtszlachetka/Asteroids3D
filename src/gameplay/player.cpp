@@ -253,9 +253,15 @@ namespace se {
 													0.f);
 			float damage = 0.3f * (asteroid_momentum + player_momentum) / game_clock::get_instance().get_delta_time();
 			m_health -= damage;
+			if (m_health <= 0 && m_time_of_destruction == 0.0f) {
+				m_time_of_destruction = game_clock::get_instance().get_current_frame_time();
+			}
 			return;
 		}
 		m_health = 0;
+		if (m_time_of_destruction == 0.0f) {
+			m_time_of_destruction = game_clock::get_instance().get_current_frame_time();
+		}
 	}
 
 }
