@@ -126,18 +126,18 @@ namespace se {
 		static std::uniform_real_distribution<float> tex(0.f,1.f);
         create_info.texture_mix_ratio = tex(gen);
 
-        generate_particles_in_given_position(position, direction, side, 1000, generator, create_info, incident);
-        generate_particles_in_given_position(position, direction, -side * 0.88f, 1000, generator, create_info, incident);
+        generate_particles_in_given_position(position, direction, side, 300, generator, create_info, incident, 1.2f, 2.0f);
+        generate_particles_in_given_position(position, direction, -side * 0.9f, 300, generator, create_info, incident, 1.2f, 2.0f);
         if (se::gameplay_engine::get_instance().get_player()->is_boosting()) {
-            generate_particles_in_given_position(position, direction, glm::vec3(0), 2000, generator, create_info, incident);
+            generate_particles_in_given_position(position, direction, glm::vec3(0), 2000, generator, create_info, incident, 1.4f, 10.0f);
         }
     }
 
     void particle_engine::generate_particles_in_given_position(const glm::vec3& position, const glm::vec3& direction,
         const glm::vec3& side, int particles_to_generate, std::default_random_engine generator,
-        particle_create_info create_info, glm::vec3 incident) {
+        particle_create_info create_info, glm::vec3 incident, float base_offset, float base_lifetime) {
         for (int i = 0; i < particles_to_generate; ++i) {
-            float offset = 1.3f + (float(generator() % 50) / 100.0f);
+            float offset = base_offset + (float(generator() % 40) / 100.0f);
             create_info.position = position - offset * direction - 0.67f * side;
 
             create_info.rotation_velocity = float(generator() % 100) / 100.0f;
@@ -159,7 +159,7 @@ namespace se {
 
             create_info.velocity = outgoing;
 
-            x = 10.0f + float(generator() % 100) / 5.0f;
+            x = base_lifetime + float(generator() % 100) / 5.0f;
             create_info.lifetime = x;
 
             particle_ptrs.push_back(std::make_unique<se::particle>(&create_info));
