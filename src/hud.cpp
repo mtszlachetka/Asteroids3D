@@ -219,6 +219,19 @@ namespace se {
         drawStationHealth(currentStationHealth, red_color);
         drawBoost(currentBoost, blue_color);
         drawPlayerHealth(currentPlayerHealth, green_color);
+
+        if (updatedPlayerHealth <= 0) {
+            player->set_controls(false);
+            player->set_moving(false);
+            drawText("Game Over", WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.5, 3.0f, red_color);
+        }
+        if (updatedStationHealth <= 0) {
+            player->set_controls(false);
+            player->set_moving(false);
+            drawText("Game Over", WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.5, 3.0f, red_color);
+            drawText("Station was destroyed", WINDOW_WIDTH * 0.25, WINDOW_HEIGHT * 0.4, 2.0f, red_color);
+        }
+
         glUseProgram(0);
 
         glDepthMask(GL_TRUE);

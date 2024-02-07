@@ -87,10 +87,18 @@ namespace se {
 		// check whether any objects should be destroyed
 		m_asteroid_ptrs.remove_if([](std::unique_ptr<asteroid>& a) -> bool { return a->get_should_destruct(); });
 		m_missile_ptrs.remove_if([](std::unique_ptr<missile>& m) -> bool { return m->get_should_destruct(); });
-		if (m_station_ptr != nullptr && m_station_ptr->get_should_destruct()) m_station_ptr.reset();
 		if (!m_player_ptr->is_boosting() && m_player_ptr->get_boost() < 100 && game_clock::get_instance().get_current_frame_time() - m_player_ptr->get_boost_time_used() > 1.f) {
 			m_player_ptr->recharge_boost();
 		} 
+		if (m_station_ptr != nullptr && m_station_ptr->get_should_destruct()) {
+			collision_engine::get_instance().detach(m_station_ptr.get());
+			render_engine::get_instance().detach(m_station_ptr.get());
+		};
+		if (m_player_ptr != nullptr && m_player_ptr->get_should_destruct()) {
+			collision_engine::get_instance().detach(m_player_ptr.get());
+			render_engine::get_instance().detach(m_player_ptr.get());
+			input_engine::get_instance().detach(m_player_ptr.get());
+		};
 
 		// spawn asteroids
 		if (game_clock::get_instance().get_current_frame_time() - m_last_spawn_time > 2.f) { // every 2 seconds

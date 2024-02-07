@@ -62,7 +62,7 @@ namespace se {
 			void collide_with(collidable* cl, collision_info* info);
 			bool is_boosting() const { return m_boost_active; }
 			bool is_moving() const { return m_is_moving; }
-
+			void set_moving(bool t_moving) { m_is_moving = t_moving; }
 			void set_controls(bool t_active) {
 				m_controls_active = t_active;
 			}
