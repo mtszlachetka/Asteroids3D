@@ -4,26 +4,35 @@
 
 extern int WINDOW_WIDTH, WINDOW_HEIGHT;
 
-namespace se {
-	static float get_cooldown_percentage(float last_time_shot, float cooldown) {
+namespace se
+{
+    static float get_cooldown_percentage(float last_time_shot, float cooldown)
+    {
         float current_time = game_clock::get_instance().get_current_frame_time();
         float time_passed = current_time - (last_time_shot + cooldown);
-        if (time_passed > cooldown) {
+        if (time_passed > cooldown)
+        {
             return 1.0f;
-        } else if (time_passed <= .0f) {
+        }
+        else if (time_passed <= .0f)
+        {
             return 0.1f;
-        } else {
+        }
+        else
+        {
             return time_passed / cooldown;
         }
     }
 
-    void hud::drawCrosshair() {
-        if (se::gameplay_engine::get_instance().get_player()->get_time_of_destruction() != 0) {
+    void hud::drawCrosshair()
+    {
+        if (se::gameplay_engine::get_instance().get_player()->get_time_of_destruction() != 0)
+        {
             return;
         }
         glUniform1i(textureUniform, 0);
         set_uniform_float(program, "alphaMod", get_cooldown_percentage(gameplay_engine::get_instance().get_last_shot_time(), gameplay_engine::get_instance().get_shooting_cooldown()));
-        
+
         glBindVertexArray(crosshairVAO);
 
         glActiveTexture(GL_TEXTURE0);
@@ -34,7 +43,8 @@ namespace se {
         glBindVertexArray(0);
     }
 
-    void hud::drawText(std::string text, float x, float y, float scale, glm::vec3 color) {
+    void hud::drawText(std::string text, float x, float y, float scale, glm::vec3 color)
+    {
         glUseProgram(text_program);
         set_uniform_mat4(text_program, "projection", glm::ortho(0.0f, static_cast<float>(WINDOW_WIDTH), 0.0f, static_cast<float>(WINDOW_HEIGHT)));
         set_uniform_vec3(text_program, "textColor", color);
@@ -54,19 +64,18 @@ namespace se {
             float h = ch.Size.y * scale;
             // update VBO for each character
             float vertices[6][4] = {
-                { xpos,     ypos + h,   0.0f, 0.0f },            
-                { xpos,     ypos,       0.0f, 1.0f },
-                { xpos + w, ypos,       1.0f, 1.0f },
+                {xpos, ypos + h, 0.0f, 0.0f},
+                {xpos, ypos, 0.0f, 1.0f},
+                {xpos + w, ypos, 1.0f, 1.0f},
 
-                { xpos,     ypos + h,   0.0f, 0.0f },
-                { xpos + w, ypos,       1.0f, 1.0f },
-                { xpos + w, ypos + h,   1.0f, 0.0f }           
-            };
+                {xpos, ypos + h, 0.0f, 0.0f},
+                {xpos + w, ypos, 1.0f, 1.0f},
+                {xpos + w, ypos + h, 1.0f, 0.0f}};
             // render glyph texture over quad
             glBindTexture(GL_TEXTURE_2D, ch.TextureID);
             // update content of VBO memory
             glBindBuffer(GL_ARRAY_BUFFER, textVBO);
-            glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); 
+            glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
             glBindBuffer(GL_ARRAY_BUFFER, 0);
             // render quad
             glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -78,24 +87,25 @@ namespace se {
         glUseProgram(0);
     }
 
-    void hud::drawStationHealth(int percentage, glm::vec3 color) {
+    void hud::drawStationHealth(int percentage, glm::vec3 color)
+    {
         glUseProgram(simple_program);
 
-        float val = calculate_value(-0.9f, -0.2f ,percentage);
+        float val = calculate_value(-0.9f, -0.2f, percentage);
 
         stationHealthBarVertexArray[0] = val;
-        stationHealthBarVertexArray[4] = val - 0.05f; 
+        stationHealthBarVertexArray[4] = val - 0.05f;
 
         glBindVertexArray(stationHealthVAO);
         glBindBuffer(GL_ARRAY_BUFFER, stationHealthVBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(stationHealthBarVertexArray), stationHealthBarVertexArray, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *)0);
         glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(4 * sizeof(float)));
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *)(4 * sizeof(float)));
         glEnableVertexAttribArray(1);
-    
+
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, stationHealthEBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), barsIndexArray, GL_STATIC_DRAW);
 
@@ -113,10 +123,11 @@ namespace se {
         glUseProgram(0);
     }
 
-    void hud::drawBoost(int percentage, glm::vec3 color) {
+    void hud::drawBoost(int percentage, glm::vec3 color)
+    {
         glUseProgram(simple_program);
 
-        float val = calculate_value(-0.9f, -0.3f ,percentage);
+        float val = calculate_value(-0.9f, -0.3f, percentage);
 
         boostBarVertexArray[0] = val;
         boostBarVertexArray[4] = val - 0.05f;
@@ -125,12 +136,12 @@ namespace se {
         glBindBuffer(GL_ARRAY_BUFFER, boostVBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(boostBarVertexArray), boostBarVertexArray, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *)0);
         glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(4 * sizeof(float)));
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *)(4 * sizeof(float)));
         glEnableVertexAttribArray(1);
-    
+
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, boostEBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), barsIndexArray, GL_STATIC_DRAW);
 
@@ -148,24 +159,25 @@ namespace se {
         glUseProgram(0);
     }
 
-    void hud::drawPlayerHealth(int percentage, glm::vec3 color) {
+    void hud::drawPlayerHealth(int percentage, glm::vec3 color)
+    {
         glUseProgram(simple_program);
 
-        float val = calculate_value(-0.9f, -0.4f ,percentage);
+        float val = calculate_value(-0.9f, -0.4f, percentage);
 
         healthBarVertexArray[0] = val;
-        healthBarVertexArray[4] = val - 0.05f; 
+        healthBarVertexArray[4] = val - 0.05f;
 
         glBindVertexArray(playerHealthVAO);
         glBindBuffer(GL_ARRAY_BUFFER, playerHealthVBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(healthBarVertexArray), healthBarVertexArray, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, elementSize, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *)0);
         glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(4 * sizeof(float)));
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *)(4 * sizeof(float)));
         glEnableVertexAttribArray(1);
-    
+
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, playerHealthEBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndexes * sizeof(unsigned int), barsIndexArray, GL_STATIC_DRAW);
 
@@ -183,7 +195,8 @@ namespace se {
         glUseProgram(0);
     }
 
-    void hud::render() {
+    void hud::render()
+    {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glDisable(GL_DEPTH_TEST);
@@ -191,28 +204,34 @@ namespace se {
 
         glUseProgram(program);
 
-        se::player* player = gameplay_engine::get_instance().get_player();
-        se::station* station = gameplay_engine::get_instance().get_station();
+        se::player *player = gameplay_engine::get_instance().get_player();
+        se::station *station = gameplay_engine::get_instance().get_station();
 
         updatedPoints = gameplay_engine::get_instance().get_points();
-        if (currentPoints < updatedPoints) {
+        if (currentPoints < updatedPoints)
+        {
             currentPoints += 1;
         }
 
         updatedStationHealth = station->get_health();
-        if (currentStationHealth > updatedStationHealth) {
+        if (currentStationHealth > updatedStationHealth)
+        {
             currentStationHealth -= 1;
         }
 
         updatedBoost = player->get_boost();
-        if (currentBoost > updatedBoost && updatedBoost >= 0) {
+        if (currentBoost > updatedBoost && updatedBoost >= 0)
+        {
             currentBoost -= 1;
-        } else if (currentBoost < updatedBoost && updatedBoost <= 100) {
+        }
+        else if (currentBoost < updatedBoost && updatedBoost <= 100)
+        {
             currentBoost += 1;
         }
 
         updatedPlayerHealth = player->get_health();
-        if (currentPlayerHealth > updatedPlayerHealth) {
+        if (currentPlayerHealth > updatedPlayerHealth)
+        {
             currentPlayerHealth -= 1;
         }
 
@@ -229,7 +248,8 @@ namespace se {
         glDisable(GL_BLEND);
     }
 
-    void hud::drawInitialText(float x, float y) {
+    void hud::drawInitialText(float x, float y)
+    {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glEnable(GL_BLEND);
