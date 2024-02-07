@@ -1,4 +1,5 @@
 #include "gameplay/station.hpp"
+#include "gameplay/asteroid.hpp"
 #include "subengines/collision_engine.hpp"
 
 namespace se {
@@ -18,5 +19,23 @@ namespace se {
 	}
 
 	station::~station() {
+	}
+
+	void station::collide_with(collidable* cl, collision_info* info) {
+		asteroid* a_ptr = dynamic_cast<asteroid*>(cl);
+		if (a_ptr != nullptr) {
+			asteroid_collision_info* a_info = dynamic_cast<asteroid_collision_info*>(info);
+			float asteroid_momentum = glm::length(a_info->t_velocity) * a_info->t_mass;
+			float damage = 0.1f * asteroid_momentum / game_clock::get_instance().get_delta_time();
+			m_health -= damage;
+			if (m_health <= 0 && m_time_of_destruction == 0.0f) {
+				m_time_of_destruction = game_clock::get_instance().get_current_frame_time();
+			}
+			return;
+		}
+		m_health -= 20;
+		if (m_health <= 0 && m_time_of_destruction == 0.0f) {
+			m_time_of_destruction = game_clock::get_instance().get_current_frame_time();
+		}
 	}
 }

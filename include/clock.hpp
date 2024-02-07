@@ -9,7 +9,7 @@ namespace se {
 			float m_current_frame_time = 0.f;
 			float m_previous_frame_time = 0.f;
 			float m_delta_time = 0.f;
-			float m_total_time = 0.f;
+			float m_initial_time = 0.f;
 			game_clock() {}
 		public:
 			game_clock(const game_clock& other) = delete;
@@ -21,14 +21,13 @@ namespace se {
 				return instance;
 			}
 			void init() {
-				m_current_frame_time = m_previous_frame_time = m_delta_time = m_total_time = 0.f;
+				m_initial_time = static_cast<float>(glfwGetTime());
 			}
 			float get_current_frame_time() const { return m_current_frame_time; }
 			float get_previous_frame_time() const { return m_previous_frame_time; }
 			float get_delta_time() const { return m_delta_time; }
-			float get_total_time() const { return m_total_time; }
 			void tick() {
-				float new_time = glfwGetTime();
+				float new_time = glfwGetTime() - m_initial_time;
 				m_delta_time = new_time - m_current_frame_time;
 				m_previous_frame_time = m_current_frame_time;
 				m_current_frame_time = new_time;

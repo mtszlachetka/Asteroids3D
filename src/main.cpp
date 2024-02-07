@@ -42,7 +42,7 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 
-    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "SpaceEngine", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Asteroids3D", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cerr << "Failed to create GLFW window" << std::endl;
@@ -108,6 +108,15 @@ int main() {
 	particle_engine.init();
 
 	se::hud hud;
+	se::texture menu_texture = se::load_texture_2d_named("../textures/skybox/space_dn.png", "");
+	
+	// wait for the player to press ENTER
+	while (1) {
+		hud.drawInitialText(WINDOW_WIDTH * 0.35, WINDOW_HEIGHT * 0.5, menu_texture.m_id);
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+		if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) break;
+	}
 
 	// se::free_camera free(0.01, 200, {0,0,1}, {0,0,0});
 	// re.set_camera(&free);

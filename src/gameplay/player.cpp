@@ -55,9 +55,6 @@ namespace se {
 				m_orientation = glm::angleAxis(m_anglespeed, direction) * m_orientation;
 				break;
 			}
-			case input_event::space_pressed:
-				gameplay_engine::get_instance().spawn_missile();
-				break;
 			case input_event::left_mouse_button_pressed:
 				gameplay_engine::get_instance().spawn_missile();
 				break;
@@ -253,9 +250,15 @@ namespace se {
 													0.f);
 			float damage = 0.3f * (asteroid_momentum + player_momentum) / game_clock::get_instance().get_delta_time();
 			m_health -= damage;
+			if (m_health <= 0 && m_time_of_destruction == 0.0f) {
+				m_time_of_destruction = game_clock::get_instance().get_current_frame_time();
+			}
 			return;
 		}
 		m_health = 0;
+		if (m_time_of_destruction == 0.0f) {
+			m_time_of_destruction = game_clock::get_instance().get_current_frame_time();
+		}
 	}
 
 }

@@ -87,6 +87,8 @@ namespace se {
 
             int currentPlayerHealth = 100;
             int updatedPlayerHealth = 100;
+
+            float curr_time = game_clock::get_instance().get_current_frame_time();
 			
             void drawCrosshair();
             void drawText(std::string text, float x, float y, float scale, glm::vec3 color);
@@ -319,8 +321,7 @@ namespace se {
                 formatted_points += points_str;
                 return formatted_points;
             }
-            std::string format_time() {
-                float time = game_clock::get_instance().get_current_frame_time();
+            std::string format_time(float time) {
                 int hours = static_cast<int>(time / 3600);
                 int minutes = static_cast<int>(time / 60);
                 int seconds = static_cast<int>(time) % 60;
@@ -353,6 +354,7 @@ namespace se {
                 }
                 return value;
             }
+            void drawInitialText(float x, float y, GLuint tex_id);
     };
 
 }

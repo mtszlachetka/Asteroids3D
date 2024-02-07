@@ -12,8 +12,6 @@ namespace se {
 	class asteroid : public renderable, public rigid_body, public collidable {
 		using v3 = glm::vec3;
 		using qu = glm::quat;
-		private:
-			static constexpr float m_explosion_time = 0.6f;
 		public:
 			asteroid() = delete;
 			// Giant constructor

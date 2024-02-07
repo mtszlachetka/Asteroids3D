@@ -24,7 +24,12 @@ namespace se {
 				int t_health
 			);
 			bool get_should_destruct() const { 
-				return should_destruct;
+				if (m_time_of_destruction != 0.0) {
+					if (game_clock::get_instance().get_current_frame_time() - m_time_of_destruction > m_explosion_time) {
+						return true;
+					}
+				}
+				return false;
 			}
 			obb get_obb() const override {
 				return {
@@ -38,9 +43,7 @@ namespace se {
 				return translate(m_base_sphere, m_position);
 			}
 
-			void collide_with(collidable* cl, collision_info* info) {
-				m_health -= 20;
-			}
+			void collide_with(collidable* cl, collision_info* info);
 			int get_health() { return m_health; }
 			~station();
 	};

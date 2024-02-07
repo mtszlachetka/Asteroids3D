@@ -62,7 +62,7 @@ namespace se {
 			void collide_with(collidable* cl, collision_info* info);
 			bool is_boosting() const { return m_boost_active; }
 			bool is_moving() const { return m_is_moving; }
-
+			void set_moving(bool t_moving) { m_is_moving = t_moving; }
 			void set_controls(bool t_active) {
 				m_controls_active = t_active;
 			}
@@ -83,7 +83,14 @@ namespace se {
 			}
 
 			void update(input_event e) override;
-			bool get_should_destruct() const { return should_destruct; }
+			bool get_should_destruct() const { 
+				if (m_time_of_destruction != 0.0) {
+					if (game_clock::get_instance().get_current_frame_time() - m_time_of_destruction > m_explosion_time) {
+						return true;
+					}
+				}
+				return false;
+			}
 			int get_health() { return m_health; }
 			int get_boost() { return m_boost; }
 			void use_boost() { m_boost -= 1; }
