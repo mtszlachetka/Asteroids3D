@@ -249,9 +249,10 @@ namespace se
         glDisable(GL_BLEND);
     }
 
-    void hud::drawInitialText(float x, float y, GLuint tex_id) {
+    void hud::drawInitialText(float x, float y, GLuint tex_id)
+    {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		static se::debug::texture_drawer drawer;
+        static se::debug::texture_drawer drawer;
         drawer.draw(tex_id);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
