@@ -89,7 +89,6 @@ namespace se {
             int updatedPlayerHealth = 100;
 			
             void drawCrosshair();
-            void drawText(std::string text, float x, float y, float scale, glm::vec3 color);
             void drawStationHealth(int percentage, glm::vec3 color);
             void drawBoost(int percentage, glm::vec3 color);
             void drawPlayerHealth(int percentage, glm::vec3 color);
@@ -353,6 +352,7 @@ namespace se {
                 }
                 return value;
             }
+            void drawText(std::string text, float x, float y, float scale, glm::vec3 color);
     };
 
 }
