@@ -77,8 +77,8 @@ namespace se {
 
 		m_station_textures = m_player_textures; // TODO: replace with proper station textures
 
-		m_station_ptr = std::make_unique<se::station>(glm::vec3(0.f), m_station_mesh, m_station_textures, m_program, m_station_sphere, m_station_obb, 100);
-		m_player_ptr = std::make_unique<se::player>(glm::vec3(0.f, 0.f, 10.f), glm::quat(1,0,0,0), m_player_mesh, m_player_textures, m_program, m_player_sphere, m_player_obb);
+		m_station_ptr = std::make_unique<se::station>(glm::vec3(0.f), m_station_mesh, m_station_textures, m_explosion_program, m_station_sphere, m_station_obb, 100);
+		m_player_ptr = std::make_unique<se::player>(glm::vec3(0.f, 0.f, 10.f), glm::quat(1,0,0,0), m_player_mesh, m_player_textures, m_explosion_program, m_player_sphere, m_player_obb);
 
 	}
 
