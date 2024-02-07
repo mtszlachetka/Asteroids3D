@@ -21,7 +21,7 @@ namespace se {
 		m_asteroid_meshes[1] = se::load_model("../models/Asteroid_2_LOW_MODEL_.obj");
 		m_asteroid_meshes[2] = se::load_model("../models/Asteroid_3_LOW_MODEL_.obj");
 		m_asteroid_meshes[3] = se::load_model("../models/Asteroid_4_LOW_MODEL_.obj");
-		m_station_mesh = se::load_model("../models/cube.obj");
+		m_station_mesh = se::load_model("../models/probe.obj");
 		m_missile_mesh = se::load_model("../models/missile.obj");
 
 		// scale meshes
@@ -30,7 +30,7 @@ namespace se {
 		}
 
 		for (vertex& vert : m_station_mesh.m_vertices) {
-			vert.m_position *= 0.2f;
+			vert.m_position *= 0.5f;
 		}
 
 		for (vertex& vert : m_missile_mesh.m_vertices) {
