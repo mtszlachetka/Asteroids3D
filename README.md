@@ -1,1 +1,29 @@
-### to be filled with information
+# Projekt GRK: "Asteroids 3D"
+
+Gra 3D polegająca na ochranianiu sondy kosmicznej przed nadlatującymi asteroidami.
+Autorzy: Mateusz Szlachetka, Sebastian Jerzykiewicz, Jan Wojciechowski
+
+## Mechaniki gry
+Gracz porusza się statkiem kosmicznym w pobliżu sondy i ma za zadanie niszczyć pojawiające się wokół asteroidy.
+
+### Sterowanie
+- **W** - ruch do przodu
+- **Mysz** - obrót
+- **Q/E** - przechylenie w lewo/prawo
+- **LMB** - strzał
+- **LSHIFT** - boost
+- **LAlt** - unik
+- **LCtrl** - nawrót o 180&deg;
+
+## Zaimplementowane metody CG:
+- Obroty z użyciem kwaternionów
+- PBR (z normal mappingiem)
+- HDR
+- Shadown mapping
+- Animacje (krzywe Beziera i slerp)
+- Równania ruchu Newtona (obrażenia od kolizji zależne od pędu)
+- Geometry shader (eksplozje)
+- Particle system
+- Bloom
+- Kolizje z wykorzystaniem sfer otaczających i OBB
+- Sprite rendering (HUD)
