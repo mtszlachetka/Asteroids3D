@@ -109,11 +109,11 @@ int main() {
 
 	se::hud hud;
 	se::texture menu_texture = se::load_texture_2d_named("../textures/skybox/space_dn.png", "");
+	hud.drawInitialText(WINDOW_WIDTH * 0.35, WINDOW_HEIGHT * 0.5, menu_texture.m_id);
+	glfwSwapBuffers(window);
 
 	// wait for the player to press ENTER
 	while (1) {
-		hud.drawInitialText(WINDOW_WIDTH * 0.35, WINDOW_HEIGHT * 0.5, menu_texture.m_id);
-		glfwSwapBuffers(window);
 		glfwPollEvents();
 		if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) break;
 	}
