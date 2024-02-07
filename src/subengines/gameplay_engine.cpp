@@ -30,7 +30,7 @@ namespace se {
 		}
 
 		for (vertex& vert : m_station_mesh.m_vertices) {
-			vert.m_position *= 0.9f;
+			vert.m_position *= 0.5f;
 		}
 
 		for (vertex& vert : m_missile_mesh.m_vertices) {
