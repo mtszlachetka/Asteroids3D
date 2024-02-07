@@ -228,4 +228,22 @@ namespace se {
         glEnable(GL_DEPTH_TEST);
         glDisable(GL_BLEND);
     }
+
+    void hud::drawInitialText(float x, float y) {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glDisable(GL_DEPTH_TEST);
+        glDepthMask(GL_FALSE);
+
+        glUseProgram(program);
+
+        drawText("Press ENTER to start", x, y, 0.8f, glm::vec3(0.12f, 1.f, 0.f));
+
+        glUseProgram(0);
+
+        glDepthMask(GL_TRUE);
+        glEnable(GL_DEPTH_TEST);
+        glDisable(GL_BLEND);
+    }
 }
