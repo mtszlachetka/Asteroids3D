@@ -18,6 +18,9 @@ namespace se {
     }
 
     void hud::drawCrosshair() {
+        if (se::gameplay_engine::get_instance().get_player()->get_time_of_destruction() != 0) {
+            return;
+        }
         glUniform1i(textureUniform, 0);
         set_uniform_float(program, "alphaMod", get_cooldown_percentage(gameplay_engine::get_instance().get_last_shot_time(), gameplay_engine::get_instance().get_shooting_cooldown()));
         

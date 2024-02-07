@@ -42,7 +42,7 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 
-    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Asteroids3D", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "SpaceEngine", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cerr << "Failed to create GLFW window" << std::endl;
@@ -108,6 +108,12 @@ int main() {
 	particle_engine.init();
 
 	se::hud hud;
+
+	// wait for the player to press ENTER
+	while (glfwGetKey(window, GLFW_KEY_ENTER) != GLFW_PRESS) {
+		// hud.drawText("Press ENTER to start", WINDOW_WIDTH * 0.4, WINDOW_HEIGHT * 0.5, 1.0f, {0,1,0}); TODO: make it work properly
+		glfwPollEvents();
+	}
 
 	// se::free_camera free(0.01, 200, {0,0,1}, {0,0,0});
 	// re.set_camera(&free);

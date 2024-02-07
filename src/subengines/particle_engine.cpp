@@ -55,6 +55,9 @@ namespace se {
 
 
     void particle_engine::render() {
+        if (se::gameplay_engine::get_instance().get_player()->get_time_of_destruction() != 0) {
+            return;
+        }
         
         int i = particle_ptrs.size() - 1;
         for (auto it = particle_ptrs.rbegin(); it != particle_ptrs.rend(); ++it) {
@@ -96,6 +99,9 @@ namespace se {
     }
 
     void particle_engine::update() {
+        if (se::gameplay_engine::get_instance().get_player()->get_time_of_destruction() != 0) {
+            return;
+        }
         if (se::gameplay_engine::get_instance().get_player()->is_moving()) {
             make_particles();
         }
