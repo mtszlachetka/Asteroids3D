@@ -195,11 +195,6 @@ namespace se {
         se::player* player = gameplay_engine::get_instance().get_player();
         se::station* station = gameplay_engine::get_instance().get_station();
 
-        updatedPoints = gameplay_engine::get_instance().get_points();
-        if (currentPoints < updatedPoints) {
-            currentPoints += 1;
-        }
-
         updatedStationHealth = station->get_health();
         if (currentStationHealth > updatedStationHealth) {
             currentStationHealth -= 1;
@@ -217,12 +212,34 @@ namespace se {
             currentPlayerHealth -= 1;
         }
 
+        if (updatedPlayerHealth > 0) {
+            updatedPoints = gameplay_engine::get_instance().get_points();
+            if (currentPoints < updatedPoints) {
+                currentPoints += 1;
+            }
+            curr_time = game_clock::get_instance().get_current_frame_time();
+        }
+
+
         drawCrosshair();
-        drawText(hud::format_points(currentPoints), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.9, 0.5f, green_color);
-        drawText(hud::format_time(), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.85, 0.5f, blue_color);
+        drawText(hud::format_points(currentPoints), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.9, WINDOW_WIDTH/2000.0f, green_color);
+        drawText(hud::format_time(curr_time), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.85, WINDOW_WIDTH/2000.0f, blue_color);
         drawStationHealth(currentStationHealth, red_color);
         drawBoost(currentBoost, blue_color);
         drawPlayerHealth(currentPlayerHealth, green_color);
+
+        if (updatedPlayerHealth <= 0) {
+            player->set_controls(false);
+            player->set_moving(false);
+            drawText("GAME OVER", WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.5, WINDOW_WIDTH/1000.0f, red_color);
+        }
+        if (updatedStationHealth <= 0) {
+            player->set_controls(false);
+            player->set_moving(false);
+            drawText("GAME OVER", WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.5, WINDOW_WIDTH/1000.0f, red_color);
+            drawText("probe was destroyed", WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.4, WINDOW_WIDTH/1500.0f, red_color);
+        }
+
         glUseProgram(0);
 
         glDepthMask(GL_TRUE);
@@ -241,7 +258,7 @@ namespace se {
 
         glUseProgram(program);
 
-        drawText("[PRESS ENTER TO START]", x, y, 0.8f, glm::vec3(1.f, 1.f, 1.f));
+        drawText("[PRESS ENTER TO START]", x, y, WINDOW_WIDTH/3000.0f, glm::vec3(1.f, 1.f, 1.f));
 
         glUseProgram(0);
 

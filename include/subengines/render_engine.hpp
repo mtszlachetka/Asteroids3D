@@ -25,6 +25,7 @@ namespace se {
 			GLuint m_program;
 			bool m_occluder = true; // idicates whether object should cast shadow
 			float m_time_of_destruction = 0.f;
+			static constexpr float m_explosion_time = 0.6f;
 		public:
 			renderable();
 			renderable(const v3& t_position, const qu& t_orientation, const se::mesh& t_mesh, const std::list<se::texture>& t_textures, GLuint t_program);
