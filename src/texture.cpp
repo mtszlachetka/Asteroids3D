@@ -2,13 +2,11 @@
 #include "SOIL.h"
 #include <iostream>
 
-extern char *result_string_pointer;
+extern char* result_string_pointer;
 
-namespace se
-{
+namespace se {
 
-	texture load_texture_2d_named(const std::string_view &filepath, const std::string_view &t_name)
-	{
+	texture load_texture_2d_named(const std::string_view &filepath, const std::string_view &t_name) {
 		GLuint id;
 		glGenTextures(1, &id);
 		glBindTexture(GL_TEXTURE_2D, id);
@@ -19,17 +17,16 @@ namespace se
 
 		int w, h;
 
-		unsigned char *img = SOIL_load_image(filepath.data(), &w, &h, 0, SOIL_LOAD_RGBA);
+		unsigned char* img = SOIL_load_image(filepath.data(), &w, &h, 0, SOIL_LOAD_RGBA);
 		// std::clog << result_string_pointer << "\n";
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
 		SOIL_free_image_data(img);
 		glGenerateMipmap(GL_TEXTURE_2D);
 
-		return {id, t_name};
+		return { id, t_name };
 	}
 
-	texture load_cubemap_named(const std::array<const std::string_view, 6> &paths, const std::string_view &t_name)
-	{
+	texture load_cubemap_named(const std::array<const std::string_view, 6> &paths, const std::string_view &t_name) {
 		GLuint id;
 		glGenTextures(1, &id);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, id);
@@ -37,17 +34,16 @@ namespace se
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);  
 
 		int w, h;
-		unsigned char *img;
-		for (int i = 0; i < 6; i++)
-		{
+		unsigned char* img;
+		for (int i = 0; i < 6; i++) {
 			img = SOIL_load_image(paths[i].data(), &w, &h, 0, SOIL_LOAD_RGBA);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
 			SOIL_free_image_data(img);
 		}
 
-		return {id, t_name};
+		return { id, t_name };
 	}
 }

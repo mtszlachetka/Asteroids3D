@@ -10,15 +10,12 @@
 
 extern int WINDOW_WIDTH, WINDOW_HEIGHT;
 
-namespace se
-{
-	renderable::renderable() : transformable()
-	{
+namespace se {
+	renderable::renderable() : transformable() {
 		render_engine::get_instance().attach(this);
 	}
-	renderable::renderable(const v3 &t_position, const qu &t_orientation, const se::mesh &t_mesh, const std::list<se::texture> &t_textures, GLuint t_program)
-		: transformable(t_position, t_orientation), m_mesh(t_mesh), m_textures(t_textures), m_program(t_program)
-	{
+	renderable::renderable(const v3& t_position, const qu& t_orientation, const se::mesh& t_mesh, const std::list<se::texture>& t_textures, GLuint t_program)
+		: transformable(t_position,t_orientation), m_mesh(t_mesh), m_textures(t_textures), m_program(t_program) {
 
 		glGenVertexArrays(1, &m_vao);
 		glGenBuffers(1, &m_vbo);
@@ -27,7 +24,7 @@ namespace se
 		unsigned num_vertices = m_mesh.m_vertices.size();
 		unsigned num_indices = m_mesh.m_indices.size();
 
-		unsigned
+		unsigned 
 			data_size = sizeof(float) * 3,
 			normal_size = sizeof(float) * 3,
 			tex_size = sizeof(float) * 2,
@@ -43,51 +40,49 @@ namespace se
 		glBufferData(GL_ARRAY_BUFFER, num_vertices * sizeof(vertex), m_mesh.m_vertices.data(), GL_STATIC_DRAW);
 
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void *)(0));
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)(0));
 		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void *)(data_size));
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)(data_size));
 		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (void *)(data_size + normal_size));
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)(data_size + normal_size));
 		glEnableVertexAttribArray(3);
-		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void *)(data_size + normal_size + tex_size));
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)(data_size + normal_size + tex_size));
 		glEnableVertexAttribArray(4);
-		glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void *)(data_size + normal_size + tex_size + tangent_size));
+		glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)(data_size + normal_size + tex_size + tangent_size));
 
 		glBindVertexArray(0);
 
 		render_engine::get_instance().attach(this);
 	}
-	renderable::~renderable()
-	{
+	renderable::~renderable() {
 		render_engine::get_instance().detach(this);
 		glDeleteBuffers(1, &m_ebo);
 		glDeleteBuffers(1, &m_vbo);
 		glDeleteVertexArrays(1, &m_vao);
 	}
 
-	void renderable::render() const
-	{
+	void renderable::render() const {
 		glBindVertexArray(m_vao);
 		glDrawElements(GL_TRIANGLES, m_mesh.m_indices.size(), GL_UNSIGNED_INT, nullptr);
 		glBindVertexArray(0);
 	}
 
-	render_engine::render_engine()
-	{ // assuming shadow map is always being generated
+
+	render_engine::render_engine() { // assuming shadow map is always being generated
 		init_framebuffer();
 		init_banner();
 		init_blur_buffers();
 		init_shadow_map();
 	}
 
-	void render_engine::init_blur_buffers()
-	{
-		m_blur_program = se::make_program({se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/blur.vert")),
-										   se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/blur.frag"))});
+	void render_engine::init_blur_buffers() {
+		m_blur_program = se::make_program({
+			se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/blur.vert")),
+			se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/blur.frag"))
+		});
 		glGenFramebuffers(2, m_blur_fbos);
 		glGenTextures(2, m_blur_color_buffers);
-		for (int i = 0; i < 2; i++)
-		{
+		for (int i = 0; i < 2; i++) {
 			glBindFramebuffer(GL_FRAMEBUFFER, m_blur_fbos[i]);
 			glBindTexture(GL_TEXTURE_2D, m_blur_color_buffers[i]);
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT, 0, GL_RGBA, GL_FLOAT, nullptr);
@@ -99,10 +94,11 @@ namespace se
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	void render_engine::init_banner()
-	{
-		m_hdr_program = se::make_program({se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/hdr.vert")),
-										  se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/hdr.frag"))});
+	void render_engine::init_banner() {
+		m_hdr_program = se::make_program({
+			se::shader_from_string(GL_VERTEX_SHADER, se::read_file("../shaders/hdr.vert")),
+			se::shader_from_string(GL_FRAGMENT_SHADER, se::read_file("../shaders/hdr.frag"))
+		});
 
 		glGenVertexArrays(1, &m_banner_vao);
 		glBindVertexArray(m_banner_vao);
@@ -116,50 +112,49 @@ namespace se
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(m_banner_indices), m_banner_indices, GL_STATIC_DRAW);
 
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void *)0);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)0);
 		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void *)(2 * sizeof(GLfloat)));
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
 
 		glBindVertexArray(0);
 	}
 
-	void render_engine::init_framebuffer()
-	{
+	void render_engine::init_framebuffer() {
 		glGenFramebuffers(1, &m_main_fbo);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_main_fbo);
 
 		glGenTextures(2, m_main_color_buffers);
-		for (int i = 0; i < 2; i++)
-		{
+		for (int i = 0; i < 2; i++) {
 			glBindTexture(GL_TEXTURE_2D, m_main_color_buffers[i]);
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT * 0.95, 0, GL_RGBA, GL_FLOAT, nullptr);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_main_color_buffers[i], 0);
-		}
+		}	
 
 		glGenRenderbuffers(1, &m_main_depth);
 		glBindRenderbuffer(GL_RENDERBUFFER, m_main_depth);
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, WINDOW_WIDTH, WINDOW_HEIGHT);
-
+		
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_main_depth);
 
-		unsigned color_attachments[2] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1};
+		unsigned color_attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 		glDrawBuffers(2, color_attachments);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	void render_engine::init_shadow_map()
-	{
-		m_shadow_map_program = make_program({shader_from_string(GL_VERTEX_SHADER, read_file("../shaders/shadow.vert")),
-											 shader_from_string(GL_FRAGMENT_SHADER, read_file("../shaders/shadow.frag"))});
+	void render_engine::init_shadow_map() {
+		m_shadow_map_program = make_program({
+			shader_from_string(GL_VERTEX_SHADER, read_file("../shaders/shadow.vert")),
+			shader_from_string(GL_FRAGMENT_SHADER, read_file("../shaders/shadow.frag"))
+		});
 		glGenTextures(1, &m_shadow_map);
-		glBindTexture(GL_TEXTURE_2D, m_shadow_map);
+		glBindTexture(GL_TEXTURE_2D, m_shadow_map);	
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, m_shadow_map_width, m_shadow_map_height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER); 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 		float border_color[] = {1.f, 1.f, 1.f, 1.f};
 		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border_color);
@@ -172,20 +167,16 @@ namespace se
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	void render_engine::gen_shadow_map()
-	{ // if multiple lights were to be supported, should take a pointer as argument
-		if (m_light_source == nullptr)
-			return;
+	void render_engine::gen_shadow_map() { // if multiple lights were to be supported, should take a pointer as argument
+		if (m_light_source == nullptr) return;
 		glBindFramebuffer(GL_FRAMEBUFFER, m_shadow_map_fbo);
 		glViewport(0, 0, m_shadow_map_width, m_shadow_map_height);
 		glClear(GL_DEPTH_BUFFER_BIT);
 		glUseProgram(m_shadow_map_program);
 		set_uniform_mat4(m_shadow_map_program, "light_space_matrix", m_light_space_matrix);
 		glCullFace(GL_FRONT);
-		for (const renderable *re : m_renderables)
-		{
-			if (!re->get_occluder())
-				continue;
+		for (const renderable* re : m_renderables) {
+			if (!re->get_occluder()) continue;
 			set_uniform_mat4(m_shadow_map_program, "model_matrix", re->get_model_matrix());
 			re->render();
 		}
@@ -195,90 +186,80 @@ namespace se
 		glUseProgram(0);
 	}
 
-	void render_engine::tick()
-	{
+	void render_engine::tick() {
 		gen_shadow_map();
 		render_to_framebuffer();
-		apply_blur();
+		apply_blur();		
 		render_to_screen();
 	}
 
-	void render_engine::apply_blur()
-	{
+	void render_engine::apply_blur() {
 		bool is_horizontal = true;
 		bool first_iteration = true;
 		glBindVertexArray(m_banner_vao);
 		glUseProgram(m_blur_program);
-		for (int i = 0; i < 2; i++)
-		{
+		for (int i = 0; i < 2; i++) {
 			glBindFramebuffer(GL_FRAMEBUFFER, m_blur_fbos[is_horizontal]);
 			se::set_uniform_int(m_blur_program, "is_horizontal", is_horizontal);
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, first_iteration ? m_main_color_buffers[1] : m_blur_color_buffers[!is_horizontal]);
+			glBindTexture(GL_TEXTURE_2D, first_iteration ? m_main_color_buffers[1] : m_blur_color_buffers[!is_horizontal]);	
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 			is_horizontal = !is_horizontal;
-			if (first_iteration)
-				first_iteration = false;
+			if (first_iteration) first_iteration = false;
 		}
 		glBindVertexArray(0);
 		glUseProgram(0);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	void render_engine::render_to_framebuffer()
-	{
+	void render_engine::render_to_framebuffer() {
 		glBindFramebuffer(GL_FRAMEBUFFER, m_main_fbo);
 		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// if (m_skybox != nullptr && m_camera != nullptr) { assume always true
-		glm::mat4 skybox_pos = glm::translate(glm::mat4(1.), m_camera->get_position());
-		GLuint program = m_skybox->get_program();
-		glUseProgram(program);
-		set_uniform_mat4(program, "model_matrix", skybox_pos);
-		set_uniform_mat4(program, "camera_matrix", m_camera->get_camera_matrix());
-		set_uniform_mat4(program, "projection_matrix", m_camera->get_perspective_matrix());
-		set_uniform_int(program, m_skybox->get_cubemap().m_name, 0);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, m_skybox->get_cubemap().m_id);
-		glDisable(GL_DEPTH_TEST);
-		m_skybox->render();
-		glEnable(GL_DEPTH_TEST);
-		glUseProgram(0);
+			glm::mat4 skybox_pos = glm::translate(glm::mat4(1.), m_camera->get_position());
+			GLuint program = m_skybox->get_program();
+			glUseProgram(program);
+			set_uniform_mat4(program, "model_matrix", skybox_pos);
+			set_uniform_mat4(program, "camera_matrix", m_camera->get_camera_matrix());
+			set_uniform_mat4(program, "projection_matrix", m_camera->get_perspective_matrix());
+			set_uniform_int(program, m_skybox->get_cubemap().m_name, 0);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, m_skybox->get_cubemap().m_id);
+			glDisable(GL_DEPTH_TEST);
+			m_skybox->render();
+			glEnable(GL_DEPTH_TEST);
+			glUseProgram(0);
 		// }
 
-		for (const renderable *re : m_renderables)
-		{
+		for (const renderable* re : m_renderables) {
 			glUseProgram(re->get_program());
 			set_uniform_mat4(re->get_program(), "model_matrix", re->get_model_matrix());
 			// if (m_camera != nullptr) { assume always true
-			set_uniform_mat4(re->get_program(), "camera_matrix", m_camera->get_camera_matrix());
-			set_uniform_mat4(re->get_program(), "projection_matrix", m_camera->get_perspective_matrix());
-			set_uniform_vec3(re->get_program(), "camera_pos", m_camera->get_position());
+				set_uniform_mat4(re->get_program(), "camera_matrix", m_camera->get_camera_matrix());
+				set_uniform_mat4(re->get_program(), "projection_matrix", m_camera->get_perspective_matrix());
+				set_uniform_vec3(re->get_program(), "camera_pos", m_camera->get_position());
 			// }
 			// uint8_t tex_num = m_skybox != nullptr ? 1 : 0;
 			uint8_t tex_num = 1;
-			for (const auto &info : re->get_textures())
-			{
+			for (const auto& info : re->get_textures()) {
 				set_uniform_int(re->get_program(), info.m_name, tex_num);
 				glActiveTexture(GL_TEXTURE0 + tex_num++);
 				glBindTexture(GL_TEXTURE_2D, info.m_id);
 			}
 
 			// if (m_light_source != nullptr) { assume always true
-			set_uniform_vec3(re->get_program(), "light_dir", m_light_source->get_position());
-			set_uniform_mat4(re->get_program(), "light_space_matrix", m_light_space_matrix);
-			set_uniform_int(re->get_program(), "shadow_map", tex_num);
-			glActiveTexture(GL_TEXTURE0 + tex_num++);
-			glBindTexture(GL_TEXTURE_2D, m_shadow_map);
+				set_uniform_vec3(re->get_program(), "light_dir", m_light_source->get_position());
+				set_uniform_mat4(re->get_program(), "light_space_matrix", m_light_space_matrix);
+				set_uniform_int(re->get_program(), "shadow_map", tex_num);
+				glActiveTexture(GL_TEXTURE0 + tex_num++);
+				glBindTexture(GL_TEXTURE_2D, m_shadow_map);
 			// }
 
-			if (re->get_time_of_destruction() != 0.0)
-			{
+			if (re->get_time_of_destruction() != 0.0) {
 				set_uniform_float(re->get_program(), "time_for_explosion", game_clock::get_instance().get_current_frame_time() - re->get_time_of_destruction());
-			}
-			else
-			{
+			} else {
 				set_uniform_float(re->get_program(), "time_for_explosion", 0.f);
 			}
 
@@ -290,8 +271,7 @@ namespace se
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	void render_engine::render_to_screen()
-	{
+	void render_engine::render_to_screen() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(m_hdr_program);
 		glBindVertexArray(m_banner_vao);
@@ -306,23 +286,20 @@ namespace se
 		glUseProgram(0);
 	}
 
-	void render_engine::update_framebuffer()
-	{
+	void render_engine::update_framebuffer() {
 		glBindFramebuffer(GL_FRAMEBUFFER, m_main_fbo);
-		for (int i = 0; i < 2; i++)
-		{
+		for (int i = 0; i < 2; i++) {
 			glBindTexture(GL_TEXTURE_2D, m_main_color_buffers[i]);
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT * 0.95, 0, GL_RGBA, GL_FLOAT, nullptr);
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_main_color_buffers[i], 0);
 		}
-		for (int i = 0; i < 2; i++)
-		{
+		for (int i = 0; i < 2; i++) {
 			glBindFramebuffer(GL_FRAMEBUFFER, m_blur_fbos[i]);
 			glBindTexture(GL_TEXTURE_2D, m_blur_color_buffers[i]);
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW_WIDTH, WINDOW_HEIGHT, 0, GL_RGBA, GL_FLOAT, nullptr);
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_blur_color_buffers[i], 0);
-		}
-
+		}	
+		
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 }

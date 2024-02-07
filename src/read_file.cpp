@@ -3,16 +3,13 @@
 #include <fstream>
 #include <stdexcept>
 
-namespace se
-{
+namespace se {
 
-	std::string read_file(const std::string_view &filepath)
-	{
+	std::string read_file(const std::string_view& filepath) {
 		std::string input;
 		std::ifstream file(filepath.data(), std::ios::in);
 
-		if (!file.good())
-		{
+		if (!file.good()) {
 			throw std::runtime_error("Error opening file: " + std::string(filepath));
 		}
 
