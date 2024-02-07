@@ -353,7 +353,7 @@ namespace se {
                 }
                 return value;
             }
-            void drawInitialText(float x, float y);
+            void drawInitialText(float x, float y, GLuint tex_id);
     };
 
 }
