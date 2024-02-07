@@ -274,6 +274,7 @@ namespace se {
 	void render_engine::render_to_screen() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(m_hdr_program);
+		se::set_uniform_float(m_hdr_program, "exposition", m_exposition);
 		glBindVertexArray(m_banner_vao);
 		glActiveTexture(GL_TEXTURE0);
 		se::set_uniform_int(m_hdr_program, "tex", 0);

@@ -74,6 +74,12 @@ namespace se {
 			if (glfwGetKey(m_p_active_window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
 				notify(input_event::left_ctlr_pressed);
 			}
+			if (glfwGetKey(m_p_active_window, GLFW_KEY_J) == GLFW_PRESS) {
+				notify(input_event::j_pressed);
+			}
+			if (glfwGetKey(m_p_active_window, GLFW_KEY_K) == GLFW_PRESS) {
+				notify(input_event::k_pressed);
+			}
 		}
 
 	}
