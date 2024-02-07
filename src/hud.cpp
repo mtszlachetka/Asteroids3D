@@ -1,6 +1,7 @@
 #include "hud.hpp"
 #include "clock.hpp"
 #include "subengines/gameplay_engine.hpp"
+#include "subengines/debug.hpp"
 
 extern int WINDOW_WIDTH, WINDOW_HEIGHT;
 
@@ -229,9 +230,10 @@ namespace se {
         glDisable(GL_BLEND);
     }
 
-    void hud::drawInitialText(float x, float y) {
+    void hud::drawInitialText(float x, float y, GLuint tex_id) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        static se::debug::texture_drawer drawer;
+        drawer.draw(tex_id);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glDisable(GL_DEPTH_TEST);
@@ -239,7 +241,7 @@ namespace se {
 
         glUseProgram(program);
 
-        drawText("Press ENTER to start", x, y, 0.8f, glm::vec3(0.12f, 1.f, 0.f));
+        drawText("[PRESS ENTER TO START]", x, y, 0.8f, glm::vec3(1.f, 1.f, 1.f));
 
         glUseProgram(0);
 
