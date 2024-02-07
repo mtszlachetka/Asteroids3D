@@ -27,7 +27,9 @@ namespace se {
 		left_mouse_button_pressed,
 		mouse_moved,
 		left_ctlr_pressed,
-		left_alt_pressed
+		left_alt_pressed,
+		j_pressed,
+		k_pressed
 	};
 
 	

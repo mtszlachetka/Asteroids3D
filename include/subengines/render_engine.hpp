@@ -7,6 +7,7 @@
 #include <list>
 
 #include "subengines/transformable.hpp"
+#include "subengines/input_engine.hpp"
 #include "camera.hpp"
 #include "skybox.hpp"
 #include "light_source.hpp"
@@ -39,7 +40,7 @@ namespace se {
 			virtual ~renderable();
 	};
 
-	class render_engine {
+	class render_engine : public input_listener {
 		private:
 			std::list<const renderable*> m_renderables;
 			const camera* m_camera = nullptr;
@@ -77,6 +78,7 @@ namespace se {
 			void render_to_screen();
 			void apply_blur();
 			glm::mat4 m_light_space_matrix = glm::mat4(1.f);
+			float m_exposition = 1.f;
 		public:
 			render_engine(const render_engine& other) = delete;
 			render_engine(const render_engine&& other) = delete;
@@ -94,6 +96,14 @@ namespace se {
 			void set_light(const light_source* ls) { 
 				m_light_source = ls; 
 				m_light_space_matrix = glm::ortho(-30.f, 30.f, -30.f, 30.f, -60.f, 60.f) * glm::lookAt(m_light_source->get_position(), glm::vec3(0.f), glm::vec3(0, 1, 0)); 
+			}
+			void update(se::input_event e) override {
+				if (e == input_event::j_pressed) {
+					m_exposition -= 0.01f;
+				}
+				if (e == input_event::k_pressed) {
+					m_exposition += 0.01f;
+				}
 			}
 			void update_framebuffer();
 	};

@@ -1,6 +1,7 @@
 #include "hud.hpp"
 #include "clock.hpp"
 #include "subengines/gameplay_engine.hpp"
+#include "subengines/debug.hpp"
 
 extern int WINDOW_WIDTH, WINDOW_HEIGHT;
 
@@ -18,6 +19,9 @@ namespace se {
     }
 
     void hud::drawCrosshair() {
+        if (se::gameplay_engine::get_instance().get_player()->get_time_of_destruction() != 0) {
+            return;
+        }
         glUniform1i(textureUniform, 0);
         set_uniform_float(program, "alphaMod", get_cooldown_percentage(gameplay_engine::get_instance().get_last_shot_time(), gameplay_engine::get_instance().get_shooting_cooldown()));
         
@@ -235,6 +239,26 @@ namespace se {
             drawText("GAME OVER", WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.5, 2.0f, red_color);
             drawText("probe was destroyed", WINDOW_WIDTH * 0.35, WINDOW_HEIGHT * 0.4, 1.0f, red_color);
         }
+
+        glUseProgram(0);
+
+        glDepthMask(GL_TRUE);
+        glEnable(GL_DEPTH_TEST);
+        glDisable(GL_BLEND);
+    }
+
+    void hud::drawInitialText(float x, float y, GLuint tex_id) {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        static se::debug::texture_drawer drawer;
+        drawer.draw(tex_id);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glDisable(GL_DEPTH_TEST);
+        glDepthMask(GL_FALSE);
+
+        glUseProgram(program);
+
+        drawText("[PRESS ENTER TO START]", x, y, 0.8f, glm::vec3(1.f, 1.f, 1.f));
 
         glUseProgram(0);
 

@@ -155,6 +155,9 @@ namespace se {
 		}
 	}
 	void gameplay_engine::spawn_missile() {
+		if (get_player()->get_time_of_destruction() != 0) {
+            return;
+        }
 		if (game_clock::get_instance().get_current_frame_time() - m_last_shot_time < m_shooting_cooldown) return;
 		using v3 = glm::vec3;
 		v3 player_dir = v3(glm::toMat4(m_player_ptr->get_orientation()) * glm::vec4(0,0,1,0));
