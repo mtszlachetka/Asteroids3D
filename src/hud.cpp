@@ -222,8 +222,8 @@ namespace se {
 
 
         drawCrosshair();
-        drawText(hud::format_points(currentPoints), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.9, 0.5f, green_color);
-        drawText(hud::format_time(curr_time), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.85, 0.5f, blue_color);
+        drawText(hud::format_points(currentPoints), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.9, WINDOW_WIDTH/2000.0f, green_color);
+        drawText(hud::format_time(curr_time), WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.85, WINDOW_WIDTH/2000.0f, blue_color);
         drawStationHealth(currentStationHealth, red_color);
         drawBoost(currentBoost, blue_color);
         drawPlayerHealth(currentPlayerHealth, green_color);
@@ -231,13 +231,13 @@ namespace se {
         if (updatedPlayerHealth <= 0) {
             player->set_controls(false);
             player->set_moving(false);
-            drawText("GAME OVER", WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.5, 2.0f, red_color);
+            drawText("GAME OVER", WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.5, WINDOW_WIDTH/1000.0f, red_color);
         }
         if (updatedStationHealth <= 0) {
             player->set_controls(false);
             player->set_moving(false);
-            drawText("GAME OVER", WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.5, 2.0f, red_color);
-            drawText("probe was destroyed", WINDOW_WIDTH * 0.35, WINDOW_HEIGHT * 0.4, 1.0f, red_color);
+            drawText("GAME OVER", WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.5, WINDOW_WIDTH/1000.0f, red_color);
+            drawText("probe was destroyed", WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.4, WINDOW_WIDTH/1500.0f, red_color);
         }
 
         glUseProgram(0);
