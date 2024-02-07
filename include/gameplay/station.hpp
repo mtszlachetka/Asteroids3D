@@ -38,12 +38,7 @@ namespace se {
 				return translate(m_base_sphere, m_position);
 			}
 
-			void collide_with(collidable* cl, collision_info* info) {
-				m_health -= 20;
-				if (m_health <= 0 && m_time_of_destruction == 0.0f) {
-					m_time_of_destruction = game_clock::get_instance().get_current_frame_time();
-				}
-			}
+			void collide_with(collidable* cl, collision_info* info);
 			int get_health() { return m_health; }
 			~station();
 	};
