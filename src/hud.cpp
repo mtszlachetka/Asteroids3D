@@ -258,7 +258,7 @@ namespace se {
 
         glUseProgram(program);
 
-        drawText("[PRESS ENTER TO START]", x, y, 0.8f, glm::vec3(1.f, 1.f, 1.f));
+        drawText("[PRESS ENTER TO START]", x, y, WINDOW_WIDTH/3000.0f, glm::vec3(1.f, 1.f, 1.f));
 
         glUseProgram(0);
 
