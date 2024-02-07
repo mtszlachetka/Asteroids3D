@@ -223,13 +223,13 @@ namespace se {
         if (updatedPlayerHealth <= 0) {
             player->set_controls(false);
             player->set_moving(false);
-            drawText("Game Over", WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.5, 3.0f, red_color);
+            drawText("Game Over", WINDOW_WIDTH * 0.32, WINDOW_HEIGHT * 0.5, 2.0f, red_color);
         }
         if (updatedStationHealth <= 0) {
             player->set_controls(false);
             player->set_moving(false);
-            drawText("Game Over", WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.5, 3.0f, red_color);
-            drawText("Station was destroyed", WINDOW_WIDTH * 0.25, WINDOW_HEIGHT * 0.4, 2.0f, red_color);
+            drawText("Game Over", WINDOW_WIDTH * 0.32, WINDOW_HEIGHT * 0.5, 2.0f, red_color);
+            drawText("Station was destroyed", WINDOW_WIDTH * 0.33, WINDOW_HEIGHT * 0.4, 1.0f, red_color);
         }
 
         glUseProgram(0);
