@@ -55,9 +55,6 @@ namespace se {
 				m_orientation = glm::angleAxis(m_anglespeed, direction) * m_orientation;
 				break;
 			}
-			case input_event::space_pressed:
-				gameplay_engine::get_instance().spawn_missile();
-				break;
 			case input_event::left_mouse_button_pressed:
 				gameplay_engine::get_instance().spawn_missile();
 				break;
