@@ -111,8 +111,8 @@ int main() {
 
 	// wait for the player to press ENTER
 	while (glfwGetKey(window, GLFW_KEY_ENTER) != GLFW_PRESS) {
-		// hud.drawText("Press ENTER to start", WINDOW_WIDTH * 0.4, WINDOW_HEIGHT * 0.5, 1.0f, {0,1,0}); TODO: make it work properly
-		glfwPollEvents();
+		// please let me know why this doesn't work
+		hud.drawText("Press ENTER to start", WINDOW_WIDTH * 0.4, WINDOW_HEIGHT * 0.5, 0.8f, {0.12f, 1.f, 0.f});
 	}
 
 	// se::free_camera free(0.01, 200, {0,0,1}, {0,0,0});
