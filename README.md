@@ -4,7 +4,9 @@ Gra 3D polegająca na ochranianiu sondy kosmicznej przed nadlatującymi asteroid
 Autorzy: Mateusz Szlachetka, Sebastian Jerzykiewicz, Jan Wojciechowski
 
 ## Mechaniki gry
-Gracz porusza się statkiem kosmicznym w pobliżu sondy i ma za zadanie niszczyć pojawiające się wokół asteroidy.
+Gracz porusza się statkiem kosmicznym w pobliżu sondy i ma za zadanie niszczyć pojawiające się wokół asteroidy w celu obronienia jej.
+Zarówno sonda jak i gracz otrzymują obrażenia pod wpływem zderzeń z innymi obiektami.
+Aby temu zapobiec gracz może co pewien krótki czas wystrzelić rakietę (która również może zadać obrażenia sondzie).
 
 ### Sterowanie
 - **W** - ruch do przodu
