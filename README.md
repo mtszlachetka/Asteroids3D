@@ -21,7 +21,7 @@ Aby temu zapobiec gracz może co pewien krótki czas wystrzelić rakietę (któr
 - Obroty z użyciem kwaternionów
 - PBR (z normal mappingiem)
 - HDR
-- Shadown mapping
+- Shadow mapping
 - Animacje (krzywe Beziera i slerp)
 - Równania ruchu Newtona (obrażenia od kolizji zależne od pędu)
 - Geometry shader (eksplozje)
