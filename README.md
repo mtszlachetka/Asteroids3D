@@ -25,7 +25,11 @@ Aby temu zapobiec gracz może co pewien krótki czas wystrzelić rakietę (któr
 - Animacje (krzywe Beziera i slerp)
 - Równania ruchu Newtona (obrażenia od kolizji zależne od pędu)
 - Geometry shader (eksplozje)
-- Particle system
+- Particle system (użyty instancing)
 - Bloom
 - Kolizje z wykorzystaniem sfer otaczających i OBB
 - Sprite rendering (HUD)
+
+<br />
+
+![image](screenshot.png "Title")
