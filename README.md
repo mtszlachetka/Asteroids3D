@@ -1,33 +1,31 @@
-# Projekt GRK: "Asteroids 3D"
+# CG course project: "Asteroids 3D"
 
-Gra 3D polegająca na ochranianiu sondy kosmicznej przed nadlatującymi asteroidami.
-Autorzy: Mateusz Szlachetka, Sebastian Jerzykiewicz, Jan Wojciechowski
+3D arcade game written in C++ and OpenGL using glfw, glm, assimp, SOIL and FreeType.
 
-## Mechaniki gry
-Gracz porusza się statkiem kosmicznym w pobliżu sondy i ma za zadanie niszczyć pojawiające się wokół asteroidy w celu obronienia jej.
-Zarówno sonda jak i gracz otrzymują obrażenia pod wpływem zderzeń z innymi obiektami.
-Aby temu zapobiec gracz może co pewien krótki czas wystrzelić rakietę (która również może zadać obrażenia sondzie).
+## Game mechanics
+The player pilots a spaceship near a space probe and must destroy incoming asteroids to defend it.
+Collisions with other objects deal damage to both the probe and the player.
 
-### Sterowanie
-- **W** - ruch do przodu
-- **Mysz** - obrót
-- **Q/E** - przechylenie w lewo/prawo
-- **LMB** - strzał
+### Steering
+- **W** - move forward
+- **Mouse** - turn around
+- **Q/E** - tilt left/right
+- **LMB** - shoot
 - **LSHIFT** - boost
-- **LAlt** - unik
-- **LCtrl** - nawrót o 180&deg;
+- **LAlt** - evasion
+- **LCtrl** - turn around&deg;
 
-## Zaimplementowane metody CG:
-- Obroty z użyciem kwaternionów
-- PBR (z normal mappingiem)
+## Implemented CG methods:
+- Quaternion rotations
+- PBR with normal mapping
 - HDR
 - Shadow mapping
-- Animacje (krzywe Beziera i slerp)
-- Równania ruchu Newtona (obrażenia od kolizji zależne od pędu)
-- Geometry shader (eksplozje)
-- Particle system (użyty instancing)
+- Animations with Bezier curves and slerp
+- Newton dynamics (damage from collisions depending on momentum)
+- Geometry shader for explosions
+- Particle system with instancing
 - Bloom
-- Kolizje z wykorzystaniem sfer otaczających i OBB
+- Collisions with bounding spheres and OBB
 - Sprite rendering (HUD)
 
 <br />
